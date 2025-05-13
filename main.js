@@ -1,20 +1,20 @@
-// main.js  – table roster display (clean prompt, scroll‑safe)
+// main.js  – table roster display with capitalized names
 //-------------------------------------------------------------
 
 const $ = sel => document.querySelector(sel);
 let HEROES = [];
 const ROSTER_SIZE = 12;
 
-// 1) Load heroes.json
+// 1)  Load heroes.json
 fetch("heroes.json")
   .then(r => r.json())
   .then(data => {
     HEROES = Array.isArray(data) ? data : Object.values(data);
-    flash("Paste your xpub!");           // no hero‑count message
+    flash("Paste your xpub!");
   })
   .catch(err => flash("Could not load heroes.json ➜ " + err, true));
 
-// 2) Button click
+// 2)  Button click
 $("#go").addEventListener("click", async () => {
   const xpub = $("#xpub").value.trim();
   if (!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.", true);
@@ -25,7 +25,8 @@ $("#go").addEventListener("click", async () => {
   flash("Here are your heroes:");
 });
 
-// Deterministic picker
+//-------------------------------------------------------------
+// Deterministic picker – SHA‑256(xpub + index) → integer → hero
 async function pickRoster(xpub, count) {
   const enc = new TextEncoder();
   const roster = [];
@@ -38,6 +39,7 @@ async function pickRoster(xpub, count) {
   return roster;
 }
 
+//-------------------------------------------------------------
 // Render as scroll‑friendly table
 function renderTable(list) {
   const rosterEl = $("#roster");
@@ -79,7 +81,11 @@ function renderTable(list) {
   rosterEl.classList.remove("hidden");
 }
 
-// Flash helper
+//-------------------------------------------------------------
+// Helpers
+const pad = (val, len) => String(val).padEnd(len);
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+
 function flash(text, bad = false) {
   const msg = $("#msg");
   msg.textContent = text;
