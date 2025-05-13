@@ -1,4 +1,4 @@
-// main.js  – text‑only roster display (no “deterministic” wording)
+// main.js  – table roster display
 //-------------------------------------------------------------
 
 const $ = sel => document.querySelector(sel);
@@ -21,11 +21,11 @@ $("#go").addEventListener("click", async () => {
   if (HEROES.length === 0)      return flash("Heroes not loaded yet…", true);
 
   const roster = await pickRoster(xpub, ROSTER_SIZE);
-  showRoster(roster);
+  renderTable(roster);
   flash("Here are your heroes:");
 });
 
-// 3)  Deterministic picker – SHA‑256(xpub + index) → integer → hero
+// Deterministic picker
 async function pickRoster(xpub, count) {
   const enc = new TextEncoder();
   const roster = [];
@@ -38,27 +38,50 @@ async function pickRoster(xpub, count) {
   return roster;
 }
 
-// 4)  Text list with stats and abilities
-function showRoster(list) {
+// Render as HTML table
+function renderTable(list) {
   const rosterEl = $("#roster");
   rosterEl.innerHTML = "";
 
+  const table = document.createElement("table");
+  table.className = "hero-table";
+
+  // Header
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Name</th><th>STR</th><th>DEX</th><th>CON</th>
+        <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>MP</th>
+        <th>Common Ability</th><th>Rare Ability</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
   list.forEach(h => {
-    const line = document.createElement("pre");
-    line.textContent =
-      `${pad(h.Name, 12)}  ` +
-      `STR ${pad(h.Strength,2)}  DEX ${pad(h.Dexterity,2)}  CON ${pad(h.Constitution,2)}  ` +
-      `INT ${pad(h.Intelligence,2)}  WIS ${pad(h.Wisdom,2)}  CHA ${pad(h.Charisma,2)}  ` +
-      `HP ${pad(h.Health,3)}  MP ${pad(h.Mana,3)}  |  ` +
-      `${h["Common Ability"]}  |  ${h["Rare Ability"]}`;
-    rosterEl.appendChild(line);
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${h.Name}</td>
+      <td>${h.Strength}</td>
+      <td>${h.Dexterity}</td>
+      <td>${h.Constitution}</td>
+      <td>${h.Intelligence}</td>
+      <td>${h.Wisdom}</td>
+      <td>${h.Charisma}</td>
+      <td>${h.Health}</td>
+      <td>${h.Mana}</td>
+      <td>${h["Common Ability"]}</td>
+      <td>${h["Rare Ability"]}</td>
+    `;
+    tbody.appendChild(row);
   });
 
+  rosterEl.appendChild(table);
   rosterEl.classList.remove("hidden");
 }
 
-// 5)  Helpers
-const pad = (val, len) => String(val).padEnd(len);
+// Flash helper
 function flash(text, bad = false) {
   const msg = $("#msg");
   msg.textContent = text;

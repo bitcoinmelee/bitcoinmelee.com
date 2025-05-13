@@ -30,3 +30,10 @@ textarea{ width:380px; height:60px; background:#111; color:#fffbec; border:2px s
                   image-rendering:pixelated; }
 .sprite         { width:48px; height:48px; margin:0 auto 4px; background:#444 url('https://i.imgur.com/4Swy7YF.png') no-repeat center/48px; }
 .stat           { color:#f9d65c; }
+
+/* 8‑bit table flavour */
+.hero-table            { border-collapse: collapse; width:100%; font-size:10px; color:#fffbec; }
+.hero-table th,
+.hero-table td         { border:1px solid #705f4d; padding:4px 6px; text-align:center; }
+.hero-table th         { background:#333; color:#f9d65c; }
+.hero-table tr:nth-child(even) { background:#1e1e1e; }
