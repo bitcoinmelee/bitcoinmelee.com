@@ -1,81 +1,55 @@
-/* ------------------------------------------------------------
-   Global CRT / Pixel‑Art Theme for bitcoinmelee.com
-   ------------------------------------------------------------ */
-
-/* Full‑screen single background image */
+/* Pixel‑art CRT feel */
+*       { box-sizing:border-box; }
 body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:url("background.png") no-repeat center center fixed;
+  margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+  background: url("images/background.png") no-repeat center center fixed;
   background-size:cover;
-  font-family:'Press Start 2P', monospace;
-  color:#fffbec;
+  font-family:'Press Start 2P', monospace; color:#fffbec;
 }
 
-/* CRT frame */
-#crt{
-  border:8px solid #705f4d;
-  padding:32px 48px;
-  background:#000;
-  filter:contrast(1.2) brightness(1.1);
-  max-width:90vw;
-  overflow-x:hidden;
-}
+#crt    { border:8px solid #705f4d; padding:32px 48px; background:#000; filter:contrast(1.2) brightness(1.1); }
 
-/* Title text */
-.title{
-  font-size:32px;
-  text-align:center;
-  margin:0 0 24px;
-  color:#f9d65c;
-  text-shadow:0 0 8px #703;
-}
+.title  { font-size:32px; text-align:center; margin:0 0 24px; color:#f9d65c;
+          text-shadow:0 0 8px #703; }
 
-/* Form elements */
-.label{ display:block; margin-bottom:8px; font-size:14px; }
-textarea{
-  width:380px; height:60px; resize:none;
-  background:#111; color:#fffbec; border:2px solid #705f4d;
-  padding:8px; font-size:12px;
-}
-#go{
-  display:block; margin:16px auto 8px; padding:8px 24px;
-  background:#3cbc3c; border:none; color:#000; font-size:14px; cursor:pointer;
-}
+.label  { display:block; margin-bottom:8px; font-size:14px; }
+
+textarea{ width:380px; height:60px; background:#111; color:#fffbec; border:2px solid #705f4d;
+          padding:8px; font-size:12px; resize:none; }
+
+#go     { display:block; margin:16px auto 8px; padding:8px 24px;
+          background:#3cbc3c; border:none; color:#000; font-size:14px; cursor:pointer; }
 #go:hover{ background:#5ef35e; }
 
-.blink{ animation:blink 1s steps(1) infinite; }
-@keyframes blink{ 50%{ opacity:0; } }
+.blink  { animation:blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity:0; } }
 
-.hidden{ display:none; }
+.hidden { display:none; }
 
-/* ------------------------------------------------------------
-   Hero table (scrolls if wider than CRT)
-   ------------------------------------------------------------ */
-#roster          { margin-top:24px; overflow-x:auto; }
+/* hero card grid */
+#roster         { margin-top:32px; display:grid; grid-template-columns:repeat(auto-fill,90px);
+                  gap:16px; justify-content:center; }
+.card           { width:90px; height:120px; background:#222; border:2px solid #705f4d; padding:4px;
+                  text-align:center; font-size:8px; line-height:10px; color:#d5e8ff;
+                  image-rendering:pixelated; }
+.sprite         { width:48px; height:48px; margin:0 auto 4px; background:#444 url('https://i.imgur.com/4Swy7YF.png') no-repeat center/48px; }
+.stat           { color:#f9d65c; }
+
+/* === roster area scroll & table tweaks === */
+#roster          { margin-top:32px; overflow-x:auto; }  /* scroll if too wide */
 .hero-table      { border-collapse:collapse; width:100%; font-size:10px; color:#fffbec; }
 .hero-table th,
 .hero-table td   { border:1px solid #705f4d; padding:4px 6px; text-align:center; white-space:nowrap; }
 .hero-table th   { background:#333; color:#f9d65c; }
 .hero-table tr:nth-child(even){ background:#1e1e1e; }
 
-/* ------------------------------------------------------------
-   Hero picker panel
-   ------------------------------------------------------------ */
+/* pixel‑style dropdown and button */
 #picker            { margin-top:24px; text-align:center; }
-#picker label      { font-size:12px; margin-right:8px; }
-#heroSel{
-  background:#111; color:#fffbec; border:2px solid #705f4d;
-  font-family:'Press Start 2P', monospace; font-size:10px;
-  padding:4px; cursor:pointer;
-}
-#continue{
-  margin-left:12px; padding:6px 18px;
-  background:#3cbc3c; border:none;
-  font-family:'Press Start 2P', monospace; font-size:10px;
-  cursor:pointer;
-}
-#continue:hover  { background:#5ef35e; }
+#picker label      { font-size:12px; }
+#heroSel           { background:#111; color:#fffbec; border:2px solid #705f4d; 
+                     font-family:'Press Start 2P', monospace; font-size:10px;
+                     padding:4px; }
+#continue          { margin-left:12px; padding:6px 18px; background:#3cbc3c; 
+                     border:none; font-family:'Press Start 2P', monospace; 
+                     font-size:10px; cursor:pointer; }
+#continue:hover    { background:#5ef35e; }
