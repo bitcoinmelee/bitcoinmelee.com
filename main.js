@@ -60,7 +60,7 @@ function renderTable(list) {
   list.forEach(h => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${h.Name}</td>
+      <td>${cap(h.Name)}</td>
       <td>${h.Strength}</td>
       <td>${h.Dexterity}</td>
       <td>${h.Constitution}</td>
