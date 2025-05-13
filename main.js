@@ -1,12 +1,11 @@
-// main.js  –  static‑site roster picker for bitcoinmelee.com
+// main.js  – text‑only roster display
 //-------------------------------------------------------------
 
 const $ = sel => document.querySelector(sel);
-let HEROES = [];               // loaded from heroes.json
-const ROSTER_SIZE = 3;         // how many heroes to show
+let HEROES = [];
+const ROSTER_SIZE = 3;
 
-//-------------------------------------------------------------
-// 1.  Load heroes.json once
+// 1) Load heroes.json
 fetch("heroes.json")
   .then(r => r.json())
   .then(data => {
@@ -15,61 +14,46 @@ fetch("heroes.json")
   })
   .catch(err => flash("Could not load heroes.json ➜ " + err, true));
 
-//-------------------------------------------------------------
-// 2.  Button event
+// 2) Button click
 $("#go").addEventListener("click", async () => {
   const xpub = $("#xpub").value.trim();
-  if (!xpub.startsWith("xpub")) {
-    flash("Please paste a valid xpub.", true);
-    return;
-  }
-  if (HEROES.length === 0) {
-    flash("Heroes not loaded yet… wait a moment.", true);
-    return;
-  }
+  if (!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.", true);
+  if (HEROES.length === 0)      return flash("Heroes not loaded yet…", true);
+
   const roster = await pickRoster(xpub, ROSTER_SIZE);
   showRoster(roster);
-  flash("Choose your party!");
+  flash("Your deterministic party:");
 });
 
-//-------------------------------------------------------------
-// Deterministic roster: SHA‑256(xpub + index) → integer → hero
+// Deterministic picker
 async function pickRoster(xpub, count) {
   const enc = new TextEncoder();
   const roster = [];
   for (let i = 0; roster.length < count; i++) {
-    const hashBuf = await crypto.subtle.digest("SHA-256", enc.encode(xpub + i));
-    const view    = new DataView(hashBuf);
-    const num     = view.getUint32(0, false);           // use first 4 bytes
-    const hero    = HEROES[num % HEROES.length];
-    if (!roster.includes(hero)) roster.push(hero);      // avoid duplicates
+    const buf  = await crypto.subtle.digest("SHA-256", enc.encode(xpub + i));
+    const num  = new DataView(buf).getUint32(0, false);
+    const hero = HEROES[num % HEROES.length];
+    if (!roster.includes(hero)) roster.push(hero);
   }
   return roster;
 }
 
-//-------------------------------------------------------------
-// Render hero cards
+// Text‑only display
 function showRoster(list) {
   const rosterEl = $("#roster");
-  rosterEl.innerHTML = "";
+  rosterEl.innerHTML = "";             // clear previous
   list.forEach(h => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="sprite"></div>
-      <strong>${h.Name}</strong><br/>
-      <span class="stat">STR ${h.Strength}</span><br/>
-      <span class="stat">DEX ${h.Dexterity}</span><br/>
-      <span class="stat">CON ${h.Constitution}</span>
-    `;
-    rosterEl.appendChild(card);
+    const line = document.createElement("pre");
+    line.textContent =
+      `${h.Name.padEnd(12)} – STR ${h.Strength.toString().padEnd(2)} ` +
+      `DEX ${h.Dexterity.toString().padEnd(2)} CON ${h.Constitution}`;
+    rosterEl.appendChild(line);
   });
   rosterEl.classList.remove("hidden");
 }
 
-//-------------------------------------------------------------
-// Flash helper
-function flash(text, bad = false) {
+// Helper
+function flash(text, bad=false){
   const msg = $("#msg");
   msg.textContent = text;
   msg.style.color = bad ? "#ff7272" : "#5ef35e";
