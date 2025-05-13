@@ -1,42 +1,31 @@
-// main.js  –  list every stat + abilities for each hero
+// main.js  – text‑only roster display (no “deterministic” wording)
 //-------------------------------------------------------------
 
 const $ = sel => document.querySelector(sel);
 let HEROES = [];
-const ROSTER_SIZE = 12;          // show 12 heroes per xpub – change if you like
+const ROSTER_SIZE = 12;
 
-//-------------------------------------------------------------
 // 1)  Load heroes.json
 fetch("heroes.json")
   .then(r => r.json())
   .then(data => {
-    HEROES = data;
-    flash(`Loaded ${HEROES.length} heroes. Paste your xpub!`);
+    HEROES = Array.isArray(data) ? data : Object.values(data);
+    flash("Paste your xpub!");
   })
   .catch(err => flash("Could not load heroes.json ➜ " + err, true));
 
-//-------------------------------------------------------------
 // 2)  Button click
 $("#go").addEventListener("click", async () => {
   const xpub = $("#xpub").value.trim();
-  if (!xpub.startsWith("xpub")) {
-    flash("Please paste a valid xpub.", true);
-    return;
-  }
-  if (HEROES.length === 0) {
-    flash("Heroes not loaded yet…", true);
-    return;
-  }
+  if (!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.", true);
+  if (HEROES.length === 0)      return flash("Heroes not loaded yet…", true);
 
-  // >>> must AWAIT here
   const roster = await pickRoster(xpub, ROSTER_SIZE);
   showRoster(roster);
-  flash("Your deterministic roster:");
+  flash("Here are your heroes:");
 });
 
-
-//-------------------------------------------------------------
-// Deterministic picker – SHA‑256(xpub + index) → integer → hero
+// 3)  Deterministic picker – SHA‑256(xpub + index) → integer → hero
 async function pickRoster(xpub, count) {
   const enc = new TextEncoder();
   const roster = [];
@@ -49,11 +38,10 @@ async function pickRoster(xpub, count) {
   return roster;
 }
 
-//-------------------------------------------------------------
-// Text list with ALL stats & abilities
+// 4)  Text list with stats and abilities
 function showRoster(list) {
   const rosterEl = $("#roster");
-  rosterEl.innerHTML = "";                   // clear previous
+  rosterEl.innerHTML = "";
 
   list.forEach(h => {
     const line = document.createElement("pre");
@@ -61,7 +49,7 @@ function showRoster(list) {
       `${pad(h.Name, 12)}  ` +
       `STR ${pad(h.Strength,2)}  DEX ${pad(h.Dexterity,2)}  CON ${pad(h.Constitution,2)}  ` +
       `INT ${pad(h.Intelligence,2)}  WIS ${pad(h.Wisdom,2)}  CHA ${pad(h.Charisma,2)}  ` +
-      `HP ${pad(h.Health,2)}  MP ${pad(h.Mana,2)}  |  ` +
+      `HP ${pad(h.Health,3)}  MP ${pad(h.Mana,3)}  |  ` +
       `${h["Common Ability"]}  |  ${h["Rare Ability"]}`;
     rosterEl.appendChild(line);
   });
@@ -69,12 +57,9 @@ function showRoster(list) {
   rosterEl.classList.remove("hidden");
 }
 
-//-------------------------------------------------------------
-// Utilities
-function pad(val, len) {
-  return String(val).padEnd(len);
-}
-function flash(text, bad=false) {
+// 5)  Helpers
+const pad = (val, len) => String(val).padEnd(len);
+function flash(text, bad = false) {
   const msg = $("#msg");
   msg.textContent = text;
   msg.style.color = bad ? "#ff7272" : "#5ef35e";
