@@ -83,15 +83,24 @@ function renderTable(list) {
 
 //-------------------------------------------------------------
 // Populate hero dropdown and reveal picker
-function populateDropdown(list){
+function populateDropdown(list) {
   const sel = $("#heroSel");
-  sel.innerHTML = "";
+  sel.innerHTML = "";                      // clear previous options
+
   list.forEach(h => {
-    const opt = document.createElement("option");
-    opt.textContent = cap(h.Name);
+    const name = cap(h.Name || h.name);    // tolerate JSON key casing
+    const opt  = document.createElement("option");
+    opt.value       = name;                // value = hero name
+    opt.textContent = name;                // label shown in list
     sel.appendChild(opt);
   });
-  $("#picker").classList.remove("hidden");
+
+  // Show the picker only after at least one option is inserted
+  if (sel.options.length) {
+    $("#picker").classList.remove("hidden");
+  } else {
+    console.warn("populateDropdown: roster list was empty");
+  }
 }
 
 //-------------------------------------------------------------
