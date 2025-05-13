@@ -2,7 +2,7 @@
 *       { box-sizing:border-box; }
 body{
   margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
-  background:url("background.png") no-repeat center center fixed;
+  background: url("images/background.png") no-repeat center center fixed;
   background-size:cover;
   font-family:'Press Start 2P', monospace; color:#fffbec;
 }
