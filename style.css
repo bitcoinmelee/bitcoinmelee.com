@@ -44,7 +44,7 @@ textarea{ width:380px; height:60px; background:#111; color:#fffbec; border:2px s
 .hero-table tr:nth-child(even){ background:#1e1e1e; }
 
 /* pixel‑style dropdown and button */
-#picker            { margin-top:24px; display:block; text-align:center; }
+#picker            { margin-top:24px; text-align:center; }
 #picker label      { font-size:12px; }
 #heroSel           { background:#111; color:#fffbec; border:2px solid #705f4d; 
                      font-family:'Press Start 2P', monospace; font-size:10px;

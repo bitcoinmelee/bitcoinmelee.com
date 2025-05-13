@@ -98,6 +98,7 @@ function populateDropdown(list) {
   // Show the picker only after at least one option is inserted
   if (sel.options.length) {
     $("#picker").classList.remove("hidden");
+    $("#picker").style.display = "block";
   } else {
     console.warn("populateDropdown: roster list was empty");
   }
