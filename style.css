@@ -1,8 +1,12 @@
 /* Pixel‑art CRT feel */
 *       { box-sizing:border-box; }
-body    { margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
-          background:#1b2130 url("https://i.imgur.com/7kT4C6q.png") repeat; /* tiny star‑field */
-          font-family:'Press Start 2P', monospace; color:#fffbec; }
+body{
+  margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
+  background:url("background.png") no-repeat center center fixed;
+  background-size:cover;
+  font-family:'Press Start 2P', monospace; color:#fffbec;
+}
+
 #crt    { border:8px solid #705f4d; padding:32px 48px; background:#000; filter:contrast(1.2) brightness(1.1); }
 
 .title  { font-size:32px; text-align:center; margin:0 0 24px; color:#f9d65c;
@@ -31,9 +35,10 @@ textarea{ width:380px; height:60px; background:#111; color:#fffbec; border:2px s
 .sprite         { width:48px; height:48px; margin:0 auto 4px; background:#444 url('https://i.imgur.com/4Swy7YF.png') no-repeat center/48px; }
 .stat           { color:#f9d65c; }
 
-/* 8‑bit table flavour */
-.hero-table            { border-collapse: collapse; width:100%; font-size:10px; color:#fffbec; }
+/* === roster area scroll & table tweaks === */
+#roster          { margin-top:32px; overflow-x:auto; }  /* scroll if too wide */
+.hero-table      { border-collapse:collapse; width:100%; font-size:10px; color:#fffbec; }
 .hero-table th,
-.hero-table td         { border:1px solid #705f4d; padding:4px 6px; text-align:center; }
-.hero-table th         { background:#333; color:#f9d65c; }
-.hero-table tr:nth-child(even) { background:#1e1e1e; }
+.hero-table td   { border:1px solid #705f4d; padding:4px 6px; text-align:center; white-space:nowrap; }
+.hero-table th   { background:#333; color:#f9d65c; }
+.hero-table tr:nth-child(even){ background:#1e1e1e; }

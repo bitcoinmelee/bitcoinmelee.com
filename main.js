@@ -1,20 +1,20 @@
-// main.js  – table roster display
+// main.js  – table roster display (clean prompt, scroll‑safe)
 //-------------------------------------------------------------
 
 const $ = sel => document.querySelector(sel);
 let HEROES = [];
 const ROSTER_SIZE = 12;
 
-// 1)  Load heroes.json
+// 1) Load heroes.json
 fetch("heroes.json")
   .then(r => r.json())
   .then(data => {
     HEROES = Array.isArray(data) ? data : Object.values(data);
-    flash("Paste your xpub!");
+    flash("Paste your xpub!");           // no hero‑count message
   })
   .catch(err => flash("Could not load heroes.json ➜ " + err, true));
 
-// 2)  Button click
+// 2) Button click
 $("#go").addEventListener("click", async () => {
   const xpub = $("#xpub").value.trim();
   if (!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.", true);
@@ -38,15 +38,13 @@ async function pickRoster(xpub, count) {
   return roster;
 }
 
-// Render as HTML table
+// Render as scroll‑friendly table
 function renderTable(list) {
   const rosterEl = $("#roster");
   rosterEl.innerHTML = "";
 
   const table = document.createElement("table");
   table.className = "hero-table";
-
-  // Header
   table.innerHTML = `
     <thead>
       <tr>
@@ -57,8 +55,8 @@ function renderTable(list) {
     </thead>
     <tbody></tbody>
   `;
-
   const tbody = table.querySelector("tbody");
+
   list.forEach(h => {
     const row = document.createElement("tr");
     row.innerHTML = `
