@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Your Quest Begins</title>
   <style>
+    /* full-screen message & canvas */
     html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
     #message {
       position:absolute; top:0; left:0; width:100vw; height:100vh;
@@ -21,84 +22,101 @@
   <canvas id="gameCanvas"></canvas>
 
   <script>
-  // 1) ensure a hero was chosen
-  const selectedHero = sessionStorage.getItem("selectedHero");
-  if (!selectedHero) {
-    // no selection → back to start
+  // 1) pull the selected hero from sessionStorage (hide URL)
+  const hero = sessionStorage.getItem("selectedHero");
+  if (!hero) {
     window.location.href = "index.html";
     throw new Error("No hero selected");
   }
 
-  // 2) constants & DOM
-  const FRAME_W=16, FRAME_H=16, SCALE=3;
-  const ROW_DOWN=0, ROW_UP=1, ROW_LEFT=2, ROW_RIGHT=3;
+  // 2) constants for your 16×16 sheet
+  const SPRITE_SRC  = "sprites/characters/sprite.png";
+  const FRAME_W     = 16, FRAME_H = 16, SCALE = 3;
+  const ROW_DOWN    = 0, ROW_UP = 1, ROW_LEFT = 2, ROW_RIGHT = 3;
+
+  // 3) DOM + canvas setup
   const msg    = document.getElementById("message");
   const canvas = document.getElementById("gameCanvas");
   const ctx    = canvas.getContext("2d");
 
-  // 3) load correct sprite path
+  // 4) load sprite sheet
   const sprite = new Image();
-  sprite.src   = "sprites/characters/sprite.png";
+  sprite.src = SPRITE_SRC;
 
-  // 4) state
-  let x,y, dir=ROW_DOWN, frame=0, timer=0;
-  const keys={};
+  // 5) state
+  let x, y, dir = ROW_DOWN, frame = 0, timer = 0;
+  const keys = {};
 
-  // 5) resize
-  function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height= window.innerHeight;
+  // 6) resize canvas to fill
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
     x = canvas.width/2;
     y = canvas.height/2;
   }
   window.addEventListener("resize", resize);
 
-  // 6) start after sprite loads + 3s
+  // 7) only start loop after sprite loads + 3 s
   sprite.onload = () => {
     resize();
-    setTimeout(()=>{
+    setTimeout(() => {
       msg.style.display    = "none";
       canvas.style.display = "block";
       requestAnimationFrame(loop);
     }, 3000);
   };
 
-  // 7) input
+  // 8) arrow key input
   window.addEventListener("keydown", e => {
-    if(e.key.startsWith("Arrow")){ keys[e.key]=1; e.preventDefault(); }
+    if (e.key.startsWith("Arrow")) { keys[e.key] = true; e.preventDefault(); }
   });
   window.addEventListener("keyup", e => {
-    if(e.key.startsWith("Arrow")){ delete keys[e.key]; e.preventDefault(); }
+    if (e.key.startsWith("Arrow")) { delete keys[e.key]; e.preventDefault(); }
   });
 
-  // 8) update & draw loop
-  function update(){
-    const speed=4; let moving=false;
-    if(keys["ArrowUp"])   { y-=speed; dir=ROW_UP;   moving=true; }
-    else if(keys["ArrowDown"]){ y+=speed; dir=ROW_DOWN; moving=true; }
-    else if(keys["ArrowLeft"]){ x-=speed; dir=ROW_LEFT; moving=true; }
-    else if(keys["ArrowRight"]){ x+=speed; dir=ROW_RIGHT; moving=true; }
+  // 9) update position & animation frame
+  function update() {
+    const speed = 4;
+    let moving = false;
 
-    if(moving){
-      timer++; if(timer>6){ frame=(frame+1)%4; timer=0; }
-    } else { frame=0; timer=0; }
+    if (keys["ArrowUp"])    { y -= speed; dir = ROW_UP;    moving = true; }
+    else if (keys["ArrowDown"]){ y += speed; dir = ROW_DOWN;  moving = true; }
+    else if (keys["ArrowLeft"]){ x -= speed; dir = ROW_LEFT;  moving = true; }
+    else if (keys["ArrowRight"]){ x += speed; dir = ROW_RIGHT; moving = true; }
 
-    // clamp
+    if (moving) {
+      timer++;
+      if (timer > 6) {
+        frame = (frame + 1) % 4;  // cycle through 4 frames in the row
+        timer = 0;
+      }
+    } else {
+      frame = 0;
+      timer = 0;
+    }
+
+    // clamp within viewport
     x = Math.max(FRAME_W*SCALE/2, Math.min(canvas.width - FRAME_W*SCALE/2, x));
     y = Math.max(FRAME_H*SCALE/2, Math.min(canvas.height - FRAME_H*SCALE/2, y));
   }
 
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+  // 10) draw the current frame
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(
       sprite,
-      frame * FRAME_W, dir * FRAME_H, FRAME_W, FRAME_H,
-      x - (FRAME_W * SCALE)/2, y - (FRAME_H * SCALE)/2,
-      FRAME_W * SCALE, FRAME_H * SCALE
+      frame * FRAME_W,      // source X
+      dir   * FRAME_H,      // source Y (row for direction)
+      FRAME_W, FRAME_H,     // source width/height
+      x - (FRAME_W*SCALE)/2,// dest X (centered)
+      y - (FRAME_H*SCALE)/2,// dest Y (centered)
+      FRAME_W * SCALE,
+      FRAME_H * SCALE
     );
   }
 
-  function loop(){
+  // 11) main loop
+  function loop() {
     update();
     draw();
     requestAnimationFrame(loop);
