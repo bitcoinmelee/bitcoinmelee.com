@@ -1,120 +1,81 @@
-// main.js  – table roster display with capitalized names
+// main.js  – full flow: xpub → table → dropdown → continue
 //-------------------------------------------------------------
 
-const $ = sel => document.querySelector(sel);
+const $ = s => document.querySelector(s);
 let HEROES = [];
 const ROSTER_SIZE = 12;
 
-// 1)  Load heroes.json
+/* helpers up front */
+const cap  = s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+const pad  = (v,l)=>String(v).padEnd(l);
+function flash(t,bad=false){ const m=$("#msg"); m.textContent=t; m.style.color=bad?"#ff7272":"#5ef35e"; }
+
+/* ---- load heroes.json once ---- */
 fetch("heroes.json")
-  .then(r => r.json())
-  .then(data => {
-    HEROES = Array.isArray(data) ? data : Object.values(data);
-    flash("Paste your xpub!");
-  })
-  .catch(err => flash("Could not load heroes.json ➜ " + err, true));
+  .then(r=>r.json())
+  .then(d=>{ HEROES = Array.isArray(d)?d:Object.values(d); flash("Paste your xpub!"); })
+  .catch(e=>flash("Could not load heroes.json ➜ "+e,true));
 
-// 2)  Button click
-$("#go").addEventListener("click", async () => {
-  const xpub = $("#xpub").value.trim();
-  if (!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.", true);
-  if (HEROES.length === 0)      return flash("Heroes not loaded yet…", true);
+/* ---- Discover Heroes ---- */
+$("#go").addEventListener("click", async ()=>{
+  const xpub=$("#xpub").value.trim();
+  if(!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.",true);
+  if(!HEROES.length)          return flash("Heroes not loaded yet…",true);
 
-  const roster = await pickRoster(xpub, ROSTER_SIZE);
+  const roster=await pickRoster(xpub,ROSTER_SIZE);
   renderTable(roster);
+  fillDropdown(roster);
   flash("Here are your heroes:");
 });
 
-//-------------------------------------------------------------
-// Deterministic picker – SHA‑256(xpub + index) → integer → hero
-async function pickRoster(xpub, count) {
-  const enc = new TextEncoder();
-  const roster = [];
-  for (let i = 0; roster.length < count; i++) {
-    const buf  = await crypto.subtle.digest("SHA-256", enc.encode(xpub + i));
-    const num  = new DataView(buf).getUint32(0, false);
-    const hero = HEROES[num % HEROES.length];
-    if (!roster.includes(hero)) roster.push(hero);
+/* deterministic pick */
+async function pickRoster(xpub,count){
+  const enc=new TextEncoder(), roster=[];
+  for(let i=0; roster.length<count; i++){
+    const buf=await crypto.subtle.digest("SHA-256",enc.encode(xpub+i));
+    const num=new DataView(buf).getUint32(0,false);
+    const hero=HEROES[num%HEROES.length];
+    if(!roster.includes(hero)) roster.push(hero);
   }
   return roster;
 }
 
-//-------------------------------------------------------------
-// Render as scroll‑friendly table
-function renderTable(list) {
-  const rosterEl = $("#roster");
-  rosterEl.innerHTML = "";
-
-  const table = document.createElement("table");
-  table.className = "hero-table";
-  table.innerHTML = `
-    <thead>
+/* table render */
+function renderTable(list){
+  const rem=$("#roster"); rem.innerHTML="";
+  const t=document.createElement("table");
+  t.className="hero-table";
+  t.innerHTML=`
+    <thead><tr>
+      <th>Name</th><th>STR</th><th>DEX</th><th>CON</th>
+      <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>MP</th>
+      <th>Common Ability</th><th>Rare Ability</th>
+    </tr></thead><tbody></tbody>`;
+  const tb=t.querySelector("tbody");
+  list.forEach(h=>{
+    tb.insertAdjacentHTML("beforeend",`
       <tr>
-        <th>Name</th><th>STR</th><th>DEX</th><th>CON</th>
-        <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>MP</th>
-        <th>Common Ability</th><th>Rare Ability</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
-  const tbody = table.querySelector("tbody");
-
-  list.forEach(h => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${cap(h.Name)}</td>
-      <td>${h.Strength}</td>
-      <td>${h.Dexterity}</td>
-      <td>${h.Constitution}</td>
-      <td>${h.Intelligence}</td>
-      <td>${h.Wisdom}</td>
-      <td>${h.Charisma}</td>
-      <td>${h.Health}</td>
-      <td>${h.Mana}</td>
-      <td>${h["Common Ability"]}</td>
-      <td>${h["Rare Ability"]}</td>
-    `;
-    tbody.appendChild(row);
+        <td>${cap(h.Name)}</td>
+        <td>${h.Strength}</td><td>${h.Dexterity}</td><td>${h.Constitution}</td>
+        <td>${h.Intelligence}</td><td>${h.Wisdom}</td><td>${h.Charisma}</td>
+        <td>${h.Health}</td><td>${h.Mana}</td>
+        <td>${h["Common Ability"]}</td><td>${h["Rare Ability"]}</td>
+      </tr>`);
   });
-
-  rosterEl.appendChild(table);
-  rosterEl.classList.remove("hidden");
+  rem.appendChild(t); rem.classList.remove("hidden");
 }
 
-//-------------------------------------------------------------
-// Populate hero dropdown and reveal picker
-function populateDropdown(list) {
-  const sel = $("#heroSel");
-  sel.innerHTML = "";
-
-  list.forEach(h => {
-    const opt = document.createElement("option");
-    opt.value       = h.Name || h.name;
-    opt.textContent = cap(opt.value);
-    sel.appendChild(opt);
+/* dropdown + button logic */
+function fillDropdown(list){
+  const sel=$("#heroSel"); sel.innerHTML=""; sel.disabled=false;
+  list.forEach(h=>{
+    sel.insertAdjacentHTML("beforeend",`<option>${cap(h.Name)}</option>`);
   });
-
-  if (sel.options.length) {
-    const picker = $("#picker");
-    picker.classList.remove("hidden");  // remove display:none
-    picker.style.display = "block";     // 100 % ensure visible
-  }
+  $("#continue").disabled=false;
+  $("#picker").classList.remove("hidden");
 }
 
-//-------------------------------------------------------------
-// Continue button → quest.html
-$("#continue").addEventListener("click", () => {
-  const hero = $("#heroSel").value;
-  window.location.href = `quest.html?hero=${encodeURIComponent(hero)}`;
+$("#continue").addEventListener("click",()=>{
+  const hero=$("#heroSel").value;
+  window.location.href=`quest.html?hero=${encodeURIComponent(hero)}`;
 });
-
-//-------------------------------------------------------------
-// Helpers
-const pad = (val, len) => String(val).padEnd(len);
-const cap = s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
-
-function flash(text, bad = false) {
-  const msg = $("#msg");
-  msg.textContent = text;
-  msg.style.color = bad ? "#ff7272" : "#5ef35e";
-}
