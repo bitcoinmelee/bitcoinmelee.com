@@ -76,10 +76,6 @@ function fillDropdown(list){
 }
 
    /* Continue button → quest page */
--  $("#continue").addEventListener("click", () => {
--    const hero = $("#heroSel").value;
--    window.location.href = `quest.html?hero=${encodeURIComponent(hero)}`;
--  });
 +  $("#continue").addEventListener("click", () => {
 +    // store selection in sessionStorage instead of URL
 +    const hero = $("#heroSel").value;
