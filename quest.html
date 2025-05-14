@@ -4,20 +4,15 @@
   <meta charset="UTF-8" />
   <title>Your Quest Begins</title>
   <style>
-    /* full‐screen message & canvas */
     html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
     #message {
-      position:absolute; top:0; left:0;
-      width:100vw; height:100vh;
+      position:absolute; top:0; left:0; width:100vw; height:100vh;
       display:flex; align-items:center; justify-content:center;
-      color:#fff; font:32px sans-serif; text-transform:uppercase;
-      z-index:2;
+      color:#fff; font:32px sans-serif; text-transform:uppercase; z-index:2;
     }
     #gameCanvas {
-      position:absolute; top:0; left:0;
-      display:none; /* shown after message */
-      background:#334455;
-      z-index:1;
+      position:absolute; top:0; left:0; display:none;
+      width:100vw; height:100vh; background:#334455; z-index:1;
     }
   </style>
 </head>
@@ -26,102 +21,78 @@
   <canvas id="gameCanvas"></canvas>
 
   <script>
-  // immediately grab the hero name (or bail back)
-  const selectedHero = sessionStorage.getItem("selectedHero");
-  if (!selectedHero) {
-    // no hero stored → send them back to pick one
+  // retrieve hero or bounce back
+  const hero = sessionStorage.getItem("selectedHero");
+  if (!hero) {
     window.location.href = "index.html";
-    throw new Error("No hero selected");
+    throw "No hero selected";
   }
-  
-  // constants
-  const FRAME_W = 16, FRAME_H = 16, SCALE = 3;
-  const ROW_DOWN = 0, ROW_UP = 1, ROW_LEFT = 2, ROW_RIGHT = 3;
+  console.log("Hero:", hero);
 
-  // DOM refs
-  const msg = document.getElementById('message');
-  const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
-
-  // sprite setup (updated path)
-  const sprite = new Image();
-  sprite.src = 'sprites/characters/sprite.png';
+  // sprite and canvas setup
+  const FRAME_W=16, FRAME_H=16, SCALE=3;
+  const ROW_DOWN=0, ROW_UP=1, ROW_LEFT=2, ROW_RIGHT=3;
+  const canvas=document.getElementById("gameCanvas"),
+        ctx=canvas.getContext("2d"),
+        img=new Image();
+  img.src="sprites/characters/sprite.png";
 
   // state
-  let x, y, dir = ROW_DOWN, frame = 0, frameTimer = 0;
-  const keys = {};
+  let x,y, dir=ROW_DOWN, frame=0, timer=0, keys={};
 
-  // resize to fill window
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    x = canvas.width / 2;
-    y = canvas.height / 2;
+  // resize to fill
+  function resize(){
+    canvas.width=innerWidth; canvas.height=innerHeight;
+    x=canvas.width/2; y=canvas.height/2;
   }
-  window.addEventListener('resize', resize);
+  window.addEventListener("resize",resize);
 
-  // start after sprite loaded + 3s
-  sprite.onload = () => {
+  // on image load, wait 3s then start
+  img.onload = ()=>{
     resize();
-    setTimeout(() => {
-      msg.style.display = 'none';
-      canvas.style.display = 'block';
+    setTimeout(()=>{
+      document.getElementById("message").style.display="none";
+      canvas.style.display="block";
       requestAnimationFrame(loop);
-    }, 3000);
+    },3000);
   };
 
   // input
-  window.addEventListener('keydown', e => {
-    if (e.key.startsWith('Arrow')) { keys[e.key] = true; e.preventDefault(); }
+  addEventListener("keydown",e=>{
+    if(e.key.startsWith("Arrow")){keys[e.key]=1; e.preventDefault();}
   });
-  window.addEventListener('keyup', e => {
-    if (e.key.startsWith('Arrow')) { delete keys[e.key]; e.preventDefault(); }
+  addEventListener("keyup",e=>{
+    if(e.key.startsWith("Arrow")){delete keys[e.key]; e.preventDefault();}
   });
 
-  // update position + animation
-  function update() {
-    const speed = 4;
-    let moving = false;
+  function update(){
+    const speed=4; let moving=false;
+    if(keys["ArrowUp"]){ y-=speed; dir=ROW_UP; moving=true; }
+    else if(keys["ArrowDown"]){ y+=speed; dir=ROW_DOWN; moving=true; }
+    else if(keys["ArrowLeft"]){ x-=speed; dir=ROW_LEFT; moving=true; }
+    else if(keys["ArrowRight"]){ x+=speed; dir=ROW_RIGHT; moving=true; }
 
-    if (keys['ArrowUp'])       { y -= speed; dir = ROW_UP;    moving = true; }
-    else if (keys['ArrowDown']) { y += speed; dir = ROW_DOWN;  moving = true; }
-    else if (keys['ArrowLeft']) { x -= speed; dir = ROW_LEFT;  moving = true; }
-    else if (keys['ArrowRight']){ x += speed; dir = ROW_RIGHT; moving = true; }
+    if(moving){
+      timer++; if(timer>6){ frame=(frame+1)%4; timer=0; }
+    } else { frame=0; timer=0; }
 
-    if (moving) {
-      frameTimer++;
-      if (frameTimer > 6) {
-        frame = (frame + 1) % 4;
-        frameTimer = 0;
-      }
-    } else {
-      frame = 0;
-      frameTimer = 0;
-    }
-
-    // clamp within screen
-    x = Math.max(FRAME_W * SCALE/2, Math.min(canvas.width - FRAME_W*SCALE/2, x));
-    y = Math.max(FRAME_H * SCALE/2, Math.min(canvas.height - FRAME_H*SCALE/2, y));
+    // clamp
+    x=Math.max(FRAME_W*SCALE/2,Math.min(canvas.width-FRAME_W*SCALE/2,x));
+    y=Math.max(FRAME_H*SCALE/2,Math.min(canvas.height-FRAME_H*SCALE/2,y));
   }
 
-  // draw scene + sprite
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.drawImage(
-      sprite,
-      frame * FRAME_W, dir * FRAME_H,
-      FRAME_W, FRAME_H,
-      x - (FRAME_W * SCALE)/2,
-      y - (FRAME_H * SCALE)/2,
-      FRAME_W * SCALE, FRAME_H * SCALE
+      img,
+      frame*FRAME_W, dir*FRAME_H, FRAME_W, FRAME_H,
+      x-FRAME_W*SCALE/2, y-FRAME_H*SCALE/2,
+      FRAME_W*SCALE, FRAME_H*SCALE
     );
   }
 
-  function loop() {
-    update();
-    draw();
-    requestAnimationFrame(loop);
+  function loop(){
+    update(); draw(); requestAnimationFrame(loop);
   }
   </script>
 </body>
