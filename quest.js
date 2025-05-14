@@ -1,50 +1,48 @@
-// quest.js — dynamic sprite slicing & full-screen walk
+// quest.js — full-screen walk with dynamic 4×4 slicing of your 1334×1997 sheet
 
 document.addEventListener("DOMContentLoaded", () => {
-  // no hero → bounce back
+  // 1) Hero check
   const hero = sessionStorage.getItem("selectedHero");
   if (!hero) {
     location.replace("index.html");
     return;
   }
 
-  // DOM refs
+  // 2) DOM refs
   const msg    = document.getElementById("message");
   const canvas = document.getElementById("gameCanvas");
   const ctx    = canvas.getContext("2d");
 
-  // load the sheet
+  // 3) Load sheet
   const sprite = new Image();
   sprite.src = "/sprites/characters/sprite.png";
 
-  // will be set once loaded
+  // 4) Constants for grid
+  const COLS = 4, ROWS = 4, SCALE = 3;
+  const ROW_DOWN  = 0, ROW_UP = 1, ROW_LEFT = 2, ROW_RIGHT = 3;
+
+  // 5) State
   let FRAME_W, FRAME_H;
-  const SCALE = 3;
-
-  // direction rows
-  const ROW_DOWN  = 0;
-  const ROW_UP    = 1;
-  const ROW_LEFT  = 2;
-  const ROW_RIGHT = 3;
-
-  // position + anim state
   let x, y, dir = ROW_DOWN, frame = 0, timer = 0;
   const keys = {};
 
-  // resize canvas + center hero
+  // 6) Resize to viewport
   function resize() {
-    canvas.width  = innerWidth;
-    canvas.height = innerHeight;
-    x = canvas.width / 2;
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    x = canvas.width  / 2;
     y = canvas.height / 2;
   }
   window.addEventListener("resize", resize);
 
-  // once the image is ready, compute frame size and start after 3s
+  // 7) When sheet is ready
   sprite.onload = () => {
-    FRAME_W = sprite.naturalWidth  / 4;   // 4 columns
-    FRAME_H = sprite.naturalHeight / 4;   // 4 rows
+    // compute frame size from actual sheet dimensions
+    FRAME_W = Math.floor(sprite.naturalWidth  / COLS);
+    FRAME_H = Math.floor(sprite.naturalHeight / ROWS);
     resize();
+
+    // show message for 3 s, then start
     setTimeout(() => {
       msg.style.display    = "none";
       canvas.style.display = "block";
@@ -52,62 +50,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   };
 
-  // arrow-key input
+  // 8) Input
   window.addEventListener("keydown", e => {
-    if (e.key.startsWith("Arrow")) {
-      keys[e.key] = true;
-      e.preventDefault();
-    }
+    if (e.key.startsWith("Arrow")) { keys[e.key] = true; e.preventDefault(); }
   });
   window.addEventListener("keyup", e => {
-    if (e.key.startsWith("Arrow")) {
-      delete keys[e.key];
-      e.preventDefault();
-    }
+    if (e.key.startsWith("Arrow")) { delete keys[e.key]; e.preventDefault(); }
   });
 
-  // update hero position + animation
+  // 9) Update position & animation
   function update() {
     const speed = 4;
     let moving = false;
 
     if (keys["ArrowUp"])    { y -= speed; dir = ROW_UP;    moving = true; }
-    else if (keys["ArrowDown"]){ y += speed; dir = ROW_DOWN;  moving = true; }
-    else if (keys["ArrowLeft"]){ x -= speed; dir = ROW_LEFT;  moving = true; }
-    else if (keys["ArrowRight"]){ x += speed; dir = ROW_RIGHT; moving = true; }
+    else if (keys["ArrowDown"])  { y += speed; dir = ROW_DOWN;  moving = true; }
+    else if (keys["ArrowLeft"])  { x -= speed; dir = ROW_LEFT;  moving = true; }
+    else if (keys["ArrowRight"]) { x += speed; dir = ROW_RIGHT; moving = true; }
 
     if (moving) {
       timer++;
-      if (timer > 6) {           // adjust for walk-cycle speed
-        frame = (frame + 1) % 4; // cycle through 4 frames in that row
-        timer = 0;
-      }
+      if (timer > 6) { frame = (frame + 1) % COLS; timer = 0; }
     } else {
       frame = 0;
       timer = 0;
     }
 
-    // clamp so the sprite stays on screen
-    x = Math.max(FRAME_W * SCALE/2, Math.min(canvas.width - FRAME_W * SCALE/2, x));
-    y = Math.max(FRAME_H * SCALE/2, Math.min(canvas.height - FRAME_H * SCALE/2, y));
+    // clamp inside canvas
+    x = Math.max(FRAME_W*SCALE/2, Math.min(canvas.width - FRAME_W*SCALE/2, x));
+    y = Math.max(FRAME_H*SCALE/2, Math.min(canvas.height - FRAME_H*SCALE/2, y));
   }
 
-  // draw the proper sub-image
+  // 10) Draw sprite
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(
       sprite,
-      frame       * FRAME_W,   // sx
-      dir         * FRAME_H,   // sy
-      FRAME_W, FRAME_H,        // sWidth, sHeight
-      x - (FRAME_W*SCALE)/2,   // dx
-      y - (FRAME_H*SCALE)/2,   // dy
-      FRAME_W * SCALE,
-      FRAME_H * SCALE
+      frame * FRAME_W,      // sx
+      dir   * FRAME_H,      // sy
+      FRAME_W, FRAME_H,     // sWidth, sHeight
+      x - (FRAME_W*SCALE)/2,// dx
+      y - (FRAME_H*SCALE)/2,// dy
+      FRAME_W * SCALE, FRAME_H * SCALE
     );
   }
 
-  // game loop
+  // 11) Main loop
   function loop() {
     update();
     draw();
