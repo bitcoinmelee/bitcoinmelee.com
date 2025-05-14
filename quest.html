@@ -1,17 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Your Quest Begins</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-<style>
-  body{ margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
-        background:#000; color:#fff; font-family:'Press Start 2P', monospace;
-        font-size:24px; text-align:center; }
-</style>
+  <meta charset="UTF-8" />
+  <title>Your Quest Begins</title>
+  <style>
+    /* fullscreen message & canvas */
+    body, html { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
+    #message {
+      display:flex; align-items:center; justify-content:center;
+      width:100%; height:100%;
+      color:#fff; font:bold 32px sans-serif; text-transform:uppercase;
+    }
+    #gameCanvas { display:none; background:#445; }
+  </style>
 </head>
 <body>
-  YOUR QUEST BEGINS
+  <div id="message">YOUR QUEST BEGINS</div>
+  <canvas id="gameCanvas" width="640" height="480"></canvas>
+
+  <script>
+  // constants
+  const FRAME_W = 16, FRAME_H = 16, SCALE = 2, FPS=60;
+  const DIR_DOWN=0, DIR_UP=1, DIR_LEFT=2, DIR_RIGHT=3;
+  let canvas = document.getElementById('gameCanvas'),
+      ctx    = canvas.getContext('2d'),
+      sprite = new Image(),
+      keys   = {},
+      x = canvas.width/2, y=canvas.height/2,
+      direction = DIR_DOWN, frameIndex=0, frameTimer=0;
+
+  sprite.src = 'sprite.png';
+
+  // after 3s, hide message & show canvas
+  setTimeout(()=>{
+    document.getElementById('message').style.display='none';
+    canvas.style.display = 'block';
+    requestAnimationFrame(loop);
+  }, 3000);
+
+  // input
+  window.addEventListener('keydown', e=>{
+    if (e.key.startsWith('Arrow')) { keys[e.key]=true; e.preventDefault(); }
+  });
+  window.addEventListener('keyup', e=>{
+    if (e.key.startsWith('Arrow')) { delete keys[e.key]; e.preventDefault(); }
+  });
+
+  function update() {
+    const speed = 2;
+    let moving = false;
+    if (keys['ArrowUp'])    { y -= speed; direction=DIR_UP;    moving=true; }
+    else if (keys['ArrowDown'])  { y += speed; direction=DIR_DOWN;  moving=true; }
+    else if (keys['ArrowLeft'])  { x -= speed; direction=DIR_LEFT;  moving=true; }
+    else if (keys['ArrowRight']) { x += speed; direction=DIR_RIGHT; moving=true; }
+    // frame animation
+    if (moving) {
+      frameTimer++;
+      if (frameTimer > FPS/8) { // ~8 FPS animation
+        frameIndex = (frameIndex+1) % 4;
+        frameTimer = 0;
+      }
+    } else {
+      frameIndex = 0;
+      frameTimer = 0;
+    }
+    // clamp to canvas
+    x = Math.max(0, Math.min(canvas.width, x));
+    y = Math.max(0, Math.min(canvas.height, y));
+  }
+
+  function draw() {
+    // clear
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // draw sprite
+    ctx.drawImage(
+      sprite,
+      frameIndex*FRAME_W, direction*FRAME_H,
+      FRAME_W, FRAME_H,
+      x - (FRAME_W*SCALE)/2, y - (FRAME_H*SCALE)/2,
+      FRAME_W*SCALE, FRAME_H*SCALE
+    );
+  }
+
+  function loop(){
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+  </script>
 </body>
 </html>
