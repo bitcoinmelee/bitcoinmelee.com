@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Your Quest Begins</title>
-  <!-- prevent /favicon.ico 404 by using an empty data-URL icon -->
+  <!-- data-URL blank favicon to prevent 404 -->
   <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-
   <style>
     html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
     #message {
@@ -23,7 +22,7 @@
   <div id="message">YOUR QUEST BEGINS</div>
   <canvas id="gameCanvas"></canvas>
 
-  <!-- CSP-friendly external script -->
+  <!-- External, deferred to satisfy CSP -->
   <script src="quest.js" defer></script>
 </body>
 </html>
