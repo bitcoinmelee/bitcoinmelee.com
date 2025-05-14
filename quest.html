@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Your Quest Begins</title>
-  <!-- data-URL blank favicon to prevent 404 -->
+  <!-- CSP: only our own scripts, no inline or eval -->
+  <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src  'self';
+      connect-src 'self';
+      img-src     'self' data:;
+      style-src   'self' 'unsafe-inline';
+      font-src    'self' https://fonts.gstatic.com;
+  ">
+  <!-- prevent /favicon.ico 404 -->
   <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
   <style>
     html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
     #message {
@@ -14,7 +24,8 @@
     }
     #gameCanvas {
       position:absolute; top:0; left:0; display:none;
-      width:100vw; height:100vh; background:#334455; z-index:1;
+      width:100vw; height:100vh; background:#228B22; /* bright green field */
+      z-index:1;
     }
   </style>
 </head>
@@ -22,7 +33,7 @@
   <div id="message">YOUR QUEST BEGINS</div>
   <canvas id="gameCanvas"></canvas>
 
-  <!-- External, deferred to satisfy CSP -->
+  <!-- CSP-safe external script -->
   <script src="quest.js" defer></script>
 </body>
 </html>
