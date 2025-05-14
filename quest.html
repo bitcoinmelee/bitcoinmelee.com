@@ -4,85 +4,113 @@
   <meta charset="UTF-8" />
   <title>Your Quest Begins</title>
   <style>
-    /* fullscreen message & canvas */
-    body, html { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
+    /* full‐screen message & canvas */
+    html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
     #message {
+      position:absolute; top:0; left:0;
+      width:100vw; height:100vh;
       display:flex; align-items:center; justify-content:center;
-      width:100%; height:100%;
-      color:#fff; font:bold 32px sans-serif; text-transform:uppercase;
+      color:#fff; font:32px sans-serif; text-transform:uppercase;
+      z-index:2;
     }
-    #gameCanvas { display:none; background:#445; }
+    #gameCanvas {
+      position:absolute; top:0; left:0;
+      display:none; /* shown after message */
+      background:#334455;
+      z-index:1;
+    }
   </style>
 </head>
 <body>
   <div id="message">YOUR QUEST BEGINS</div>
-  <canvas id="gameCanvas" width="640" height="480"></canvas>
+  <canvas id="gameCanvas"></canvas>
 
   <script>
   // constants
-  const FRAME_W = 16, FRAME_H = 16, SCALE = 2, FPS=60;
-  const DIR_DOWN=0, DIR_UP=1, DIR_LEFT=2, DIR_RIGHT=3;
-  let canvas = document.getElementById('gameCanvas'),
-      ctx    = canvas.getContext('2d'),
-      sprite = new Image(),
-      keys   = {},
-      x = canvas.width/2, y=canvas.height/2,
-      direction = DIR_DOWN, frameIndex=0, frameTimer=0;
+  const FRAME_W = 16, FRAME_H = 16, SCALE = 3;
+  const ROW_DOWN = 0, ROW_UP = 1, ROW_LEFT = 2, ROW_RIGHT = 3;
 
-  sprite.src = 'sprite.png';
+  // DOM refs
+  const msg = document.getElementById('message');
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
 
-  // after 3s, hide message & show canvas
-  setTimeout(()=>{
-    document.getElementById('message').style.display='none';
-    canvas.style.display = 'block';
-    requestAnimationFrame(loop);
-  }, 3000);
+  // sprite setup (updated path)
+  const sprite = new Image();
+  sprite.src = 'sprites/characters/sprite.png';
+
+  // state
+  let x, y, dir = ROW_DOWN, frame = 0, frameTimer = 0;
+  const keys = {};
+
+  // resize to fill window
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    x = canvas.width / 2;
+    y = canvas.height / 2;
+  }
+  window.addEventListener('resize', resize);
+
+  // start after sprite loaded + 3s
+  sprite.onload = () => {
+    resize();
+    setTimeout(() => {
+      msg.style.display = 'none';
+      canvas.style.display = 'block';
+      requestAnimationFrame(loop);
+    }, 3000);
+  };
 
   // input
-  window.addEventListener('keydown', e=>{
-    if (e.key.startsWith('Arrow')) { keys[e.key]=true; e.preventDefault(); }
+  window.addEventListener('keydown', e => {
+    if (e.key.startsWith('Arrow')) { keys[e.key] = true; e.preventDefault(); }
   });
-  window.addEventListener('keyup', e=>{
+  window.addEventListener('keyup', e => {
     if (e.key.startsWith('Arrow')) { delete keys[e.key]; e.preventDefault(); }
   });
 
+  // update position + animation
   function update() {
-    const speed = 2;
+    const speed = 4;
     let moving = false;
-    if (keys['ArrowUp'])    { y -= speed; direction=DIR_UP;    moving=true; }
-    else if (keys['ArrowDown'])  { y += speed; direction=DIR_DOWN;  moving=true; }
-    else if (keys['ArrowLeft'])  { x -= speed; direction=DIR_LEFT;  moving=true; }
-    else if (keys['ArrowRight']) { x += speed; direction=DIR_RIGHT; moving=true; }
-    // frame animation
+
+    if (keys['ArrowUp'])       { y -= speed; dir = ROW_UP;    moving = true; }
+    else if (keys['ArrowDown']) { y += speed; dir = ROW_DOWN;  moving = true; }
+    else if (keys['ArrowLeft']) { x -= speed; dir = ROW_LEFT;  moving = true; }
+    else if (keys['ArrowRight']){ x += speed; dir = ROW_RIGHT; moving = true; }
+
     if (moving) {
       frameTimer++;
-      if (frameTimer > FPS/8) { // ~8 FPS animation
-        frameIndex = (frameIndex+1) % 4;
+      if (frameTimer > 6) {
+        frame = (frame + 1) % 4;
         frameTimer = 0;
       }
     } else {
-      frameIndex = 0;
+      frame = 0;
       frameTimer = 0;
     }
-    // clamp to canvas
-    x = Math.max(0, Math.min(canvas.width, x));
-    y = Math.max(0, Math.min(canvas.height, y));
+
+    // clamp within screen
+    x = Math.max(FRAME_W * SCALE/2, Math.min(canvas.width - FRAME_W*SCALE/2, x));
+    y = Math.max(FRAME_H * SCALE/2, Math.min(canvas.height - FRAME_H*SCALE/2, y));
   }
 
+  // draw scene + sprite
   function draw() {
-    // clear
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    // draw sprite
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     ctx.drawImage(
       sprite,
-      frameIndex*FRAME_W, direction*FRAME_H,
+      frame * FRAME_W, dir * FRAME_H,
       FRAME_W, FRAME_H,
-      x - (FRAME_W*SCALE)/2, y - (FRAME_H*SCALE)/2,
-      FRAME_W*SCALE, FRAME_H*SCALE
+      x - (FRAME_W * SCALE)/2,
+      y - (FRAME_H * SCALE)/2,
+      FRAME_W * SCALE, FRAME_H * SCALE
     );
   }
 
-  function loop(){
+  function loop() {
     update();
     draw();
     requestAnimationFrame(loop);
