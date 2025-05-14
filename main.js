@@ -75,7 +75,14 @@ function fillDropdown(list){
   $("#picker").classList.remove("hidden");
 }
 
-$("#continue").addEventListener("click",()=>{
-  const hero=$("#heroSel").value;
-  window.location.href=`quest.html?hero=${encodeURIComponent(hero)}`;
-});
+   /* Continue button → quest page */
+-  $("#continue").addEventListener("click", () => {
+-    const hero = $("#heroSel").value;
+-    window.location.href = `quest.html?hero=${encodeURIComponent(hero)}`;
+-  });
++  $("#continue").addEventListener("click", () => {
++    // store selection in sessionStorage instead of URL
++    const hero = $("#heroSel").value;
++    sessionStorage.setItem("selectedHero", hero);
++    window.location.href = "quest.html";
++  });

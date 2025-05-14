@@ -26,6 +26,14 @@
   <canvas id="gameCanvas"></canvas>
 
   <script>
+  // immediately grab the hero name (or bail back)
+  const selectedHero = sessionStorage.getItem("selectedHero");
+  if (!selectedHero) {
+    // no hero stored → send them back to pick one
+    window.location.href = "index.html";
+    throw new Error("No hero selected");
+  }
+  
   // constants
   const FRAME_W = 16, FRAME_H = 16, SCALE = 3;
   const ROW_DOWN = 0, ROW_UP = 1, ROW_LEFT = 2, ROW_RIGHT = 3;
