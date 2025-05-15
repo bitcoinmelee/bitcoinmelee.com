@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
   infoDiv.textContent = `${heroName} explores the realm — Use ←↑→↓ or WASD to move`;
 
   // World size
-  const WORLD_W = 2000, WORLD_H = 2000;
+  const WORLD_W = 200000, WORLD_H = 200000;
 
   // Player state (w/h set after sprite loads)
   const player = { x: WORLD_W/2, y: WORLD_H/2, w: 0, h: 0, speed: 4, dx: 0, dy: 0 };
