@@ -1,6 +1,7 @@
-// quest.js  –  boulder (5×6) & tree (5×5) sprites + transparent character
+// quest.js  –  solid light-green world with sprite armies
+//             boulder (5×6) & tree (5×5) sheets + transparent character
 window.addEventListener("DOMContentLoaded", () => {
-  // ─── DOM & CANVAS ───────────────────────────────────────────────────────────
+  // ─── DOM & CANVAS SETUP ───────────────────────────────────────────────────
   const infoDiv = document.getElementById("info");
   const canvas  = document.getElementById("gameCanvas");
   if (!infoDiv || !canvas) {
@@ -15,25 +16,28 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", resize);
   resize();
 
-  // ─── SHOW HERO NAME ──────────────────────────────────────────────────────────
+  // ─── SHOW HERO NAME ───────────────────────────────────────────────────────
   const params   = new URLSearchParams(location.search);
   const heroName = params.get("hero") || "Adventurer";
   infoDiv.textContent = `${heroName} explores the realm — Use ←↑→↓ or WASD to move`;
 
-  // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-  const WORLD_W    = 2000, WORLD_H = 2000;
-  const CHAR_ROWS  = 4, CHAR_COLS = 4, CHAR_SCALE = 0.1;
-  const FRAME_RATE = 8;              // fps
+  // ─── CONSTANTS & STATE ─────────────────────────────────────────────────────
+  const WORLD_W     = 2000, WORLD_H = 2000;
+  const CHAR_ROWS   = 4,    CHAR_COLS = 4,    CHAR_SCALE = 0.1;
+  const FRAME_RATE  = 8;    // fps
   const GRASS_COLOR = "#90EE90";
 
   const BOULDER_COLS = 5, BOULDER_ROWS = 6;
   const TREE_COLS    = 5, TREE_ROWS    = 5;
 
-  // ─── STATE ───────────────────────────────────────────────────────────────────
   let charFrameW, charFrameH;
-  let spriteCanvas;
-  let envCellW, envCellH, treeCellW, treeCellH;
+  let spriteCanvas;         // offscreen for character
+  let boulderCanvas;        // offscreen for boulders
+  let treeCanvas;           // offscreen for trees
+  let envCellW, envCellH;
+  let treeCellW, treeCellH;
   let obstacles = [];
+
   let frameIndex = 0, frameTimer = 0, lastTime = 0, lastDir = 0;
 
   const keys = {};
@@ -43,14 +47,13 @@ window.addEventListener("DOMContentLoaded", () => {
   const player = {
     x: WORLD_W/2,
     y: WORLD_H/2,
-    w: 0,
-    h: 0,
+    w: 0, h: 0,
     speed: 4,
-    dx: 0,
-    dy: 0
+    dx: 0, dy: 0
   };
 
-  function rectsOverlap(a,b) {
+  // ─── HELPERS ───────────────────────────────────────────────────────────────
+  function rectsOverlap(a, b) {
     return !(
       a.x + a.w <= b.x ||
       a.x >= b.x + b.w ||
@@ -58,7 +61,6 @@ window.addEventListener("DOMContentLoaded", () => {
       a.y >= b.y + b.h
     );
   }
-
   function genObstacles(count) {
     const obs = [];
     while (obs.length < count) {
@@ -66,22 +68,26 @@ window.addEventListener("DOMContentLoaded", () => {
       const h = 50 + Math.random()*150;
       const x = Math.random()*(WORLD_W - w);
       const y = Math.random()*(WORLD_H - h);
-      const rect = { x,y,w,h };
+      const rect = { x, y, w, h };
       if (!rectsOverlap(rect, player)) {
-        rect.type = Math.random() < 0.5 ? "boulder" : "tree";
-        rect.spriteIndex = Math.floor(Math.random() * (rect.type === "boulder" ? BOULDER_COLS*BOULDER_ROWS : TREE_COLS*TREE_ROWS));
+        rect.type        = Math.random() < 0.5 ? "boulder" : "tree";
+        const maxIndex   = rect.type==="boulder"
+                          ? BOULDER_COLS*BOULDER_ROWS
+                          : TREE_COLS*TREE_ROWS;
+        rect.spriteIndex = Math.floor(Math.random() * maxIndex);
         obs.push(rect);
       }
     }
     return obs;
   }
 
+  // ─── MAIN LOOP ─────────────────────────────────────────────────────────────
   function loop(ts) {
     if (!lastTime) lastTime = ts;
     const delta = ts - lastTime;
     lastTime = ts;
 
-    // movement & facing
+    // move & facing
     let moving = false;
     if (keys.ArrowLeft||keys.a)  { player.dx=-player.speed; lastDir=2; moving=true; }
     else if (keys.ArrowRight||keys.d){ player.dx=player.speed; lastDir=3; moving=true; }
@@ -117,29 +123,31 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // ground
     ctx.fillStyle = GRASS_COLOR;
-    ctx.fillRect(0,0,WORLD_W,WORLD_H);
+    ctx.fillRect(0, 0, WORLD_W, WORLD_H);
 
-    // draw obstacles
+    // obstacles via sprites at native cell size
     obstacles.forEach(o => {
       const idx = o.spriteIndex;
-      const col = idx % (o.type==="boulder" ? BOULDER_COLS : TREE_COLS);
-      const row = Math.floor(idx / (o.type==="boulder" ? BOULDER_COLS : TREE_COLS));
       if (o.type === "boulder") {
+        const col = idx % BOULDER_COLS;
+        const row = Math.floor(idx / BOULDER_COLS);
         ctx.drawImage(
-          boulderSheet,
+          boulderCanvas,
           col * envCellW, row * envCellH, envCellW, envCellH,
-          o.x, o.y, o.w, o.h
+          o.x, o.y, envCellW, envCellH
         );
       } else {
+        const col = idx % TREE_COLS;
+        const row = Math.floor(idx / TREE_COLS);
         ctx.drawImage(
-          treeSheet,
+          treeCanvas,
           col * treeCellW, row * treeCellH, treeCellW, treeCellH,
-          o.x, o.y, o.w, o.h
+          o.x, o.y, treeCellW, treeCellH
         );
       }
     });
 
-    // draw character
+    // character
     if (spriteCanvas) {
       ctx.drawImage(
         spriteCanvas,
@@ -155,59 +163,81 @@ window.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(loop);
   }
 
-  // ─── LOAD & INITIALIZE SHEETS ─────────────────────────────────────────────
+  // ─── LOADING & INITIALIZATION ─────────────────────────────────────────────
   let loadCount = 0;
-  function onImgLoad() {
-    if (++loadCount === 3) initialize();
-  }
+  function onImgLoad() { if (++loadCount === 3) initialize(); }
 
   // character sheet
   const sheet = new Image();
-  sheet.src = "/sprites/characters/sprite.png";
+  sheet.src    = "/sprites/characters/sprite.png";
   sheet.onload = onImgLoad;
 
   // boulder sheet
   const boulderSheet = new Image();
-  boulderSheet.src = "/sprites/environment/boulders.png";
+  boulderSheet.src    = "/sprites/environment/boulders.png";
   boulderSheet.onload = () => {
     envCellW = boulderSheet.width  / BOULDER_COLS;
     envCellH = boulderSheet.height / BOULDER_ROWS;
+    // preprocess to remove white
+    boulderCanvas = document.createElement("canvas");
+    boulderCanvas.width  = boulderSheet.width;
+    boulderCanvas.height = boulderSheet.height;
+    const bc = boulderCanvas.getContext("2d");
+    bc.drawImage(boulderSheet, 0, 0);
+    const bd = bc.getImageData(0, 0, boulderSheet.width, boulderSheet.height).data;
+    const bi = bc.getImageData(0, 0, boulderSheet.width, boulderSheet.height);
+    for (let i = 0; i < bd.length; i += 4) {
+      if (bd[i] > 240 && bd[i+1] > 240 && bd[i+2] > 240) bi.data[i+3] = 0;
+    }
+    bc.putImageData(bi, 0, 0);
     onImgLoad();
   };
 
   // tree sheet
   const treeSheet = new Image();
-  treeSheet.src = "/sprites/environment/trees.png";
+  treeSheet.src    = "/sprites/environment/trees.png";
   treeSheet.onload = () => {
     treeCellW = treeSheet.width  / TREE_COLS;
     treeCellH = treeSheet.height / TREE_ROWS;
+    // preprocess to remove white
+    treeCanvas = document.createElement("canvas");
+    treeCanvas.width  = treeSheet.width;
+    treeCanvas.height = treeSheet.height;
+    const tc = treeCanvas.getContext("2d");
+    tc.drawImage(treeSheet, 0, 0);
+    const td = tc.getImageData(0, 0, treeSheet.width, treeSheet.height).data;
+    const ti = tc.getImageData(0, 0, treeSheet.width, treeSheet.height);
+    for (let i = 0; i < td.length; i += 4) {
+      if (td[i] > 240 && td[i+1] > 240 && td[i+2] > 240) ti.data[i+3] = 0;
+    }
+    tc.putImageData(ti, 0, 0);
     onImgLoad();
   };
 
   function initialize() {
-    // preprocess character transparency
+    // preprocess character sheet
     spriteCanvas = document.createElement("canvas");
     spriteCanvas.width  = sheet.width;
     spriteCanvas.height = sheet.height;
     const sc = spriteCanvas.getContext("2d");
     sc.drawImage(sheet, 0, 0);
-    const imgData = sc.getImageData(0, 0, sheet.width, sheet.height);
-    const d = imgData.data;
-    for (let i = 0; i < d.length; i += 4) {
-      if (d[i] > 240 && d[i+1] > 240 && d[i+2] > 240) d[i+3] = 0;
+    const di = sc.getImageData(0, 0, sheet.width, sheet.height);
+    const dd = di.data;
+    for (let i = 0; i < dd.length; i += 4) {
+      if (dd[i] > 240 && dd[i+1] > 240 && dd[i+2] > 240) dd[i+3] = 0;
     }
-    sc.putImageData(imgData, 0, 0);
+    sc.putImageData(di, 0, 0);
 
-    // compute char frames & player size
+    // compute character frame dims & player size
     charFrameW = sheet.width  / CHAR_COLS;
     charFrameH = sheet.height / CHAR_ROWS;
     player.w   = charFrameW * CHAR_SCALE;
     player.h   = charFrameH * CHAR_SCALE;
 
-    // spawn obstacles
+    // generate obstacles
     obstacles = genObstacles(50);
 
-    // kick off loop
+    // start animation
     requestAnimationFrame(loop);
   }
 });
