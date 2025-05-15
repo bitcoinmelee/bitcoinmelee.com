@@ -1,6 +1,5 @@
-// quest.js  –  grassland + boulders/trees + transparent sprite (2000×2000 world)
+// quest.js  –  solid light-green ground + boulders/trees + transparent sprite
 window.addEventListener("DOMContentLoaded", () => {
-  // ─── DOM & CANVAS ───
   const infoDiv = document.getElementById("info");
   const canvas  = document.getElementById("gameCanvas");
   if (!infoDiv || !canvas) {
@@ -8,6 +7,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
   const ctx = canvas.getContext("2d");
+
   function resize() {
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -15,29 +15,25 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", resize);
   resize();
 
-  // ─── SHOW HERO NAME ───
+  // Show hero name
   const params   = new URLSearchParams(location.search);
   const heroName = params.get("hero") || "Adventurer";
   infoDiv.textContent = `${heroName} explores the realm — Use ←↑→↓ or WASD to move`;
 
-  // ─── CONSTANTS ───
+  // Constants
   const WORLD_W    = 2000;
   const WORLD_H    = 2000;
   const ROWS       = 4;
   const COLS       = 4;
-  const SCALE      = 0.1;   // scale sprite to 10%
-  const FRAME_RATE = 8;     // fps
+  const SCALE      = 0.1;
+  const FRAME_RATE = 8;
 
-  // ─── STATE ───
-  let frameW, frameH;       // size of one sprite frame
-  let spriteCanvas;         // offscreen processed sprite
-  let grassPattern;         // repeated grass tile
-  let obstacles = [];       // array of {x,y,w,h,type}
-  let frameIndex = 0;
-  let frameTimer = 0;
-  let lastTime   = 0;
-  let lastDir    = 0;       // 0=down,1=up,2=left,3=right
-
+  // State
+  let frameW, frameH;
+  let spriteCanvas;
+  let grassColor = "#90EE90";  // solid light green
+  let obstacles = [];
+  let frameIndex = 0, frameTimer = 0, lastTime = 0, lastDir = 0;
   const keys = {};
   window.addEventListener("keydown", e => keys[e.key] = true);
   window.addEventListener("keyup",   e => keys[e.key] = false);
@@ -52,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
     dy: 0
   };
 
-  // ─── HELPERS ───
+  // Helpers
   function rectsOverlap(a, b) {
     return !(
       a.x + a.w <= b.x ||
@@ -78,7 +74,7 @@ window.addEventListener("DOMContentLoaded", () => {
     return obs;
   }
 
-  // ─── MAIN LOOP ───
+  // Main loop
   function loop(ts) {
     if (!lastTime) lastTime = ts;
     const delta = ts - lastTime;
@@ -93,7 +89,7 @@ window.addEventListener("DOMContentLoaded", () => {
     else if (keys.ArrowDown||keys.s){ player.dy = player.speed; lastDir = 0; moving = true; }
     else player.dy = 0;
 
-    // Animate frames
+    // Animate
     if (moving) {
       frameTimer += delta;
       if (frameTimer >= 1000/FRAME_RATE) {
@@ -105,25 +101,24 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     // Collision + movement X
-    let next = { ...player, x: player.x + player.dx };
+    let next = {...player, x: player.x + player.dx};
     if (!obstacles.some(o => rectsOverlap(next, o))) player.x = next.x;
-
     // Collision + movement Y
-    next = { ...player, y: player.y + player.dy };
+    next = {...player, y: player.y + player.dy};
     if (!obstacles.some(o => rectsOverlap(next, o))) player.y = next.y;
 
-    // Draw scene
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Draw
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     const camX = player.x - canvas.width/2 + player.w/2;
     const camY = player.y - canvas.height/2 + player.h/2;
     ctx.save();
     ctx.translate(-camX, -camY);
 
-    // Grass background
-    ctx.fillStyle = grassPattern;
+    // Solid ground
+    ctx.fillStyle = grassColor;
     ctx.fillRect(0, 0, WORLD_W, WORLD_H);
 
-    // Draw obstacles
+    // Obstacles
     obstacles.forEach(o => {
       if (o.type === "boulder") {
         ctx.fillStyle   = "#888";
@@ -134,7 +129,7 @@ window.addEventListener("DOMContentLoaded", () => {
         ctx.fill();
         ctx.stroke();
       } else {
-        const tw = o.w * 0.2, th = o.h * 0.5;
+        const tw = o.w*0.2, th = o.h*0.5;
         const tx = o.x + o.w/2 - tw/2, ty = o.y + o.h - th;
         ctx.fillStyle = "#8B5A2B";
         ctx.fillRect(tx, ty, tw, th);
@@ -142,13 +137,13 @@ window.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle   = "#228822";
         ctx.strokeStyle = "#115511";
         ctx.lineWidth   = 2;
-        ctx.arc(o.x + o.w/2, ty, o.w * 0.5, 0, 2*Math.PI);
+        ctx.arc(o.x + o.w/2, ty, o.w*0.5, 0, 2*Math.PI);
         ctx.fill();
         ctx.stroke();
       }
     });
 
-    // Draw transparent sprite
+    // Draw sprite
     if (spriteCanvas && frameW && frameH) {
       ctx.drawImage(
         spriteCanvas,
@@ -164,18 +159,16 @@ window.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(loop);
   }
 
-  // ─── LOAD & PREPROCESS SPRITE ───
+  // Load & preprocess sprite
   const sheet = new Image();
   sheet.src = "/sprites/characters/sprite.png";
   sheet.onload = () => {
-    // Offscreen canvas
+    // Offscreen canvas for transparency
     spriteCanvas = document.createElement("canvas");
     spriteCanvas.width  = sheet.width;
     spriteCanvas.height = sheet.height;
     const sc = spriteCanvas.getContext("2d");
     sc.drawImage(sheet, 0, 0);
-
-    // Remove white pixels
     const imgData = sc.getImageData(0, 0, sheet.width, sheet.height);
     const d = imgData.data;
     for (let i = 0; i < d.length; i += 4) {
@@ -185,24 +178,11 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     sc.putImageData(imgData, 0, 0);
 
-    // Frame dimensions & player size
-    frameW = sheet.width  / COLS;
+    // Frame dims & player size
+    frameW = sheet.width / COLS;
     frameH = sheet.height / ROWS;
     player.w = frameW * SCALE;
     player.h = frameH * SCALE;
-
-    // Build grass pattern
-    const grassTile = document.createElement("canvas");
-    grassTile.width = grassTile.height = 100;
-    const g = grassTile.getContext("2d");
-    g.fillStyle = "#2e8b57";
-    g.fillRect(0, 0, 100, 100);
-    for (let i = 0; i < 200; i++) {
-      const x = Math.random()*100, y = Math.random()*100, r = 1 + Math.random()*2;
-      g.fillStyle = (Math.random()<0.5 ? "#3cb371":"#66cdaa");
-      g.beginPath(); g.arc(x, y, r, 0, 2*Math.PI); g.fill();
-    }
-    grassPattern = ctx.createPattern(grassTile, "repeat");
 
     // Generate obstacles
     obstacles = genObstacles(50);
@@ -215,7 +195,6 @@ window.addEventListener("DOMContentLoaded", () => {
     console.error("Failed to load sprite:", sheet.src);
     player.w = player.h = 32;
     obstacles = genObstacles(50);
-    grassPattern = "#2e8b57"; // fallback
     requestAnimationFrame(loop);
   };
 });
