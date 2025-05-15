@@ -1,136 +1,106 @@
-// quest.js — green field + dynamic 4×4 sprite walk
+// quest.js  –  walking demo with heroName from URL
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 1) Hero check
-  const hero = sessionStorage.getItem("selectedHero");
-  if (!hero) {
-    location.replace("index.html");
-    return;
-  }
-
-  // 2) DOM refs
-  const msg    = document.getElementById("message");
+;(function(){
   const canvas = document.getElementById("gameCanvas");
   const ctx    = canvas.getContext("2d");
 
-  // 3) Load sprite sheet
-  const rawSprite = new Image();
-  rawSprite.src = "/sprites/characters/sprite.png";
-
-  // 4) Grid + scale
-  const COLS = 4, ROWS = 4;
-  const SCALE = 0.1;           // 10× smaller
-  const ROW_DOWN  = 0, ROW_UP = 1, ROW_LEFT = 2, ROW_RIGHT = 3;
-
-  // 5) Variables to be set on load
-  let FRAME_W, FRAME_H, sheetCanvas, sheetCtx;
-
-  // 6) Hero state
-  let x, y, dir = ROW_DOWN, frame = 0, timer = 0;
-  const keys = {};
-
-  // 7) Resize
-  function resize() {
+  // resize
+  function resize(){
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
-    x = canvas.width  / 2;
-    y = canvas.height / 2;
   }
   window.addEventListener("resize", resize);
+  resize();
 
-  // 8) Process sprite sheet when loaded
-  rawSprite.onload = () => {
-    // offscreen canvas to filter transparency
-    sheetCanvas = document.createElement("canvas");
-    sheetCanvas.width  = rawSprite.naturalWidth;
-    sheetCanvas.height = rawSprite.naturalHeight;
-    sheetCtx = sheetCanvas.getContext("2d");
+  // read hero name from ?hero=…
+  const params   = new URLSearchParams(location.search);
+  const heroName = params.get("hero") || "Adventurer";
+  document.getElementById("info").textContent =
+    `${heroName} explores the realm — Use ←↑→↓ or WASD to move`;
 
-    sheetCtx.drawImage(rawSprite, 0, 0);
-    const imgData = sheetCtx.getImageData(0, 0, sheetCanvas.width, sheetCanvas.height);
-    const data    = imgData.data;
+  // world dimensions
+  const WORLD_W = 2000, WORLD_H = 2000;
 
-    // make near-white pixels transparent
-    for (let i = 0; i < data.length; i += 4) {
-      if (data[i] >= 250 && data[i+1] >= 250 && data[i+2] >= 250) {
-        data[i+3] = 0;
-      }
-    }
-    sheetCtx.putImageData(imgData, 0, 0);
-
-    // compute frame size
-    FRAME_W = Math.floor(sheetCanvas.width  / COLS);
-    FRAME_H = Math.floor(sheetCanvas.height / ROWS);
-
-    // start after 3s
-    resize();
-    setTimeout(() => {
-      msg.style.display    = "none";
-      canvas.style.display = "block";
-      requestAnimationFrame(loop);
-    }, 3000);
+  // player state
+  const player = {
+    x: WORLD_W/2, y: WORLD_H/2,
+    w: 32, h: 32,
+    speed: 4,
+    dx: 0, dy: 0
   };
 
-  // 9) Input
-  window.addEventListener("keydown", e => {
-    if (e.key.startsWith("Arrow")) {
-      keys[e.key] = true; e.preventDefault();
-    }
-  });
-  window.addEventListener("keyup", e => {
-    if (e.key.startsWith("Arrow")) {
-      delete keys[e.key]; e.preventDefault();
-    }
-  });
-
-  // 10) Update
-  function update() {
-    const speed = 4;
-    let moving = false;
-
-    if (keys["ArrowUp"])    { y -= speed; dir = ROW_UP;    moving = true; }
-    else if (keys["ArrowDown"])  { y += speed; dir = ROW_DOWN;  moving = true; }
-    else if (keys["ArrowLeft"])  { x -= speed; dir = ROW_LEFT;  moving = true; }
-    else if (keys["ArrowRight"]) { x += speed; dir = ROW_RIGHT; moving = true; }
-
-    if (moving) {
-      timer++;
-      if (timer > 6) {
-        frame = (frame + 1) % COLS;
-        timer = 0;
-      }
-    } else {
-      frame = 0;
-      timer = 0;
-    }
-
-    // clamp
-    x = Math.max(FRAME_W*SCALE/2, Math.min(canvas.width - FRAME_W*SCALE/2, x));
-    y = Math.max(FRAME_H*SCALE/2, Math.min(canvas.height - FRAME_H*SCALE/2, y));
+  // random obstacles
+  const obstacles = [];
+  for(let i=0;i<50;i++){
+    const w = 50 + Math.random()*150;
+    const h = 50 + Math.random()*150;
+    const x = Math.random()*(WORLD_W - w);
+    const y = Math.random()*(WORLD_H - h);
+    obstacles.push({ x,y,w,h });
   }
 
-  // 11) Draw (green field comes from CSS background)
-  function draw() {
-    // clear drawing area
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // input tracking
+  const keys = {};
+  window.addEventListener("keydown", e => { keys[e.key] = true; });
+  window.addEventListener("keyup",   e => { keys[e.key] = false; });
 
-    // draw sprite frame
-    ctx.drawImage(
-      sheetCanvas,
-      frame * FRAME_W,    // sx
-      dir   * FRAME_H,    // sy
-      FRAME_W, FRAME_H,   // sw, sh
-      x - (FRAME_W*SCALE)/2,
-      y - (FRAME_H*SCALE)/2,
-      FRAME_W * SCALE,
-      FRAME_H * SCALE
+  // AABB collision
+  function rectsOverlap(a,b){
+    return !(
+      a.x + a.w <= b.x ||
+      a.x >= b.x + b.w ||
+      a.y + a.h <= b.y ||
+      a.y >= b.y + b.h
     );
   }
 
-  // 12) Loop
-  function loop() {
-    update();
-    draw();
+  // main loop
+  function loop(){
+    // update velocity
+    player.dx = (keys.ArrowLeft||keys.a)  ? -player.speed :
+                (keys.ArrowRight||keys.d) ?  player.speed : 0;
+    player.dy = (keys.ArrowUp||keys.w)    ? -player.speed :
+                (keys.ArrowDown||keys.s)  ?  player.speed : 0;
+
+    // try move X
+    let next = { ...player, x: player.x + player.dx };
+    if(!obstacles.some(o=>rectsOverlap(next,o))){
+      player.x = next.x;
+    }
+    // try move Y
+    next = { ...player, y: player.y + player.dy };
+    if(!obstacles.some(o=>rectsOverlap(next,o))){
+      player.y = next.y;
+    }
+
+    // clear screen
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // camera to center on player
+    const camX = player.x - canvas.width/2 + player.w/2;
+    const camY = player.y - canvas.height/2 + player.h/2;
+    ctx.save();
+    ctx.translate(-camX, -camY);
+
+    // draw ground
+    ctx.fillStyle = "#2e2e2e";
+    ctx.fillRect(0,0,WORLD_W,WORLD_H);
+
+    // draw obstacles
+    ctx.fillStyle = "#555";
+    obstacles.forEach(o => {
+      ctx.fillRect(o.x, o.y, o.w, o.h);
+    });
+
+    // draw player
+    ctx.fillStyle = "#ffcc00";
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+
+    ctx.restore();
     requestAnimationFrame(loop);
   }
-});
+
+  // start
+  loop();
+
+})();
