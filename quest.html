@@ -4,35 +4,28 @@
   <meta charset="UTF-8" />
   <title>Your Quest Begins</title>
   <style>
-    /* fullscreen canvas + overlay style */
+    /* full-screen canvas + overlay style */
     html, body {
       margin:0; padding:0; overflow:hidden;
-      background:#000;
-      font-family: sans-serif;
+      background:#000; font-family:sans-serif;
     }
     #info {
-      position: absolute;
-      top: 8px; left: 8px;
-      color: #fff;
-      font-size: 16px;
-      background: rgba(0,0,0,0.6);
-      padding: 6px 12px;
-      border-radius: 4px;
-      white-space: nowrap;
+      position:absolute; top:8px; left:8px;
+      color:#fff; font-size:16px;
+      background:rgba(0,0,0,0.6);
+      padding:6px 12px; border-radius:4px;
+      white-space:nowrap;
     }
     canvas {
-      display: block;
-      background: #444;
+      display:block; background:#444;
     }
   </style>
+  <!-- defer ensures the script runs after the DOM is parsed -->
+  <script src="quest.js" defer></script>
 </head>
 <body>
-
-  <!-- Hero name and instructions -->
+  <!-- This must match the ID used in quest.js -->
   <div id="info">Loading…</div>
   <canvas id="gameCanvas"></canvas>
-
-  <!-- Separate quest logic -->
-  <script src="quest.js"></script>
 </body>
 </html>
