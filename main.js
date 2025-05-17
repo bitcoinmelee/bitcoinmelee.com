@@ -47,8 +47,9 @@ function renderTable(list){
   T.innerHTML=`
     <thead><tr>
       <th>Name</th><th>STR</th><th>DEX</th><th>CON</th>
-      <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>MP</th>
-      <th>Common Ability</th><th>Rare Ability</th>
+      <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>Mana</th>
+      <th>Ability</th><th>Class</th>
+      <th>Faction</th><th>Kingdom</th>
     </tr></thead><tbody></tbody>`;
   const B=T.querySelector("tbody");
   list.forEach(h=>{
