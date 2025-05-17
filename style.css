@@ -1,113 +1,144 @@
-/* ------------------------------------------------------------
-   Global Theme — Montserrat / Bebas Neue, deep‑space colors
-   ------------------------------------------------------------ */
+/* Fantastical & Whimsical Theme for Bitcoin Melee */
 
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:url("images/background.png") no-repeat center center fixed;
-  background-size:cover;
-  font-family:'Montserrat', sans-serif;
-  color:#f0f4ff;
+/* Body & Background */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #2d0032, #000a3d);
+  background-attachment: fixed;
+  font-family: 'Montserrat', sans-serif;
+  color: #f0e6d2;
 }
 
-#crt{
-  border:8px solid #5a4c75;
-  padding:32px 48px;
-  background:rgba(0,0,0,0.85);            /* translucent black */
-  backdrop-filter:blur(2px);
-  max-width:90vw;
-  max-height:90vh;
-  overflow:auto;
-  box-shadow:0 0 20px #302458 inset;
+/* Container (CRT) */
+#crt {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: rgba(18, 4, 25, 0.85);
+  border: 3px solid #d4af37;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  position: relative;
+  overflow: hidden;
 }
 
-.title{
-  font-family:'Bebas Neue', cursive;
-  font-size:48px;
-  letter-spacing:2px;
-  text-align:center;
-  margin:0 0 24px;
-  color:#ffae42;
-  text-shadow:0 0 8px #7a3cff;
+/* Subtle twinkling star field overlay */
+#crt::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: url('https://s3.amazonaws.com/media-p.slid.es/uploads/neil/images/3568/starfield-tile.png') repeat;
+  opacity: 0.1;
+  pointer-events: none;
+  animation: drift 60s linear infinite;
 }
 
-/* ------------------------------------------------------------
-   Form elements
-   ------------------------------------------------------------ */
-
-.label          { display:block; margin-bottom:8px; font-size:15px; font-weight:600; }
-textarea{
-  width:380px; height:60px; resize:none;
-  background:#0d1021; color:#e0e4ff; border:2px solid #5a4c75;
-  padding:10px; font-size:13px; border-radius:4px;
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50%, -50%); }
 }
 
-#go, #continue{
-  margin:16px 6px 8px;
-  padding:10px 28px;
-  background:#38c172;
-  border:none; border-radius:4px;
-  color:#000; font-size:14px; font-weight:600;
-  cursor:pointer; transition:background 0.2s;
+/* Title */
+.title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3.5rem;
+  text-align: center;
+  letter-spacing: 0.3em;
+  color: #ffd700;
+  text-shadow:
+    0 0 8px #ffd700,
+    0 0 16px #ff69b4,
+    0 0 24px #8a2be2;
+  margin-bottom: 1rem;
 }
-#go:hover, #continue:hover{ background:#49d283; }
-#continue:disabled{ background:#4d5c6b; cursor:not-allowed; }
 
-.hidden{ display:none; }
-.blink { animation:blink 1s steps(1) infinite; }
-@keyframes blink{ 50%{ opacity:0; } }
-
-/* ------------------------------------------------------------
-   Roster table
-   ------------------------------------------------------------ */
-
-#roster          { margin-top:24px; overflow-x:auto; }
-.hero-table{
-  border-collapse:collapse;
-  width:100%;
-  font-size:12px;
-  color:#f0f4ff;
-  border:2px solid #5a4c75;
-  background:#0d1021;
-  border-radius:6px;
+/* Labels & Text */
+.label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #e0cfa8;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
-.hero-table th,
-.hero-table td{
-  border:1px solid #5a4c75;
-  padding:6px 10px;
-  text-align:center;
-  white-space:nowrap;
-}
-.hero-table th{
-  background:#26264d;
-  color:#ffae42;
-  font-weight:600;
-}
-.hero-table tr:nth-child(even){ background:#131634; }
 
-/* ------------------------------------------------------------
-   Picker
-   ------------------------------------------------------------ */
-
-#picker          { margin-top:24px; text-align:center; }
-#picker label    { font-size:14px; font-weight:600; margin-right:8px; }
-
-#heroSel{
-  background:#0d1021;
-  color:#e0e4ff;
-  border:2px solid #5a4c75;
-  font-family:'Montserrat', sans-serif;
-  font-size:13px;
-  padding:6px;
-  min-width:220px;
-  border-radius:4px;
-  cursor:pointer;
+/* Parchment-style textarea */
+#xpub {
+  width: 100%;
+  height: 6rem;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  background: #fbf1d3;
+  border: 2px solid #c49e4e;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  resize: vertical;
 }
-#heroSel option{
-  background:#0d1021;
-  color:#e0e4ff;
+
+/* Magical Button */
+button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  background: linear-gradient(45deg, #8a2be2, #ff69b4);
+  border: 2px solid #d4af37;
+  border-radius: 2rem;
+  cursor: pointer;
+  box-shadow:
+    0 0 8px rgba(138,43,226,0.6),
+    0 0 16px rgba(255,105,180,0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 12px rgba(138,43,226,0.8),
+    0 0 24px rgba(255,105,180,0.8);
+}
+
+/* Blinking Message */
+.blink {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 1rem;
+  color: #fffa87;
+  animation: blink 1.5s step-start infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Hidden Sections */
+.hidden {
+  display: none;
+}
+
+/* Roster & Picker Sections */
+#roster, #picker {
+  margin-top: 1.5rem;
+}
+
+#picker label {
+  margin-right: 0.5rem;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #c49e4e;
+  background: #fbf1d3;
+  font-family: inherit;
+}
+
+select:disabled, button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
