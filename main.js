@@ -58,7 +58,8 @@ function renderTable(list){
         <td>${h.Strength}</td><td>${h.Dexterity}</td><td>${h.Constitution}</td>
         <td>${h.Intelligence}</td><td>${h.Wisdom}</td><td>${h.Charisma}</td>
         <td>${h.Health}</td><td>${h.Mana}</td>
-        <td>${h["Common Ability"]}</td><td>${h["Rare Ability"]}</td>
+        <td>${h["Ability"]}</td><td>${h["Class"]}</td>
+        <td>${h["Faction"]}</td><td>${h["Kingdom"]}</td>
       </tr>`);
   });
   R.appendChild(T);
