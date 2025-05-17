@@ -10,7 +10,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("images/background.png") no-repeat center center fixed;
+  background: url("images/background.jpg") no-repeat center center fixed;
   background-size: cover;
   font-family: 'Uncial Antiqua', cursive;
   color: #e8dfc7;
@@ -27,6 +27,7 @@ body {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset,
               0 0 20px rgba(200, 180, 150, 0.6);
   position: relative;
+  text-align: center; /* center contents within container */
 }
 
 /* Scrolling faint rune animations */
@@ -50,7 +51,6 @@ body {
   font-family: 'Cinzel Decorative', serif;
   font-size: 3rem;
   letter-spacing: 4px;
-  text-align: center;
   margin: 0 0 24px;
   color: #d4af37;
   text-shadow:
@@ -64,7 +64,7 @@ body {
 
 .label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-size: 16px;
   font-weight: bold;
   color: #cbb988;
@@ -83,12 +83,13 @@ textarea {
   font-family: 'Uncial Antiqua', cursive;
   border-radius: 6px;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+  display: block;
+  margin: 0 auto 16px auto; /* center textarea */
 }
 
 /* Antique Buttons */
 #go,
 #continue {
-  margin: 16px 6px 8px;
   padding: 12px 32px;
   background: linear-gradient(145deg, #7a5a2b, #50381c);
   border: 2px solid #8c6b3c;
@@ -96,9 +97,11 @@ textarea {
   color: #f4ecd8;
   font-size: 14px;
   font-family: 'Cinzel Decorative', serif;
-  cursor:pointer;
+  cursor: pointer;
   box-shadow: 0 2px 6px rgba(0,0,0,0.8);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  margin: 0 auto 16px auto; /* center buttons */
 }
 #go:hover,
 #continue:hover {
@@ -175,6 +178,8 @@ textarea {
   min-width: 240px;
   border-radius: 6px;
   cursor: pointer;
+  display: inline-block;
+  margin: 0 auto;
 }
 #heroSel option {
   background: rgba(30, 20, 10, 0.9);
