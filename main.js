@@ -1,86 +1,86 @@
-// main.js  – full flow: xpub → table → dropdown → Continue (hero in sessionStorage)
-//-------------------------------------------------------------
+// main.js – full flow: xpub → table → Continue to battle.html (no single-character select)
+window.addEventListener('DOMContentLoaded', () => {
+  // shorthand selector
+  const $ = s => document.querySelector(s);
+  let HEROES = [];
+  const ROSTER_SIZE = 12;
 
-const $ = s => document.querySelector(s);
-let HEROES = [];
-const ROSTER_SIZE = 12;
-
-/* helpers */
-function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase(); }
-function flash(t,b=false){ const m=$("#msg"); m.textContent=t; m.style.color=b?"#ff7272":"#5ef35e"; }
-
-/* 1) Load heroes.json */
-fetch("heroes.json")
-  .then(r=>r.json())
-  .then(d=>{ HEROES = Array.isArray(d)?d:Object.values(d); flash("Paste your xpub!"); })
-  .catch(e=>flash("Could not load heroes.json ➜ "+e,true));
-
-/* 2) Discover Heroes */
-$("#go").addEventListener("click", async ()=>{
-  const xpub = $("#xpub").value.trim();
-  if(!xpub.startsWith("xpub")) return flash("Please paste a valid xpub.", true);
-  if(!HEROES.length)          return flash("Heroes not loaded yet…", true);
-
-  const roster = await pickRoster(xpub, ROSTER_SIZE);
-  renderTable(roster);
-  fillDropdown(roster);
-  flash("Here are your heroes:");
-});
-
-/* Deterministic picker */
-async function pickRoster(xpub,count){
-  const enc=new TextEncoder(), out=[];
-  for(let i=0; out.length<count; i++){
-    const buf   = await crypto.subtle.digest("SHA-256", enc.encode(xpub + i));
-    const num   = new DataView(buf).getUint32(0,false);
-    const hero  = HEROES[num % HEROES.length];
-    if(!out.includes(hero)) out.push(hero);
+  /* status message */
+  function flash(text, isError = false) {
+    const msg = $('#msg');
+    msg.textContent = text;
+    msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
-  return out;
-}
 
-/* Render roster table */
-function renderTable(list){
-  const R=$("#roster"); R.innerHTML="";
-  const T=document.createElement("table");
-  T.className="hero-table";
-  T.innerHTML=`
-    <thead><tr>
-      <th>Name</th><th>STR</th><th>DEX</th><th>CON</th>
-      <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>Mana</th>
-      <th>Ability</th><th>Class</th>
-      <th>Faction</th><th>Kingdom</th>
-    </tr></thead><tbody></tbody>`;
-  const B=T.querySelector("tbody");
-  list.forEach(h=>{
-    B.insertAdjacentHTML("beforeend",`
-      <tr>
-        <td>${cap(h.Name)}</td>
-        <td>${h.Strength}</td><td>${h.Dexterity}</td><td>${h.Constitution}</td>
-        <td>${h.Intelligence}</td><td>${h.Wisdom}</td><td>${h.Charisma}</td>
-        <td>${h.Health}</td><td>${h.Mana}</td>
-        <td>${h["Ability"]}</td><td>${h["Class"]}</td>
-        <td>${h["Faction"]}</td><td>${h["Kingdom"]}</td>
-      </tr>`);
+  /* load heroes list */
+  fetch('heroes.json')
+    .then(r => r.json())
+    .then(data => {
+      HEROES = Array.isArray(data) ? data : Object.values(data);
+      flash('Paste your xpub!');
+    })
+    .catch(err => flash('Could not load heroes.json ➜ ' + err, true));
+
+  /* deterministic roster picker */
+  async function pickRoster(xpub, count) {
+    const encoder = new TextEncoder();
+    const out = [];
+    for (let i = 0; out.length < count; i++) {
+      const hash = await crypto.subtle.digest('SHA-256', encoder.encode(xpub + i));
+      const num  = new DataView(hash).getUint32(0, false);
+      const hero = HEROES[num % HEROES.length];
+      if (!out.includes(hero)) out.push(hero);
+    }
+    return out;
+  }
+
+  /* render roster table */
+  function renderTable(list) {
+    const container = $('#roster');
+    container.innerHTML = '';
+    const table = document.createElement('table');
+    table.className = 'hero-table';
+    table.innerHTML = `
+      <thead><tr>
+        <th>Name</th><th>STR</th><th>DEX</th><th>CON</th>
+        <th>INT</th><th>WIS</th><th>CHA</th><th>HP</th><th>Mana</th>
+        <th>Ability</th><th>Class</th><th>Faction</th><th>Kingdom</th>
+      </tr></thead>
+      <tbody>
+        ${list.map(h => `
+          <tr>
+            <td>${h.Name}</td>
+            <td>${h.Strength}</td><td>${h.Dexterity}</td><td>${h.Constitution}</td>
+            <td>${h.Intelligence}</td><td>${h.Wisdom}</td><td>${h.Charisma}</td>
+            <td>${h.Health}</td><td>${h.Mana}</td>
+            <td>${h.Ability}</td><td>${h.Class}</td>
+            <td>${h.Faction}</td><td>${h.Kingdom}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    `;
+    container.appendChild(table);
+    container.classList.remove('hidden');
+  }
+
+  /* "Discover Heroes" button */
+  $('#go').addEventListener('click', async () => {
+    const xpub = $('#xpub').value.trim();
+    if (!xpub.startsWith('xpub')) return flash('Please paste a valid xpub.', true);
+    if (!HEROES.length) return flash('Heroes not loaded yet…', true);
+
+    const roster = await pickRoster(xpub, ROSTER_SIZE);
+    renderTable(roster);
+    flash('Here are your heroes:');
+
+    // enable Continue button
+    const cont = $('#continue');
+    cont.disabled = false;
+    cont.classList.remove('hidden');
   });
-  R.appendChild(T);
-  R.classList.remove("hidden");
-}
 
-/* Populate <select> & enable Continue */
-function fillDropdown(list){
-  const sel=$("#heroSel"), btn=$("#continue");
-  sel.innerHTML=""; sel.disabled=false;
-  list.forEach(h=>{
-    sel.insertAdjacentHTML("beforeend", `<option>${cap(h.Name)}</option>`);
+  /* Continue → go to battle */
+  $('#continue').addEventListener('click', () => {
+    window.location.href = 'battle.html';
   });
-  btn.disabled=false;
-  $("#picker").classList.remove("hidden");
-}
-
-/* Continue → store hero in sessionStorage and go to quest.html */
-$("#continue").addEventListener("click", ()=>{
-  const hero = $("#heroSel").value;
-  sessionStorage.setItem("selectedHero", hero);
-  window.location.href = "quest.html";
 });
