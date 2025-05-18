@@ -15,9 +15,10 @@
     /* player controls */
     #controls { margin-top: 1rem; border: 1px solid #999; padding: 0.5rem; background: #fafafa; }
     #controls p { margin: 0.2rem 0 0.4rem; }
-    .charCtrl { margin: 0.2rem 0; }
+    .charCtrl { margin: 0.3rem 0; }
     .charCtrl button { margin-left: 0.4rem; }
     .ap { font-weight: bold; }
+    button:disabled { opacity: 0.5; cursor: default; }
   </style>
 </head>
 <body>
@@ -73,6 +74,7 @@ class Character {
   constructor(name, hp, str, con, dex, ability) {
     this.name = name; this.maxHp = hp; this.hp = hp;
     this.str = str; this.con = con; this.dex = dex; this.ability = ability;
+    this.acted = false; // reset each side turn
   }
   isAlive() { return this.hp > 0; }
   applyAbility(allies, foes, target) {
@@ -113,10 +115,9 @@ function log(msg) {
   logDiv.scrollTop = logDiv.scrollHeight;
 }
 function renderInitialTeams() {
-  // populate initial static lists before battle starts
+  // populate lists before battle starts
   const ulU = document.getElementById('userTeam');
   userTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulU.appendChild(li); });
-
   const ulE = document.getElementById('enemyTeam');
   enemyTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulE.appendChild(li); });
 }
@@ -151,6 +152,7 @@ function startBattle() {
 /******* Player Turn ******/
 function startPlayerTurn() {
   if (checkVictory()) return;
+  playerChars.forEach(c => c.acted = false); // reset flags
   playerAP = 5;
   renderPlayerControls();
 }
@@ -163,7 +165,7 @@ function renderPlayerControls() {
   header.innerHTML = `Your turn — <span class="ap">${playerAP}</span> Action Points left`;
   ctrl.appendChild(header);
 
-  playerChars.filter(c => c.isAlive()).forEach((c) => {
+  playerChars.filter(c => c.isAlive() && !c.acted).forEach((c) => {
     const row = document.createElement('div');
     row.className = 'charCtrl';
     const label = document.createElement('span');
@@ -171,20 +173,30 @@ function renderPlayerControls() {
     row.appendChild(label);
 
     const atkBtn = document.createElement('button');
-    atkBtn.textContent = 'Attack';
+    atkBtn.textContent = 'Attack (1AP)';
+    atkBtn.disabled = playerAP < 1;
     atkBtn.addEventListener('click', () => chooseTarget(c, 'attack'));
     row.appendChild(atkBtn);
 
     if (c.ability) {
       const abBtn = document.createElement('button');
-      abBtn.textContent = cap(c.ability);
+      abBtn.textContent = `${cap(c.ability)} (3AP)`;
+      abBtn.disabled = playerAP < 3;
       abBtn.addEventListener('click', () => chooseTarget(c, 'ability'));
       row.appendChild(abBtn);
     }
     ctrl.appendChild(row);
   });
+
+  // If no usable characters or no AP left, end turn automatically
+  if (playerChars.every(c => c.acted || !c.isAlive()) || playerAP === 0) {
+    endPlayerTurn();
+  }
 }
 function chooseTarget(char, action) {
+  const cost = action === 'ability' ? 3 : 1;
+  if (playerAP < cost) return; // should not happen due to disabling
+
   const ctrl = document.getElementById('controls');
   ctrl.innerHTML = '';
   const prompt = document.createElement('p');
@@ -209,7 +221,10 @@ function chooseTarget(char, action) {
   ctrl.appendChild(back);
 }
 function performPlayerAction(char, action, target) {
-  if (!char.isAlive()) { renderPlayerControls(); return; }
+  if (!char.isAlive() || char.acted) { renderPlayerControls(); return; }
+  const cost = action === 'ability' ? 3 : 1;
+  if (playerAP < cost) { renderPlayerControls(); return; }
+
   if (action === 'attack') {
     const { hit, dmg } = char.attack(target);
     log(hit ? `${cap(char.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
@@ -218,14 +233,11 @@ function performPlayerAction(char, action, target) {
     log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`);
     char.applyAbility(playerChars, enemyChars, target);
   }
+  char.acted = true;
   refreshTeamLists();
-  playerAP--;
+  playerAP -= cost;
   if (checkVictory()) return;
-  if (playerAP > 0) {
-    renderPlayerControls();
-  } else {
-    endPlayerTurn();
-  }
+  renderPlayerControls();
 }
 function endPlayerTurn() {
   document.getElementById('controls').classList.add('hidden');
@@ -236,21 +248,24 @@ function endPlayerTurn() {
 /******* AI Turn ******/
 function startAiTurn() {
   if (checkVictory()) return;
+  enemyChars.forEach(c => c.acted = false);
   aiAP = 5;
   log('-- Enemy Turn --');
   aiStep();
 }
 function aiStep() {
-  if (aiAP === 0) {
+  if (aiAP === 0 || enemyChars.every(c => c.acted || !c.isAlive())) {
     playerTurn = true;
     setTimeout(startPlayerTurn, 600);
     return;
   }
-  const livingAI = enemyChars.filter(c => c.isAlive());
-  if (!livingAI.length) { checkVictory(); return; }
-  const actor = livingAI[Math.floor(Math.random() * livingAI.length)];
-  const useAbility = (Math.random() < 0.25) && actor.ability;
+
+  const available = enemyChars.filter(c => c.isAlive() && !c.acted);
+  const actor = available[Math.floor(Math.random() * available.length)];
+  const canUseAbility = actor.ability && aiAP >= 3;
+  const useAbility = canUseAbility && Math.random() < 0.25;
   const action = useAbility ? 'ability' : 'attack';
+  const cost = action === 'ability' ? 3 : 1;
 
   let target;
   if (action === 'attack') {
@@ -265,8 +280,9 @@ function aiStep() {
     log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`);
     actor.applyAbility(enemyChars, playerChars, target);
   }
+  actor.acted = true;
+  aiAP -= cost;
   refreshTeamLists();
-  aiAP--;
   if (checkVictory()) return;
   setTimeout(aiStep, 600);
 }
