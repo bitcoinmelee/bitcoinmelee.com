@@ -27,7 +27,12 @@
   <div id="battleLog"></div>
 
   <script>
-  // load data files
+  // helper to capitalize names
+  function cap(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  }
+
+  // data holders
   let characters = [];
   let abilities  = {};
   Promise.all([
@@ -52,19 +57,18 @@
     const ulUser = document.getElementById('userTeam');
     userTeamData.forEach(h => {
       const li = document.createElement('li');
-      li.textContent = h.Name;
+      li.textContent = cap(h.Name);
       ulUser.appendChild(li);
     });
 
-    // build enemy team from remaining characters
-    const names = new Set(userTeamData.map(h=>h.Name));
-    const pool = characters.filter(c => !names.has(c.Name));
+    const used = new Set(userTeamData.map(h => h.Name));
+    const pool = characters.filter(c => !used.has(c.Name));
     shuffle(pool);
     enemyTeamData = pool.slice(0, userTeamData.length);
     const ulEnemy = document.getElementById('enemyTeam');
     enemyTeamData.forEach(h => {
       const li = document.createElement('li');
-      li.textContent = h.Name;
+      li.textContent = cap(h.Name);
       ulEnemy.appendChild(li);
     });
   }
@@ -77,7 +81,7 @@
     }
   }
 
-  // character class
+  // Character class
   class Character {
     constructor(name, hp, atk, def, spd, ability) {
       this.name = name;
@@ -114,26 +118,32 @@
     ));
   }
 
-  // one-round battle simulation
+  // battle continues until one side is wiped out
   function simulateBattle(teamA, teamB) {
+    // initial buffs
     teamA.forEach(c => c.applySelfBuff());
     teamB.forEach(c => c.applySelfBuff());
 
-    const order = [...teamA, ...teamB]
-      .filter(c => c.isAlive())
-      .sort((a,b) => b.spd - a.spd);
     const log = [];
-    order.forEach(actor => {
-      if (!actor.isAlive()) return;
-      const foes = teamA.includes(actor)
-        ? teamB.filter(e => e.isAlive())
-        : teamA.filter(e => e.isAlive());
-      if (!foes.length) return;
-      const target = foes[Math.floor(Math.random() * foes.length)];
-      const dmg = actor.attack(target);
-      log.push(`${actor.name} attacks ${target.name} for ${dmg} dmg (${target.hp}/${actor.maxHp} HP left)`);
-    });
-
+    let round = 1;
+    while (teamA.some(c=>c.isAlive()) && teamB.some(c=>c.isAlive())) {
+      log.push(`-- Round ${round} --`);
+      // turn order by speed
+      const order = [...teamA, ...teamB]
+        .filter(c => c.isAlive())
+        .sort((a,b) => b.spd - a.spd);
+      order.forEach(actor => {
+        if (!actor.isAlive()) return;
+        const foes = teamA.includes(actor)
+          ? teamB.filter(e=>e.isAlive())
+          : teamA.filter(e=>e.isAlive());
+        if (!foes.length) return;
+        const target = foes[Math.floor(Math.random() * foes.length)];
+        const dmg = actor.attack(target);
+        log.push(`${cap(actor.name)} attacks ${cap(target.name)} for ${dmg} dmg (${target.hp}/${actor.maxHp} HP left)`);
+      });
+      round++;
+    }
     const aliveA = teamA.filter(c=>c.isAlive()).length;
     const aliveB = teamB.filter(c=>c.isAlive()).length;
     if (aliveA > aliveB)      log.push(`You win! (${aliveA} vs ${aliveB})`);
@@ -142,7 +152,7 @@
     return log;
   }
 
-  // start battle on click
+  // hook up UI
   document.getElementById('startBattle').addEventListener('click', () => {
     const logDiv = document.getElementById('battleLog');
     logDiv.innerHTML = '';
