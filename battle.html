@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bitcoin Melee — Battle</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: sans-serif; padding: 1rem; }
+    h2 { margin-top: 1rem; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 0.2rem 0; }
+    #startBattle { padding: 0.5rem 1rem; font-size: 1rem; margin-top: 1rem; }
+    #battleLog p { margin: 0.2rem 0; }
+  </style>
+</head>
+<body>
+  <h1>Battle Arena</h1>
+
+  <div id="teams">
+    <h2>Your Team</h2>
+    <ul id="userTeam"></ul>
+    <h2>Enemy Team</h2>
+    <ul id="enemyTeam"></ul>
+  </div>
+
+  <button id="startBattle">Start Battle</button>
+  <div id="battleLog"></div>
+
+  <script>
+  // load data files
+  let characters = [];
+  let abilities  = {};
+  Promise.all([
+    fetch('characters.json').then(r=>r.json()),
+    fetch('abilities.json').then(r=>r.json())
+  ]).then(([chars, abils]) => {
+    characters = chars;
+    abilities  = abils;
+    initTeams();
+  }).catch(err => console.error('Failed to load data', err));
+
+  let userTeamData = [];
+  let enemyTeamData = [];
+
+  function initTeams() {
+    const stored = sessionStorage.getItem('roster');
+    if (!stored) {
+      console.error('No roster found in sessionStorage');
+      return;
+    }
+    userTeamData = JSON.parse(stored);
+    const ulUser = document.getElementById('userTeam');
+    userTeamData.forEach(h => {
+      const li = document.createElement('li');
+      li.textContent = h.Name;
+      ulUser.appendChild(li);
+    });
+
+    // build enemy team from remaining characters
+    const names = new Set(userTeamData.map(h=>h.Name));
+    const pool = characters.filter(c => !names.has(c.Name));
+    shuffle(pool);
+    enemyTeamData = pool.slice(0, userTeamData.length);
+    const ulEnemy = document.getElementById('enemyTeam');
+    enemyTeamData.forEach(h => {
+      const li = document.createElement('li');
+      li.textContent = h.Name;
+      ulEnemy.appendChild(li);
+    });
+  }
+
+  // Fisher–Yates shuffle
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  // character class
+  class Character {
+    constructor(name, hp, atk, def, spd, ability) {
+      this.name = name;
+      this.maxHp = hp;
+      this.hp    = hp;
+      this.atk   = atk;
+      this.def   = def;
+      this.spd   = spd;
+      this.ability = ability;
+    }
+    isAlive() { return this.hp > 0; }
+    attack(target) {
+      const dmg = Math.max(1, this.atk - target.def);
+      target.hp = Math.max(0, target.hp - dmg);
+      return dmg;
+    }
+    applySelfBuff() {
+      const effect = abilities[this.ability] || {};
+      Object.entries(effect).forEach(([key,val]) => {
+        if (key.endsWith('_Self')) {
+          const stat = key.replace('_Self','');
+          if (stat === 'Health') this.hp += val;
+          else if (stat === 'Strength') this.atk += val;
+          else if (stat === 'Constitution') this.def += val;
+          else if (stat === 'Dexterity') this.spd += val;
+        }
+      });
+    }
+  }
+
+  function getInstances(data) {
+    return data.map(ch => new Character(
+      ch.Name, ch.Health, ch.Strength, ch.Constitution, ch.Dexterity, ch.Ability
+    ));
+  }
+
+  // one-round battle simulation
+  function simulateBattle(teamA, teamB) {
+    teamA.forEach(c => c.applySelfBuff());
+    teamB.forEach(c => c.applySelfBuff());
+
+    const order = [...teamA, ...teamB]
+      .filter(c => c.isAlive())
+      .sort((a,b) => b.spd - a.spd);
+    const log = [];
+    order.forEach(actor => {
+      if (!actor.isAlive()) return;
+      const foes = teamA.includes(actor)
+        ? teamB.filter(e => e.isAlive())
+        : teamA.filter(e => e.isAlive());
+      if (!foes.length) return;
+      const target = foes[Math.floor(Math.random() * foes.length)];
+      const dmg = actor.attack(target);
+      log.push(`${actor.name} attacks ${target.name} for ${dmg} dmg (${target.hp}/${actor.maxHp} HP left)`);
+    });
+
+    const aliveA = teamA.filter(c=>c.isAlive()).length;
+    const aliveB = teamB.filter(c=>c.isAlive()).length;
+    if (aliveA > aliveB)      log.push(`You win! (${aliveA} vs ${aliveB})`);
+    else if (aliveB > aliveA) log.push(`Enemy wins! (${aliveB} vs ${aliveA})`);
+    else                       log.push(`Tie! (${aliveA} vs ${aliveB})`);
+    return log;
+  }
+
+  // start battle on click
+  document.getElementById('startBattle').addEventListener('click', () => {
+    const logDiv = document.getElementById('battleLog');
+    logDiv.innerHTML = '';
+    const userChars  = getInstances(userTeamData);
+    const enemyChars = getInstances(enemyTeamData);
+    const battleLog = simulateBattle(userChars, enemyChars);
+    battleLog.forEach(line => {
+      const p = document.createElement('p'); p.textContent = line;
+      logDiv.appendChild(p);
+    });
+  });
+  </script>
+</body>
+</html>
