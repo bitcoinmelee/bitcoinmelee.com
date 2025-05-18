@@ -10,15 +10,14 @@
     ul { list-style: none; padding: 0; }
     li { margin: 0.2rem 0; }
     #startBattle { padding: 0.5rem 1rem; font-size: 1rem; margin-top: 1rem; }
-    #battleLog { max-height: 400px; overflow-y: auto; margin-top: 1rem; border: 1px solid #ccc; padding: 0.5rem; }
+    #battleLog { max-height: 420px; overflow-y: auto; margin-top: 1rem; border: 1px solid #ccc; padding: 0.5rem; background:#fff; }
     .hidden { display: none; }
     /* player controls */
     #controls { margin-top: 1rem; border: 1px solid #999; padding: 0.5rem; background: #fafafa; }
     #controls p { margin: 0.2rem 0 0.4rem; }
-    .charCtrl { margin: 0.3rem 0; }
+    .charCtrl { margin: 0.2rem 0; }
     .charCtrl button { margin-left: 0.4rem; }
     .ap { font-weight: bold; }
-    button:disabled { opacity: 0.5; cursor: default; }
   </style>
 </head>
 <body>
@@ -38,6 +37,11 @@
   <div id="controls" class="hidden"></div>
 
 <script>
+/***** Constants *****/
+const ABILITY_COST = 3;
+const ATTACK_COST  = 1;
+const AP_PER_TURN  = 5;
+
 /***** Helper Functions *****/
 const cap = s => (typeof s === 'string' && s.length) ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '';
 const d20 = () => Math.floor(Math.random() * 20) + 1;
@@ -71,10 +75,15 @@ function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.fl
 
 /***** Character Class *****/
 class Character {
-  constructor(name, hp, str, con, dex, ability) {
-    this.name = name; this.maxHp = hp; this.hp = hp;
-    this.str = str; this.con = con; this.dex = dex; this.ability = ability;
-    this.acted = false; // reset each side turn
+  constructor(rec) {
+    // supports both snake‑case and spaced field names
+    this.name = rec.Name || rec.name;
+    this.maxHp = rec.Health || rec.health;
+    this.hp    = this.maxHp;
+    this.str   = rec.Strength || rec.strength;
+    this.con   = rec.Constitution || rec.constitution;
+    this.dex   = rec.Dexterity || rec.dexterity;
+    this.ability = rec['Common Ability'] || rec.Ability || rec.ability || '';
   }
   isAlive() { return this.hp > 0; }
   applyAbility(allies, foes, target) {
@@ -83,14 +92,14 @@ class Character {
       const stat = k.split('_')[0];
       if (k.endsWith('_Self')) this._applyStat(stat, v);
       if (k.endsWith('_ally')) allies.forEach(a => a._applyStat(stat, v));
-      if (k.endsWith('_Foe') && target) target._applyStat(stat, v);
+      if (k.endsWith('_Foe')  && target) target._applyStat(stat, v);
     }
   }
   _applyStat(stat, val) {
-    if (stat === 'Health') this.hp = Math.min(this.maxHp, Math.max(0, this.hp + val));
-    if (stat === 'Strength') this.str = Math.max(0, this.str + val);
-    if (stat === 'Constitution') this.con = Math.max(0, this.con + val);
-    if (stat === 'Dexterity') this.dex = Math.max(0, this.dex + val);
+    if (stat === 'Health')      this.hp  = Math.min(this.maxHp, Math.max(0, this.hp + val));
+    if (stat === 'Strength')    this.str = Math.max(0, this.str + val);
+    if (stat === 'Constitution')this.con = Math.max(0, this.con + val);
+    if (stat === 'Dexterity')   this.dex = Math.max(0, this.dex + val);
   }
   attack(t) {
     const atk = d20() + mod(this.str);
@@ -101,12 +110,13 @@ class Character {
     return { hit: true, dmg };
   }
 }
-const inst = d => d.map(c => new Character(c.Name, c.Health, c.Strength, c.Constitution, c.Dexterity, c['Common Ability'] || ''));
+const inst = arr => arr.map(r => new Character(r));
 
 /***** Battle State *****/
 let playerChars = [], enemyChars = [];
 let playerAP = 0, aiAP = 0;
-let playerTurn = true; // true = player's turn, false = AI turn
+let playerTurn = true;
+let usedPlayer = new Set(), usedAI = new Set();
 
 /***** UI Helpers *****/
 const logDiv = document.getElementById('battleLog');
@@ -115,27 +125,28 @@ function log(msg) {
   logDiv.scrollTop = logDiv.scrollHeight;
 }
 function renderInitialTeams() {
-  // populate lists before battle starts
   const ulU = document.getElementById('userTeam');
-  userTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulU.appendChild(li); });
+  userTeamData.forEach(h => ulU.appendChild(liForRec(h)));
   const ulE = document.getElementById('enemyTeam');
-  enemyTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulE.appendChild(li); });
+  enemyTeamData.forEach(h => ulE.appendChild(liForRec(h)));
+}
+function liForRec(r) {
+  const li = document.createElement('li');
+  li.textContent = `${cap(r.Name)} HP:${r.Health} Str:${r.Strength} Con:${r.Constitution} Dex:${r.Dexterity} Ability:${cap(r['Common Ability']||r.Ability||'–')}`;
+  return li;
 }
 function refreshTeamLists() {
   const ulU = document.getElementById('userTeam');
   ulU.innerHTML = '';
-  playerChars.forEach(c => {
-    const li = document.createElement('li');
-    li.textContent = `${cap(c.name)} (${c.hp}/${c.maxHp})${!c.isAlive() ? ' ✝' : ''}`;
-    ulU.appendChild(li);
-  });
+  playerChars.forEach(c => ulU.appendChild(liForChar(c)));
   const ulE = document.getElementById('enemyTeam');
   ulE.innerHTML = '';
-  enemyChars.forEach(c => {
-    const li = document.createElement('li');
-    li.textContent = `${cap(c.name)} (${c.hp}/${c.maxHp})${!c.isAlive() ? ' ✝' : ''}`;
-    ulE.appendChild(li);
-  });
+  enemyChars.forEach(c => ulE.appendChild(liForChar(c)));
+}
+function liForChar(c) {
+  const li = document.createElement('li');
+  li.textContent = `${cap(c.name)} (${c.hp}/${c.maxHp}) Str:${c.str} Con:${c.con} Dex:${c.dex} Ability:${cap(c.ability||'–')}${!c.isAlive()?' ✝':''}`;
+  return li;
 }
 
 /***** Battle Flow *****/
@@ -152,8 +163,9 @@ function startBattle() {
 /******* Player Turn ******/
 function startPlayerTurn() {
   if (checkVictory()) return;
-  playerChars.forEach(c => c.acted = false); // reset flags
-  playerAP = 5;
+  playerAP = AP_PER_TURN;
+  usedPlayer = new Set();
+  log('-- Your Turn --');
   renderPlayerControls();
 }
 function renderPlayerControls() {
@@ -162,40 +174,41 @@ function renderPlayerControls() {
   ctrl.classList.remove('hidden');
 
   const header = document.createElement('p');
-  header.innerHTML = `Your turn — <span class="ap">${playerAP}</span> Action Points left`;
+  header.innerHTML = `Your turn — <span class="ap">${playerAP}</span> AP left`;
   ctrl.appendChild(header);
 
-  playerChars.filter(c => c.isAlive() && !c.acted).forEach((c) => {
+  const candidates = playerChars.filter(c => c.isAlive() && !usedPlayer.has(c));
+  if (!candidates.length || playerAP < ATTACK_COST) {
+    endPlayerTurn();
+    return;
+  }
+
+  candidates.forEach((c) => {
     const row = document.createElement('div');
     row.className = 'charCtrl';
     const label = document.createElement('span');
     label.textContent = cap(c.name);
     row.appendChild(label);
 
-    const atkBtn = document.createElement('button');
-    atkBtn.textContent = 'Attack (1AP)';
-    atkBtn.disabled = playerAP < 1;
-    atkBtn.addEventListener('click', () => chooseTarget(c, 'attack'));
-    row.appendChild(atkBtn);
+    if (playerAP >= ATTACK_COST) {
+      const atkBtn = document.createElement('button');
+      atkBtn.textContent = 'Attack (1)';
+      atkBtn.addEventListener('click', () => chooseTarget(c, 'attack'));
+      row.appendChild(atkBtn);
+    }
 
-    if (c.ability) {
+    if (c.ability && playerAP >= ABILITY_COST) {
       const abBtn = document.createElement('button');
-      abBtn.textContent = `${cap(c.ability)} (3AP)`;
-      abBtn.disabled = playerAP < 3;
+      abBtn.textContent = `${cap(c.ability)} (3)`;
       abBtn.addEventListener('click', () => chooseTarget(c, 'ability'));
       row.appendChild(abBtn);
     }
     ctrl.appendChild(row);
   });
-
-  // If no usable characters or no AP left, end turn automatically
-  if (playerChars.every(c => c.acted || !c.isAlive()) || playerAP === 0) {
-    endPlayerTurn();
-  }
 }
 function chooseTarget(char, action) {
-  const cost = action === 'ability' ? 3 : 1;
-  if (playerAP < cost) return; // should not happen due to disabling
+  const cost = action === 'attack' ? ATTACK_COST : ABILITY_COST;
+  if (playerAP < cost) { renderPlayerControls(); return; }
 
   const ctrl = document.getElementById('controls');
   ctrl.innerHTML = '';
@@ -210,7 +223,7 @@ function chooseTarget(char, action) {
   targets.forEach(t => {
     const btn = document.createElement('button');
     btn.textContent = `${cap(t.name)} (${t.hp}/${t.maxHp})`;
-    btn.addEventListener('click', () => performPlayerAction(char, action, t));
+    btn.addEventListener('click', () => performPlayerAction(char, action, t, cost));
     ctrl.appendChild(btn);
   });
 
@@ -220,9 +233,8 @@ function chooseTarget(char, action) {
   back.addEventListener('click', renderPlayerControls);
   ctrl.appendChild(back);
 }
-function performPlayerAction(char, action, target) {
-  if (!char.isAlive() || char.acted) { renderPlayerControls(); return; }
-  const cost = action === 'ability' ? 3 : 1;
+function performPlayerAction(char, action, target, cost) {
+  if (!char.isAlive() || usedPlayer.has(char)) { renderPlayerControls(); return; }
   if (playerAP < cost) { renderPlayerControls(); return; }
 
   if (action === 'attack') {
@@ -233,11 +245,16 @@ function performPlayerAction(char, action, target) {
     log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`);
     char.applyAbility(playerChars, enemyChars, target);
   }
-  char.acted = true;
   refreshTeamLists();
+  usedPlayer.add(char);
   playerAP -= cost;
+
   if (checkVictory()) return;
-  renderPlayerControls();
+  if (playerAP >= ATTACK_COST && playerChars.some(c => c.isAlive() && !usedPlayer.has(c))) {
+    renderPlayerControls();
+  } else {
+    endPlayerTurn();
+  }
 }
 function endPlayerTurn() {
   document.getElementById('controls').classList.add('hidden');
@@ -248,24 +265,30 @@ function endPlayerTurn() {
 /******* AI Turn ******/
 function startAiTurn() {
   if (checkVictory()) return;
-  enemyChars.forEach(c => c.acted = false);
-  aiAP = 5;
+  aiAP = AP_PER_TURN;
+  usedAI = new Set();
   log('-- Enemy Turn --');
   aiStep();
 }
 function aiStep() {
-  if (aiAP === 0 || enemyChars.every(c => c.acted || !c.isAlive())) {
+  if (aiAP < ATTACK_COST) {
     playerTurn = true;
     setTimeout(startPlayerTurn, 600);
     return;
   }
+  const candidates = enemyChars.filter(c => c.isAlive() && !usedAI.has(c));
+  if (!candidates.length) {
+    playerTurn = true;
+    setTimeout(startPlayerTurn, 600);
+    return;
+  }
+  const actor = candidates[Math.floor(Math.random() * candidates.length)];
 
-  const available = enemyChars.filter(c => c.isAlive() && !c.acted);
-  const actor = available[Math.floor(Math.random() * available.length)];
-  const canUseAbility = actor.ability && aiAP >= 3;
-  const useAbility = canUseAbility && Math.random() < 0.25;
+  // decide action respecting AP
+  const canAbility = actor.ability && aiAP >= ABILITY_COST;
+  const useAbility = canAbility && Math.random() < 0.25;
   const action = useAbility ? 'ability' : 'attack';
-  const cost = action === 'ability' ? 3 : 1;
+  const cost   = action === 'attack' ? ATTACK_COST : ABILITY_COST;
 
   let target;
   if (action === 'attack') {
@@ -275,14 +298,14 @@ function aiStep() {
     log(hit ? `${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
             : `${cap(actor.name)} misses ${cap(target.name)}`);
   } else {
-    const candidates = [...playerChars.filter(c => c.isAlive()), ...enemyChars.filter(c => c.isAlive())];
-    target = candidates[Math.floor(Math.random() * candidates.length)];
+    const candidatesAll = [...playerChars.filter(c => c.isAlive()), ...enemyChars.filter(c => c.isAlive())];
+    target = candidatesAll[Math.floor(Math.random() * candidatesAll.length)];
     log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`);
     actor.applyAbility(enemyChars, playerChars, target);
   }
-  actor.acted = true;
-  aiAP -= cost;
   refreshTeamLists();
+  usedAI.add(actor);
+  aiAP -= cost;
   if (checkVictory()) return;
   setTimeout(aiStep, 600);
 }
