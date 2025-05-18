@@ -10,7 +10,14 @@
     ul { list-style: none; padding: 0; }
     li { margin: 0.2rem 0; }
     #startBattle { padding: 0.5rem 1rem; font-size: 1rem; margin-top: 1rem; }
-    #battleLog p { margin: 0.2rem 0; }
+    #battleLog { max-height: 400px; overflow-y: auto; margin-top: 1rem; border: 1px solid #ccc; padding: 0.5rem; }
+    .hidden { display: none; }
+    /* player controls */
+    #controls { margin-top: 1rem; border: 1px solid #999; padding: 0.5rem; background: #fafafa; }
+    #controls p { margin: 0.2rem 0 0.4rem; }
+    .charCtrl { margin: 0.2rem 0; }
+    .charCtrl button { margin-left: 0.4rem; }
+    .ap { font-weight: bold; }
   </style>
 </head>
 <body>
@@ -23,8 +30,11 @@
     <ul id="enemyTeam"></ul>
   </div>
 
-  <button id="startBattle">Start Battle</button>
+  <button id="startBattle" disabled>Start Battle</button>
   <div id="battleLog"></div>
+
+  <!-- Player action controls -->
+  <div id="controls" class="hidden"></div>
 
 <script>
 /***** Helper Functions *****/
@@ -38,23 +48,23 @@ let characters = [], abilities = {};
 Promise.all([
   fetch('characters.json').then(r => r.json()),
   fetch('abilities.json').then(r => r.json())
-]).then(([c, a]) => { characters = c; abilities = a; initTeams(); })
-  .catch(err => console.error('Failed to load data', err));
+]).then(([c, a]) => {
+  characters = c; abilities = a; initTeams();
+  document.getElementById('startBattle').disabled = false; // enable once data loaded
+}).catch(err => console.error('Failed to load data', err));
 
 let userTeamData = [], enemyTeamData = [];
 function initTeams() {
   const stored = sessionStorage.getItem('roster');
   if (!stored) { console.error('No roster found'); return; }
   userTeamData = JSON.parse(stored);
-  const ulU = document.getElementById('userTeam');
-  userTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulU.appendChild(li); });
 
   const used = new Set(userTeamData.map(h => h.Name));
   const pool = characters.filter(c => !used.has(c.Name));
   shuffle(pool);
   enemyTeamData = pool.slice(0, userTeamData.length);
-  const ulE = document.getElementById('enemyTeam');
-  enemyTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulE.appendChild(li); });
+
+  renderInitialTeams();
 }
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
 
@@ -91,59 +101,190 @@ class Character {
 }
 const inst = d => d.map(c => new Character(c.Name, c.Health, c.Strength, c.Constitution, c.Dexterity, c['Common Ability'] || ''));
 
-/***** Simulation returning array of rounds (each round = array of strings) *****/
-function simulate(teamA, teamB) {
-  const rounds = [];
-  let r = 1;
-  while (teamA.some(c => c.isAlive()) && teamB.some(c => c.isAlive())) {
-    const lines = [`-- Round ${r} --`];
-    const order = [...teamA, ...teamB].filter(c => c.isAlive()).sort((a, b) => b.dex - a.dex);
-    for (const actor of order) {
-      if (!actor.isAlive()) continue;
-      const allies = teamA.includes(actor) ? teamA.filter(c => c.isAlive()) : teamB.filter(c => c.isAlive());
-      const foes   = teamA.includes(actor) ? teamB.filter(c => c.isAlive()) : teamA.filter(c => c.isAlive());
-      if (!foes.length) break;
-      const target = foes[Math.floor(Math.random() * foes.length)];
-      if (Math.random() < 0.25 && actor.ability) {
-        lines.push(`${cap(actor.name)} uses ${cap(actor.ability)}!`);
-        actor.applyAbility(allies, foes, target);
-      }
-      const { hit, dmg } = actor.attack(target);
-      lines.push(hit ? `${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
-                     : `${cap(actor.name)} misses ${cap(target.name)}`);
+/***** Battle State *****/
+let playerChars = [], enemyChars = [];
+let playerAP = 0, aiAP = 0;
+let playerTurn = true; // true = player's turn, false = AI turn
+
+/***** UI Helpers *****/
+const logDiv = document.getElementById('battleLog');
+function log(msg) {
+  const p = document.createElement('p'); p.textContent = msg; logDiv.appendChild(p);
+  logDiv.scrollTop = logDiv.scrollHeight;
+}
+function renderInitialTeams() {
+  // populate initial static lists before battle starts
+  const ulU = document.getElementById('userTeam');
+  userTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulU.appendChild(li); });
+
+  const ulE = document.getElementById('enemyTeam');
+  enemyTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulE.appendChild(li); });
+}
+function refreshTeamLists() {
+  const ulU = document.getElementById('userTeam');
+  ulU.innerHTML = '';
+  playerChars.forEach(c => {
+    const li = document.createElement('li');
+    li.textContent = `${cap(c.name)} (${c.hp}/${c.maxHp})${!c.isAlive() ? ' ✝' : ''}`;
+    ulU.appendChild(li);
+  });
+  const ulE = document.getElementById('enemyTeam');
+  ulE.innerHTML = '';
+  enemyChars.forEach(c => {
+    const li = document.createElement('li');
+    li.textContent = `${cap(c.name)} (${c.hp}/${c.maxHp})${!c.isAlive() ? ' ✝' : ''}`;
+    ulE.appendChild(li);
+  });
+}
+
+/***** Battle Flow *****/
+function startBattle() {
+  document.getElementById('startBattle').disabled = true;
+  logDiv.innerHTML = '';
+  playerChars = inst(userTeamData);
+  enemyChars  = inst(enemyTeamData);
+  refreshTeamLists();
+  playerTurn = true;
+  startPlayerTurn();
+}
+
+/******* Player Turn ******/
+function startPlayerTurn() {
+  if (checkVictory()) return;
+  playerAP = 5;
+  renderPlayerControls();
+}
+function renderPlayerControls() {
+  const ctrl = document.getElementById('controls');
+  ctrl.innerHTML = '';
+  ctrl.classList.remove('hidden');
+
+  const header = document.createElement('p');
+  header.innerHTML = `Your turn — <span class="ap">${playerAP}</span> Action Points left`;
+  ctrl.appendChild(header);
+
+  playerChars.filter(c => c.isAlive()).forEach((c) => {
+    const row = document.createElement('div');
+    row.className = 'charCtrl';
+    const label = document.createElement('span');
+    label.textContent = cap(c.name);
+    row.appendChild(label);
+
+    const atkBtn = document.createElement('button');
+    atkBtn.textContent = 'Attack';
+    atkBtn.addEventListener('click', () => chooseTarget(c, 'attack'));
+    row.appendChild(atkBtn);
+
+    if (c.ability) {
+      const abBtn = document.createElement('button');
+      abBtn.textContent = cap(c.ability);
+      abBtn.addEventListener('click', () => chooseTarget(c, 'ability'));
+      row.appendChild(abBtn);
     }
-    const survA = teamA.filter(c => c.isAlive()).length;
-    const survB = teamB.filter(c => c.isAlive()).length;
-    lines.push(`Survivors — You: ${survA}  Enemy: ${survB}`);
-    rounds.push(lines);
-    r++;
+    ctrl.appendChild(row);
+  });
+}
+function chooseTarget(char, action) {
+  const ctrl = document.getElementById('controls');
+  ctrl.innerHTML = '';
+  const prompt = document.createElement('p');
+  prompt.textContent = `Choose target for ${cap(char.name)}ʼs ${action === 'attack' ? 'attack' : cap(char.ability)}:`;
+  ctrl.appendChild(prompt);
+
+  const targets = action === 'attack'
+    ? enemyChars.filter(c => c.isAlive())
+    : [...playerChars.filter(c => c.isAlive()), ...enemyChars.filter(c => c.isAlive())];
+
+  targets.forEach(t => {
+    const btn = document.createElement('button');
+    btn.textContent = `${cap(t.name)} (${t.hp}/${t.maxHp})`;
+    btn.addEventListener('click', () => performPlayerAction(char, action, t));
+    ctrl.appendChild(btn);
+  });
+
+  const back = document.createElement('button');
+  back.textContent = 'Back';
+  back.style.marginLeft = '0.5rem';
+  back.addEventListener('click', renderPlayerControls);
+  ctrl.appendChild(back);
+}
+function performPlayerAction(char, action, target) {
+  if (!char.isAlive()) { renderPlayerControls(); return; }
+  if (action === 'attack') {
+    const { hit, dmg } = char.attack(target);
+    log(hit ? `${cap(char.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
+            : `${cap(char.name)} misses ${cap(target.name)}`);
+  } else {
+    log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`);
+    char.applyAbility(playerChars, enemyChars, target);
   }
-  const final = [];
-  const a = teamA.filter(c => c.isAlive()).length, b = teamB.filter(c => c.isAlive()).length;
-  final.push(a > b ? `You win! (${a} vs ${b})` : b > a ? `Enemy wins! (${b} vs ${a})` : `Tie! (${a} vs ${b})`);
-  rounds.push(final);
-  return rounds;
+  refreshTeamLists();
+  playerAP--;
+  if (checkVictory()) return;
+  if (playerAP > 0) {
+    renderPlayerControls();
+  } else {
+    endPlayerTurn();
+  }
+}
+function endPlayerTurn() {
+  document.getElementById('controls').classList.add('hidden');
+  playerTurn = false;
+  setTimeout(startAiTurn, 600);
 }
 
-/***** Timed Display (10 s per round) *****/
-function playRounds(rounds) {
-  const log = document.getElementById('battleLog');
-  let i = 0;
-  function show() {
-    log.innerHTML = '';
-    rounds[i].forEach(l => { const p = document.createElement('p'); p.textContent = l; log.appendChild(p); });
-    i++;
-    if (i < rounds.length) setTimeout(show, 10000); else document.getElementById('startBattle').disabled = false;
+/******* AI Turn ******/
+function startAiTurn() {
+  if (checkVictory()) return;
+  aiAP = 5;
+  log('-- Enemy Turn --');
+  aiStep();
+}
+function aiStep() {
+  if (aiAP === 0) {
+    playerTurn = true;
+    setTimeout(startPlayerTurn, 600);
+    return;
   }
-  show();
+  const livingAI = enemyChars.filter(c => c.isAlive());
+  if (!livingAI.length) { checkVictory(); return; }
+  const actor = livingAI[Math.floor(Math.random() * livingAI.length)];
+  const useAbility = (Math.random() < 0.25) && actor.ability;
+  const action = useAbility ? 'ability' : 'attack';
+
+  let target;
+  if (action === 'attack') {
+    const foes = playerChars.filter(c => c.isAlive());
+    target = foes[Math.floor(Math.random() * foes.length)];
+    const { hit, dmg } = actor.attack(target);
+    log(hit ? `${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
+            : `${cap(actor.name)} misses ${cap(target.name)}`);
+  } else {
+    const candidates = [...playerChars.filter(c => c.isAlive()), ...enemyChars.filter(c => c.isAlive())];
+    target = candidates[Math.floor(Math.random() * candidates.length)];
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`);
+    actor.applyAbility(enemyChars, playerChars, target);
+  }
+  refreshTeamLists();
+  aiAP--;
+  if (checkVictory()) return;
+  setTimeout(aiStep, 600);
 }
 
-/***** Button *****/
-document.getElementById('startBattle').addEventListener('click', () => {
-  const btn = document.getElementById('startBattle'); btn.disabled = true;
-  const rounds = simulate(inst(userTeamData), inst(enemyTeamData));
-  playRounds(rounds);
-});
+/***** Victory Check *****/
+function checkVictory() {
+  const youAlive = playerChars.some(c => c.isAlive());
+  const enemyAlive = enemyChars.some(c => c.isAlive());
+  if (youAlive && enemyAlive) return false;
+  const youCount = playerChars.filter(c => c.isAlive()).length;
+  const enemyCount = enemyChars.filter(c => c.isAlive()).length;
+  log(youCount > enemyCount ? `You win! (${youCount} vs ${enemyCount})` : enemyCount > youCount ? `Enemy wins! (${enemyCount} vs ${youCount})` : 'Tie!');
+  document.getElementById('startBattle').disabled = false;
+  return true;
+}
+
+/***** Event Listener *****/
+document.getElementById('startBattle').addEventListener('click', startBattle);
 </script>
 </body>
 </html>
