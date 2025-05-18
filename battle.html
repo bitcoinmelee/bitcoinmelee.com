@@ -55,275 +55,232 @@ Promise.all([
   fetch('abilities.json').then(r => r.json())
 ]).then(([c, a]) => {
   characters = c; abilities = a; initTeams();
-  document.getElementById('startBattle').disabled = false; // enable once data loaded
+  document.getElementById('startBattle').disabled = false;
 }).catch(err => console.error('Failed to load data', err));
 
-let userTeamData = [], enemyTeamData = [];
-function initTeams() {
-  const stored = sessionStorage.getItem('roster');
-  if (!stored) { console.error('No roster found'); return; }
-  userTeamData = JSON.parse(stored);
+/***** Ability Target Helpers *****/
+function abilityTargetFlags(abilityName){
+  const eff = abilities[abilityName] || {};
+  let ally=false, foe=false, self=false;
+  for(const [k,v] of Object.entries(eff)){
+    if(v===0) continue;
+    if(k.endsWith('_ally')) ally=true;
+    else if(k.endsWith('_Foe')) foe=true;
+    else if(k.endsWith('_Self')) self=true;
+  }
+  // default: if no explicit flags treat as foe spell
+  if(!ally && !foe && !self) foe=true;
+  return {ally, foe, self};
+}
+function legalAbilityTargets(actor, allies, foes){
+  const flags = abilityTargetFlags(actor.ability);
+  let list=[];
+  if(flags.self) list.push(actor);
+  if(flags.ally) list=list.concat(allies.filter(c=>c!==actor));
+  if(flags.foe)  list=list.concat(foes);
+  return list;
+}
 
-  const used = new Set(userTeamData.map(h => h.Name));
-  const pool = characters.filter(c => !used.has(c.Name));
+/***** Team Init *****/
+let userTeamData = [], enemyTeamData = [];
+function initTeams(){
+  const stored = sessionStorage.getItem('roster');
+  if(!stored){ console.error('No roster found'); return; }
+  userTeamData = JSON.parse(stored);
+  const used = new Set(userTeamData.map(h=>h.Name));
+  const pool = characters.filter(c=>!used.has(c.Name));
   shuffle(pool);
   enemyTeamData = pool.slice(0, userTeamData.length);
-
-  renderInitialTeams();
+  renderInitialLists();
 }
-function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
 
 /***** Character Class *****/
-class Character {
-  constructor(rec) {
-    // supports both snake‑case and spaced field names
-    this.name = rec.Name || rec.name;
-    this.maxHp = rec.Health || rec.health;
-    this.hp    = this.maxHp;
-    this.str   = rec.Strength || rec.strength;
-    this.con   = rec.Constitution || rec.constitution;
-    this.dex   = rec.Dexterity || rec.dexterity;
-    this.ability = rec['Common Ability'] || rec.Ability || rec.ability || '';
+class Character{
+  constructor(rec){
+    this.name = rec.Name;
+    this.maxHp = rec.Health; this.hp=this.maxHp;
+    this.str = rec.Strength; this.dex=rec.Dexterity; this.con=rec.Constitution;
+    this.int = rec.Intelligence; this.wis=rec.Wisdom; this.cha=rec.Charisma;
+    this.mana = rec.Mana;
+    this.ability = rec['Common Ability']||'';
   }
-  isAlive() { return this.hp > 0; }
-  applyAbility(allies, foes, target) {
-    const eff = abilities[this.ability] || {};
-    for (const [k, v] of Object.entries(eff)) {
-      const stat = k.split('_')[0];
-      if (k.endsWith('_Self')) this._applyStat(stat, v);
-      if (k.endsWith('_ally')) allies.forEach(a => a._applyStat(stat, v));
-      if (k.endsWith('_Foe')  && target) target._applyStat(stat, v);
+  isAlive(){return this.hp>0;}
+  _applyStat(stat,val){
+    switch(stat){
+      case 'Health': this.hp=Math.min(this.maxHp,Math.max(0,this.hp+val)); break;
+      case 'Strength': this.str=Math.max(0,this.str+val); break;
+      case 'Dexterity': this.dex=Math.max(0,this.dex+val); break;
+      case 'Constitution': this.con=Math.max(0,this.con+val); break;
+      case 'Intelligence': this.int=Math.max(0,this.int+val); break;
+      case 'Wisdom': this.wis=Math.max(0,this.wis+val); break;
+      case 'Charisma': this.cha=Math.max(0,this.cha+val); break;
+      case 'Mana': this.mana=Math.max(0,this.mana+val); break;
     }
   }
-  _applyStat(stat, val) {
-    if (stat === 'Health')      this.hp  = Math.min(this.maxHp, Math.max(0, this.hp + val));
-    if (stat === 'Strength')    this.str = Math.max(0, this.str + val);
-    if (stat === 'Constitution')this.con = Math.max(0, this.con + val);
-    if (stat === 'Dexterity')   this.dex = Math.max(0, this.dex + val);
+  applyAbility(allies,foes,target){
+    const eff=abilities[this.ability]||{};
+    for(const [k,v] of Object.entries(eff)){
+      if(v===0) continue;
+      const stat=k.split('_')[0];
+      if(k.endsWith('_Self')) this._applyStat(stat,v);
+      if(k.endsWith('_ally')) allies.forEach(a=>a._applyStat(stat,v));
+      if(k.endsWith('_Foe') && target) target._applyStat(stat,v);
+    }
   }
-  attack(t) {
-    const atk = d20() + mod(this.str);
-    const ac  = 10 + mod(t.dex);
-    if (atk < ac) return { hit: false, dmg: 0 };
-    const dmg = Math.max(1, d6() + mod(this.str));
-    t.hp = Math.max(0, t.hp - dmg);
-    return { hit: true, dmg };
+  attack(t){
+    const atk=d20()+mod(this.str); const ac=10+mod(t.dex);
+    if(atk<ac) return {hit:false,dmg:0};
+    const dmg=Math.max(1,d6()+mod(this.str));
+    t.hp=Math.max(0,t.hp-dmg);
+    return{hit:true,dmg};
   }
 }
-const inst = arr => arr.map(r => new Character(r));
+const inst = arr => arr.map(r=>new Character(r));
+
+/***** UI Rendering *****/
+function statLine(obj){
+  return `HP:${obj.Health??obj.hp}/${obj.Health??obj.maxHp} Str:${obj.Strength??obj.str} Dex:${obj.Dexterity??obj.dex} Con:${obj.Constitution??obj.con} Int:${obj.Intelligence??obj.int} Wis:${obj.Wisdom??obj.wis} Cha:${obj.Charisma??obj.cha} Mana:${obj.Mana??obj.mana}`;
+}
+function liForRec(r){
+  const li=document.createElement('li');
+  li.textContent=`${cap(r.Name)} ${statLine(r)} Ability:${cap(r['Common Ability']||'–')}`;
+  const ab=r['Common Ability']; if(ab&&abilities[ab]) li.title=abilities[ab].Description;
+  return li;
+}
+function liForChar(c){
+  const li=document.createElement('li');
+  li.textContent=`${cap(c.name)} ${statLine(c)} Ability:${cap(c.ability||'–')}${!c.isAlive()?' ✝':''}`;
+  if(c.ability&&abilities[c.ability]) li.title=abilities[c.ability].Description;
+  return li;
+}
+function renderInitialLists(){
+  const ulU=document.getElementById('userTeam'); ulU.innerHTML='';
+  userTeamData.forEach(r=>ulU.appendChild(liForRec(r)));
+  const ulE=document.getElementById('enemyTeam'); ulE.innerHTML='';
+  enemyTeamData.forEach(r=>ulE.appendChild(liForRec(r)));
+}
+function refreshLists(){
+  const ulU=document.getElementById('userTeam'); ulU.innerHTML='';
+  playerChars.forEach(c=>ulU.appendChild(liForChar(c)));
+  const ulE=document.getElementById('enemyTeam'); ulE.innerHTML='';
+  enemyChars.forEach(c=>ulE.appendChild(liForChar(c)));
+}
 
 /***** Battle State *****/
-let playerChars = [], enemyChars = [];
-let playerAP = 0, aiAP = 0;
-let playerTurn = true;
-let usedPlayer = new Set(), usedAI = new Set();
+let playerChars=[], enemyChars=[];
+let playerAP=0, aiAP=0;
+let usedPlayer=new Set(), usedAI=new Set();
 
-/***** UI Helpers *****/
-const logDiv = document.getElementById('battleLog');
-function log(msg) {
-  const p = document.createElement('p'); p.textContent = msg; logDiv.appendChild(p);
-  logDiv.scrollTop = logDiv.scrollHeight;
-}
-function renderInitialTeams() {
-  const ulU = document.getElementById('userTeam');
-  userTeamData.forEach(h => ulU.appendChild(liForRec(h)));
-  const ulE = document.getElementById('enemyTeam');
-  enemyTeamData.forEach(h => ulE.appendChild(liForRec(h)));
-}
-function liForRec(r) {
-  const li = document.createElement('li');
-  li.textContent = `${cap(r.Name)} HP:${r.Health} Str:${r.Strength} Con:${r.Constitution} Dex:${r.Dexterity} Ability:${cap(r['Common Ability']||r.Ability||'–')}`;
-  return li;
-}
-function refreshTeamLists() {
-  const ulU = document.getElementById('userTeam');
-  ulU.innerHTML = '';
-  playerChars.forEach(c => ulU.appendChild(liForChar(c)));
-  const ulE = document.getElementById('enemyTeam');
-  ulE.innerHTML = '';
-  enemyChars.forEach(c => ulE.appendChild(liForChar(c)));
-}
-function liForChar(c) {
-  const li = document.createElement('li');
-  li.textContent = `${cap(c.name)} (${c.hp}/${c.maxHp}) Str:${c.str} Con:${c.con} Dex:${c.dex} Ability:${cap(c.ability||'–')}${!c.isAlive()?' ✝':''}`;
-  return li;
-}
+const logDiv=document.getElementById('battleLog');
+function log(msg){const p=document.createElement('p'); p.textContent=msg; logDiv.appendChild(p); logDiv.scrollTop=logDiv.scrollHeight;}
 
 /***** Battle Flow *****/
-function startBattle() {
-  document.getElementById('startBattle').disabled = true;
-  logDiv.innerHTML = '';
-  playerChars = inst(userTeamData);
-  enemyChars  = inst(enemyTeamData);
-  refreshTeamLists();
-  playerTurn = true;
+function startBattle(){
+  document.getElementById('startBattle').disabled=true;
+  logDiv.innerHTML='';
+  playerChars=inst(userTeamData);
+  enemyChars=inst(enemyTeamData);
+  refreshLists();
+  playerTurn=true;
   startPlayerTurn();
 }
 
-/******* Player Turn ******/
-function startPlayerTurn() {
-  if (checkVictory()) return;
-  playerAP = AP_PER_TURN;
-  usedPlayer = new Set();
+/******** PLAYER TURN ********/
+function startPlayerTurn(){
+  if(checkVictory()) return;
+  playerAP=AP_PER_TURN; usedPlayer=new Set();
   log('-- Your Turn --');
   renderPlayerControls();
 }
-function renderPlayerControls() {
-  const ctrl = document.getElementById('controls');
-  ctrl.innerHTML = '';
-  ctrl.classList.remove('hidden');
-
-  const header = document.createElement('p');
-  header.innerHTML = `Your turn — <span class="ap">${playerAP}</span> AP left`;
-  ctrl.appendChild(header);
-
-  const candidates = playerChars.filter(c => c.isAlive() && !usedPlayer.has(c));
-  if (!candidates.length || playerAP < ATTACK_COST) {
-    endPlayerTurn();
-    return;
-  }
-
-  candidates.forEach((c) => {
-    const row = document.createElement('div');
-    row.className = 'charCtrl';
-    const label = document.createElement('span');
-    label.textContent = cap(c.name);
-    row.appendChild(label);
-
-    if (playerAP >= ATTACK_COST) {
-      const atkBtn = document.createElement('button');
-      atkBtn.textContent = 'Attack (1)';
-      atkBtn.addEventListener('click', () => chooseTarget(c, 'attack'));
-      row.appendChild(atkBtn);
+function renderPlayerControls(){
+  const ctrl=document.getElementById('controls'); ctrl.innerHTML=''; ctrl.classList.remove('hidden');
+  const hdr=document.createElement('p'); hdr.innerHTML=`Your turn — <span class="ap">${playerAP}</span> AP left`; ctrl.appendChild(hdr);
+  const candidates=playerChars.filter(c=>c.isAlive()&&!usedPlayer.has(c));
+  if(!candidates.length||playerAP<ATTACK_COST){endPlayerTurn(); return;}
+  candidates.forEach(c=>{
+    const row=document.createElement('div'); row.className='charCtrl';
+    const label=document.createElement('span'); label.textContent=cap(c.name); row.appendChild(label);
+    if(playerAP>=ATTACK_COST){
+      const atk=document.createElement('button'); atk.textContent='Attack (1)'; atk.addEventListener('click',()=>chooseTarget(c,'attack')); row.appendChild(atk);
     }
-
-    if (c.ability && playerAP >= ABILITY_COST) {
-      const abBtn = document.createElement('button');
-      abBtn.textContent = `${cap(c.ability)} (3)`;
-      abBtn.addEventListener('click', () => chooseTarget(c, 'ability'));
-      row.appendChild(abBtn);
+    if(c.ability && playerAP>=ABILITY_COST){
+      const ab=document.createElement('button'); ab.textContent=`${cap(c.ability)} (3)`; ab.title=abilities[c.ability]?.Description||''; ab.addEventListener('click',()=>chooseTarget(c,'ability')); row.appendChild(ab);
     }
     ctrl.appendChild(row);
   });
 }
-function chooseTarget(char, action) {
-  const cost = action === 'attack' ? ATTACK_COST : ABILITY_COST;
-  if (playerAP < cost) { renderPlayerControls(); return; }
-
-  const ctrl = document.getElementById('controls');
-  ctrl.innerHTML = '';
-  const prompt = document.createElement('p');
-  prompt.textContent = `Choose target for ${cap(char.name)}ʼs ${action === 'attack' ? 'attack' : cap(char.ability)}:`;
-  ctrl.appendChild(prompt);
-
-  const targets = action === 'attack'
-    ? enemyChars.filter(c => c.isAlive())
-    : [...playerChars.filter(c => c.isAlive()), ...enemyChars.filter(c => c.isAlive())];
-
-  targets.forEach(t => {
-    const btn = document.createElement('button');
-    btn.textContent = `${cap(t.name)} (${t.hp}/${t.maxHp})`;
-    btn.addEventListener('click', () => performPlayerAction(char, action, t, cost));
-    ctrl.appendChild(btn);
+function chooseTarget(char,action){
+  const cost=action==='attack'?ATTACK_COST:ABILITY_COST;
+  if(playerAP<cost){renderPlayerControls(); return;}
+  const ctrl=document.getElementById('controls'); ctrl.innerHTML='';
+  const prompt=document.createElement('p'); prompt.textContent=`Choose target for ${cap(char.name)}ʼs ${action==='attack'?'attack':cap(char.ability)}:`; ctrl.appendChild(prompt);
+  let targets;
+  if(action==='attack') targets=enemyChars.filter(c=>c.isAlive());
+  else{
+    const allies=playerChars.filter(c=>c.isAlive()); const foes=enemyChars.filter(c=>c.isAlive());
+    targets=legalAbilityTargets(char,allies,foes);
+  }
+  targets.forEach(t=>{
+    const btn=document.createElement('button'); btn.textContent=`${cap(t.name)} (${t.hp}/${t.maxHp})`; btn.addEventListener('click',()=>performPlayerAction(char,action,t,cost)); ctrl.appendChild(btn);
   });
-
-  const back = document.createElement('button');
-  back.textContent = 'Back';
-  back.style.marginLeft = '0.5rem';
-  back.addEventListener('click', renderPlayerControls);
-  ctrl.appendChild(back);
+  const back=document.createElement('button'); back.textContent='Back'; back.style.marginLeft='0.5rem'; back.addEventListener('click',renderPlayerControls); ctrl.appendChild(back);
 }
-function performPlayerAction(char, action, target, cost) {
-  if (!char.isAlive() || usedPlayer.has(char)) { renderPlayerControls(); return; }
-  if (playerAP < cost) { renderPlayerControls(); return; }
-
-  if (action === 'attack') {
-    const { hit, dmg } = char.attack(target);
-    log(hit ? `${cap(char.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
-            : `${cap(char.name)} misses ${cap(target.name)}`);
-  } else {
+function performPlayerAction(char,action,target,cost){
+  if(!char.isAlive()||usedPlayer.has(char)) {renderPlayerControls(); return;}
+  if(playerAP<cost){renderPlayerControls(); return;}
+  if(action==='attack'){
+    const {hit,dmg}=char.attack(target);
+    log(hit?`${cap(char.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`:`${cap(char.name)} misses ${cap(target.name)}`);
+  }else{
     log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`);
-    char.applyAbility(playerChars, enemyChars, target);
+    char.applyAbility(playerChars,enemyChars,target);
   }
-  refreshTeamLists();
-  usedPlayer.add(char);
-  playerAP -= cost;
-
-  if (checkVictory()) return;
-  if (playerAP >= ATTACK_COST && playerChars.some(c => c.isAlive() && !usedPlayer.has(c))) {
-    renderPlayerControls();
-  } else {
-    endPlayerTurn();
-  }
+  refreshLists(); usedPlayer.add(char); playerAP-=cost;
+  if(checkVictory()) return;
+  if(playerAP>=ATTACK_COST && playerChars.some(c=>c.isAlive()&&!usedPlayer.has(c))) renderPlayerControls(); else endPlayerTurn();
 }
-function endPlayerTurn() {
-  document.getElementById('controls').classList.add('hidden');
-  playerTurn = false;
-  setTimeout(startAiTurn, 600);
-}
+function endPlayerTurn(){ document.getElementById('controls').classList.add('hidden'); playerTurn=false; setTimeout(startAiTurn,600); }
 
-/******* AI Turn ******/
-function startAiTurn() {
-  if (checkVictory()) return;
-  aiAP = AP_PER_TURN;
-  usedAI = new Set();
-  log('-- Enemy Turn --');
-  aiStep();
-}
-function aiStep() {
-  if (aiAP < ATTACK_COST) {
-    playerTurn = true;
-    setTimeout(startPlayerTurn, 600);
-    return;
-  }
-  const candidates = enemyChars.filter(c => c.isAlive() && !usedAI.has(c));
-  if (!candidates.length) {
-    playerTurn = true;
-    setTimeout(startPlayerTurn, 600);
-    return;
-  }
-  const actor = candidates[Math.floor(Math.random() * candidates.length)];
-
-  // decide action respecting AP
-  const canAbility = actor.ability && aiAP >= ABILITY_COST;
-  const useAbility = canAbility && Math.random() < 0.25;
-  const action = useAbility ? 'ability' : 'attack';
-  const cost   = action === 'attack' ? ATTACK_COST : ABILITY_COST;
-
+/******** AI TURN ********/
+function startAiTurn(){ if(checkVictory()) return; aiAP=AP_PER_TURN; usedAI=new Set(); log('-- Enemy Turn --'); aiStep(); }
+function aiStep(){
+  if(aiAP<ATTACK_COST){playerTurn=true; setTimeout(startPlayerTurn,600); return;}
+  const candidates=enemyChars.filter(c=>c.isAlive()&&!usedAI.has(c));
+  if(!candidates.length){playerTurn=true; setTimeout(startPlayerTurn,600); return;}
+  const actor=candidates[Math.floor(Math.random()*candidates.length)];
+  const canAbility=actor.ability && aiAP>=ABILITY_COST;
+  const useAbility=canAbility && Math.random()<0.25;
+  const action=useAbility?'ability':'attack';
+  const cost=action==='attack'?ATTACK_COST:ABILITY_COST;
   let target;
-  if (action === 'attack') {
-    const foes = playerChars.filter(c => c.isAlive());
-    target = foes[Math.floor(Math.random() * foes.length)];
-    const { hit, dmg } = actor.attack(target);
-    log(hit ? `${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
-            : `${cap(actor.name)} misses ${cap(target.name)}`);
-  } else {
-    const candidatesAll = [...playerChars.filter(c => c.isAlive()), ...enemyChars.filter(c => c.isAlive())];
-    target = candidatesAll[Math.floor(Math.random() * candidatesAll.length)];
+  if(action==='attack'){
+    const foes=playerChars.filter(c=>c.isAlive()); target=foes[Math.floor(Math.random()*foes.length)];
+    const {hit,dmg}=actor.attack(target);
+    log(hit?`${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`:`${cap(actor.name)} misses ${cap(target.name)}`);
+  }else{
+    const allies=enemyChars.filter(c=>c.isAlive()); const foes=playerChars.filter(c=>c.isAlive());
+    const possible=legalAbilityTargets(actor,allies,foes);
+    target=possible[Math.floor(Math.random()*possible.length)];
     log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`);
-    actor.applyAbility(enemyChars, playerChars, target);
+    actor.applyAbility(enemyChars,playerChars,target);
   }
-  refreshTeamLists();
-  usedAI.add(actor);
-  aiAP -= cost;
-  if (checkVictory()) return;
-  setTimeout(aiStep, 600);
+  refreshLists(); usedAI.add(actor); aiAP-=cost;
+  if(checkVictory()) return;
+  setTimeout(aiStep,600);
 }
 
 /***** Victory Check *****/
-function checkVictory() {
-  const youAlive = playerChars.some(c => c.isAlive());
-  const enemyAlive = enemyChars.some(c => c.isAlive());
-  if (youAlive && enemyAlive) return false;
-  const youCount = playerChars.filter(c => c.isAlive()).length;
-  const enemyCount = enemyChars.filter(c => c.isAlive()).length;
-  log(youCount > enemyCount ? `You win! (${youCount} vs ${enemyCount})` : enemyCount > youCount ? `Enemy wins! (${enemyCount} vs ${youCount})` : 'Tie!');
-  document.getElementById('startBattle').disabled = false;
+function checkVictory(){
+  const youAlive=playerChars.some(c=>c.isAlive()); const enemyAlive=enemyChars.some(c=>c.isAlive());
+  if(youAlive&&enemyAlive) return false;
+  const yc=playerChars.filter(c=>c.isAlive()).length; const ec=enemyChars.filter(c=>c.isAlive()).length;
+  log(yc>ec?`You win! (${yc} vs ${ec})`:ec>yc?`Enemy wins! (${ec} vs ${yc})`:'Tie!');
+  document.getElementById('startBattle').disabled=false;
   return true;
 }
 
-/***** Event Listener *****/
-document.getElementById('startBattle').addEventListener('click', startBattle);
+document.getElementById('startBattle').addEventListener('click',startBattle);
 </script>
 </body>
 </html>
