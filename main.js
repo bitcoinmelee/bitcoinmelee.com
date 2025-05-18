@@ -1,6 +1,5 @@
-// main.js – full flow: xpub → table → Continue to battle.html (no single-character select)
+// main.js – full flow: xpub → table → store roster → Continue to battle.html (no single-character select)
 window.addEventListener('DOMContentLoaded', () => {
-  // shorthand selector
   const $ = s => document.querySelector(s);
   let HEROES = [];
   const ROSTER_SIZE = 12;
@@ -57,8 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <td>${h.Faction}</td><td>${h.Kingdom}</td>
           </tr>
         `).join('')}
-      </tbody>
-    `;
+      </tbody>`;
     container.appendChild(table);
     container.classList.remove('hidden');
   }
@@ -71,6 +69,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderTable(roster);
+
+    // store roster in sessionStorage for battle page
+    sessionStorage.setItem('roster', JSON.stringify(roster));
+
     flash('Here are your heroes:');
 
     // enable Continue button
