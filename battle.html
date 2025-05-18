@@ -26,192 +26,124 @@
   <button id="startBattle">Start Battle</button>
   <div id="battleLog"></div>
 
-  <script>
-  // Utilities
-  function cap(s) {
-    return (typeof s === 'string' && s.length > 0)
-      ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
-      : '';
+<script>
+/***** Helper Functions *****/
+const cap = s => (typeof s === 'string' && s.length) ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '';
+const d20 = () => Math.floor(Math.random() * 20) + 1;
+const d6  = () => Math.floor(Math.random() * 6) + 1;
+const mod = v => Math.floor((v - 10) / 2);
+
+/***** Load JSON *****/
+let characters = [], abilities = {};
+Promise.all([
+  fetch('characters.json').then(r => r.json()),
+  fetch('abilities.json').then(r => r.json())
+]).then(([c, a]) => { characters = c; abilities = a; initTeams(); })
+  .catch(err => console.error('Failed to load data', err));
+
+let userTeamData = [], enemyTeamData = [];
+function initTeams() {
+  const stored = sessionStorage.getItem('roster');
+  if (!stored) { console.error('No roster found'); return; }
+  userTeamData = JSON.parse(stored);
+  const ulU = document.getElementById('userTeam');
+  userTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulU.appendChild(li); });
+
+  const used = new Set(userTeamData.map(h => h.Name));
+  const pool = characters.filter(c => !used.has(c.Name));
+  shuffle(pool);
+  enemyTeamData = pool.slice(0, userTeamData.length);
+  const ulE = document.getElementById('enemyTeam');
+  enemyTeamData.forEach(h => { const li = document.createElement('li'); li.textContent = cap(h.Name); ulE.appendChild(li); });
+}
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
+
+/***** Character Class *****/
+class Character {
+  constructor(name, hp, str, con, dex, ability) {
+    this.name = name; this.maxHp = hp; this.hp = hp;
+    this.str = str; this.con = con; this.dex = dex; this.ability = ability;
   }
-  function d20() { return Math.floor(Math.random() * 20) + 1; }
-  function d6() { return Math.floor(Math.random() * 6) + 1; }
-  function getMod(value) { return Math.floor((value - 10) / 2); }
-
-  // Data holders
-  let characters = [];
-  let abilities  = {};
-  Promise.all([
-    fetch('characters.json').then(r => r.json()),
-    fetch('abilities.json').then(r => r.json())
-  ]).then(([chars, abils]) => {
-    characters = chars;
-    abilities  = abils;
-    initTeams();
-  }).catch(err => console.error('Failed to load data', err));
-
-  let userTeamData = [];
-  let enemyTeamData = [];
-
-  function initTeams() {
-    const stored = sessionStorage.getItem('roster');
-    if (!stored) {
-      console.error('No roster in sessionStorage');
-      return;
-    }
-    userTeamData = JSON.parse(stored);
-
-    const ulUser = document.getElementById('userTeam');
-    userTeamData.forEach(h => {
-      const li = document.createElement('li');
-      li.textContent = cap(h.Name);
-      ulUser.appendChild(li);
-    });
-
-    const used = new Set(userTeamData.map(h => h.Name));
-    const pool = characters.filter(c => !used.has(c.Name));
-    shuffle(pool);
-    enemyTeamData = pool.slice(0, userTeamData.length);
-
-    const ulEnemy = document.getElementById('enemyTeam');
-    enemyTeamData.forEach(h => {
-      const li = document.createElement('li');
-      li.textContent = cap(h.Name);
-      ulEnemy.appendChild(li);
-    });
-  }
-
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+  isAlive() { return this.hp > 0; }
+  applyAbility(allies, foes, target) {
+    const eff = abilities[this.ability] || {};
+    for (const [k, v] of Object.entries(eff)) {
+      const stat = k.split('_')[0];
+      if (k.endsWith('_Self')) this._applyStat(stat, v);
+      if (k.endsWith('_ally')) allies.forEach(a => a._applyStat(stat, v));
+      if (k.endsWith('_Foe') && target) target._applyStat(stat, v);
     }
   }
+  _applyStat(stat, val) {
+    if (stat === 'Health') this.hp = Math.min(this.maxHp, Math.max(0, this.hp + val));
+    if (stat === 'Strength') this.str = Math.max(0, this.str + val);
+    if (stat === 'Constitution') this.con = Math.max(0, this.con + val);
+    if (stat === 'Dexterity') this.dex = Math.max(0, this.dex + val);
+  }
+  attack(t) {
+    const atk = d20() + mod(this.str);
+    const ac  = 10 + mod(t.dex);
+    if (atk < ac) return { hit: false, dmg: 0 };
+    const dmg = Math.max(1, d6() + mod(this.str));
+    t.hp = Math.max(0, t.hp - dmg);
+    return { hit: true, dmg };
+  }
+}
+const inst = d => d.map(c => new Character(c.Name, c.Health, c.Strength, c.Constitution, c.Dexterity, c['Common Ability'] || ''));
 
-  // Character class with DnD combat
-  class Character {
-    constructor(name, hp, strength, constitution, dexterity, ability) {
-      this.name = name;
-      this.maxHp = hp;
-      this.hp    = hp;
-      this.str   = strength;
-      this.con   = constitution;
-      this.dex   = dexterity;
-      this.ability = ability;
-    }
-    isAlive() { return this.hp > 0; }
-    applyAbility(allies, foes, target) {
-      const effect = abilities[this.ability] || {};
-      // Self buffs
-      for (const [key, val] of Object.entries(effect)) {
-        if (key.endsWith('_Self')) {
-          const stat = key.replace('_Self', '');
-          if (stat === 'Health') this.hp = Math.min(this.maxHp, this.hp + val);
-          if (stat === 'Strength') this.str += val;
-          if (stat === 'Constitution') this.con += val;
-          if (stat === 'Dexterity') this.dex += val;
-        }
+/***** Simulation returning array of rounds (each round = array of strings) *****/
+function simulate(teamA, teamB) {
+  const rounds = [];
+  let r = 1;
+  while (teamA.some(c => c.isAlive()) && teamB.some(c => c.isAlive())) {
+    const lines = [`-- Round ${r} --`];
+    const order = [...teamA, ...teamB].filter(c => c.isAlive()).sort((a, b) => b.dex - a.dex);
+    for (const actor of order) {
+      if (!actor.isAlive()) continue;
+      const allies = teamA.includes(actor) ? teamA.filter(c => c.isAlive()) : teamB.filter(c => c.isAlive());
+      const foes   = teamA.includes(actor) ? teamB.filter(c => c.isAlive()) : teamA.filter(c => c.isAlive());
+      if (!foes.length) break;
+      const target = foes[Math.floor(Math.random() * foes.length)];
+      if (Math.random() < 0.25 && actor.ability) {
+        lines.push(`${cap(actor.name)} uses ${cap(actor.ability)}!`);
+        actor.applyAbility(allies, foes, target);
       }
-      // Ally buffs
-      for (const [key, val] of Object.entries(effect)) {
-        if (key.endsWith('_ally')) {
-          const stat = key.replace('_ally', '');
-          allies.forEach(ally => {
-            if (stat === 'Health') ally.hp = Math.min(ally.maxHp, ally.hp + val);
-            if (stat === 'Strength') ally.str += val;
-            if (stat === 'Constitution') ally.con += val;
-            if (stat === 'Dexterity') ally.dex += val;
-          });
-        }
-      }
-      // Foe debuffs / damage
-      for (const [key, val] of Object.entries(effect)) {
-        if (key.endsWith('_Foe') && target) {
-          const stat = key.replace('_Foe', '');
-          if (stat === 'Health') target.hp = Math.max(0, target.hp + val);
-          if (stat === 'Strength') target.str = Math.max(0, target.str + val);
-          if (stat === 'Constitution') target.con = Math.max(0, target.con + val);
-          if (stat === 'Dexterity') target.dex = Math.max(0, target.dex + val);
-        }
-      }
+      const { hit, dmg } = actor.attack(target);
+      lines.push(hit ? `${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
+                     : `${cap(actor.name)} misses ${cap(target.name)}`);
     }
-    attack(target) {
-      const atkRoll = d20() + getMod(this.str);
-      const ac = 10 + getMod(target.dex);
-      if (atkRoll < ac) return { hit: false, dmg: 0 };
-      const dmg = Math.max(1, d6() + getMod(this.str));
-      target.hp = Math.max(0, target.hp - dmg);
-      return { hit: true, dmg };
-    }
+    const survA = teamA.filter(c => c.isAlive()).length;
+    const survB = teamB.filter(c => c.isAlive()).length;
+    lines.push(`Survivors — You: ${survA}  Enemy: ${survB}`);
+    rounds.push(lines);
+    r++;
   }
+  const final = [];
+  const a = teamA.filter(c => c.isAlive()).length, b = teamB.filter(c => c.isAlive()).length;
+  final.push(a > b ? `You win! (${a} vs ${b})` : b > a ? `Enemy wins! (${b} vs ${a})` : `Tie! (${a} vs ${b})`);
+  rounds.push(final);
+  return rounds;
+}
 
-  function getInstances(data) {
-    return data.map(ch => new Character(
-      ch.Name,
-      ch.Health,
-      ch.Strength,
-      ch.Constitution,
-      ch.Dexterity,
-      ch['Common Ability'] || ''
-    ));
+/***** Timed Display (10 s per round) *****/
+function playRounds(rounds) {
+  const log = document.getElementById('battleLog');
+  let i = 0;
+  function show() {
+    log.innerHTML = '';
+    rounds[i].forEach(l => { const p = document.createElement('p'); p.textContent = l; log.appendChild(p); });
+    i++;
+    if (i < rounds.length) setTimeout(show, 10000); else document.getElementById('startBattle').disabled = false;
   }
+  show();
+}
 
-  // Battle until one side is wiped out
-  function simulateBattle(teamA, teamB) {
-    const log = [];
-    let round = 1;
-    while (teamA.some(c => c.isAlive()) && teamB.some(c => c.isAlive())) {
-      log.push(`-- Round ${round} --`);
-      const order = [...teamA, ...teamB]
-        .filter(c => c.isAlive())
-        .sort((a, b) => b.dex - a.dex);
-      for (const actor of order) {
-        if (!actor.isAlive()) continue;
-        const allies = teamA.includes(actor)
-          ? teamA.filter(c => c.isAlive())
-          : teamB.filter(c => c.isAlive());
-        const foes = teamA.includes(actor)
-          ? teamB.filter(c => c.isAlive())
-          : teamA.filter(c => c.isAlive());
-        if (foes.length === 0) break;
-        const target = foes[Math.floor(Math.random() * foes.length)];
-
-        // 1/4 chance to use ability
-        if (Math.random() < 0.25 && actor.ability) {
-          log.push(`${cap(actor.name)} uses ${cap(actor.ability)}!`);
-          actor.applyAbility(allies, foes, target);
-        }
-
-        const { hit, dmg } = actor.attack(target);
-        if (hit) {
-          log.push(`${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg ` +
-                   `(${target.hp}/${actor.maxHp} HP left)`);
-        } else {
-          log.push(`${cap(actor.name)} misses ${cap(target.name)}`);
-        }
-      }
-      round++;
-    }
-    const aliveA = teamA.filter(c => c.isAlive()).length;
-    const aliveB = teamB.filter(c => c.isAlive()).length;
-    if (aliveA > aliveB) log.push(`You win! (${aliveA} vs ${aliveB})`);
-    else if (aliveB > aliveA) log.push(`Enemy wins! (${aliveB} vs ${aliveA})`);
-    else log.push(`Tie! (${aliveA} vs ${aliveB})`);
-    return log;
-  }
-
-  // UI event
-  document.getElementById('startBattle').addEventListener('click', () => {
-    const logDiv = document.getElementById('battleLog');
-    logDiv.innerHTML = '';
-    const userChars = getInstances(userTeamData);
-    const enemyChars = getInstances(enemyTeamData);
-    const battleLog = simulateBattle(userChars, enemyChars);
-    battleLog.forEach(line => {
-      const p = document.createElement('p');
-      p.textContent = line;
-      document.getElementById('battleLog').appendChild(p);
-    });
-  });
-  </script>
+/***** Button *****/
+document.getElementById('startBattle').addEventListener('click', () => {
+  const btn = document.getElementById('startBattle'); btn.disabled = true;
+  const rounds = simulate(inst(userTeamData), inst(enemyTeamData));
+  playRounds(rounds);
+});
+</script>
 </body>
 </html>
