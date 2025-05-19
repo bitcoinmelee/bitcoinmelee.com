@@ -238,8 +238,8 @@ function actPlayer(char,type,target){
   else if(type==='persuade'||type==='intimidate'){
     const score=type==='persuade'?persuadeScore(char):intimidateScore(char);
     const pass =skillCheck(score,type==='persuade'?mod(target.wis):mod(target.con));
-    if(pass){target.skip=2;log(`${cap(char.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);}
-    else    log(`${cap(char.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
+    if(pass){target.skip=2;log(`${cap(char.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)} to sit out next round`);}
+    else    log(`${cap(char.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}, scaring the shit out of them`);
   }
   else{ /* ability */
     const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
