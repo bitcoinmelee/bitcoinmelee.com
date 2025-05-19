@@ -161,7 +161,7 @@ function statsMeta(li,o){
   const meta=document.createElement('div');meta.className='rowMeta';
   const cls=o.cls||o.Class,fac=o.faction||o.Faction,king=o.kingdom||o.Kingdom,abil=getAbility(o);
   meta.textContent = `Class: ${cls}, Faction: ${fac}, Kingdom: ${king}`;
-  abil?meta.append(' — ',abilitySpan(abil)):meta.append(' —');
+  abil?meta.append(' — Ability: ',abilitySpan(abil)):meta.append(' —');
   li.appendChild(meta);
 }
 const rowFrom=(o,t,live)=>{const li=document.createElement('li');const top=document.createElement('div');top.className='rowTop';
