@@ -224,29 +224,69 @@ function endPlayer(){controls.classList.add('hidden');setTimeout(aiTurn,600);}
 
 function aiTurn(){if(checkVictory())return;
   aiAP=teamAP(enemyChars);usedE.clear();log('— Enemy Turn —');aiStep();}
-function aiStep(){
-  if(aiAP<ATTACK_COST){setTimeout(playerTurn,600);return;}
-  const choices=enemyChars.filter(c=>c.isAlive()&&!usedE.has(c));if(!choices.length)return aiStep();
-    if (!choices.length){               // ← ADD
-    setTimeout(playerTurn,600);       // ← ADD
-    return;}                           // ← ADD
-  const actor=choices[Math.floor(Math.random()*choices.length)];
-  const useAb=actor.ability&&aiAP>=ABILITY_COST&&Math.random()<0.25;
-  const type=useAb?'ab':'atk',cost=type==='atk'?ATTACK_COST:ABILITY_COST;
-  let target;
-  if(type==='atk'){const f=playerChars.filter(c=>c.isAlive());
-    target=f[Math.floor(Math.random()*f.length)];
-    const {hit,dmg}=actor.attack(target);
-    log(hit?`${cap(actor.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(actor.name)} misses ${cap(target.name)}`);}
-  else{
-    const pool=legalTargets(actor,enemyChars.filter(c=>c.isAlive()),playerChars.filter(c=>c.isAlive()));
-    target=pool[Math.floor(Math.random()*pool.length)];
-    const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
-    actor.applyAbility(enemyChars,playerChars,target);
-    const d=diffString(before,target);
-    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}${d?' ('+d+')':' (nothing happened)'}`);
+
+function aiStep() {
+  /* Out of AP? -> return control */
+  if (aiAP < ATTACK_COST) {
+    setTimeout(playerTurn, 600);
+    return;
   }
-  refreshLists();usedE.add(actor);aiAP-=cost;if(checkVictory())return;setTimeout(aiStep,600);
+
+  /* Pick an actor that hasn’t acted */
+  const choices = enemyChars.filter(c => c.isAlive() && !usedE.has(c));
+  if (!choices.length) {
+    /* All left‑alive enemies have acted */
+    setTimeout(playerTurn, 600);
+    return;
+  }
+
+  const actor = choices[Math.floor(Math.random() * choices.length)];
+
+  /* Decide action */
+  const canAb   = actor.ability && aiAP >= ABILITY_COST;
+  const tryAb   = canAb && Math.random() < 0.25;
+  const type    = tryAb ? 'ab' : 'atk';
+  const cost    = type === 'atk' ? ATTACK_COST : ABILITY_COST;
+
+  /* Choose target(s) */
+  let target;
+  if (type === 'atk') {
+    const foes = playerChars.filter(c => c.isAlive());
+    target = foes[Math.floor(Math.random() * foes.length)];
+  } else {
+    const pool = legalTargets(
+      actor,
+      enemyChars.filter(c => c.isAlive()),
+      playerChars.filter(c => c.isAlive())
+    );
+
+    /* Fallback: if ability has no valid targets, do an attack instead */
+    if (!pool.length) {
+      return aiStep();                        // re‑roll this iteration
+    }
+    target = pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  /* Perform action */
+  if (type === 'atk') {
+    const { hit, dmg } = actor.attack(target);
+    log(hit
+      ? `${cap(actor.name)} hits ${cap(target.name)} (-${dmg} HP)`
+      : `${cap(actor.name)} misses ${cap(target.name)}`);
+  } else {
+    const before = { hp: target.hp, str: target.str, dex: target.dex, con: target.con };
+    actor.applyAbility(enemyChars, playerChars, target);
+    const d = diffString(before, target);
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`
+        + (d ? ` (${d})` : ' (nothing happened)'));
+  }
+
+  refreshLists();
+  usedE.add(actor);
+  aiAP -= cost;
+
+  if (checkVictory()) return;
+  setTimeout(aiStep, 600);          // loop to next enemy action
 }
 
 /* victory */
