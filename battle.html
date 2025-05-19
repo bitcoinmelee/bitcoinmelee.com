@@ -16,9 +16,10 @@
     }
     *{box-sizing:border-box}
 
+    /* leave space so 10 vh roster panes don’t cover UI */
     body{
       margin:0;
-      padding:12vh 1rem 12vh;                 /* room for roster panes */
+      padding:12vh 1rem 12vh;
       font-family:'Montserrat',sans-serif;
       background:var(--parchment);color:var(--ink);
     }
@@ -37,7 +38,8 @@
     #userPane {bottom:0;height:10vh;border-top-width:5px;}
 
     .teamPane h2{
-      margin:0 0 0.3rem;font-family:'Uncial Antiqua',cursive;font-size:1.15rem;
+      margin:0 0 0.3rem;
+      font-family:'Uncial Antiqua',cursive;font-size:1.15rem;
     }
     .teamList{
       list-style:none;margin:0;padding:0;
@@ -86,15 +88,18 @@
 <body>
   <h1>Bitcoin Melee</h1>
 
+  <!-- Enemy roster (top) -->
   <div id="enemyPane" class="teamPane">
     <h2>Enemy Team</h2>
     <ul id="enemyTeam" class="teamList"></ul>
   </div>
 
+  <!-- Battle controls / log -->
   <button id="startBattle" disabled>Commence Battle</button>
   <div id="battleLog"></div>
   <div id="controls" class="hidden"></div>
 
+  <!-- Player roster (bottom) -->
   <div id="userPane" class="teamPane">
     <h2>Your Team</h2>
     <ul id="userTeam" class="teamList"></ul>
@@ -102,27 +107,35 @@
 
 <script>
 /*──────── constants & helpers ───────*/
-const ABILITY_COST=3, ATTACK_COST=1, AP_PER_TURN=5;
-const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'';
-const d20=()=>Math.floor(Math.random()*20)+1, d6=()=>Math.floor(Math.random()*6)+1;
-const mod=v=>Math.floor((v-10)/2);
+const ABILITY_COST = 3, ATTACK_COST = 1, AP_PER_TURN = 5;
+const cap = s => s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : '';
+const d20 = () => Math.floor(Math.random()*20)+1;
+const d6  = () => Math.floor(Math.random()*6)+1;
+const mod = v => Math.floor((v-10)/2);
 
 /*──────── load JSON ───────*/
-let characters=[],abilities={};
+let characters = [], abilities = {};
 Promise.all([
-  fetch('characters.json').then(r=>r.json()),
-  fetch('abilities.json').then(r=>r.json())
-]).then(([c,a])=>{characters=c;abilities=a;initTeams();startBattle.disabled=false;})
-  .catch(console.error);
+  fetch('characters.json').then(r => r.json()),
+  fetch('abilities.json').then(r => r.json())
+]).then(([c,a]) => {
+  characters = c; abilities = a;
+  initTeams();
+  startBattle.disabled = false;
+}).catch(console.error);
 
 /*──────── team setup ───────*/
-let userTeamData=[],enemyTeamData=[];
+let userTeamData=[], enemyTeamData=[];
 function initTeams(){
-  const stored=sessionStorage.getItem('roster'); if(!stored)return;
-  userTeamData=JSON.parse(stored);
-  const used=new Set(userTeamData.map(h=>h.Name));
-  const pool=characters.filter(x=>!used.has(x.Name));
-  shuffle(pool); enemyTeamData=pool.slice(0,userTeamData.length);
+  const stored = sessionStorage.getItem('roster');
+  if (!stored) return;
+  userTeamData = JSON.parse(stored);
+
+  const used = new Set(userTeamData.map(h=>h.Name));
+  const pool = characters.filter(x=>!used.has(x.Name));
+  shuffle(pool);
+  enemyTeamData = pool.slice(0, userTeamData.length);
+
   renderInitialLists();
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
@@ -139,28 +152,50 @@ class Character{
   }
   isAlive(){return this.hp>0;}
   attack(t){
-    const atk=d20()+mod(this.str);
+    const atk = d20()+mod(this.str);
     if(atk<10+mod(t.dex))return{hit:false,dmg:0};
-    const dmg=Math.max(1,d6()+mod(this.str));
-    t.hp=Math.max(0,t.hp-dmg); return{hit:true,dmg};
+    const dmg = Math.max(1, d6()+mod(this.str));
+    t.hp = Math.max(0, t.hp-dmg);
+    return{hit:true,dmg};
   }
-  _applyStat(st,v){
-    if(st==='Health')this.hp=Math.min(this.maxHp,Math.max(0,this.hp+v));
-    if(st==='Strength')this.str=Math.max(0,this.str+v);
-    if(st==='Dexterity')this.dex=Math.max(0,this.dex+v);
-    if(st==='Constitution')this.con=Math.max(0,this.con+v);
+  _apply(stat,val){
+    if(stat==='Health')this.hp=Math.min(this.maxHp,Math.max(0,this.hp+val));
+    if(stat==='Strength')this.str=Math.max(0,this.str+val);
+    if(stat==='Dexterity')this.dex=Math.max(0,this.dex+val);
+    if(stat==='Constitution')this.con=Math.max(0,this.con+val);
   }
   applyAbility(allies,foes,target){
     const eff=abilities[this.ability]||{};
     for(const k in eff){
-      const s=k.split('_')[0],v=eff[k];
-      if(k.endsWith('_Self'))this._applyStat(s,v);
-      if(k.endsWith('_ally'))allies.forEach(a=>a._applyStat(s,v));
-      if(k.endsWith('_Foe')&&target)target._applyStat(s,v);
+      const stat=k.split('_')[0],v=eff[k];
+      if(k.endsWith('_Self'))this._apply(stat,v);
+      if(k.endsWith('_ally'))allies.forEach(a=>a._apply(stat,v));
+      if(k.endsWith('_Foe')&&target)target._apply(stat,v);
     }
   }
 }
 const inst=a=>a.map(r=>new Character(r));
+
+/*──────── ability helpers (restored) ───────*/
+function abilityFlags(name){
+  const eff = abilities[name]||{};
+  let ally=false,foe=false,self=false;
+  for(const k in eff){
+    if(k.endsWith('_ally')) ally=true;
+    else if(k.endsWith('_Foe')) foe=true;
+    else if(k.endsWith('_Self')) self=true;
+  }
+  if(!ally && !foe && !self) foe = true;        // default: foe
+  return {ally,foe,self};
+}
+function legalTargets(actor,allies,foes){
+  const f=abilityFlags(actor.ability);
+  let list=[];
+  if(f.self) list.push(actor);
+  if(f.ally) list=list.concat(allies.filter(a=>a!==actor));
+  if(f.foe)  list=list.concat(foes);
+  return list;
+}
 
 /*──────── diff helper ───────*/
 function diffString(b,a){
@@ -170,7 +205,7 @@ function diffString(b,a){
   },[]).join(', ');
 }
 
-/*──────── roster rendering ───────*/
+/*──────── roster row rendering ───────*/
 function hpBar(c,t){const p=document.createElement('progress');p.value=c.hp??c.Health;p.max=c.maxHp??c.Health;if(t==='enemy')p.classList.add('enemy');return p;}
 function statLine(o){
   return `HP:${(o.hp??o.Health)}/${o.maxHp??o.Health} `+
@@ -178,29 +213,29 @@ function statLine(o){
          `Int:${o.int??o.Intelligence} Wis:${o.wis??o.Wisdom} Cha:${o.cha??o.Charisma} Mana:${o.mana??o.Mana}`;
 }
 function abilitySpan(name){
-  const s=document.createElement('span');s.className='ability';s.textContent=cap(name);
-  s.title=(abilities[name]&&abilities[name].Description)||'';return s;
+  const s=document.createElement('span');
+  s.className='ability';s.textContent=cap(name);
+  s.title=(abilities[name]&&abilities[name].Description)||'';
+  return s;
 }
 function statsMeta(li,o){
-  /* stats line */
-  const st=document.createElement('div');st.className='rowStats';st.textContent=statLine(o);li.appendChild(st);
+  const s=document.createElement('div');s.className='rowStats';s.textContent=statLine(o);li.appendChild(s);
 
-  /* meta line */
   const m=document.createElement('div');m.className='rowMeta';
-  const cls=o.cls||o.Class,fac=o.faction||o.Faction,king=o.kingdom||o.Kingdom,abil=o.ability||o['Common Ability']||'';
+  const cls=o.cls||o.Class,fac=o.faction||o.Faction,king=o.kingdom||o.Kingdom,abil=o.ability||'';
   m.textContent=`${cls}, ${fac}, ${king}`;
-  if(abil){
-    m.append(' — ');m.append(abilitySpan(abil));
-  }else{
-    m.append(' —');
-  }
+  if(abil){m.append(' — ');m.append(abilitySpan(abil));}else{m.append(' —');}
   li.appendChild(m);
 }
 function rowFrom(o,t,live){
   const li=document.createElement('li');
   const top=document.createElement('div');top.className='rowTop';
-  top.appendChild(hpBar(o,t));top.appendChild(document.createElement('strong')).textContent=` ${cap(o.name||o.Name)}`;
-  li.appendChild(top);statsMeta(li,o);if(!live)li.style.opacity=0.4;return li;
+  top.appendChild(hpBar(o,t));
+  top.appendChild(document.createElement('strong')).textContent=` ${cap(o.name||o.Name)}`;
+  li.appendChild(top);
+  statsMeta(li,o);
+  if(!live) li.style.opacity=0.4;
+  return li;
 }
 function renderInitialLists(){
   userTeam.innerHTML='';enemyTeam.innerHTML='';
@@ -213,66 +248,83 @@ function refreshLists(){
   enemyChars.forEach(c=>enemyTeam.appendChild(rowFrom(c,'enemy',c.isAlive())));
 }
 
-/*──────── battle state & loop (logic unchanged) ───────*/
-let playerChars=[],enemyChars=[],playerAP=0,aiAP=0;let usedP=new Set(),usedE=new Set();
-const logDiv=document.getElementById('battleLog');
-function log(m){const p=document.createElement('p');p.textContent=m;logDiv.appendChild(p);logDiv.scrollTop=logDiv.scrollHeight;}
+/*──────── battle state & loop ───────*/
+let playerChars=[],enemyChars=[],playerAP=0,aiAP=0,usedP=new Set(),usedE=new Set();
+const logDiv=document.getElementById('battleLog');function log(msg){const p=document.createElement('p');p.textContent=msg;logDiv.appendChild(p);logDiv.scrollTop=logDiv.scrollHeight;}
 
 startBattle.addEventListener('click',()=>{startBattle.disabled=true;logDiv.innerHTML='';
   playerChars=inst(userTeamData);enemyChars=inst(enemyTeamData);
   refreshLists();playerAP=AP_PER_TURN;usedP.clear();playerTurn();});
 
-/* player side */
-function playerTurn(){if(checkVictory())return;log('— Your Turn —');controls.classList.remove('hidden');renderCtrl();}
-function renderCtrl(){
+function playerTurn(){if(checkVictory())return;log('— Your Turn —');controls.classList.remove('hidden');showControls();}
+function showControls(){
   controls.innerHTML=`<p><span class="ap">${playerAP}</span> AP</p>`;
   const avail=playerChars.filter(c=>c.isAlive()&&!usedP.has(c));
   if(!avail.length||playerAP<ATTACK_COST){endPlayer();return;}
   avail.forEach(c=>{
     const row=document.createElement('div');row.className='charCtrl';row.textContent=cap(c.name);
-    if(playerAP>=ATTACK_COST){
-      const b=document.createElement('button');b.textContent='Atk(1)';b.onclick=()=>pickTgt(c,'atk');row.appendChild(b);}
-    if(c.ability&&playerAP>=ABILITY_COST){
-      const b=document.createElement('button');b.textContent=`${cap(c.ability)}(3)`;b.onclick=()=>pickTgt(c,'ab');row.appendChild(b);}
+    if(playerAP>=ATTACK_COST){const b=document.createElement('button');b.textContent='Atk(1)';b.onclick=()=>pickTarget(c,'atk');row.appendChild(b);}
+    if(c.ability&&playerAP>=ABILITY_COST){const b=document.createElement('button');b.textContent=`${cap(c.ability)}(3)`;b.onclick=()=>pickTarget(c,'ab');row.appendChild(b);}
     controls.appendChild(row);
   });
 }
-function pickTgt(char,typ){
+function pickTarget(char,type){
   controls.innerHTML='<p>Choose target:</p>';
-  const tgts=typ==='atk'?enemyChars.filter(c=>c.isAlive())
+  const tgts=type==='atk'?enemyChars.filter(c=>c.isAlive())
             :legalTargets(char,playerChars.filter(c=>c.isAlive()),enemyChars.filter(c=>c.isAlive()));
-  tgts.forEach(t=>{const b=document.createElement('button');b.textContent=cap(t.name);
-    b.onclick=()=>actPlayer(char,typ,t);controls.appendChild(b);});
+  tgts.forEach(t=>{
+    const b=document.createElement('button');b.textContent=cap(t.name);
+    b.onclick=()=>actPlayer(char,type,t);controls.appendChild(b);
+  });
 }
-function actPlayer(char,typ,target){
-  const cost=typ==='atk'?ATTACK_COST:ABILITY_COST;if(playerAP<cost)return;
-  if(typ==='atk'){const {hit,dmg}=char.attack(target);log(hit?`${cap(char.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(char.name)} misses ${cap(target.name)}`);}
-  else{const b={hp:target.hp,str:target.str,dex:target.dex,con:target.con};char.applyAbility(playerChars,enemyChars,target);
-       const d=diffString(b,target);log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}${d?' ('+d+')':''}`);}
-  refreshLists();usedP.add(char);playerAP-=cost;if(checkVictory())return;playerAP>=ATTACK_COST?renderCtrl():endPlayer();}
+function actPlayer(char,type,target){
+  const cost=type==='atk'?ATTACK_COST:ABILITY_COST;if(playerAP<cost)return;
+  if(type==='atk'){
+    const {hit,dmg}=char.attack(target);
+    log(hit?`${cap(char.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(char.name)} misses ${cap(target.name)}`);
+  }else{
+    const b={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
+    char.applyAbility(playerChars,enemyChars,target);
+    const d=diffString(b,target);
+    log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}${d?' ('+d+')':''}`);
+  }
+  refreshLists();usedP.add(char);playerAP-=cost;
+  if(checkVictory())return;
+  playerAP>=ATTACK_COST?showControls():endPlayer();
+}
 function endPlayer(){controls.classList.add('hidden');setTimeout(aiTurn,600);}
 
-/* AI side */
 function aiTurn(){if(checkVictory())return;aiAP=AP_PER_TURN;usedE.clear();log('— Enemy Turn —');aiStep();}
 function aiStep(){
   if(aiAP<ATTACK_COST){setTimeout(()=>{playerAP=AP_PER_TURN;usedP.clear();playerTurn();},600);return;}
   const choices=enemyChars.filter(c=>c.isAlive()&&!usedE.has(c));
   if(!choices.length){aiAP=0;return aiStep();}
   const actor=choices[Math.floor(Math.random()*choices.length)];
-  const useAb=actor.ability&&aiAP>=ABILITY_COST&&Math.random()<0.25,typ=useAb?'ab':'atk',cost=typ==='atk'?ATTACK_COST:ABILITY_COST;
-  let tgt;
-  if(typ==='atk'){const f=playerChars.filter(c=>c.isAlive());tgt=f[Math.floor(Math.random()*f.length)];
-    const {hit,dmg}=actor.attack(tgt);log(hit?`${cap(actor.name)} hits ${cap(tgt.name)} (-${dmg} HP)`:`${cap(actor.name)} misses ${cap(tgt.name)}`);}
-  else{const pool=legalTargets(actor,enemyChars.filter(c=>c.isAlive()),playerChars.filter(c=>c.isAlive()));
-    tgt=pool[Math.floor(Math.random()*pool.length)];
-    const b={hp:tgt.hp,str:tgt.str,dex:tgt.dex,con:tgt.con};actor.applyAbility(enemyChars,playerChars,tgt);
-    const d=diffString(b,tgt);log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(tgt.name)}${d?' ('+d+')':''}`);}
-  refreshLists();usedE.add(actor);aiAP-=cost;if(checkVictory())return;setTimeout(aiStep,600);}
+  const useAb=actor.ability&&aiAP>=ABILITY_COST&&Math.random()<0.25;
+  const type=useAb?'ab':'atk',cost=type==='atk'?ATTACK_COST:ABILITY_COST;
+  let target;
+  if(type==='atk'){
+    const foes=playerChars.filter(c=>c.isAlive());
+    target=foes[Math.floor(Math.random()*foes.length)];
+    const {hit,dmg}=actor.attack(target);
+    log(hit?`${cap(actor.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(actor.name)} misses ${cap(target.name)}`);
+  }else{
+    const pool=legalTargets(actor,enemyChars.filter(c=>c.isAlive()),playerChars.filter(c=>c.isAlive()));
+    target=pool[Math.floor(Math.random()*pool.length)];
+    const b={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
+    actor.applyAbility(enemyChars,playerChars,target);
+    const d=diffString(b,target);
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}${d?' ('+d+')':''}`);
+  }
+  refreshLists();usedE.add(actor);aiAP-=cost;
+  if(checkVictory())return;setTimeout(aiStep,600);
+}
 
-/* victory */
 function checkVictory(){
   const you=playerChars.some(c=>c.isAlive()),foe=enemyChars.some(c=>c.isAlive());
-  if(you&&foe)return false;log(you?`🎉 You win!`:`☠️ Enemy wins!`);startBattle.disabled=false;return true;
+  if(you&&foe)return false;
+  log(you?`🎉 You win!`:`☠️ Enemy wins!`);
+  startBattle.disabled=false;return true;
 }
 </script>
 </body>
