@@ -101,23 +101,48 @@ Promise.all([fetch('characters.json').then(r=>r.json()),
   .then(([c,a])=>{characters=c;abilities=a;initTeams();startBattle.disabled=false;})
   .catch(console.error);
 
-/*──────── team setup ───────*/
-let userTeamData=[],enemyTeamData=[];
-function initTeams(){
-  const stored=sessionStorage.getItem('roster');if(!stored)return;
-  const roster=JSON.parse(stored);
+/*──────── TEAM SETUP ───────*/
+let userTeamData = [], enemyTeamData = [];
 
-  /* player side: keep only dominant kingdom */
-  const playerKing=dominantKingdom(roster);
-  userTeamData=roster.filter(c=> (c.Kingdom||'')===playerKing);
+function initTeams() {
+  const stored = sessionStorage.getItem('roster');
+  if (!stored) return;
 
-  /* enemy side: use remaining characters, then keep only their dominant kingdom */
-  const remaining=characters.filter(c=>!roster.some(r=>r.Name===c.Name));
-  const enemyKing=dominantKingdom(remaining);
-  enemyTeamData=remaining.filter(c=> (c.Kingdom||'')===enemyKing);
+  /* ---------- PLAYER TEAM ---------- */
+  const roster = JSON.parse(stored);
+  const playerKing = dominantKingdom(roster);
+  userTeamData = roster.filter(c => (c.Kingdom || '') === playerKing);
+
+  /* ---------- ENEMY POOL  ---------- */
+  const remaining = characters.filter(c =>
+    !roster.some(r => r.Name === c.Name) &&
+    (c.Kingdom || '') !== playerKing                     // must be a different kingdom
+  );
+
+  /* collect kingdoms with enough members */
+  const need = userTeamData.length;
+  const byKing = remaining.reduce((m,c)=>{
+      const k=c.Kingdom||''; (m[k]=m[k]||[]).push(c); return m;
+  },{});
+
+  /* pick a kingdom that has ≥ need characters */
+  const viable = Object.keys(byKing).filter(k => byKing[k].length >= need);
+  let enemyKing;
+  if (viable.length) {
+    enemyKing = viable[Math.floor(Math.random() * viable.length)];  // random viable kingdom
+  } else {
+    /* fallback: pick the kingdom with the most remaining characters */
+    enemyKing = Object.keys(byKing).sort((a,b)=>byKing[b].length - byKing[a].length)[0];
+  }
+
+  /* sample exactly `need` characters from that kingdom */
+  const pool = byKing[enemyKing] || [];
+  shuffle(pool);
+  enemyTeamData = pool.slice(0, need);
 
   renderInitialLists();
 }
+
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}};
 
 /*──────── Character class ───────*/
