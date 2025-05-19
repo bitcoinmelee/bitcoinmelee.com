@@ -7,146 +7,528 @@
   <!-- Fantasy fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- (Optional) site‑wide sheet -->
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    :root{
-      --parchment:#f9f4e8;
-      --ink:#2b2a29;
-      --user:#216869;
-      --enemy:#a11d33;
-      --bar:#fff8ef;
-      --border:#8c6b42;
+    :root {
+      --parchment: #f9f4e8;
+      --ink:       #2b2a29;
+      --user:      #216869;
+      --enemy:     #a11d33;
     }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      padding:5.5rem 1rem 6rem; /* leave space for bars */
-      font-family:'Montserrat',sans-serif;
-      background:var(--parchment);
-      color:var(--ink);
-    }
-    h1{
-      font-family:'Uncial Antiqua',cursive;
-      font-size:2.2rem;
-      margin:0 0 0.8rem;
-      text-align:center;
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 1.2rem;
+      font-family: 'Montserrat', sans-serif;
+      background: var(--parchment);
+      color: var(--ink);
     }
 
-    /* TEAM BARS */
-    .teamBarWrap{
-      position:fixed;left:0;width:100%;z-index:20;pointer-events:none;
-      display:flex;justify-content:center;
-      backdrop-filter:blur(2px);
+    h1 {
+      font-family: 'Uncial Antiqua', cursive;
+      font-size: 2.4rem;
+      margin: 0 0 1rem;
+      letter-spacing: 1px;
+      text-align: center;
     }
-    #enemyBar{top:0;border-bottom:3px double var(--border);background:var(--bar);} 
-    #userBar{bottom:0;border-top:3px double var(--border);background:var(--bar);} 
 
-    .teamBar{
-      display:flex;gap:1rem;padding:0.45rem 1rem;margin:0;list-style:none;overflow-x:auto;max-width:100%;
+    /* Team panels */
+    #teams {
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
-    .teamBar li{
-      pointer-events:auto;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      font-size:0.78rem;
-      line-height:1.15;
-      min-width:120px;
+    #teams section {
+      flex: 1 1 300px;
+      border: 3px double var(--ink);
+      padding: 0.8rem;
+      background: #fff8ef;
+      border-radius: 8px;
     }
-    .teamBar li strong{font-size:0.85rem;}
-    .teamBar progress{width:100px;height:8px;margin-bottom:2px;accent-color:var(--user);} 
-    #enemyBar progress{accent-color:var(--enemy);} 
+    #teams h2 {
+      font-family: 'Uncial Antiqua', cursive;
+      margin: 0 0 0.4rem;
+      font-size: 1.4rem;
+    }
+    #userTeam li { color: var(--user); }
+    #enemyTeam li { color: var(--enemy); }
 
-    /* MAIN UI */
-    #startBattle{display:block;margin:0 auto;padding:0.55rem 1.3rem;font-size:1.05rem;font-family:'Uncial Antiqua',cursive;background:#d1b280;border:2px solid var(--border);border-radius:6px;cursor:pointer;}
-    #startBattle:disabled{opacity:0.5;cursor:not-allowed}
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { margin: 0.35rem 0; font-size: 0.9rem; }
 
-    #battleLog{max-height:260px;overflow-y:auto;margin-top:0.9rem;border:2px solid var(--border);padding:0.7rem;background:#fffefa;font-size:0.9rem;}
+    progress {
+      width: 120px;
+      height: 8px;
+      vertical-align: middle;
+      accent-color: var(--user);
+      margin-right: 0.25rem;
+    }
+    #enemyTeam progress { accent-color: var(--enemy); }
 
-    #controls{margin-top:1rem;border:2px solid var(--border);background:#fffefa;padding:0.9rem;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.15);} 
-    #controls p{margin:0 0 0.6rem;font-family:'Uncial Antiqua',cursive;}
-    .charCtrl{margin:0.45rem 0}
-    .charCtrl button{margin-left:0.5rem;padding:0.24rem 0.6rem;border:1px solid #444;border-radius:4px;background:#dfd6c2;font-size:0.83rem;cursor:pointer;}
-    .charCtrl button:hover:not(:disabled){background:#cbbfa6}
-    .ap{font-weight:bold}
-    .hidden{display:none}
+    /* Buttons & log */
+    #startBattle {
+      display: block;
+      margin: 1.2rem auto 0;
+      padding: 0.6rem 1.4rem;
+      font-size: 1.1rem;
+      font-family: 'Uncial Antiqua', cursive;
+      background: #d1b280;
+      border: 2px solid #8c6b42;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #startBattle:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #battleLog {
+      max-height: 220px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      border: 2px solid #8c6b42;
+      padding: 0.6rem;
+      background: #fffefa;
+      font-size: 0.9rem;
+    }
+
+    .hidden { display: none; }
+
+    /* Turn‑controls */
+    #controls {
+      margin-top: 1rem;
+      border: 2px solid #8c6b42;
+      background: #fffefa;
+      padding: 0.8rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    #controls p {
+      margin: 0 0 0.6rem;
+      font-family: 'Uncial Antiqua', cursive;
+    }
+    .charCtrl   { margin: 0.4rem 0; }
+    .charCtrl button {
+      margin-left: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background: #dfd6c2;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .charCtrl button:hover:not(:disabled) { background: #cbbfa6; }
+
+    .ap { font-weight: bold; }
   </style>
 </head>
+
 <body>
   <h1>Bitcoin Melee</h1>
 
-  <!-- Enemy bar top -->
-  <div id="enemyBar" class="teamBarWrap"><ul id="enemyTeam" class="teamBar"></ul></div>
+  <div id="teams">
+    <section>
+      <h2>Your Team</h2>
+      <ul id="userTeam"></ul>
+    </section>
 
-  <!-- Battle controls -->
+    <section>
+      <h2>Enemy Team</h2>
+      <ul id="enemyTeam"></ul>
+    </section>
+  </div>
+
   <button id="startBattle" disabled>Commence Battle</button>
   <div id="battleLog"></div>
+
+  <!-- Player action controls -->
   <div id="controls" class="hidden"></div>
 
-  <!-- Player bar bottom -->
-  <div id="userBar" class="teamBarWrap"><ul id="userTeam" class="teamBar"></ul></div>
-
 <script>
-/***** CONSTANTS *****/
-const ABILITY_COST=3,ATTACK_COST=1,AP_PER_TURN=5;
+/*------------------- CONSTANTS -------------------*/
+const ABILITY_COST = 3;          // AP cost for an ability
+const ATTACK_COST  = 1;          // AP cost for a basic attack
+const AP_PER_TURN  = 5;
 
-/***** UTIL *****/
-const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'';
-const d20=()=>Math.floor(Math.random()*20)+1;
-const d6 =()=>Math.floor(Math.random()*6)+1;
-const mod=v=>Math.floor((v-10)/2);
+/*------------------- UTILITIES -------------------*/
+const cap  = s => s && s.length ? s[0].toUpperCase() + s.slice(1).toLowerCase() : '';
+const d20  = () => Math.floor(Math.random() * 20) + 1;
+const d6   = () => Math.floor(Math.random() * 6)  + 1;
+const mod  = v => Math.floor((v - 10) / 2);
 
-/***** DATA LOAD *****/
-let characters=[],abilities={};
+/*------------------- DATA LOAD -------------------*/
+let characters = [], abilities = {};
 Promise.all([
-  fetch('characters.json').then(r=>r.json()),
-  fetch('abilities.json').then(r=>r.json())
-]).then(([c,a])=>{characters=c;abilities=a;initTeams();qs('#startBattle').disabled=false;}).catch(console.error);
+  fetch('characters.json').then(r => r.json()),
+  fetch('abilities.json').then(r => r.json())
+]).then(([c, a]) => {
+  characters = c;
+  abilities  = a;
+  initTeams();
+  document.getElementById('startBattle').disabled = false;
+}).catch(err => console.error('JSON load error', err));
 
-const qs=id=>document.querySelector(id);
+/*--------- ABILITY‑TARGET HELPERS ---------*/
+function abilityTargetFlags(name) {
+  const eff = abilities[name] || {};
+  let ally = false, foe = false, self = false;
+  for (const key of Object.keys(eff)) {
+    if (key.endsWith('_ally'))  ally = true;
+    else if (key.endsWith('_Foe'))  foe = true;
+    else if (key.endsWith('_Self')) self = true;
+  }
+  if (!ally && !foe && !self) foe = true;   // default = enemy spell
+  return { ally, foe, self };
+}
+function legalAbilityTargets(actor, allies, foes) {
+  const f = abilityTargetFlags(actor.ability);
+  let list = [];
+  if (f.self) list.push(actor);
+  if (f.ally) list = list.concat(allies.filter(a => a !== actor));
+  if (f.foe)  list = list.concat(foes);
+  return list;
+}
 
-/***** ABILITY TARGET HELPERS *****/
-function abilityFlags(name){const e=abilities[name]||{};let al=false,fo=false,se=false;for(const k in e){ if(k.endsWith('_ally'))al=true; else if(k.endsWith('_Foe'))fo=true; else if(k.endsWith('_Self'))se=true; } if(!al&&!fo&&!se)fo=true;return{al,fo,se};}
-function legalTargets(actor,allies,foes){const f=abilityFlags(actor.ability);let out=[];if(f.se)out.push(actor);if(f.al)out=out.concat(allies.filter(x=>x!==actor));if(f.fo)out=out.concat(foes);return out;}
+/*------------------- TEAM SETUP -------------------*/
+let userTeamData = [], enemyTeamData = [];
+function initTeams() {
+  const stored = sessionStorage.getItem('roster');
+  if (!stored) return console.error('No roster in sessionStorage');
 
-/***** TEAMS *****/
-let userTeamData=[],enemyTeamData=[];
-function initTeams(){const stored=sessionStorage.getItem('roster');if(!stored)return;userTeamData=JSON.parse(stored);const used=new Set(userTeamData.map(h=>h.Name));const pool=characters.filter(c=>!used.has(c.Name));shuffle(pool);enemyTeamData=pool.slice(0,userTeamData.length);renderInitialBars();}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+  userTeamData = JSON.parse(stored);
 
-/***** CHARACTER CLASS *****/
-class Character{constructor(r){Object.assign(this,{name:r.Name,maxHp:r.Health,hp:r.Health,str:r.Strength,dex:r.Dexterity,con:r.Constitution,int:r.Intelligence,wis:r.Wisdom,cha:r.Charisma,mana:r.Mana,ability:r['Common Ability']||r.Ability||''});}
-  isAlive(){return this.hp>0;}
-  _apply(stat,val){switch(stat){case 'Health':this.hp=Math.min(this.maxHp,Math.max(0,this.hp+val));break;case 'Strength':this.str=Math.max(0,this.str+val);break;case 'Dexterity':this.dex=Math.max(0,this.dex+val);break;case 'Constitution':this.con=Math.max(0,this.con+val);break;case 'Mana':this.mana=Math.max(0,this.mana+val);break;}}
-  applyAbility(allies,foes,target){const eff=abilities[this.ability]||{};for(const k in eff){const stat=k.split('_')[0];const v=eff[k];if(k.endsWith('_Self'))this._apply(stat,v);if(k.endsWith('_ally'))allies.forEach(a=>a._apply(stat,v));if(k.endsWith('_Foe')&&target)target._apply(stat,v);} }
-  attack(t){const atk=d20()+mod(this.str);if(atk<10+mod(t.dex))return{hit:false,dmg:0};const dmg=Math.max(1,d6()+mod(this.str));t.hp=Math.max(0,t.hp-dmg);return{hit:true,dmg};}}
-const inst=a=>a.map(x=>new Character(x));
+  // pick enemy team from unused characters
+  const used = new Set(userTeamData.map(h => h.Name));
+  const pool = characters.filter(c => !used.has(c.Name));
+  shuffle(pool);
+  enemyTeamData = pool.slice(0, userTeamData.length);
 
-/***** BAR RENDERING *****/
-function hpBar(c,team){const p=document.createElement('progress');p.value=c.hp;p.max=c.maxHp;if(team==='enemy')p.classList.add('enemy');return p;}
-function statMini(c){return `HP:${c.hp}/${c.maxHp} Str:${c.str} Dex:${c.dex}`;}
-function liForRec(r,team){const li=document.createElement('li');li.innerHTML=`<strong>${cap(r.Name)}</strong><span style="font-size:0.7rem;"> ${statMini(r)}</span>`;return li;}
-function liForChar(c,team){const li=document.createElement('li');li.appendChild(hpBar(c,team));li.innerHTML+=`<strong>${cap(c.name)}</strong><span style="font-size:0.7rem;"> ${statMini(c)}</span>`;if(!c.isAlive())li.style.opacity=0.4;return li;}
-function renderInitialBars(){qs('#userTeam').innerHTML='';qs('#enemyTeam').innerHTML='';userTeamData.forEach(r=>qs('#userTeam').appendChild(liForRec(r,'user')));enemyTeamData.forEach(r=>qs('#enemyTeam').appendChild(liForRec(r,'enemy')));}function refreshBars(){qs('#userTeam').innerHTML='';qs('#enemyTeam').innerHTML='';playerChars.forEach(c=>qs('#userTeam').appendChild(liForChar(c,'user')));enemyChars.forEach(c=>qs('#enemyTeam').appendChild(liForChar(c,'enemy')));}
+  renderInitialLists();
+}
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+}
 
-/***** STATE *****/
-let playerChars=[],enemyChars=[],playerAP=0,aiAP=0,usedP=new Set(),usedE=new Set(),playerTurn=true;const logDiv=qs('#battleLog');const btnStart=qs('#startBattle');btnStart.addEventListener('click',startBattle);
+/*------------------- CHARACTER CLASS -------------------*/
+class Character {
+  constructor(rec) {
+    this.name = rec.Name;
+    this.maxHp = rec.Health;  this.hp  = this.maxHp;
+    this.str   = rec.Strength;
+    this.dex   = rec.Dexterity;
+    this.con   = rec.Constitution;
+    this.int   = rec.Intelligence;
+    this.wis   = rec.Wisdom;
+    this.cha   = rec.Charisma;
+    this.mana  = rec.Mana;
+    this.ability = rec['Common Ability'] || rec.Ability || '';
+  }
+  isAlive() { return this.hp > 0; }
 
-/***** LOG *****/
-function log(m){const p=document.createElement('p');p.textContent=m;logDiv.appendChild(p);logDiv.scrollTop=logDiv.scrollHeight;}
+  /* stat helpers */
+  _applyStat(stat, val) {
+    const clamp = x => Math.max(0, x);
+    switch (stat) {
+      case 'Health':       this.hp  = Math.min(this.maxHp, clamp(this.hp + val)); break;
+      case 'Strength':     this.str = clamp(this.str + val); break;
+      case 'Dexterity':    this.dex = clamp(this.dex + val); break;
+      case 'Constitution': this.con = clamp(this.con + val); break;
+      case 'Intelligence': this.int = clamp(this.int + val); break;
+      case 'Wisdom':       this.wis = clamp(this.wis + val); break;
+      case 'Charisma':     this.cha = clamp(this.cha + val); break;
+      case 'Mana':         this.mana = clamp(this.mana + val); break;
+    }
+  }
 
-/***** BATTLE LOOP (same mechanics as before) *****/
-function startBattle(){btnStart.disabled=true;logDiv.innerHTML='';playerChars=inst(userTeamData);enemyChars=inst(enemyTeamData);refreshBars();playerTurn=true;playerTurnStart();}
+  applyAbility(allies, foes, target) {
+    const eff = abilities[this.ability] || {};
+    for (const [k, v] of Object.entries(eff)) {
+      const stat = k.split('_')[0];
+      if (k.endsWith('_Self')) this._applyStat(stat, v);
+      if (k.endsWith('_ally')) allies.forEach(a => a._applyStat(stat, v));
+      if (k.endsWith('_Foe')  && target) target._applyStat(stat, v);
+    }
+  }
 
-function playerTurnStart(){if(victory())return;playerAP=AP_PER_TURN;usedP.clear();log('— Your Turn —');renderControls();}
-function renderControls(){const ctr=qs('#controls');ctr.innerHTML='';ctr.classList.remove('hidden');const h=document.createElement('p');h.innerHTML=`<span class="ap">${playerAP}</span> AP`;ctr.appendChild(h);const choices=playerChars.filter(c=>c.isAlive()&&!usedP.has(c));if(!choices.length||playerAP<ATTACK_COST){endPlayerTurn();return;}choices.forEach(c=>{const row=document.createElement('div');row.className='charCtrl';row.textContent=cap(c.name);if(playerAP>=ATTACK_COST){const b=document.createElement('button');b.textContent='Atk(1)';b.onclick=()=>chooseTarget(c,'atk');row.appendChild(b);}if(c.ability&&playerAP>=ABILITY_COST){const b=document.createElement('button');b.textContent=`${cap(c.ability)}(3)`;b.onclick=()=>chooseTarget(c,'ab');row.appendChild(b);}ctr.appendChild(row);});}
-function chooseTarget(char,type){const cost=type==='atk'?ATTACK_COST:ABILITY_COST;if(playerAP<cost){renderControls();return;}const ctr=qs('#controls');ctr.innerHTML='';const p=document.createElement('p');p.textContent='Choose target:';ctr.appendChild(p);const targets=type==='atk'?enemyChars.filter(c=>c.isAlive()):legalTargets(char,playerChars.filter(c=>c.isAlive()),enemyChars.filter(c=>c.isAlive()));targets.forEach(t=>{const b=document.createElement('button');b.textContent=cap(t.name);b.onclick=()=>doPlayerAction(char,type,t,cost);ctr.appendChild(b);});}
-function doPlayerAction(char,type,target,cost){if(!char.isAlive()||usedP.has(char))return; if(type==='atk'){const {hit,dmg}=char.attack(target);log(hit?`${cap(char.name)} hits ${cap(target.name)} (${dmg})`:`${cap(char.name)} misses ${cap(target.name)}`);}else{log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`);char.applyAbility(playerChars,enemyChars,target);}refreshBars();usedP.add(char);playerAP-=cost;if(victory())return;playerAP>=ATTACK_COST?renderControls():endPlayerTurn();}
-function endPlayerTurn(){qs('#controls').classList.add('hidden');playerTurn=false;setTimeout(enemyTurnStart,600);}
+  attack(t) {
+    const atk = d20() + mod(this.str);
+    const ac  = 10 + mod(t.dex);
+    if (atk < ac) return { hit: false, dmg: 0 };
 
-function enemyTurnStart(){if(victory())return;aiAP=AP_PER_TURN;usedE.clear();log('— Enemy Turn —');enemyStep();}
-function enemyStep(){if(aiAP<ATTACK_COST){playerTurn=true;setTimeout(playerTurnStart,600);return;}const ch=enemyChars.filter(c=>c.isAlive()&&!usedE.has(c));if(!ch.length){playerTurn=true;setTimeout(playerTurnStart,600);return;}const actor=ch[Math.floor(Math.random()*ch.length)];const canAb=actor.ability&&aiAP>=ABILITY_COST;const useAb=canAb&&Math.random()<0.25;const type=useAb?'ab':'atk';const cost=type==='atk'?ATTACK_COST:ABILITY_COST;let target;if(type==='atk'){const foes=playerChars.filter(c=>c.isAlive());target=foes[Math.floor(Math.random()*foes.length)];const {hit,dmg}=actor.attack(target);log(hit?`${cap(actor.name)} hits ${cap(target.name)} (${dmg})`:`${cap(actor.name)} misses ${cap(target.name)}`);}else{const allies=enemyChars.filter(c=>c.isAlive());const foes=playerChars.filter(c=>c.isAlive());const pool=legalTargets(actor,allies,foes);target=pool[Math.floor(Math.random()*pool.length)];log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`);actor.applyAbility(enemyChars,playerChars,target);}refreshBars();usedE.add(actor);aiAP-=cost;if(victory())return;setTimeout(enemyStep,600);} 
+    const dmg = Math.max(1, d6() + mod(this.str));
+    t.hp = Math.max(0, t.hp - dmg);
+    return { hit: true, dmg };
+  }
+}
+/* convenience ctor */
+const inst = arr => arr.map(r => new Character(r));
 
-/***** VICTORY *****/
-function victory(){const you=playerChars.some(c=>c.isAlive());const foe=enemyChars.some(c=>c.isAlive());if(you&&foe)return false;log(you&&!foe?'🎉 You win!'
+/*------------------- RENDER HELPERS -------------------*/
+function hpProgress(c, team) {
+  const p = document.createElement('progress');
+  p.value = c.hp;
+  p.max   = c.maxHp;
+  if (team === 'enemy') p.classList.add('enemy');
+  return p;
+}
+function statLine(obj) {
+  return `HP:${obj.hp || obj.Health}/${obj.maxHp || obj.Health} ` +
+         `Str:${obj.str || obj.Strength} Dex:${obj.dex || obj.Dexterity}`;
+}
+function liForRec(r, team) {
+  const li = document.createElement('li');
+  li.innerHTML =
+    `<strong>${cap(r.Name)}</strong> ${statLine(r)} ` +
+    `Ability:${cap(r['Common Ability'] || r.Ability || '–')}`;
+  const ab = r['Common Ability'] || r.Ability;
+  if (ab && abilities[ab]) li.title = abilities[ab].Description;
+  return li;
+}
+function liForChar(c, team) {
+  const li = document.createElement('li');
+  li.prepend(hpProgress(c, team));
+  li.innerHTML +=
+    `<strong>${cap(c.name)}</strong> ${statLine(c)} ` +
+    (c.ability ? `Ability:${cap(c.ability)}` : '') +
+    (!c.isAlive() ? ' ✝' : '');
+  if (c.ability && abilities[c.ability])
+    li.title = abilities[c.ability].Description;
+  return li;
+}
+
+function renderInitialLists() {
+  const u = document.getElementById('userTeam');
+  const e = document.getElementById('enemyTeam');
+  u.innerHTML = ''; e.innerHTML = '';
+  userTeamData.forEach(r => u.appendChild(liForRec(r, 'user')));
+  enemyTeamData.forEach(r => e.appendChild(liForRec(r, 'enemy')));
+}
+function refreshLists() {
+  const u = document.getElementById('userTeam');
+  const e = document.getElementById('enemyTeam');
+  u.innerHTML = ''; e.innerHTML = '';
+  playerChars.forEach(c => u.appendChild(liForChar(c, 'user')));
+  enemyChars.forEach(c => e.appendChild(liForChar(c, 'enemy')));
+}
+
+/*------------------- GLOBAL STATE -------------------*/
+let playerChars = [], enemyChars = [];
+let playerAP = 0, aiAP = 0;
+let usedPlayer = new Set(), usedAI = new Set();
+let playerTurn = true;
+
+const logDiv = document.getElementById('battleLog');
+function log(msg) {
+  const p = document.createElement('p');
+  p.textContent = msg;
+  logDiv.appendChild(p);
+  logDiv.scrollTop = logDiv.scrollHeight;
+}
+
+/*------------------- BATTLE LOOP -------------------*/
+document.getElementById('startBattle')
+  .addEventListener('click', startBattle);
+
+function startBattle() {
+  document.getElementById('startBattle').disabled = true;
+  playerChars = inst(userTeamData);
+  enemyChars  = inst(enemyTeamData);
+  refreshLists();
+  playerTurn = true;
+  startPlayerTurn();
+}
+
+/* ---------- PLAYER TURN ---------- */
+function startPlayerTurn() {
+  if (checkVictory()) return;
+  logDiv.innerHTML = '';                // only show current turn
+  playerAP = AP_PER_TURN;
+  usedPlayer.clear();
+  log('— Your Turn —');
+  renderPlayerControls();
+}
+
+function renderPlayerControls() {
+  const ctrl = document.getElementById('controls');
+  ctrl.innerHTML = '';
+  ctrl.classList.remove('hidden');
+
+  const hdr = document.createElement('p');
+  hdr.innerHTML = `<span class="ap">${playerAP}</span> AP left`;
+  ctrl.appendChild(hdr);
+
+  const choices = playerChars.filter(c => c.isAlive() && !usedPlayer.has(c));
+  if (!choices.length || playerAP < ATTACK_COST) { endPlayerTurn(); return; }
+
+  choices.forEach(c => {
+    const row   = document.createElement('div');
+    row.className = 'charCtrl';
+    row.appendChild(document.createTextNode(cap(c.name)));
+
+    if (playerAP >= ATTACK_COST) {
+      const atk = document.createElement('button');
+      atk.textContent = 'Attack (1)';
+      atk.addEventListener('click', () => chooseTarget(c, 'attack'));
+      row.appendChild(atk);
+    }
+
+    if (c.ability && playerAP >= ABILITY_COST) {
+      const ab = document.createElement('button');
+      ab.textContent = `${cap(c.ability)} (3)`;
+      ab.title = abilities[c.ability]?.Description || '';
+      ab.addEventListener('click', () => chooseTarget(c, 'ability'));
+      row.appendChild(ab);
+    }
+    ctrl.appendChild(row);
+  });
+}
+
+function chooseTarget(char, action) {
+  const cost = action === 'attack' ? ATTACK_COST : ABILITY_COST;
+  if (playerAP < cost) { renderPlayerControls(); return; }
+
+  const ctrl = document.getElementById('controls');
+  ctrl.innerHTML = '';
+
+  const prompt = document.createElement('p');
+  prompt.textContent =
+    `Choose target for ${cap(char.name)}’s ` +
+    (action === 'attack' ? 'attack' : cap(char.ability)) + ':';
+  ctrl.appendChild(prompt);
+
+  const targets = action === 'attack'
+    ? enemyChars.filter(c => c.isAlive())
+    : legalAbilityTargets(
+        char,
+        playerChars.filter(c => c.isAlive()),
+        enemyChars.filter(c => c.isAlive())
+      );
+
+  targets.forEach(t => {
+    const b = document.createElement('button');
+    b.textContent = `${cap(t.name)} (${t.hp}/${t.maxHp})`;
+    b.addEventListener('click', () =>
+      performPlayerAction(char, action, t, cost)
+    );
+    ctrl.appendChild(b);
+  });
+
+  const back = document.createElement('button');
+  back.textContent = 'Back';
+  back.style.marginLeft = '0.5rem';
+  back.addEventListener('click', renderPlayerControls);
+  ctrl.appendChild(back);
+}
+
+function performPlayerAction(char, action, target, cost) {
+  if (!char.isAlive() || usedPlayer.has(char)) { renderPlayerControls(); return; }
+
+  if (action === 'attack') {
+    const { hit, dmg } = char.attack(target);
+    log(hit
+      ? `${cap(char.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
+      : `${cap(char.name)} misses ${cap(target.name)}`);
+  } else {
+    log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`);
+    char.applyAbility(playerChars, enemyChars, target);
+  }
+
+  refreshLists();
+  usedPlayer.add(char);
+  playerAP -= cost;
+
+  if (checkVictory()) return;
+  if (playerAP >= ATTACK_COST &&
+      playerChars.some(c => c.isAlive() && !usedPlayer.has(c))) {
+    renderPlayerControls();
+  } else {
+    endPlayerTurn();
+  }
+}
+
+function endPlayerTurn() {
+  document.getElementById('controls').classList.add('hidden');
+  playerTurn = false;
+  setTimeout(startAiTurn, 600);
+}
+
+/* ---------- AI TURN ---------- */
+function startAiTurn() {
+  if (checkVictory()) return;
+  aiAP = AP_PER_TURN;
+  usedAI.clear();
+  log('— Enemy Turn —');
+  aiStep();
+}
+
+function aiStep() {
+  if (aiAP < ATTACK_COST) {
+    playerTurn = true;
+    setTimeout(startPlayerTurn, 600);
+    return;
+  }
+
+  const choices = enemyChars.filter(c => c.isAlive() && !usedAI.has(c));
+  if (!choices.length) {
+    playerTurn = true;
+    setTimeout(startPlayerTurn, 600);
+    return;
+  }
+
+  const actor = choices[Math.floor(Math.random() * choices.length)];
+  const canAbility = actor.ability && aiAP >= ABILITY_COST;
+  const useAbility = canAbility && Math.random() < 0.25;
+  const action = useAbility ? 'ability' : 'attack';
+  const cost   = action === 'attack' ? ATTACK_COST : ABILITY_COST;
+
+  let target;
+  if (action === 'attack') {
+    const foes = playerChars.filter(c => c.isAlive());
+    target = foes[Math.floor(Math.random() * foes.length)];
+
+    const { hit, dmg } = actor.attack(target);
+    log(hit
+      ? `${cap(actor.name)} hits ${cap(target.name)} for ${dmg} dmg (${target.hp}/${target.maxHp})`
+      : `${cap(actor.name)} misses ${cap(target.name)}`);
+  } else {
+    const allies = enemyChars.filter(c => c.isAlive());
+    const foes   = playerChars.filter(c => c.isAlive());
+    const legal  = legalAbilityTargets(actor, allies, foes);
+    target = legal[Math.floor(Math.random() * legal.length)];
+
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`);
+    actor.applyAbility(enemyChars, playerChars, target);
+  }
+
+  refreshLists();
+  usedAI.add(actor);
+  aiAP -= cost;
+  if (checkVictory()) return;
+  setTimeout(aiStep, 600);
+}
+
+/* ---------------- VICTORY ---------------- */
+function checkVictory() {
+  const youAlive   = playerChars.some(c => c.isAlive());
+  const enemyAlive = enemyChars.some(c => c.isAlive());
+  if (youAlive && enemyAlive) return false;
+
+  const yc = playerChars.filter(c => c.isAlive()).length;
+  const ec = enemyChars.filter(c => c.isAlive()).length;
+  log(yc > ec
+    ? `🎉 You win! (${yc} vs ${ec})`
+    : ec > yc
+      ? `☠️ Enemy wins! (${ec} vs ${yc})`
+      : 'It’s a tie!');
+
+  document.getElementById('startBattle').disabled = false;
+  return true;
+}
+</script>
+</body>
+</html>
