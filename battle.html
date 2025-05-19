@@ -160,7 +160,7 @@ function statsMeta(li,o){
   const st=document.createElement('div');st.className='rowStats';st.textContent=statLine(o);li.appendChild(st);
   const meta=document.createElement('div');meta.className='rowMeta';
   const cls=o.cls||o.Class,fac=o.faction||o.Faction,king=o.kingdom||o.Kingdom,abil=getAbility(o);
-  meta.textContent=`${cls}, ${fac}, ${king}`;
+  meta.textContent = `Class: ${cls}, Faction: ${fac}, Kingdom: ${king}`;
   abil?meta.append(' — ',abilitySpan(abil)):meta.append(' —');
   li.appendChild(meta);
 }

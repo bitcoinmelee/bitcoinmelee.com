@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(r => r.json())
     .then(data => {
       HEROES = Array.isArray(data) ? data : Object.values(data);
-      flash('Paste your xpub!');
+      flash('Discover heros bound to your public key!');
     })
     .catch(err => flash('Could not load heroes.json ➜ ' + err, true));
 
@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // store roster in sessionStorage for battle page
     sessionStorage.setItem('roster', JSON.stringify(roster));
 
-    flash('Here are your heroes:');
+    flash('These are the heroes bound to your key:');
 
     // enable Continue button
     const cont = $('#continue');
