@@ -55,7 +55,7 @@
 
 <script>
 /*──────── constants & helpers ───────*/
-const ATTACK_COST=1, ABILITY_COST=3, TALK_COST=2;
+const ATTACK_COST=1, ABILITY_COST=3, TALK_COST=2;      // ← Persuade / Intimidate
 const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'';
 const d20=()=>Math.floor(Math.random()*20)+1,d6=()=>Math.floor(Math.random()*6)+1;
 const mod=v=>Math.floor((v-10)/2);
@@ -97,11 +97,9 @@ function initTeams(){
   const stored=sessionStorage.getItem('roster');if(!stored)return;
   const roster=JSON.parse(stored);
 
-  /* player team */
   const playerKing=dominantKingdom(roster);
   userTeamData=roster.filter(c=>(c.Kingdom||'')===playerKing);
 
-  /* enemy team: choose different kingdom with enough members */
   const need=userTeamData.length;
   const remaining=characters.filter(c=>!roster.some(r=>r.Name===c.Name)&&(c.Kingdom||'')!==playerKing);
   const byK={};remaining.forEach(c=>{const k=c.Kingdom||'';(byK[k]=byK[k]||[]).push(c);});
@@ -124,7 +122,7 @@ class Character{
       str:r.Strength,dex:r.Dexterity,con:r.Constitution,
       int:r.Intelligence,wis:r.Wisdom,cha:r.Charisma,mana:r.Mana,
       ability:getAbility(r),cls:r.Class,faction:r.Faction,kingdom:r.Kingdom,
-      skip:0
+      skip:0          // rounds to skip next‑turn action
     });
   }
   isAlive(){return this.hp>0;}
@@ -141,6 +139,11 @@ class Character{
   }}
 }
 const inst=a=>a.map(r=>new Character(r));
+
+/* persuade / intimidate maths */
+function persuadeScore(c){ return (c.cha + (c.wis + c.int)/2) / 3; }
+function intimidateScore(c){ return (c.cha + c.con) / 2; }
+function skillCheck(score,targetMod){ return d20()+score > 10+targetMod; }
 
 /* ability flag helpers */
 const abilityFlags=name=>{const e=abilities[name]||{};let ally=false,foe=false,self=false;
@@ -161,7 +164,7 @@ function statsMeta(li,o){
   const st=document.createElement('div');st.className='rowStats';st.textContent=statLine(o);li.appendChild(st);
   const meta=document.createElement('div');meta.className='rowMeta';
   const cls=o.cls||o.Class,fac=o.faction||o.Faction,king=o.kingdom||o.Kingdom,abil=getAbility(o);
-  meta.textContent = `Class: ${cls}, Faction: ${fac}, Kingdom: ${king}`;
+  meta.textContent=`Class: ${cls}, Faction: ${fac}, Kingdom: ${king}`;
   abil?meta.append(' — Ability: ',abilitySpan(abil)):meta.append(' —');
   li.appendChild(meta);
 }
@@ -183,14 +186,6 @@ const teamAP=arr=>{
   return Math.floor(avg/2);
 };
 
-/* persuade / intimidate maths */
-function persuadeScore(c){ return (c.cha + (c.wis + c.int)/2) / 3; }
-function intimidateScore(c){ return (c.cha + c.con) / 2; }
-
-function skillCheck(score, targetMod){
-  return d20() + score > 10 + targetMod;      // simple opposed DC
-}
-
 /*──────── battle loop ───────*/
 let playerChars=[],enemyChars=[],playerAP=0,aiAP=0,usedP=new Set(),usedE=new Set();
 const logDiv=document.getElementById('battleLog'),log=m=>{const p=document.createElement('p');p.textContent=m;logDiv.appendChild(p);logDiv.scrollTop=logDiv.scrollHeight;};
@@ -201,144 +196,114 @@ startBattle.onclick=()=>{
   refreshLists();playerTurn();
 };
 
-function playerTurn(){playerChars.concat(enemyChars).forEach(c=>{ if(c.skip>0) c.skip--; });if(checkVictory())return;
+function playerTurn(){
+  if(checkVictory())return;
+  /* decrement skip counters at the start of each round */
+  [...playerChars,...enemyChars].forEach(c=>{if(c.skip>0)c.skip--;});
   playerAP=teamAP(playerChars);
-  usedP.clear();log('— Your Turn —');controls.classList.remove('hidden');showControls();}
+  usedP.clear();log('— Your Turn —');controls.classList.remove('hidden');showControls();
+}
 function showControls(){
   controls.innerHTML=`<p><span class="ap">${playerAP}</span> AP</p>`;
   const avail=playerChars.filter(c=>c.isAlive()&&c.skip===0&&!usedP.has(c));
   if(!avail.length||playerAP<ATTACK_COST){endPlayer();return;}
   avail.forEach(c=>{
     const row=document.createElement('div');row.className='charCtrl';row.textContent=cap(c.name);
-    if(playerAP>=ATTACK_COST){const b=document.createElement('button');b.textContent='Atk(1)';b.onclick=()=>pickTarget(c,'atk');row.appendChild(b);}
-    if(c.ability&&playerAP>=ABILITY_COST){const b=document.createElement('button');b.textContent=`${cap(c.ability)}(3)`;b.onclick=()=>pickTarget(c,'ab');row.appendChild(b);}
-    if(playerAP>=TALK_COST){                                    // ← NEW
-    const p=document.createElement('button');
-    p.textContent='Persuade(2)';
-    p.onclick=()=>pickTarget(c,'persuade');
-    row.appendChild(p);
-
-    const i=document.createElement('button');
-    i.textContent='Intimidate(2)';
-    i.onclick=()=>pickTarget(c,'intimidate');
-    row.appendChild(i);
-  }
+    if(playerAP>=ATTACK_COST){
+      const b=document.createElement('button');b.textContent='Atk(1)';b.onclick=()=>pickTarget(c,'atk');row.appendChild(b);}
+    if(c.ability&&playerAP>=ABILITY_COST){
+      const b=document.createElement('button');b.textContent=`${cap(c.ability)}(3)`;b.onclick=()=>pickTarget(c,'ab');row.appendChild(b);}
+    if(playerAP>=TALK_COST){
+      const p=document.createElement('button');p.textContent='Persuade(2)';p.onclick=()=>pickTarget(c,'persuade');row.appendChild(p);
+      const i=document.createElement('button');i.textContent='Intimidate(2)';i.onclick=()=>pickTarget(c,'intimidate');row.appendChild(i);
+    }
     controls.appendChild(row);
   });
 }
 function pickTarget(char,type){
   controls.innerHTML='<p>Choose target:</p>';
-  const tgts=type==='atk'?enemyChars.filter(c=>c.isAlive())
-            :legalTargets(char,playerChars.filter(c=>c.isAlive()),enemyChars.filter(c=>c.isAlive()));
+  const tgts= type==='atk'||type==='intimidate'||type==='persuade'
+      ? enemyChars.filter(c=>c.isAlive())
+      : legalTargets(char,playerChars.filter(c=>c.isAlive()),enemyChars.filter(c=>c.isAlive()));
   tgts.forEach(t=>{const b=document.createElement('button');b.textContent=cap(t.name);b.onclick=()=>actPlayer(char,type,t);controls.appendChild(b);});
 }
 function actPlayer(char,type,target){
-  const cost=type==='atk'?ATTACK_COST:ABILITY_COST;if(playerAP<cost)return;
+  const cost = type==='atk'?ATTACK_COST : type==='ab'?ABILITY_COST : TALK_COST;
+  if(playerAP<cost)return;
+
   if(type==='atk'){
-  const {hit,dmg}=char.attack(target);
-  log(hit?`${cap(char.name)} hits ${cap(target.name)} (-${dmg} HP)`
-         :`${cap(char.name)} misses ${cap(target.name)}`);
-}
-else if(type==='persuade' || type==='intimidate'){
-  const score = type==='persuade'?persuadeScore(char):intimidateScore(char);
-  const pass  = skillCheck(score, type==='persuade'?mod(target.wis):mod(target.con));
-  if(pass){
-    target.skip = 1;
-    log(`${cap(char.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);
-  }else{
-    log(`${cap(char.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
+    const {hit,dmg}=char.attack(target);
+    log(hit?`${cap(char.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(char.name)} misses ${cap(target.name)}`);
   }
+  else if(type==='persuade'||type==='intimidate'){
+    const score=type==='persuade'?persuadeScore(char):intimidateScore(char);
+    const pass =skillCheck(score,type==='persuade'?mod(target.wis):mod(target.con));
+    if(pass){target.skip=1;log(`${cap(char.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);}
+    else    log(`${cap(char.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
+  }
+  else{ /* ability */
+    const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
+    char.applyAbility(playerChars,enemyChars,target);
+    const d=diffString(before,target);
+    log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}${d?' ('+d+')':' (nothing happened)'}`);
+  }
+
+  refreshLists();usedP.add(char);playerAP-=cost;
+  if(checkVictory())return;
+  playerAP>=ATTACK_COST?showControls():endPlayer();
 }
-else{   // ability
-  const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
-  char.applyAbility(playerChars,enemyChars,target);
-  const d=diffString(before,target);
-  log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}${d?' ('+d+')':' (nothing happened)'}`);
-}
-  refreshLists();usedP.add(char);playerAP-=cost;if(checkVictory())return;playerAP>=ATTACK_COST?showControls():endPlayer();}
 function endPlayer(){controls.classList.add('hidden');setTimeout(aiTurn,600);}
 
-function aiTurn(){playerChars.concat(enemyChars).forEach(c=>{ if(c.skip>0) c.skip--; });if(checkVictory())return;
-  aiAP=teamAP(enemyChars);usedE.clear();log('— Enemy Turn —');aiStep();}
-
-function aiStep() {
-  /* Out of AP? -> return control */
-  if (aiAP < ATTACK_COST) {
-    setTimeout(playerTurn, 600);
-    return;
-  }
-
-  /* Pick an actor that hasn’t acted */
-  const choices = enemyChars.filter(c => c.isAlive() && c.skip===0 && !usedE.has(c));
-  if (!choices.length) {
-    /* All left‑alive enemies have acted */
-    setTimeout(playerTurn, 600);
-    return;
-  }
-
-  const actor = choices[Math.floor(Math.random() * choices.length)];
-
-  /* Decide action */
-  const canAb   = actor.ability && aiAP >= ABILITY_COST;
-  const tryAb   = canAb && Math.random() < 0.25;
-  const tryPersuade = aiAP >= TALK_COST && Math.random() < 0.2;
-const tryIntim    = aiAP >= TALK_COST && !tryPersuade && Math.random() < 0.2;
-const type = tryAb ? 'ab'
-            : tryPersuade ? 'persuade'
-            : tryIntim ? 'intimidate'
-            : 'atk';
-  const cost = type==='atk'?ATTACK_COST
-           :type==='ab'?ABILITY_COST : TALK_COST;
-
-  /* Choose target(s) */
-  let target;
-  if (type === 'atk') {
-    const foes = playerChars.filter(c => c.isAlive());
-    target = foes[Math.floor(Math.random() * foes.length)];
-  } else {
-    const pool = legalTargets(
-      actor,
-      enemyChars.filter(c => c.isAlive()),
-      playerChars.filter(c => c.isAlive())
-    );
-
-    /* Fallback: if ability has no valid targets, do an attack instead */
-    if (!pool.length) {
-      return aiStep();                        // re‑roll this iteration
-    }
-    target = pool[Math.floor(Math.random() * pool.length)];
-  }
-
-  /* Perform action */
-  if (type === 'atk') {
-    const { hit, dmg } = actor.attack(target);
-    log(hit
-      ? `${cap(actor.name)} hits ${cap(target.name)} (-${dmg} HP)`
-      : `${cap(actor.name)} misses ${cap(target.name)}`);
-  } else if(type==='persuade' || type==='intimidate'){
-  const score = type==='persuade'?persuadeScore(actor):intimidateScore(actor);
-  const pass  = skillCheck(score, type==='persuade'?mod(target.wis):mod(target.con));
-  if(pass){
-    target.skip = 1;
-    log(`${cap(actor.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);
-  }else{
-    log(`${cap(actor.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
-  }
+function aiTurn(){
+  if(checkVictory())return;
+  [...playerChars,...enemyChars].forEach(c=>{if(c.skip>0)c.skip--;});
+  aiAP=teamAP(enemyChars);usedE.clear();log('— Enemy Turn —');aiStep();
 }
-else {
-    const before = { hp: target.hp, str: target.str, dex: target.dex, con: target.con };
-    actor.applyAbility(enemyChars, playerChars, target);
-    const d = diffString(before, target);
-    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`
-        + (d ? ` (${d})` : ' (nothing happened)'));
-  } 
+function aiStep(){
+  if(aiAP<ATTACK_COST){setTimeout(playerTurn,600);return;}
 
-  refreshLists();
-  usedE.add(actor);
-  aiAP -= cost;
+  const choices=enemyChars.filter(c=>c.isAlive()&&c.skip===0&&!usedE.has(c));
+  if(!choices.length){setTimeout(playerTurn,600);return;}
 
-  if (checkVictory()) return;
-  setTimeout(aiStep, 600);          // loop to next enemy action
+  const actor=choices[Math.floor(Math.random()*choices.length)];
+
+  const canAb =actor.ability&&aiAP>=ABILITY_COST;
+  const tryAb =canAb&&Math.random()<0.25;
+  const tryPers =aiAP>=TALK_COST&&!tryAb&&Math.random()<0.2;
+  const tryInt  =aiAP>=TALK_COST&&!tryAb&&!tryPers&&Math.random()<0.2;
+  const type= tryAb?'ab': tryPers?'persuade': tryInt?'intimidate':'atk';
+  const cost= type==='atk'?ATTACK_COST: type==='ab'?ABILITY_COST:TALK_COST;
+
+  let target;
+  if(type==='atk'){
+     const foes=playerChars.filter(c=>c.isAlive());target=foes[Math.floor(Math.random()*foes.length)];
+  }else if(type==='persuade'||type==='intimidate'){
+     const foes=playerChars.filter(c=>c.isAlive());target=foes[Math.floor(Math.random()*foes.length)];
+  }else{
+     const pool=legalTargets(actor,enemyChars.filter(c=>c.isAlive()),playerChars.filter(c=>c.isAlive()));
+     if(!pool.length){return aiStep();}target=pool[Math.floor(Math.random()*pool.length)];
+  }
+
+  if(type==='atk'){
+    const {hit,dmg}=actor.attack(target);
+    log(hit?`${cap(actor.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(actor.name)} misses ${cap(target.name)}`);
+  }
+  else if(type==='persuade'||type==='intimidate'){
+    const score=type==='persuade'?persuadeScore(actor):intimidateScore(actor);
+    const pass =skillCheck(score,type==='persuade'?mod(target.wis):mod(target.con));
+    if(pass){target.skip=1;log(`${cap(actor.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);}
+    else    log(`${cap(actor.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
+  }
+  else{
+    const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
+    actor.applyAbility(enemyChars,playerChars,target);
+    const d=diffString(before,target);
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}${d?' ('+d+')':' (nothing happened)'}`);
+  }
+
+  refreshLists();usedE.add(actor);aiAP-=cost;
+  if(checkVictory())return;
+  setTimeout(aiStep,600);
 }
 
 /* victory */
