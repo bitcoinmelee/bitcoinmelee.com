@@ -12,7 +12,7 @@ body {
   justify-content: center;
   background: url("images/background.png") no-repeat center center fixed;
   background-size: cover;
-  font-family: 'Uncial Antiqua', cursive;
+  font-family: 'Cinzel Decorative', cursive;
   color: #e8dfc7;
 }
 
@@ -133,6 +133,7 @@ textarea {
   border: 2px solid #6b4f2f;
   background: rgba(25, 15, 5, 0.85);
   border-radius: 8px;
+  text-transform: capitalize;
 }
 .hero-table th,
 .hero-table td {
@@ -140,6 +141,7 @@ textarea {
   padding: 8px 12px;
   text-align: center;
   white-space: nowrap;
+  text-transform: capitalize;
 }
 .hero-table th {
   background: rgba(60, 40, 20, 0.9);
@@ -150,9 +152,11 @@ textarea {
 }
 .hero-table tr:nth-child(even) {
   background: rgba(30, 20, 10, 0.8);
+  text-transform: capitalize;
 }
 .hero-table tr:hover {
   background: rgba(50, 30, 15, 0.9);
+  text-transform: capitalize;
 }
 
 /* ------------------------------------------------------------
