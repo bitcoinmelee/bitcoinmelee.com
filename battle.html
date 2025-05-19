@@ -222,10 +222,11 @@ function pickTarget(char,type){
 function actPlayer(char,type,target){
   const cost=type==='atk'?ATTACK_COST:ABILITY_COST;if(playerAP<cost)return;
   if(type==='atk'){const {hit,dmg}=char.attack(target);log(hit?`${cap(char.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(char.name)} misses ${cap(target.name)}`);}
-  else{const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
-       char.applyAbility(playerChars,enemyChars,target);
-       const d=diffString(before,target);
-       log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}${d?' ('+d+')':''}`);}
+  else{const before = { hp: target.hp, str: target.str, dex: target.dex, con: target.con };
+    char.applyAbility(playerChars, enemyChars, target);
+    const delta = diffString(before, target);
+    log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}`
+    + (delta ? ` (${delta})` : ' (nothing happened)'));}
   refreshLists();usedP.add(char);playerAP-=cost;if(checkVictory())return;playerAP>=ATTACK_COST?showControls():endPlayer();}
 function endPlayer(){controls.classList.add('hidden');setTimeout(aiTurn,600);}
 
@@ -245,10 +246,11 @@ function aiStep(){
   else{
     const pool=legalTargets(actor,enemyChars.filter(c=>c.isAlive()),playerChars.filter(c=>c.isAlive()));
     target=pool[Math.floor(Math.random()*pool.length)];
-    const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
-    actor.applyAbility(enemyChars,playerChars,target);
-    const d=diffString(before,target);
-    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}${d?' ('+d+')':''}`);
+    const before = { hp: target.hp, str: target.str, dex: target.dex, con: target.con };
+    actor.applyAbility(enemyChars, playerChars, target);
+    const delta = diffString(before, target);
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}`
+    + (delta ? ` (${delta})` : ' (nothing happened)'));
   }
   refreshLists();usedE.add(actor);aiAP-=cost;if(checkVictory())return;setTimeout(aiStep,600);
 }
