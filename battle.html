@@ -99,7 +99,7 @@ function abilityTooltip(name){
   if (ab.Description) out.push(ab.Description);
 
   const effLines = Object.entries(ab)
-    .filter(([k])=>k!=='Description')
+    .filter(([k,v]) => k !== 'Description' && v !== 0)
     .map(([k,v])=>{
        const stat=k.split('_')[0];
        const who  = k.endsWith('_Self') ? 'self' :
