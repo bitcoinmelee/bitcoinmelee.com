@@ -8,40 +8,31 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- (same CSS as before) -->
   <style>
     :root{--parchment:#f9f4e8;--ink:#2b2a29;--user:#216869;--enemy:#a11d33;--border:#8c6b42;--card:#fff8ef;}
     *{box-sizing:border-box}
-    body{margin:0;padding:12vh 1rem 12vh;font-family:'Montserrat',sans-serif;background:var(--parchment);color:var(--ink);}
+    body{margin:0;padding:18vh 1rem 18vh;font-family:'Montserrat',sans-serif;background:var(--parchment);color:var(--ink);}
     h1{font-family:'Uncial Antiqua',cursive;font-size:2.2rem;margin:0 0 1rem;text-align:center;}
-
     .teamPane{position:fixed;width:100%;left:0;z-index:15;background:var(--card);border:3px double var(--border);
       backdrop-filter:blur(2px);overflow-y:auto;padding:0.5rem 1rem;}
-    #enemyPane{top:0;height:10vh;border-bottom-width:5px;}
-    #userPane {bottom:0;height:10vh;border-top-width:5px;}
+    #enemyPane{top:0;height:18vh;border-bottom-width:5px;}
+    #userPane {bottom:0;height:18vh;border-top-width:5px;}
     .teamPane h2{margin:0 0 0.3rem;font-family:'Uncial Antiqua',cursive;font-size:1.15rem;}
-
     .teamList{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0.35rem 0.9rem;font-size:0.78rem;}
     .teamList li{display:flex;flex-direction:column;line-height:1.15;}
     .rowTop{display:flex;align-items:center;gap:0.35rem;}
     .rowStats{margin-left:calc(90px + 0.35rem);}
     .rowMeta {margin-left:calc(90px + 0.35rem);font-size:0.72rem;color:#555;}
-
     .teamList progress{width:90px;height:8px;accent-color:var(--user);}
     #enemyPane progress{accent-color:var(--enemy);}
     #userTeam li{color:var(--user);} #enemyTeam li{color:var(--enemy);}
-
     .ability{font-style:italic;text-decoration:underline dotted;cursor:help;white-space:nowrap;}
     .teamList strong{font-size:0.88rem;}
-
     #startBattle{display:block;margin:0 auto;padding:0.55rem 1.3rem;font-size:1.05rem;font-family:'Uncial Antiqua',cursive;
       background:#d1b280;border:2px solid var(--border);border-radius:6px;}
     #startBattle:disabled{opacity:0.5;cursor:not-allowed;}
-
     #battleLog{max-height:260px;overflow-y:auto;margin-top:1rem;border:2px solid var(--border);padding:0.7rem;background:#fffefa;font-size:0.9rem;}
-
-    #controls{margin-top:1rem;border:2px solid var(--border);background:#fffefa;padding:0.8rem;border-radius:6px;
-      box-shadow:0 1px 4px rgba(0,0,0,0.15);}
+    #controls{margin-top:1rem;border:2px solid var(--border);background:#fffefa;padding:0.8rem;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.15);}
     #controls p{margin:0 0 0.5rem;font-family:'Uncial Antiqua',cursive;}
     .charCtrl{margin:0.45rem 0;}
     .charCtrl button{margin-left:0.5rem;padding:0.25rem 0.6rem;border:1px solid #444;border-radius:4px;background:#dfd6c2;font-size:0.82rem;cursor:pointer;}
@@ -64,31 +55,30 @@
 
 <script>
 /*──────── constants & helpers ───────*/
-const ABILITY_COST=3,ATTACK_COST=1,AP_PER_TURN=5;
+const ATTACK_COST=1, ABILITY_COST=3;
 const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'';
 const d20=()=>Math.floor(Math.random()*20)+1,d6=()=>Math.floor(Math.random()*6)+1;
 const mod=v=>Math.floor((v-10)/2);
 const getAbility=o=>(o.ability||o.Ability||o['Common Ability']||'').trim();
 
-/* helper: most represented kingdom in an array of records */
-function dominantKingdom(arr){
-  const counts={}; let best='',bestN=0;
-  arr.forEach(c=>{const k=c.Kingdom||c.kingdom||'';counts[k]=(counts[k]||0)+1;
-    if(counts[k]>bestN){best=k;bestN=counts[k];}});
+/* dominant kingdom helper */
+const dominantKingdom=arr=>{
+  const cnt={};let best='',bestN=0;
+  arr.forEach(c=>{const k=c.Kingdom||'';cnt[k]=(cnt[k]||0)+1;if(cnt[k]>bestN){best=k;bestN=cnt[k];}});
   return best;
-}
+};
 
-/* tooltip */
+/* ability tooltip (non‑zero effects) */
 function abilityTooltip(name){
   const ab=abilities[name]||{},out=[];
   if(ab.Description)out.push(ab.Description);
   const eff=Object.entries(ab)
     .filter(([k,v])=>k!=='Description'&&v!==0)
     .map(([k,v])=>{
-      const stat=k.split('_')[0];
-      const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
-      const sign=v>=0?'+':'';
-      return `${sign}${v} ${stat}${who?' ('+who+')':''}`;
+       const stat=k.split('_')[0];
+       const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
+       const sign=v>=0?'+':'';
+       return `${sign}${v} ${stat}${who?' ('+who+')':''}`;
     });
   if(eff.length)out.push(eff.join(', '));
   return out.join('\n');
@@ -101,48 +91,29 @@ Promise.all([fetch('characters.json').then(r=>r.json()),
   .then(([c,a])=>{characters=c;abilities=a;initTeams();startBattle.disabled=false;})
   .catch(console.error);
 
-/*──────── TEAM SETUP ───────*/
-let userTeamData = [], enemyTeamData = [];
+/*──────── team setup ───────*/
+let userTeamData=[],enemyTeamData=[];
+function initTeams(){
+  const stored=sessionStorage.getItem('roster');if(!stored)return;
+  const roster=JSON.parse(stored);
 
-function initTeams() {
-  const stored = sessionStorage.getItem('roster');
-  if (!stored) return;
+  /* player team */
+  const playerKing=dominantKingdom(roster);
+  userTeamData=roster.filter(c=>(c.Kingdom||'')===playerKing);
 
-  /* ---------- PLAYER TEAM ---------- */
-  const roster = JSON.parse(stored);
-  const playerKing = dominantKingdom(roster);
-  userTeamData = roster.filter(c => (c.Kingdom || '') === playerKing);
-
-  /* ---------- ENEMY POOL  ---------- */
-  const remaining = characters.filter(c =>
-    !roster.some(r => r.Name === c.Name) &&
-    (c.Kingdom || '') !== playerKing                     // must be a different kingdom
-  );
-
-  /* collect kingdoms with enough members */
-  const need = userTeamData.length;
-  const byKing = remaining.reduce((m,c)=>{
-      const k=c.Kingdom||''; (m[k]=m[k]||[]).push(c); return m;
-  },{});
-
-  /* pick a kingdom that has ≥ need characters */
-  const viable = Object.keys(byKing).filter(k => byKing[k].length >= need);
-  let enemyKing;
-  if (viable.length) {
-    enemyKing = viable[Math.floor(Math.random() * viable.length)];  // random viable kingdom
-  } else {
-    /* fallback: pick the kingdom with the most remaining characters */
-    enemyKing = Object.keys(byKing).sort((a,b)=>byKing[b].length - byKing[a].length)[0];
-  }
-
-  /* sample exactly `need` characters from that kingdom */
-  const pool = byKing[enemyKing] || [];
-  shuffle(pool);
-  enemyTeamData = pool.slice(0, need);
+  /* enemy team: choose different kingdom with enough members */
+  const need=userTeamData.length;
+  const remaining=characters.filter(c=>!roster.some(r=>r.Name===c.Name)&&(c.Kingdom||'')!==playerKing);
+  const byK={};remaining.forEach(c=>{const k=c.Kingdom||'';(byK[k]=byK[k]||[]).push(c);});
+  const viable=Object.keys(byK).filter(k=>byK[k].length>=need);
+  const enemyKing= viable.length
+      ? viable[Math.floor(Math.random()*viable.length)]
+      : Object.keys(byK).sort((a,b)=>byK[b].length-byK[a].length)[0];
+  const pool=byK[enemyKing]||[];shuffle(pool);
+  enemyTeamData=pool.slice(0,need);
 
   renderInitialLists();
 }
-
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}};
 
 /*──────── Character class ───────*/
@@ -170,7 +141,7 @@ class Character{
 }
 const inst=a=>a.map(r=>new Character(r));
 
-/* ability helpers */
+/* ability flag helpers */
 const abilityFlags=name=>{const e=abilities[name]||{};let ally=false,foe=false,self=false;
   for(const k in e){if(k.endsWith('_ally'))ally=true;else if(k.endsWith('_Foe'))foe=true;else if(k.endsWith('_Self'))self=true;}
   if(!ally&&!foe&&!self)foe=true;return{ally,foe,self};};
@@ -184,7 +155,7 @@ const diffString=(b,a)=>[['hp','HP'],['str','Str'],['dex','Dex'],['con','Con']].
 /*──────── roster rendering ───────*/
 const hpBar=(c,t)=>{const p=document.createElement('progress');p.value=c.hp??c.Health;p.max=c.maxHp??c.Health;if(t==='enemy')p.classList.add('enemy');return p;};
 const statLine=o=>`HP:${(o.hp??o.Health)}/${o.maxHp??o.Health} Str:${o.str??o.Strength} Dex:${o.dex??o.Dexterity} Con:${o.con??o.Constitution} Int:${o.int??o.Intelligence} Wis:${o.wis??o.Wisdom} Cha:${o.cha??o.Charisma} Mana:${o.mana??o.Mana}`;
-function abilitySpan(name){const s=document.createElement('span');s.className='ability';s.textContent=cap(name);s.title=abilityTooltip(name);return s;}
+const abilitySpan=name=>{const s=document.createElement('span');s.className='ability';s.textContent=cap(name);s.title=abilityTooltip(name);return s;};
 function statsMeta(li,o){
   const st=document.createElement('div');st.className='rowStats';st.textContent=statLine(o);li.appendChild(st);
   const meta=document.createElement('div');meta.className='rowMeta';
@@ -193,10 +164,8 @@ function statsMeta(li,o){
   abil?meta.append(' — ',abilitySpan(abil)):meta.append(' —');
   li.appendChild(meta);
 }
-const rowFrom=(o,t,live)=>{const li=document.createElement('li');
-  const top=document.createElement('div');top.className='rowTop';
-  top.appendChild(hpBar(o,t));
-  top.appendChild(document.createElement('strong')).textContent=` ${cap(o.name||o.Name)}`;
+const rowFrom=(o,t,live)=>{const li=document.createElement('li');const top=document.createElement('div');top.className='rowTop';
+  top.appendChild(hpBar(o,t));top.appendChild(document.createElement('strong')).textContent=` ${cap(o.name||o.Name)}`;
   li.appendChild(top);statsMeta(li,o);if(!live)li.style.opacity=0.4;return li;};
 function renderInitialLists(){userTeam.innerHTML='';enemyTeam.innerHTML='';
   userTeamData.forEach(r=>userTeam.appendChild(rowFrom(r,'user',true)));
@@ -205,14 +174,27 @@ function refreshLists(){userTeam.innerHTML='';enemyTeam.innerHTML='';
   playerChars.forEach(c=>userTeam.appendChild(rowFrom(c,'user',c.isAlive())));
   enemyChars.forEach(c=>enemyTeam.appendChild(rowFrom(c,'enemy',c.isAlive())));}
 
-/*──────── battle loop (same as before) ───────*/
+/*──────── AP helper ───────*/
+const teamAP=arr=>{
+  const alive=arr.filter(c=>c.isAlive());
+  if(!alive.length)return 0;
+  const avg=alive.reduce((s,c)=>s+c.mana,0)/alive.length;
+  return Math.floor(avg/2);
+};
+
+/*──────── battle loop ───────*/
 let playerChars=[],enemyChars=[],playerAP=0,aiAP=0,usedP=new Set(),usedE=new Set();
 const logDiv=document.getElementById('battleLog'),log=m=>{const p=document.createElement('p');p.textContent=m;logDiv.appendChild(p);logDiv.scrollTop=logDiv.scrollHeight;};
 
-startBattle.addEventListener('click',()=>{startBattle.disabled=true;logDiv.innerHTML='';
-  playerChars=inst(userTeamData);enemyChars=inst(enemyTeamData);refreshLists();playerAP=AP_PER_TURN;usedP.clear();playerTurn();});
+startBattle.onclick=()=>{
+  startBattle.disabled=true;logDiv.innerHTML='';
+  playerChars=inst(userTeamData);enemyChars=inst(enemyTeamData);
+  refreshLists();playerTurn();
+};
 
-function playerTurn(){if(checkVictory())return;log('— Your Turn —');controls.classList.remove('hidden');showControls();}
+function playerTurn(){if(checkVictory())return;
+  playerAP=teamAP(playerChars);
+  usedP.clear();log('— Your Turn —');controls.classList.remove('hidden');showControls();}
 function showControls(){
   controls.innerHTML=`<p><span class="ap">${playerAP}</span> AP</p>`;
   const avail=playerChars.filter(c=>c.isAlive()&&!usedP.has(c));
@@ -240,9 +222,10 @@ function actPlayer(char,type,target){
   refreshLists();usedP.add(char);playerAP-=cost;if(checkVictory())return;playerAP>=ATTACK_COST?showControls():endPlayer();}
 function endPlayer(){controls.classList.add('hidden');setTimeout(aiTurn,600);}
 
-function aiTurn(){if(checkVictory())return;aiAP=AP_PER_TURN;usedE.clear();log('— Enemy Turn —');aiStep();}
+function aiTurn(){if(checkVictory())return;
+  aiAP=teamAP(enemyChars);usedE.clear();log('— Enemy Turn —');aiStep();}
 function aiStep(){
-  if(aiAP<ATTACK_COST){setTimeout(()=>{playerAP=AP_PER_TURN;usedP.clear();playerTurn();},600);return;}
+  if(aiAP<ATTACK_COST){setTimeout(playerTurn,600);return;}
   const choices=enemyChars.filter(c=>c.isAlive()&&!usedE.has(c));if(!choices.length)return aiStep();
   const actor=choices[Math.floor(Math.random()*choices.length)];
   const useAb=actor.ability&&aiAP>=ABILITY_COST&&Math.random()<0.25;
@@ -263,6 +246,7 @@ function aiStep(){
   refreshLists();usedE.add(actor);aiAP-=cost;if(checkVictory())return;setTimeout(aiStep,600);
 }
 
+/* victory */
 function checkVictory(){
   const you=playerChars.some(c=>c.isAlive()),foe=enemyChars.some(c=>c.isAlive());
   if(you&&foe)return false;
