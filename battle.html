@@ -227,6 +227,9 @@ function aiTurn(){if(checkVictory())return;
 function aiStep(){
   if(aiAP<ATTACK_COST){setTimeout(playerTurn,600);return;}
   const choices=enemyChars.filter(c=>c.isAlive()&&!usedE.has(c));if(!choices.length)return aiStep();
+    if (!choices.length){               // ← ADD
+    setTimeout(playerTurn,600);       // ← ADD
+    return;}                           // ← ADD
   const actor=choices[Math.floor(Math.random()*choices.length)];
   const useAb=actor.ability&&aiAP>=ABILITY_COST&&Math.random()<0.25;
   const type=useAb?'ab':'atk',cost=type==='atk'?ATTACK_COST:ABILITY_COST;
