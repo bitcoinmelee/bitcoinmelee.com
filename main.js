@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(r => r.json())
     .then(data => {
       HEROES = Array.isArray(data) ? data : Object.values(data);
-      flash('Discover heros bound to your public key!');
+      flash('Discover heroes bound to your public key!');
     })
     .catch(err => flash('Could not load heroes.json ➜ ' + err, true));
 
@@ -64,7 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
   /* "Discover Heroes" button */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
-    if (!xpub.startsWith('xpub')) return flash('Please paste a valid xpub.', true);
+    if (!xpub.startsWith('xpub')) return flash('Please paste a valid xpub. Make sure "xpub" is lowercase.', true);
     if (!HEROES.length) return flash('Heroes not loaded yet…', true);
 
     const roster = await pickRoster(xpub, ROSTER_SIZE);
