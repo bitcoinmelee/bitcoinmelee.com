@@ -212,6 +212,29 @@ function abilityFlags(name){const e=abilities[name]||{};let ally=false,foe=false
   if(!ally&&!foe&&!self)foe=true;return{ally,foe,self};}
 const legalTargets=(act,als,foes)=>{const f=abilityFlags(act.ability);let list=[];if(f.self)list.push(act);if(f.ally)list=list.concat(als.filter(a=>a!==act));if(f.foe)list=list.concat(foes);return list;};
 
+/* builds "Catalyst\n+5 HP, +2 Str (ally), -3 Dex (foe)" */
+function abilityTooltip(name){
+  const ab   = abilities[name] || {};
+  const out  = [];
+
+  if (ab.Description) out.push(ab.Description);     // first line
+
+  const effectLines = Object.entries(ab)
+    .filter(([k]) => k !== 'Description')
+    .map(([k,v]) => {
+       const stat   = k.split('_')[0];
+       const target = k.endsWith('_Self') ? 'self'
+                    : k.endsWith('_ally') ? 'ally'
+                    : k.endsWith('_Foe')  ? 'foe'
+                    : '';
+       const sign   = v >= 0 ? '+' : '';
+       return `${sign}${v} ${stat}${target ? ' ('+target+')' : ''}`;
+    });
+
+  if (effectLines.length) out.push(effectLines.join(', '));
+  return out.join('\n');          // newline breaks inside browser tooltip
+}
+
 /*── diff helper (unchanged) ──*/
 const diffString=(b,a)=>[['hp','HP'],['str','Str'],['dex','Dex'],['con','Con']].reduce((arr,[k,l])=>{const d=a[k]-b[k];if(d)arr.push(`${d>0?'+':''}${d} ${l}`);return arr;},[]).join(', ');
 
