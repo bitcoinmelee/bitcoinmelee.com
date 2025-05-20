@@ -3,22 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Bitcoin Melee — Draft</title>
+
+  <!-- fantasy & body fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
     :root{--border:#8c6b42;--card:#fff8ef;--accent:#d1b280}
     *{box-sizing:border-box}
-    body{margin:0;font-family:'Montserrat',sans-serif;background:#f9f4e8;color:#2b2a29;padding:1rem;}
-    h1{margin:0 0 1rem;text-align:center;font-family:'Montserrat',cursive;}
+    body{margin:0;font-family:'Lora',serif;background:#f9f4e8;color:#2b2a29;padding:1rem;}
+    h1{font-family:'Cinzel',serif;margin:0 0 1rem;text-align:center;font-size:2rem;letter-spacing:0.5px;}
+    h2{font-family:'Cinzel',serif;margin:0;text-align:center;font-size:1.15rem}
     #boards{display:flex;gap:1rem;flex-wrap:wrap}
-    .panel{flex:1 1 320px;border:3px double var(--border);background:var(--card);padding:0.6rem;border-radius:8px;min-height:300px}
-    .panel h2{margin:0 0 0.4rem;font-size:1.2rem;font-family:'Montserrat',cursive;text-align:center}
-    .list{display:flex;flex-direction:column;gap:0.35rem;min-height:250px}
-    .card{border:1px solid var(--border);padding:0.35rem;border-radius:6px;background:#dfd6c2;cursor:pointer;font-size:0.85rem}
+    .panel{flex:1 1 330px;border:3px double var(--border);background:var(--card);padding:0.6rem;border-radius:8px;min-height:310px}
+    .list{display:flex;flex-direction:column;gap:0.4rem;min-height:250px}
+    .card{border:1px solid var(--border);padding:0.5rem;border-radius:6px;background:#dfd6c2;cursor:pointer;font-size:0.83rem;line-height:1.15}
     .card:hover{background:#cbbfa6}
     .picked{background:#c6e2ff;border-style:dashed;cursor:default}
-    #log{margin-top:0.8rem;height:90px;overflow:auto;border:2px solid var(--border);padding:0.45rem;background:#fffefa;font-size:0.9rem}
-    #ready{display:block;margin:1rem auto 0;padding:0.6rem 1.4rem;font-family:'Montserrat',cursive;font-size:1.05rem;background:var(--accent);border:2px solid var(--border);border-radius:6px;cursor:pointer}
+    .card-name{font-weight:600;text-transform:capitalize;font-family:'Cinzel',serif;margin-bottom:0.25rem}
+    .line{display:flex;flex-wrap:wrap;gap:0.4rem}
+    .ability{font-style:italic;white-space:normal}
+    #log{margin-top:0.9rem;height:95px;overflow:auto;border:2px solid var(--border);padding:0.5rem;background:#fffefa;font-size:0.9rem}
+    #ready{display:block;margin:1.1rem auto 0;padding:0.6rem 1.5rem;font-family:'Cinzel',serif;font-size:1.05rem;background:var(--accent);border:2px solid var(--border);border-radius:7px;cursor:pointer}
     #ready.hidden{display:none}
   </style>
 </head>
@@ -26,11 +32,11 @@
   <h1>Hero Draft</h1>
 
   <div id="boards">
-    <div class="panel"><h2>Your Draft</h2><div id="yourDraft" class="list"></div></div>
+    <div class="panel"><h2>Your Draft</h2><div id="yourDraft"  class="list"></div></div>
     <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list"></div></div>
   </div>
 
-  <h2 style="margin:1rem 0 0.3rem">Your Remaining Heroes</h2>
+  <h2 style="margin:1.2rem 0 0.4rem">Your Remaining Heroes</h2>
   <div id="yourPool" class="list"></div>
 
   <div id="log"></div>
@@ -40,88 +46,103 @@
 const ROUNDS = 5;
 let playerPool=[], enemyPool=[];
 let draftedPlayer=[], draftedEnemy=[];
-let turnSide;           // 'player' or 'enemy'
-let picksMade = 0;
+let turnSide;               // 'player' | 'enemy'
+let picksMade=0;
 
-const $ = sel => document.querySelector(sel);
-const log = txt => { $('#log').append(txt, document.createElement('br')); $('#log').scrollTop = $('#log').scrollHeight; };
-const card = h => { const d=document.createElement('div'); d.className='card'; d.textContent=h.Name; return d; };
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;} 
+/* shortcuts */
+const $=s=>document.querySelector(s);
+const log=t=>{$('#log').append(t,document.createElement('br'));$('#log').scrollTop=$('#log').scrollHeight;};
 
-/* initial boot */
-(async () =>{
-  const stored = sessionStorage.getItem('roster');
-  if(!stored){ alert('No roster found. Go back to the main page first.'); return; }
-  playerPool = JSON.parse(stored);
+/* card builder with full stats */
+function makeCard(h){                 // h is hero record
+  const d=document.createElement('div'); d.className='card';
+  d.innerHTML=`
+    <div class="card-name">${h.Name}</div>
+    <div class="line">STR:${h.Strength} DEX:${h.Dexterity} CON:${h.Constitution}</div>
+    <div class="line">INT:${h.Intelligence} WIS:${h.Wisdom} CHA:${h.Charisma}</div>
+    <div class="line">HP:${h.Health} Mana:${h.Mana}</div>
+    <div class="line">${h.Class}, ${h.Faction}, ${h.Kingdom}</div>
+    <div class="line ability">${h.Ability}</div>`;
+  return d;
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-  const allHeroes = await fetch('heroes.json').then(r=>r.json());
-  const all = Array.isArray(allHeroes)?allHeroes:Object.values(allHeroes);
-  enemyPool = shuffle(all.filter(h=>!playerPool.some(p=>p.Name===h.Name))).slice(0,playerPool.length);
-
-  renderPlayerPool();
-
-  turnSide = Math.random()<0.5 ? 'player' : 'enemy';
-  log(`${turnSide==='player'?'You':'Enemy'} pick first.`);
-  if(turnSide==='enemy') setTimeout(aiPick,700);
-})();
-
-/* render remaining player pool */
+/* render player's remaining pool */
 function renderPlayerPool(){
   $('#yourPool').innerHTML='';
   playerPool.forEach(h=>{
-    const c=card(h);
-    c.onclick = () => playerPick(h);
+    const c=makeCard(h);
+    c.onclick=()=>pickPlayer(h);
     $('#yourPool').append(c);
   });
 }
 
 /* add hero to draft panel */
 function addToDraft(side,h){
-  const pane = side==='player'?$('#yourDraft'):$('#enemyDraft');
-  const c=card(h); c.classList.add('picked'); c.onclick=null;
-  pane.append(c);
+  const box=side==='player'?$('#yourDraft'):$('#enemyDraft');
+  const c=makeCard(h); c.classList.add('picked'); c.onclick=null;
+  box.append(c);
 }
 
-/* player click */
-function playerPick(hero){
+/* start-up */
+(async ()=>{
+  const rosterJSON=sessionStorage.getItem('roster');
+  if(!rosterJSON){
+    alert('No roster in sessionStorage. Please generate heroes first.');
+    return;
+  }
+  playerPool = JSON.parse(rosterJSON);
+
+  const allH = await fetch('heroes.json').then(r=>r.json());
+  const all  = Array.isArray(allH)?allH:Object.values(allH);
+  enemyPool  = shuffle(all.filter(h=>!playerPool.some(p=>p.Name===h.Name))).slice(0,playerPool.length);
+
+  renderPlayerPool();
+  turnSide = Math.random()<0.5?'player':'enemy';
+  log(`${turnSide==='player'?'You':'Enemy'} pick first.`);
+  if(turnSide==='enemy') setTimeout(aiPick,700);
+})();
+
+/* player pick */
+function pickPlayer(hero){
   if(turnSide!=='player') return;
   draftedPlayer.push(hero);
-  playerPool = playerPool.filter(h=>h!==hero);
+  playerPool=playerPool.filter(h=>h!==hero);
   addToDraft('player',hero);
   log(`You picked ${hero.Name}.`);
   nextTurn();
 }
 
-/* AI random pick */
+/* AI pick */
 function aiPick(){
-  const hero = enemyPool[Math.floor(Math.random()*enemyPool.length)];
-  draftedEnemy.push(hero);
-  enemyPool = enemyPool.filter(h=>h!==hero);
-  addToDraft('enemy',hero);
-  log(`Enemy picked ${hero.Name}.`);
+  const h=enemyPool[Math.floor(Math.random()*enemyPool.length)];
+  draftedEnemy.push(h);
+  enemyPool=enemyPool.filter(x=>x!==h);
+  addToDraft('enemy',h);
+  log(`Enemy picked ${h.Name}.`);
   nextTurn();
 }
 
-/* manage turns */
+/* turn handler */
 function nextTurn(){
   picksMade++;
-  if(picksMade >= ROUNDS*2){
+  if(picksMade>=ROUNDS*2){
     $('#yourPool').innerHTML='';
     $('#ready').classList.remove('hidden');
     return;
   }
-  turnSide = turnSide==='player' ? 'enemy' : 'player';
+  turnSide = turnSide==='player'?'enemy':'player';
   if(turnSide==='enemy') setTimeout(aiPick,700);
   else renderPlayerPool();
 }
 
-/* ready button → battle.html */
-$('#ready').onclick = ()=>{
-  sessionStorage.setItem('draftPlayer',   JSON.stringify(draftedPlayer));
-  sessionStorage.setItem('draftEnemy',    JSON.stringify(draftedEnemy));
-  sessionStorage.setItem('enemy_roster',  JSON.stringify(draftedEnemy));   // for backward‑compat
-  sessionStorage.setItem('roster',        JSON.stringify(draftedPlayer));  // battle.html expects this
-  window.location.href = 'battle.html';
+/* ready → battle */
+$('#ready').onclick=()=>{
+  sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
+  sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
+  sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
+  sessionStorage.setItem('roster',     JSON.stringify(draftedPlayer)); // battle page expects this
+  window.location.href='battle.html';
 };
 </script>
 </body>
