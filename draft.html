@@ -1,0 +1,135 @@
+const enemyRaw = sessionStorage.getItem('enemy_roster') || sessionStorage.getItem('draftEnemy');
+```)
+
+---
+
+```html
+<!-- draft.html  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bitcoin Melee — Draft</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body{margin:0;font-family:'Montserrat',sans-serif;background:#f9f4e8;color:#2b2a29;padding:1rem;}
+    h1{text-align:center;font-family:'Uncial Antiqua',cursive;margin:0 0 1rem;}
+    #boards{display:flex;gap:1rem;flex-wrap:wrap}
+    .panel{flex:1 1 320px;border:3px double #8c6b42;background:#fff8ef;padding:0.6rem;border-radius:8px;min-height:300px}
+    .panel h2{margin:0 0 0.4rem;font-family:'Uncial Antiqua',cursive;font-size:1.2rem;text-align:center;}
+    .list{display:flex;flex-direction:column;gap:0.3rem;min-height:250px}
+    .card{border:1px solid #8c6b42;padding:0.3rem;border-radius:5px;cursor:pointer;font-size:0.85rem;background:#dfd6c2}
+    .card:hover{background:#cbbfa6}
+    .picked{background:#c6e2ff;border-style:dashed;cursor:default}
+    #log{margin-top:0.8rem;height:90px;overflow:auto;border:2px solid #8c6b42;padding:0.4rem;background:#fffefa;font-size:0.9rem}
+    #ready{display:block;margin:1rem auto 0;padding:0.5rem 1.2rem;font-family:'Uncial Antiqua',cursive;font-size:1rem;background:#d1b280;border:2px solid #8c6b42;border-radius:6px;cursor:pointer}
+    #ready.hidden{display:none}
+  </style>
+</head>
+<body>
+  <h1>Draft Your Heroes</h1>
+
+  <div id="boards">
+    <div class="panel"><h2>Your Draft</h2><div id="yourDraft" class="list"></div></div>
+    <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list"></div></div>
+  </div>
+
+  <h2 style="margin:1rem 0 0.3rem">Your Remaining Heroes</h2>
+  <div id="yourPool" class="list"></div>
+
+  <div id="log"></div>
+  <button id="ready" class="hidden">Ready for melee!</button>
+
+<script>
+const ROUNDS = 5;
+let playerPool=[], enemyPool=[];
+let draftedPlayer=[], draftedEnemy=[];
+let turnSide;  // 'player' | 'enemy'
+let picksMade=0;
+
+/* helpers */
+const $=s=>document.querySelector(s);
+const log=t=>{$('#log').append(document.createTextNode(t));$('#log').append(document.createElement('br'));$('#log').scrollTop=$('#log').scrollHeight;}
+function card(h){const div=document.createElement('div');div.className='card';div.textContent=h.Name;return div;}
+function renderPools(){
+  $('#yourPool').innerHTML='';
+  playerPool.forEach(h=>{
+    const c=card(h);
+    c.onclick=()=> playerTurnPick(h);
+    $('#yourPool').append(c);
+  });
+}
+function addToDraft(side,h){
+  const targetDiv = side==='player'?$('#yourDraft'):$('#enemyDraft');
+  const c=card(h);c.classList.add('picked');c.onclick=null;
+  targetDiv.append(c);
+}
+
+/* load data & init */
+(async ()=>{
+  const rosterJSON=sessionStorage.getItem('roster');
+  if(!rosterJSON){alert('No roster found. Go to index.html first.');return;}
+  const allHeroes= await fetch('heroes.json').then(r=>r.json());
+  const all=Array.isArray(allHeroes)?allHeroes:Object.values(allHeroes);
+
+  playerPool = JSON.parse(rosterJSON).slice();             // 12 heroes
+  enemyPool  = shuffle(all.filter(h=>!playerPool.some(p=>p.Name===h.Name)))
+                 .slice(0,playerPool.length);             // same size
+
+  renderPools();
+
+  /* random who picks first */
+  turnSide = Math.random()<0.5?'player':'enemy';
+  log(`${turnSide==='player'?'You':'Enemy'} pick first!`);
+  if(turnSide==='enemy')setTimeout(aiPick,800);
+})();
+
+/* shuffle helper */
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---- player interaction ---- */
+function playerTurnPick(hero){
+  if(turnSide!=='player')return;
+  draftedPlayer.push(hero);
+  playerPool=playerPool.filter(h=>h!==hero);
+  addToDraft('player',hero);
+  log(`You picked ${hero.Name}.`);
+  nextTurn();
+}
+
+/* ---- AI ---- */
+function aiPick(){
+  const h = enemyPool[Math.floor(Math.random()*enemyPool.length)];
+  draftedEnemy.push(h);
+  enemyPool = enemyPool.filter(x=>x!==h);
+  addToDraft('enemy',h);
+  log(`Enemy picked ${h.Name}.`);
+  nextTurn();
+}
+
+/* ---- turn handler ---- */
+function nextTurn(){
+  picksMade++;
+  if(picksMade>=ROUNDS*2){
+    $('#yourPool').innerHTML='';
+    $('#ready').classList.remove('hidden');
+    return;
+  }
+  turnSide = turnSide==='player'?'enemy':'player';
+  if(turnSide==='enemy')setTimeout(aiPick,800);
+  else renderPools();
+}
+
+/* ---- ready button ---- */
+$('#ready').onclick=()=>{
+  sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
+  sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
+  sessionStorage.setItem('roster',     JSON.stringify(draftedPlayer));   // let battle use 5‑man team
+  sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
+  window.location.href='battle.html';
+};
+</script>
+</body>
+</html>
