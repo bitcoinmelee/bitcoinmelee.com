@@ -112,10 +112,268 @@ function autoBuildEnemy(){
   enemyTeamData=pool.slice(0,userTeamData.length);
 }
 
-/*──────── Character class, maths, UI, battle loop ───────*/
-/* (identical to the fully‑working version sent earlier — omitted here
-   for brevity; keep exactly the same class Character, persuade /
-   intimidate maths, AP helper, rendering, battle loop, etc.)           */
+/*──────── Character class ───────*/
+class Character{
+  constructor(r){
+    Object.assign(this,{
+      name:r.Name,maxHp:r.Health,hp:r.Health,
+      str:r.Strength,dex:r.Dexterity,con:r.Constitution,
+      int:r.Intelligence,wis:r.Wisdom,cha:r.Charisma,mana:r.Mana,
+      ability:getAbility(r),cls:r.Class,faction:r.Faction,kingdom:r.Kingdom,
+      skip:0                       // rounds to skip (Persuade / Intimidate)
+    });
+  }
+  isAlive(){return this.hp>0;}
+  attack(t){
+    const atk=d20()+mod(this.str);
+    if(atk<10+mod(t.dex))return{hit:false,dmg:0};
+    const dmg=Math.max(1,d6()+mod(this.str));
+    t.hp=Math.max(0,t.hp-dmg);
+    return{hit:true,dmg};
+  }
+  _apply(stat,val){
+    if(stat==='Health')      this.hp = Math.min(this.maxHp,Math.max(0,this.hp+val));
+    else if(stat==='Strength')     this.str=Math.max(0,this.str+val);
+    else if(stat==='Dexterity')    this.dex=Math.max(0,this.dex+val);
+    else if(stat==='Constitution') this.con=Math.max(0,this.con+val);
+  }
+  applyAbility(als,foes,target){
+    const eff=abilities[this.ability]||{};
+    for(const k in eff){
+      const stat=k.split('_')[0],v=eff[k];
+      if(k.endsWith('_Self')) this._apply(stat,v);
+      if(k.endsWith('_ally')) als.forEach(a=>a._apply(stat,v));
+      if(k.endsWith('_Foe') && target) target._apply(stat,v);
+    }
+  }
+}
+const inst=a=>a.map(r=>new Character(r));
+
+/*──────── Persuade / Intimidate maths ───────*/
+const persuadeScore  = c => (c.cha + (c.wis + c.int)/2) / 3;
+const intimidateScore= c => (c.cha + c.con) / 2;
+const skillCheck     = (score, tgtMod)=> d20()+score > 10+tgtMod;
+
+/*──────── ability helpers & rendering ───────*/
+const abilityFlags=name=>{
+  const e=abilities[name]||{};let ally=false,foe=false,self=false;
+  for(const k in e){
+    if(k.endsWith('_ally')) ally=true;
+    else if(k.endsWith('_Foe')) foe=true;
+    else if(k.endsWith('_Self')) self=true;
+  }
+  if(!ally&&!foe&&!self)foe=true;
+  return{ally,foe,self};
+};
+const legalTargets=(actor,als,foes)=>{
+  const f=abilityFlags(actor.ability);
+  let list=[];
+  if(f.self) list.push(actor);
+  if(f.ally) list=list.concat(als.filter(a=>a!==actor));
+  if(f.foe)  list=list.concat(foes);
+  return list;
+};
+
+const diffString=(b,a)=>[['hp','HP'],['str','Str'],['dex','Dex'],['con','Con']]
+  .reduce((arr,[k,l])=>{
+    const d=a[k]-b[k];if(d)arr.push(`${d>0?'+':''}${d} ${l}`);
+    return arr;
+  },[]).join(', ');
+
+const hpBar=(c,t)=>{const p=document.createElement('progress');
+  p.value=c.hp??c.Health; p.max=c.maxHp??c.Health;
+  if(t==='enemy')p.classList.add('enemy'); return p;};
+const statLine=o=>`HP:${(o.hp??o.Health)}/${o.maxHp??o.Health} Str:${o.str??o.Strength} Dex:${o.dex??o.Dexterity} Con:${o.con??o.Constitution} Int:${o.int??o.Intelligence} Wis:${o.wis??o.Wisdom} Cha:${o.cha??o.Charisma} Mana:${o.mana??o.Mana}`;
+const abilitySpan=name=>{const s=document.createElement('span');
+  s.className='ability';s.textContent=cap(name);s.title=abilityTooltip(name);return s;};
+
+function statsMeta(li,o){
+  const st=document.createElement('div');st.className='rowStats';st.textContent=statLine(o);li.appendChild(st);
+  const meta=document.createElement('div');meta.className='rowMeta';
+  const cls=o.cls||o.Class,fac=o.faction||o.Faction,king=o.kingdom||o.Kingdom,abil=getAbility(o);
+  meta.textContent=`Class: ${cls}, Faction: ${fac}, Kingdom: ${king}`;
+  abil?meta.append(' — Ability: ',abilitySpan(abil)):meta.append(' —');
+  li.appendChild(meta);
+}
+const rowFrom=(o,t,live)=>{
+  const li=document.createElement('li');
+  const top=document.createElement('div');top.className='rowTop';
+  top.appendChild(hpBar(o,t));
+  top.appendChild(document.createElement('strong')).textContent=` ${cap(o.name||o.Name)}`;
+  li.appendChild(top);
+  statsMeta(li,o);
+  if(!live)li.style.opacity=0.4;
+  return li;
+};
+function renderInitialLists(){
+  userTeam.innerHTML=''; enemyTeam.innerHTML='';
+  userTeamData.forEach(r=>userTeam.appendChild(rowFrom(r,'user',true)));
+  enemyTeamData.forEach(r=>enemyTeam.appendChild(rowFrom(r,'enemy',true)));
+}
+function refreshLists(){
+  userTeam.innerHTML=''; enemyTeam.innerHTML='';
+  playerChars.forEach(c=>userTeam.appendChild(rowFrom(c,'user',c.isAlive())));
+  enemyChars.forEach(c=>enemyTeam.appendChild(rowFrom(c,'enemy',c.isAlive())));
+}
+
+/*──────── AP helper ───────*/
+const teamAP=team=>{
+  const alive=team.filter(c=>c.isAlive());
+  if(!alive.length)return 0;
+  const avg=alive.reduce((s,c)=>s+c.mana,0)/alive.length;
+  return Math.floor(avg/2);
+};
+
+/*──────── battle loop variables ───────*/
+let playerChars=[],enemyChars=[];
+let playerAP=0,aiAP=0;
+let usedP=new Set(),usedE=new Set();
+
+const logDiv=document.getElementById('battleLog');
+const log=t=>{const p=document.createElement('p');p.textContent=t;logDiv.appendChild(p);logDiv.scrollTop=logDiv.scrollHeight;};
+
+/*──────── UI bootstrap once data ready ───────*/
+const startBTN=document.getElementById('startBattle');
+startBTN.onclick=()=>{
+  startBTN.disabled=true;logDiv.innerHTML='';
+  playerChars=inst(userTeamData);
+  enemyChars =inst(enemyTeamData);
+  refreshLists();
+  playerTurn();
+};
+
+/*──────── player turn ───────*/
+function playerTurn(){
+  if(checkVictory())return;
+  [...playerChars,...enemyChars].forEach(c=>{if(c.skip>0)c.skip--;});
+  playerAP=teamAP(playerChars); usedP.clear();
+  log('— Your Turn —');
+  controls.classList.remove('hidden');
+  renderPlayerControls();
+}
+function renderPlayerControls(){
+  controls.innerHTML=`<p><span class="ap">${playerAP}</span> AP</p>`;
+  const avail=playerChars.filter(c=>c.isAlive()&&c.skip===0&&!usedP.has(c));
+  if(!avail.length||playerAP<ATTACK_COST){endPlayerTurn();return;}
+  avail.forEach(c=>{
+    const row=document.createElement('div');row.className='charCtrl';
+    row.textContent=cap(c.name);
+    if(playerAP>=ATTACK_COST){
+      const b=document.createElement('button');b.textContent='Atk(1)';
+      b.onclick=()=>chooseTarget(c,'atk');
+      row.appendChild(b);
+    }
+    if(c.ability&&playerAP>=ABILITY_COST){
+      const b=document.createElement('button');b.textContent=`${cap(c.ability)}(3)`;
+      b.onclick=()=>chooseTarget(c,'ab');
+      row.appendChild(b);
+    }
+    if(playerAP>=TALK_COST){
+      const p=document.createElement('button');p.textContent='Persuade(2)';
+      p.onclick=()=>chooseTarget(c,'persuade');
+      const i=document.createElement('button');i.textContent='Intimidate(2)';
+      i.onclick=()=>chooseTarget(c,'intimidate');
+      row.append(p,i);
+    }
+    controls.appendChild(row);
+  });
+}
+function chooseTarget(char,action){
+  controls.innerHTML='<p>Choose target:</p>';
+  const tgts = (action==='ab')
+      ? legalTargets(char,playerChars.filter(c=>c.isAlive()),enemyChars.filter(c=>c.isAlive()))
+      : enemyChars.filter(c=>c.isAlive());
+  tgts.forEach(t=>{
+    const b=document.createElement('button');b.textContent=cap(t.name);
+    b.onclick=()=>doPlayerAction(char,action,t);
+    controls.appendChild(b);
+  });
+}
+function doPlayerAction(char,type,target){
+  const cost= type==='atk'?ATTACK_COST : type==='ab'?ABILITY_COST : TALK_COST;
+  if(playerAP<cost)return;
+  if(type==='atk'){
+    const {hit,dmg}=char.attack(target);
+    log(hit?`${cap(char.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(char.name)} misses ${cap(target.name)}`);
+  }else if(type==='persuade'||type==='intimidate'){
+    const score=type==='persuade'?persuadeScore(char):intimidateScore(char);
+    const pass =skillCheck(score,type==='persuade'?mod(target.wis):mod(target.con));
+    if(pass){target.skip=2;log(`${cap(char.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);}
+    else    log(`${cap(char.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
+  }else{
+    const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
+    char.applyAbility(playerChars,enemyChars,target);
+    const d=diffString(before,target);
+    log(`${cap(char.name)} uses ${cap(char.ability)} on ${cap(target.name)}${d?' ('+d+')':' (nothing happened)'}`);
+  }
+  refreshLists(); usedP.add(char); playerAP-=cost;
+  if(checkVictory())return;
+  playerAP>=ATTACK_COST?renderPlayerControls():endPlayerTurn();
+}
+function endPlayerTurn(){controls.classList.add('hidden');setTimeout(aiTurn,600);}
+
+/*──────── AI turn ───────*/
+function aiTurn(){
+  if(checkVictory())return;
+  [...playerChars,...enemyChars].forEach(c=>{if(c.skip>0)c.skip--;});
+  aiAP=teamAP(enemyChars); usedE.clear();
+  log('— Enemy Turn —');
+  aiStep();
+}
+function aiStep(){
+  if(aiAP<ATTACK_COST){setTimeout(playerTurn,600);return;}
+  const choices=enemyChars.filter(c=>c.isAlive()&&c.skip===0&&!usedE.has(c));
+  if(!choices.length){setTimeout(playerTurn,600);return;}
+  const actor=choices[Math.floor(Math.random()*choices.length)];
+
+  const canAbility=actor.ability&&aiAP>=ABILITY_COST;
+  const tryAbility=canAbility&&Math.random()<0.25;
+  const tryPers =aiAP>=TALK_COST&&!tryAbility&&Math.random()<0.2;
+  const tryInt  =aiAP>=TALK_COST&&!tryAbility&&!tryPers&&Math.random()<0.2;
+  const type= tryAbility?'ab':tryPers?'persuade':tryInt?'intimidate':'atk';
+  const cost= type==='atk'?ATTACK_COST: type==='ab'?ABILITY_COST:TALK_COST;
+
+  let target;
+  if(type==='ab'){
+    const pool=legalTargets(actor,enemyChars.filter(c=>c.isAlive()),playerChars.filter(c=>c.isAlive()));
+    if(!pool.length){return aiStep();}
+    target=pool[Math.floor(Math.random()*pool.length)];
+  }else{
+    const foes=playerChars.filter(c=>c.isAlive());
+    target=foes[Math.floor(Math.random()*foes.length)];
+  }
+
+  if(type==='atk'){
+    const {hit,dmg}=actor.attack(target);
+    log(hit?`${cap(actor.name)} hits ${cap(target.name)} (-${dmg} HP)`:`${cap(actor.name)} misses ${cap(target.name)}`);
+  }else if(type==='persuade'||type==='intimidate'){
+    const score=type==='persuade'?persuadeScore(actor):intimidateScore(actor);
+    const pass =skillCheck(score,type==='persuade'?mod(target.wis):mod(target.con));
+    if(pass){target.skip=2;log(`${cap(actor.name)} ${type==='persuade'?'persuaded':'intimidated'} ${cap(target.name)}`);}
+    else    log(`${cap(actor.name)} failed to ${type==='persuade'?'persuade':'intimidate'} ${cap(target.name)}`);
+  }else{
+    const before={hp:target.hp,str:target.str,dex:target.dex,con:target.con};
+    actor.applyAbility(enemyChars,playerChars,target);
+    const d=diffString(before,target);
+    log(`${cap(actor.name)} uses ${cap(actor.ability)} on ${cap(target.name)}${d?' ('+d+')':' (nothing happened)'}`);
+  }
+
+  refreshLists();
+  usedE.add(actor); aiAP-=cost;
+  if(checkVictory())return;
+  setTimeout(aiStep,600);
+}
+
+/*──────── victory check ───────*/
+function checkVictory(){
+  const you=playerChars.some(c=>c.isAlive());
+  const foe=enemyChars.some(c=>c.isAlive());
+  if(you&&foe)return false;
+  log(you?`🎉 You win!`:`☠️ Enemy wins!`);
+  startBTN.disabled=false;
+  return true;
+}
+
 
 </script>
 </body>
