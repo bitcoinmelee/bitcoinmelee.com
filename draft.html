@@ -9,9 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    :root{--border:#8c6b42;--card:#fff8ef;--accent:#d1b280}
+    :root{--border:#8c6b42;--card:#fff8ef;--accent:#d1b280;--ink:#2b2a29}
     *{box-sizing:border-box}
-    body{margin:0;font-family:'Lora',serif;background:#f9f4e8;color:#2b2a29;padding:1rem;}
+    body{margin:0;font-family:'Lora',serif;background:#f9f4e8;color:var(--ink);padding:1rem;}
     h1{font-family:'Cinzel',serif;margin:0 0 1rem;text-align:center;font-size:2rem;letter-spacing:0.5px;}
     h2{font-family:'Cinzel',serif;margin:0;text-align:center;font-size:1.15rem}
     #boards{display:flex;gap:1rem;flex-wrap:wrap}
@@ -26,6 +26,23 @@
     #log{margin-top:0.9rem;height:95px;overflow:auto;border:2px solid var(--border);padding:0.5rem;background:#fffefa;font-size:0.9rem}
     #ready{display:block;margin:1.1rem auto 0;padding:0.6rem 1.5rem;font-family:'Cinzel',serif;font-size:1.05rem;background:var(--accent);border:2px solid var(--border);border-radius:7px;cursor:pointer}
     #ready.hidden{display:none}
+
+    /* custom tooltip */
+    .tooltip{
+      position:fixed;
+      max-width:280px;
+      z-index:999;
+      background:var(--card);
+      border:2px solid var(--border);
+      padding:0.45rem 0.55rem;
+      border-radius:6px;
+      font-size:0.82rem;
+      font-family:'Lora',serif;
+      color:var(--ink);
+      box-shadow:0 3px 6px rgba(0,0,0,0.25);
+      pointer-events:none;
+      white-space:pre-wrap;
+    }
   </style>
 </head>
 <body>
@@ -42,128 +59,134 @@
   <div id="log"></div>
   <button id="ready" class="hidden">Ready for melee!</button>
 
+<!-- ---------- SCRIPT ---------- -->
 <script>
-/*───── constants & util ─────*/
-const ROUNDS = 5;
-let playerPool=[], enemyPool=[];
-let draftedPlayer=[], draftedEnemy=[];
-let turnSide;          // 'player' | 'enemy'
-let picksMade=0;
+/*──── constants & helpers ────*/
+const ROUNDS=5;
+let playerPool=[],enemyPool=[],draftedPlayer=[],draftedEnemy=[];
+let turnSide,picksMade=0,abilities={};
 
-const $ = s=>document.querySelector(s);
+const $=q=>document.querySelector(q);
 const log=t=>{$('#log').append(t,document.createElement('br'));$('#log').scrollTop=$('#log').scrollHeight;};
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 
-/* tooltip builder */
+/* tooltip system */
+const tip=document.createElement('div');tip.className='tooltip';tip.style.display='none';document.body.append(tip);
+document.addEventListener('mousemove',e=>{if(tip.style.display!=='none'){tip.style.left=e.pageX+12+'px';tip.style.top=e.pageY+12+'px';}});
+
+/* build tooltip text */
 function abilityTooltip(name){
   if(!name||!abilities[name])return '';
-  const ab=abilities[name], out=[];
-  if(ab.Description) out.push(ab.Description);
+  const ab=abilities[name],out=[];
+  if(ab.Description)out.push(ab.Description);
   const eff=Object.entries(ab)
-      .filter(([k,v])=>k!=='Description'&&v!==0)
-      .map(([k,v])=>{
-        const stat=k.split('_')[0];
-        const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
-        const sign=v>=0?'+':'';
-        return `${sign}${v} ${stat}${who?' ('+who+')':''}`;
-      });
-  if(eff.length) out.push(eff.join(', '));
+    .filter(([k,v])=>k!=='Description'&&v!==0)
+    .map(([k,v])=>{
+      const stat=k.split('_')[0];
+      const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
+      const sign=v>=0?'+':'';
+      return `${sign}${v} ${stat}${who?' ('+who+')':''}`;
+    });
+  if(eff.length)out.push(eff.join(', '));
   return out.join('\n');
 }
 
-/* build hero card with labels */
+/* card builder */
 function makeCard(h){
-  const d=document.createElement('div'); d.className='card';
-  const abilName = h.Ability || h['Common Ability'] || '';
+  const d=document.createElement('div');d.className='card';
+  const abil=h.Ability||h['Common Ability']||'';
   d.innerHTML=`
     <div class="card-name">${h.Name}</div>
     <div class="line">STR:${h.Strength} DEX:${h.Dexterity} CON:${h.Constitution}</div>
     <div class="line">INT:${h.Intelligence} WIS:${h.Wisdom} CHA:${h.Charisma}</div>
     <div class="line">HP:${h.Health} Mana:${h.Mana}</div>
     <div class="line">Class: ${h.Class}  Faction: ${h.Faction}  Kingdom: ${h.Kingdom}</div>
-    <div class="line">Ability: <span class="ability-name" title="${abilityTooltip(abilName)}">${abilName}</span></div>`;
+    <div class="line">Ability: <span class="ability-name" data-abil="${abil}">${abil}</span></div>`;
+  const span=d.querySelector('.ability-name');
+  span.addEventListener('mouseenter',e=>{
+    const txt=abilityTooltip(span.dataset.abil);
+    if(!txt)return;
+    tip.textContent=txt;tip.style.display='block';
+    tip.style.left=e.pageX+12+'px';tip.style.top=e.pageY+12+'px';
+  });
+  span.addEventListener('mouseleave',()=>{tip.style.display='none';});
   return d;
 }
 
-/*──────── data load & init ───────*/
-let abilities={};
-(async ()=>{
-  const stored=sessionStorage.getItem('roster');
-  if(!stored){alert('No roster found. Go back to the main page first.');return;}
+/*──────── init load ───────*/
+(async()=>{
+  const rosterJSON=sessionStorage.getItem('roster');
+  if(!rosterJSON){alert('No roster found. Go back to main page.');return;}
+  playerPool=JSON.parse(rosterJSON);
 
-  const [heroesJSON, abilitiesJSON] = await Promise.all([
+  const [heroesJSON,abilitiesJSON]=await Promise.all([
       fetch('heroes.json').then(r=>r.json()),
       fetch('abilities.json').then(r=>r.json())
   ]);
-
-  abilities = abilitiesJSON;
-  const allHeroes = Array.isArray(heroesJSON)?heroesJSON:Object.values(heroesJSON);
-
-  playerPool = JSON.parse(stored);                           // 12 heroes from index.html
-  enemyPool  = shuffle(allHeroes.filter(h=>!playerPool.some(p=>p.Name===h.Name)))
-                .slice(0,playerPool.length);                 // 12 random opponents
+  abilities=abilitiesJSON;
+  const allHeroes=Array.isArray(heroesJSON)?heroesJSON:Object.values(heroesJSON);
+  enemyPool=shuffle(allHeroes.filter(h=>!playerPool.some(p=>p.Name===h.Name))).slice(0,playerPool.length);
 
   renderPlayerPool();
-
-  turnSide = Math.random()<0.5 ? 'player' : 'enemy';
+  turnSide=Math.random()<0.5?'player':'enemy';
   log(`${turnSide==='player'?'You':'Enemy'} pick first.`);
-  if(turnSide==='enemy') setTimeout(aiPick,700);
+  if(turnSide==='enemy')setTimeout(aiPick,700);
 })();
 
-/*──────── render remaining pool ───────*/
+/* render remaining heroes for player */
 function renderPlayerPool(){
   $('#yourPool').innerHTML='';
   playerPool.forEach(h=>{
     const c=makeCard(h);
-    c.onclick=()=> pickPlayer(h);
+    c.onclick=()=>playerPick(h);
     $('#yourPool').append(c);
   });
 }
 
-/*──────── add to draft panels ───────*/
+/* add hero to draft column */
 function addToDraft(side,h){
-  const box = side==='player'?$('#yourDraft'):$('#enemyDraft');
-  const c = makeCard(h); c.classList.add('picked'); c.onclick=null;
+  const box=side==='player'?$('#yourDraft'):$('#enemyDraft');
+  const c=makeCard(h);c.classList.add('picked');c.onclick=null;
   box.append(c);
 }
 
-/*──────── player & AI picks ───────*/
-function pickPlayer(hero){
+/* player & AI picks */
+function playerPick(hero){
   if(turnSide!=='player')return;
   draftedPlayer.push(hero);
-  playerPool = playerPool.filter(h=>h!==hero);
+  playerPool=playerPool.filter(h=>h!==hero);
   addToDraft('player',hero);
   log(`You picked ${hero.Name}.`);
   nextTurn();
 }
 function aiPick(){
-  const hero = enemyPool[Math.floor(Math.random()*enemyPool.length)];
+  const hero=enemyPool[Math.floor(Math.random()*enemyPool.length)];
   draftedEnemy.push(hero);
-  enemyPool = enemyPool.filter(h=>h!==hero);
+  enemyPool=enemyPool.filter(h=>h!==hero);
   addToDraft('enemy',hero);
   log(`Enemy picked ${hero.Name}.`);
   nextTurn();
 }
 
-/*──────── turn / round management ───────*/
+/* turn rotation */
 function nextTurn(){
   picksMade++;
-  if(picksMade >= ROUNDS*2){
+  if(picksMade>=ROUNDS*2){
     $('#yourPool').innerHTML='';
     $('#ready').classList.remove('hidden');
     return;
   }
-  turnSide = turnSide==='player' ? 'enemy' : 'player';
-  if(turnSide==='enemy') setTimeout(aiPick,700);
+  turnSide=turnSide==='player'?'enemy':'player';
+  if(turnSide==='enemy')setTimeout(aiPick,700);
   else renderPlayerPool();
 }
 
-/*──────── ready → battle.html ───────*/
+/* ready → battle.html */
 $('#ready').onclick=()=>{
-  sessionStorage.setItem('draftPlayer', JSON.stringify(draftedPlayer));
-  sessionStorage.setItem('draftEnemy',  JSON.stringify(draftedEnemy));
+  sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
+  sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
   sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
-  sessionStorage.setItem('roster',      JSON.stringify(draftedPlayer)); // battle expects this
+  sessionStorage.setItem('roster',      JSON.stringify(draftedPlayer)); // battle page uses this
   window.location.href='battle.html';
 };
 </script>
