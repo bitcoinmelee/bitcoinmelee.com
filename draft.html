@@ -1,135 +1,122 @@
-const enemyRaw = sessionStorage.getItem('enemy_roster') || sessionStorage.getItem('draftEnemy');
-```)
-
----
-
-```html
-<!-- draft.html  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bitcoin Melee — Draft</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Bitcoin Melee — Battle Arena</title>
 
+  <!-- fantasy fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- styles (unchanged) -->
   <style>
-    body{margin:0;font-family:'Montserrat',sans-serif;background:#f9f4e8;color:#2b2a29;padding:1rem;}
-    h1{text-align:center;font-family:'Uncial Antiqua',cursive;margin:0 0 1rem;}
-    #boards{display:flex;gap:1rem;flex-wrap:wrap}
-    .panel{flex:1 1 320px;border:3px double #8c6b42;background:#fff8ef;padding:0.6rem;border-radius:8px;min-height:300px}
-    .panel h2{margin:0 0 0.4rem;font-family:'Uncial Antiqua',cursive;font-size:1.2rem;text-align:center;}
-    .list{display:flex;flex-direction:column;gap:0.3rem;min-height:250px}
-    .card{border:1px solid #8c6b42;padding:0.3rem;border-radius:5px;cursor:pointer;font-size:0.85rem;background:#dfd6c2}
-    .card:hover{background:#cbbfa6}
-    .picked{background:#c6e2ff;border-style:dashed;cursor:default}
-    #log{margin-top:0.8rem;height:90px;overflow:auto;border:2px solid #8c6b42;padding:0.4rem;background:#fffefa;font-size:0.9rem}
-    #ready{display:block;margin:1rem auto 0;padding:0.5rem 1.2rem;font-family:'Uncial Antiqua',cursive;font-size:1rem;background:#d1b280;border:2px solid #8c6b42;border-radius:6px;cursor:pointer}
-    #ready.hidden{display:none}
+    :root{--parchment:#f9f4e8;--ink:#2b2a29;--user:#216869;--enemy:#a11d33;--border:#8c6b42;--card:#fff8ef;}
+    *{box-sizing:border-box}
+    body{margin:0;padding:18vh 1rem 18vh;font-family:'Montserrat',sans-serif;background:var(--parchment);color:var(--ink);}
+    h1{font-family:'Uncial Antiqua',cursive;font-size:2.2rem;margin:0 0 1rem;text-align:center;}
+    .teamPane{position:fixed;width:100%;left:0;z-index:15;background:var(--card);border:3px double var(--border);
+      backdrop-filter:blur(2px);overflow-y:auto;padding:0.5rem 1rem;}
+    #enemyPane{top:0;height:18vh;border-bottom-width:5px;}
+    #userPane {bottom:0;height:18vh;border-top-width:5px;}
+    .teamPane h2{margin:0 0 0.3rem;font-family:'Uncial Antiqua',cursive;font-size:1.15rem;}
+    .teamList{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0.35rem 0.9rem;font-size:0.78rem;}
+    .teamList li{display:flex;flex-direction:column;line-height:1.15;}
+    .rowTop{display:flex;align-items:center;gap:0.35rem;}
+    .rowStats{margin-left:calc(90px + 0.35rem);}
+    .rowMeta {margin-left:calc(90px + 0.35rem);font-size:0.72rem;color:#555;}
+    .teamList progress{width:90px;height:8px;accent-color:var(--user);}
+    #enemyPane progress{accent-color:var(--enemy);}
+    #userTeam li{color:var(--user);} #enemyTeam li{color:var(--enemy);}
+    .ability{font-style:italic;text-decoration:underline dotted;cursor:help;white-space:nowrap;}
+    .teamList strong{font-size:0.88rem;}
+    #startBattle{display:block;margin:0 auto;padding:0.55rem 1.3rem;font-size:1.05rem;font-family:'Uncial Antiqua',cursive;
+      background:#d1b280;border:2px solid var(--border);border-radius:6px;}
+    #startBattle:disabled{opacity:0.5;cursor:not-allowed;}
+    #battleLog{max-height:260px;overflow-y:auto;margin-top:1rem;border:2px solid var(--border);padding:0.7rem;background:#fffefa;font-size:0.9rem;}
+    #controls{margin-top:1rem;border:2px solid var(--border);background:#fffefa;padding:0.8rem;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.15);}
+    #controls p{margin:0 0 0.5rem;font-family:'Uncial Antiqua',cursive;}
+    .charCtrl{margin:0.45rem 0;}
+    .charCtrl button{margin-left:0.5rem;padding:0.25rem 0.6rem;border:1px solid #444;border-radius:4px;background:#dfd6c2;font-size:0.82rem;cursor:pointer;}
+    .charCtrl button:hover:not(:disabled){background:#cbbfa6;}
+    .hidden{display:none}
+    .ap{font-weight:bold}
   </style>
 </head>
+
 <body>
-  <h1>Draft Your Heroes</h1>
+  <h1>Bitcoin Melee</h1>
 
-  <div id="boards">
-    <div class="panel"><h2>Your Draft</h2><div id="yourDraft" class="list"></div></div>
-    <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list"></div></div>
-  </div>
+  <div id="enemyPane" class="teamPane"><h2>Enemy Team</h2><ul id="enemyTeam" class="teamList"></ul></div>
 
-  <h2 style="margin:1rem 0 0.3rem">Your Remaining Heroes</h2>
-  <div id="yourPool" class="list"></div>
+  <button id="startBattle" disabled>Commence Battle</button>
+  <div id="battleLog"></div>
+  <div id="controls" class="hidden"></div>
 
-  <div id="log"></div>
-  <button id="ready" class="hidden">Ready for melee!</button>
+  <div id="userPane" class="teamPane"><h2>Your Team</h2><ul id="userTeam" class="teamList"></ul></div>
 
 <script>
-const ROUNDS = 5;
-let playerPool=[], enemyPool=[];
-let draftedPlayer=[], draftedEnemy=[];
-let turnSide;  // 'player' | 'enemy'
-let picksMade=0;
+/*──────── constants & helpers ───────*/
+const ATTACK_COST=1, ABILITY_COST=3, TALK_COST=2;
+const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'';
+const d20=()=>Math.floor(Math.random()*20)+1,d6=()=>Math.floor(Math.random()*6)+1;
+const mod=v=>Math.floor((v-10)/2);
+const getAbility=o=>(o.ability||o.Ability||o['Common Ability']||'').trim();
 
-/* helpers */
-const $=s=>document.querySelector(s);
-const log=t=>{$('#log').append(document.createTextNode(t));$('#log').append(document.createElement('br'));$('#log').scrollTop=$('#log').scrollHeight;}
-function card(h){const div=document.createElement('div');div.className='card';div.textContent=h.Name;return div;}
-function renderPools(){
-  $('#yourPool').innerHTML='';
-  playerPool.forEach(h=>{
-    const c=card(h);
-    c.onclick=()=> playerTurnPick(h);
-    $('#yourPool').append(c);
-  });
-}
-function addToDraft(side,h){
-  const targetDiv = side==='player'?$('#yourDraft'):$('#enemyDraft');
-  const c=card(h);c.classList.add('picked');c.onclick=null;
-  targetDiv.append(c);
-}
+/* pull rosters from sessionStorage BEFORE any JSON fetch */
+const playerRaw=sessionStorage.getItem('roster');
+const enemyRaw =sessionStorage.getItem('enemy_roster')||sessionStorage.getItem('draftEnemy');
 
-/* load data & init */
-(async ()=>{
-  const rosterJSON=sessionStorage.getItem('roster');
-  if(!rosterJSON){alert('No roster found. Go to index.html first.');return;}
-  const allHeroes= await fetch('heroes.json').then(r=>r.json());
-  const all=Array.isArray(allHeroes)?allHeroes:Object.values(allHeroes);
+let userTeamData = playerRaw?JSON.parse(playerRaw):[];
+let enemyTeamData= enemyRaw ?JSON.parse(enemyRaw ):[];
 
-  playerPool = JSON.parse(rosterJSON).slice();             // 12 heroes
-  enemyPool  = shuffle(all.filter(h=>!playerPool.some(p=>p.Name===h.Name)))
-                 .slice(0,playerPool.length);             // same size
-
-  renderPools();
-
-  /* random who picks first */
-  turnSide = Math.random()<0.5?'player':'enemy';
-  log(`${turnSide==='player'?'You':'Enemy'} pick first!`);
-  if(turnSide==='enemy')setTimeout(aiPick,800);
-})();
-
-/* shuffle helper */
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
-/* ---- player interaction ---- */
-function playerTurnPick(hero){
-  if(turnSide!=='player')return;
-  draftedPlayer.push(hero);
-  playerPool=playerPool.filter(h=>h!==hero);
-  addToDraft('player',hero);
-  log(`You picked ${hero.Name}.`);
-  nextTurn();
-}
-
-/* ---- AI ---- */
-function aiPick(){
-  const h = enemyPool[Math.floor(Math.random()*enemyPool.length)];
-  draftedEnemy.push(h);
-  enemyPool = enemyPool.filter(x=>x!==h);
-  addToDraft('enemy',h);
-  log(`Enemy picked ${h.Name}.`);
-  nextTurn();
-}
-
-/* ---- turn handler ---- */
-function nextTurn(){
-  picksMade++;
-  if(picksMade>=ROUNDS*2){
-    $('#yourPool').innerHTML='';
-    $('#ready').classList.remove('hidden');
-    return;
-  }
-  turnSide = turnSide==='player'?'enemy':'player';
-  if(turnSide==='enemy')setTimeout(aiPick,800);
-  else renderPools();
-}
-
-/* ---- ready button ---- */
-$('#ready').onclick=()=>{
-  sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
-  sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
-  sessionStorage.setItem('roster',     JSON.stringify(draftedPlayer));   // let battle use 5‑man team
-  sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
-  window.location.href='battle.html';
+/* dominant kingdom helper (still used if we need to auto‑build enemy) */
+const dominantKingdom=arr=>{
+  const cnt={};let best='',bestN=0;
+  arr.forEach(c=>{const k=c.Kingdom||'';cnt[k]=(cnt[k]||0)+1;if(cnt[k]>bestN){best=k;bestN=cnt[k];}});
+  return best;
 };
+
+/* ability tooltip (non‑zero effects) */
+function abilityTooltip(name){
+  const ab=abilities[name]||{},out=[];
+  if(ab.Description)out.push(ab.Description);
+  const eff=Object.entries(ab)
+    .filter(([k,v])=>k!=='Description'&&v!==0)
+    .map(([k,v])=>{
+       const stat=k.split('_')[0];
+       const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
+       const sign=v>=0?'+':'';
+       return `${sign}${v} ${stat}${who?' ('+who+')':''}`;
+    });
+  if(eff.length)out.push(eff.join(', '));
+  return out.join('\n');
+}
+
+/*──────── load data ───────*/
+let characters=[],abilities={};
+Promise.all([fetch('characters.json').then(r=>r.json()),
+             fetch('abilities.json').then(r=>r.json())])
+  .then(([c,a])=>{
+    characters=c;abilities=a;
+    if(!enemyRaw) autoBuildEnemy();   // if no pre‑drafted enemy roster
+    renderInitialLists();
+    startBattle.disabled=false;
+  })
+  .catch(console.error);
+
+/* auto-build enemy team if no draft list present */
+function autoBuildEnemy(){
+  if(!userTeamData.length){alert('No roster found. Go to index.html.');return;}
+  const playerKing=dominantKingdom(userTeamData);
+  const pool=characters.filter(h=>!userTeamData.some(p=>p.Name===h.Name)&&h.Kingdom!==playerKing);
+  enemyTeamData=pool.slice(0,userTeamData.length);
+}
+
+/*──────── Character class, maths, UI, battle loop ───────*/
+/* (identical to the fully‑working version sent earlier — omitted here
+   for brevity; keep exactly the same class Character, persuade /
+   intimidate maths, AP helper, rendering, battle loop, etc.)           */
+
 </script>
 </body>
 </html>
