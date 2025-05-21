@@ -81,8 +81,8 @@ window.addEventListener('DOMContentLoaded', () => {
     cont.classList.remove('hidden');
   });
 
-  /* Continue → go to battle */
+  /* Continue → go to draft */
   $('#continue').addEventListener('click', () => {
-    window.location.href = 'battle.html';
+    window.location.href = 'draft.html';
   });
 });
