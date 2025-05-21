@@ -23,16 +23,12 @@
     .card-name{font-weight:600;text-transform:capitalize;font-family:'Cinzel',serif;margin-bottom:0.25rem}
     .line{display:flex;flex-wrap:wrap;gap:0.4rem}
     .ability-name{font-style:italic;text-decoration:underline dotted;cursor:help}
-    #log{margin-bottom:0.9rem;height:95px;overflow:auto;border:2px solid var(--border);
-         padding:0.5rem;background:#fffefa;font-size:0.9rem}
-    #ready{display:block;margin:1.1rem auto 0;padding:0.6rem 1.5rem;font-family:'Cinzel',serif;
-           font-size:1.05rem;background:var(--accent);border:2px solid var(--border);border-radius:7px;cursor:pointer}
+    #log{margin-top:0.9rem;height:95px;overflow:auto;border:2px solid var(--border);padding:0.5rem;background:#fffefa;font-size:0.9rem}
+    #ready{display:block;margin:1rem auto 0;padding:0.6rem 1.5rem;font-family:'Cinzel',serif;font-size:1.05rem;background:var(--accent);border:2px solid var(--border);border-radius:7px;cursor:pointer}
     #ready.hidden{display:none}
 
-    /* custom tooltip */
-    .tooltip{position:fixed;max-width:280px;z-index:999;background:var(--card);border:2px solid var(--border);
-             padding:0.45rem 0.55rem;border-radius:6px;font-size:0.82rem;font-family:'Lora',serif;color:var(--ink);
-             box-shadow:0 3px 6px rgba(0,0,0,0.25);pointer-events:none;white-space:pre-wrap;display:none}
+    /* tooltip */
+    .tooltip{position:fixed;max-width:280px;z-index:999;background:var(--card);border:2px solid var(--border);padding:0.45rem 0.55rem;border-radius:6px;font-size:0.82rem;font-family:'Lora',serif;color:var(--ink);box-shadow:0 3px 6px rgba(0,0,0,0.25);pointer-events:none;white-space:pre-wrap;display:none}
   </style>
 </head>
 <body>
@@ -43,51 +39,48 @@
     <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list"></div></div>
   </div>
 
-  <!-- log panel -->
-  <div id="log"></div>
-
-  <h2 style="margin:0 0 0.4rem">Your Remaining Heroes</h2>
-  <div id="yourPool" class="list"></div>
-
+  <!-- Ready button ABOVE log -->
   <button id="ready" class="hidden">Ready for melee!</button>
 
+  <div id="log"></div>
+
+  <h2 style="margin:0.6rem 0 0.4rem">Your Remaining Heroes</h2>
+  <div id="yourPool" class="list"></div>
+
 <script>
-/*──── constants & helpers ────*/
-const ROUNDS = 5;
+/***************** CONSTANTS & HELPERS *****************/
+const ROUNDS = 5; // total picks per side
 let playerPool=[], enemyPool=[], draftedPlayer=[], draftedEnemy=[];
 let turnSide, picksMade = 0, abilities = {};
 
 const cap = s => s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : '';
-const $ = sel => document.querySelector(sel);
+const $   = sel => document.querySelector(sel);
 const log = txt => { $('#log').append(txt, document.createElement('br')); $('#log').scrollTop = $('#log').scrollHeight; };
-const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
+const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()* (i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
 
-/* tooltip element */
+/***************** TOOLTIP *****************************/
 const tip=document.createElement('div');tip.className='tooltip';document.body.append(tip);
 document.addEventListener('mousemove',e=>{if(tip.style.display!=='none'){tip.style.left=e.pageX+12+'px';tip.style.top=e.pageY+12+'px';}});
 
-/* build tooltip text */
 function abilityTooltip(name){
   if(!name||!abilities[name])return '';
   const ab=abilities[name],out=[];
   if(ab.Description)out.push(ab.Description);
-  const eff=Object.entries(ab).filter(([k,v])=>k!=='Description'&&v!==0)
-    .map(([k,v])=>{
-      const stat=k.split('_')[0];
-      const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
-      const sign=v>=0?'+':'';
-      return `${sign}${v}\u00A0${stat}${who?' ('+who+')':''}`;
-    });
+  const eff=Object.entries(ab).filter(([k,v])=>k!=='Description'&&v!==0).map(([k,v])=>{
+    const stat=k.split('_')[0];
+    const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
+    const sign=v>=0?'+':'';
+    return `${sign}${v}\u00A0${stat}${who?' ('+who+')':''}`;
+  });
   if(eff.length)out.push(eff.join(', '));
   return out.join('\n');
 }
 
-/* card builder */
+/***************** CARD BUILDER ************************/
 function makeCard(h){
   const d=document.createElement('div');d.className='card';
   const abil=h.Ability||h['Common Ability']||'';
-  d.innerHTML=`
-    <div class="card-name">${cap(h.Name)}</div>
+  d.innerHTML=`<div class="card-name">${cap(h.Name)}</div>
     <div class="line">STR:${h.Strength} DEX:${h.Dexterity} CON:${h.Constitution}</div>
     <div class="line">INT:${h.Intelligence} WIS:${h.Wisdom} CHA:${h.Charisma}</div>
     <div class="line">HP:${h.Health} Mana:${h.Mana}</div>
@@ -100,11 +93,11 @@ function makeCard(h){
     tip.textContent=txt;tip.style.display='block';
     tip.style.left=e.pageX+12+'px';tip.style.top=e.pageY+12+'px';
   });
-  aSpan.addEventListener('mouseleave',()=>{tip.style.display='none';});
+  aSpan.addEventListener('mouseleave',()=>tip.style.display='none');
   return d;
 }
 
-/*──────── init load ───────*/
+/***************** INITIAL LOAD ************************/
 (async ()=>{
   const rosterJSON=sessionStorage.getItem('roster');
   if(!rosterJSON){alert('No roster found. Go back to the main page first.');return;}
@@ -120,27 +113,29 @@ function makeCard(h){
   enemyPool = shuffle(allHeroes.filter(h=>!playerPool.some(p=>p.Name===h.Name))).slice(0,playerPool.length);
 
   renderPlayerPool();
-  turnSide = Math.random()<0.5 ? 'player' : 'enemy';
+  turnSide = Math.random() < 0.5 ? 'player' : 'enemy';
   log(`${turnSide==='player'?'You':'Enemy'} pick first.`);
   if(turnSide==='enemy') setTimeout(aiPick,700);
 })();
 
-/*──────── rendering ───────*/
+/***************** RENDERING ***************************/
 function renderPlayerPool(){
   $('#yourPool').innerHTML='';
   playerPool.forEach(h=>{
     const c=makeCard(h);
-    c.onclick=()=> pickPlayer(h);
+    c.onclick=()=>pickPlayer(h);
     $('#yourPool').append(c);
   });
 }
 function addToDraft(side,h){
-  const box = side==='player'?$('#yourDraft'):$('#enemyDraft');
-  const c=makeCard(h); c.classList.add('picked'); c.onclick=null;
+  const box= side==='player'? $('#yourDraft') : $('#enemyDraft');
+  const c  = makeCard(h);
+  c.classList.add('picked');
+  c.onclick=null;
   box.append(c);
 }
 
-/*──────── picks ───────*/
+/***************** PICK HANDLERS ***********************/
 function pickPlayer(hero){
   if(turnSide!=='player')return;
   draftedPlayer.push(hero);
@@ -158,10 +153,10 @@ function aiPick(){
   nextTurn();
 }
 
-/*──────── turn management ───────*/
+/***************** TURN MANAGEMENT *********************/
 function nextTurn(){
   picksMade++;
-  if(picksMade >= ROUNDS*2){
+  if(picksMade >= ROUNDS*2){ // all 10 picks done
     $('#yourPool').innerHTML='';
     $('#ready').classList.remove('hidden');
     return;
@@ -171,12 +166,12 @@ function nextTurn(){
   else renderPlayerPool();
 }
 
-/*──────── ready → battle.html ───────*/
+/***************** READY BUTTON ************************/
 $('#ready').onclick=()=>{
   sessionStorage.setItem('draftPlayer', JSON.stringify(draftedPlayer));
   sessionStorage.setItem('draftEnemy',  JSON.stringify(draftedEnemy));
   sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
-  sessionStorage.setItem('roster',      JSON.stringify(draftedPlayer)); // battle page uses this
+  sessionStorage.setItem('roster',      JSON.stringify(draftedPlayer));
   window.location.href='battle.html';
 };
 </script>
