@@ -43,7 +43,7 @@
     <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list"></div></div>
   </div>
 
-  <!--  moved log up here  -->
+  <!-- log panel -->
   <div id="log"></div>
 
   <h2 style="margin:0 0 0.4rem">Your Remaining Heroes</h2>
@@ -57,9 +57,10 @@ const ROUNDS = 5;
 let playerPool=[], enemyPool=[], draftedPlayer=[], draftedEnemy=[];
 let turnSide, picksMade = 0, abilities = {};
 
-const $ = s => document.querySelector(s);
-const log = t => { $('#log').append(t, document.createElement('br')); $('#log').scrollTop = $('#log').scrollHeight; };
-const shuffle = a => { for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const cap = s => s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : '';
+const $ = sel => document.querySelector(sel);
+const log = txt => { $('#log').append(txt, document.createElement('br')); $('#log').scrollTop = $('#log').scrollHeight; };
+const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
 
 /* tooltip element */
 const tip=document.createElement('div');tip.className='tooltip';document.body.append(tip);
@@ -71,12 +72,12 @@ function abilityTooltip(name){
   const ab=abilities[name],out=[];
   if(ab.Description)out.push(ab.Description);
   const eff=Object.entries(ab).filter(([k,v])=>k!=='Description'&&v!==0)
-            .map(([k,v])=>{
-              const stat=k.split('_')[0];
-              const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
-              const sign=v>=0?'+':'';
-              return `${sign}${v} ${stat}${who?' ('+who+')':''}`;
-            });
+    .map(([k,v])=>{
+      const stat=k.split('_')[0];
+      const who=k.endsWith('_Self')?'self':k.endsWith('_ally')?'ally':k.endsWith('_Foe')?'foe':'';
+      const sign=v>=0?'+':'';
+      return `${sign}${v}\u00A0${stat}${who?' ('+who+')':''}`;
+    });
   if(eff.length)out.push(eff.join(', '));
   return out.join('\n');
 }
@@ -86,7 +87,7 @@ function makeCard(h){
   const d=document.createElement('div');d.className='card';
   const abil=h.Ability||h['Common Ability']||'';
   d.innerHTML=`
-    <div class="card-name">${h.Name}</div>
+    <div class="card-name">${cap(h.Name)}</div>
     <div class="line">STR:${h.Strength} DEX:${h.Dexterity} CON:${h.Constitution}</div>
     <div class="line">INT:${h.Intelligence} WIS:${h.Wisdom} CHA:${h.Charisma}</div>
     <div class="line">HP:${h.Health} Mana:${h.Mana}</div>
@@ -110,8 +111,8 @@ function makeCard(h){
   playerPool=JSON.parse(rosterJSON);
 
   const [heroesJSON, abilitiesJSON] = await Promise.all([
-      fetch('heroes.json').then(r=>r.json()),
-      fetch('abilities.json').then(r=>r.json())
+    fetch('heroes.json').then(r=>r.json()),
+    fetch('abilities.json').then(r=>r.json())
   ]);
   abilities = abilitiesJSON;
   const allHeroes = Array.isArray(heroesJSON)?heroesJSON:Object.values(heroesJSON);
@@ -145,7 +146,7 @@ function pickPlayer(hero){
   draftedPlayer.push(hero);
   playerPool = playerPool.filter(h=>h!==hero);
   addToDraft('player',hero);
-  log(`You picked ${hero.Name}.`);
+  log(`You picked ${cap(hero.Name)}.`);
   nextTurn();
 }
 function aiPick(){
@@ -153,7 +154,7 @@ function aiPick(){
   draftedEnemy.push(hero);
   enemyPool = enemyPool.filter(h=>h!==hero);
   addToDraft('enemy',hero);
-  log(`Enemy picked ${hero.Name}.`);
+  log(`Enemy picked ${cap(hero.Name)}.`);
   nextTurn();
 }
 
