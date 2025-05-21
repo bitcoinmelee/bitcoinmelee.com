@@ -49,7 +49,7 @@
   .rowStats{margin-left:calc(90px + 0.35rem);}
   .rowMeta {margin-left:calc(90px + 0.35rem);font-size:0.72rem;color:#555;}
 
-  .teamList progress{width:90px;height:8px;accent-color:var(--user);}/* default for user */
+  .teamList progress{width:90px;height:8px;accent-color:var(--user);}/* default -> user */
   #enemyPane progress{accent-color:var(--enemy);}              /* override for enemy */
   #userTeam li{color:var(--user);} #enemyTeam li{color:var(--enemy);}
 
@@ -141,18 +141,6 @@ function abilityTooltip (name) {
   return out.join('\n');
 }
 
-/******************** DOMINANT KINGDOM HELPER ********************/
-const dominantKingdom = arr => {
-  const cnt = {};
-  let best = '', bestN = 0;
-  arr.forEach(c => {
-    const k = c.Kingdom || '';
-    cnt[k] = (cnt[k] || 0) + 1;
-    if (cnt[k] > bestN) { best = k; bestN = cnt[k]; }
-  });
-  return best;
-};
-
 /******************** DATA LOADING ********************/
 let characters = [], abilities = {};
 Promise.all([
@@ -166,39 +154,47 @@ Promise.all([
 
 /******************** TEAM SETUP ********************/
 let userTeamData = [], enemyTeamData = [];
-function initTeams() {
-  /* 1️⃣  Try modern keys saved directly by draft.html */
-  const savedUser  = sessionStorage.getItem('userTeam');
-  const savedEnemy = sessionStorage.getItem('enemyTeam');
-  if (savedUser && savedEnemy) {
-    try {
-      userTeamData  = JSON.parse(savedUser);
-      enemyTeamData = JSON.parse(savedEnemy);
+function initTeams(){
+  /* 1️⃣  Preferred: explicit drafts saved by draft.html */
+  const pJSON = sessionStorage.getItem('draftPlayer');
+  const eJSON = sessionStorage.getItem('draftEnemy');
+  if(pJSON && eJSON){
+    try{
+      userTeamData  = JSON.parse(pJSON);
+      enemyTeamData = JSON.parse(eJSON);
       renderInitialLists();
       return true;
-    } catch (e) { console.warn('Failed to parse saved teams', e); }
+    }catch(e){console.warn('Failed to parse draftPlayer/draftEnemy',e);}
   }
 
-  /* 2️⃣  Legacy single roster key (back‑compat) */
-  const stored = sessionStorage.getItem('roster');
-  if (!stored) {
-    alert('No team information found in sessionStorage. Go back to the draft screen first.');
-    return false;
+  /* 2️⃣  Alternate keys used for compatibility */
+  const pAlt = sessionStorage.getItem('roster');
+  const eAlt = sessionStorage.getItem('enemy_roster');
+  if(pAlt && eAlt){
+    try{
+      userTeamData  = JSON.parse(pAlt);
+      enemyTeamData = JSON.parse(eAlt);
+      renderInitialLists();
+      return true;
+    }catch(e){console.warn('Failed to parse roster/enemy_roster',e);}
   }
-  const roster = JSON.parse(stored);
 
-  // Player gets characters from dominant kingdom
-  const playerKing = dominantKingdom(roster);
-  userTeamData = roster.filter(c => c.Kingdom === playerKing);
+  /* 3️⃣  As a last resort, attempt to build a battle from whatever roster exists */
+  if(pAlt){
+    try{
+      const roster = JSON.parse(pAlt);
+      userTeamData = roster;
+      // Enemy gets random heroes of equal size from global character list not in roster
+      const pool = characters.filter(h => !roster.some(r => r.Name === h.Name));
+      shuffle(pool);
+      enemyTeamData = pool.slice(0, roster.length);
+      renderInitialLists();
+      return true;
+    }catch(e){console.warn('Fallback build failure',e);}
+  }
 
-  // Enemy: same size, different kingdom, random pick
-  const need      = userTeamData.length;
-  const remaining = characters.filter(c => !roster.some(r => r.Name === c.Name) && c.Kingdom !== playerKing);
-  shuffle(remaining);
-  enemyTeamData = remaining.slice(0, need);
-
-  renderInitialLists();
-  return true;
+  alert('No draft information found in sessionStorage. Return to the draft page first.');
+  return false;
 }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
 
