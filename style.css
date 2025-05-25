@@ -203,3 +203,38 @@ textarea {
   background: rgba(90, 70, 40, 0.9);
   border-radius: 5px;
 }
+
+/* ---- portrait grid ---- */
+.hero-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr); /* 4 columns */
+  gap:1rem;
+  margin-top:2rem;
+}
+
+.hero-card{
+  background:var(--card,#fff8ef);
+  border:2px solid var(--border,#8c6b42);
+  border-radius:4px;
+  padding:0.5rem;
+  text-align:center;
+  box-shadow:0 2px 4px rgba(0,0,0,.2);
+}
+
+.hero-card h3{
+  margin:.5rem 0 .25rem;
+  font-family:'Uncial Antiqua',cursive;
+  font-size:1.1rem;
+}
+
+.portrait{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.stats{
+  margin:.25rem 0 0;
+  font-size:.8rem;
+  line-height:1.25;
+}
