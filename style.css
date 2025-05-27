@@ -1,9 +1,9 @@
 /* ------------------------------------------------------------
-   Ancient‑&‑Mystical Theme (clean, non‑redundant)
+   Ancient‑&‑Mystical Theme  —  single‑pass, non‑redundant CSS
    ------------------------------------------------------------ */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Uncial+Antiqua&family=Cormorant+Garamond:wght@500;600&family=Merriweather:wght@400;500&display=swap');
 
-/* ——— Global layout ——— */
+/* ===== base layout ================================================= */
 body{
   margin:0;height:100vh;display:flex;align-items:center;justify-content:center;
   background:url("images/background.png") center/cover fixed no-repeat;
@@ -16,172 +16,96 @@ body{
   box-shadow:0 0 30px rgba(0,0,0,.8) inset,0 0 20px rgba(200,180,150,.6);
   text-align:center;
 }
-#crt::before{
-  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-  background:url('images/runes-overlay.png') repeat;opacity:.1;pointer-events:none;
-  animation:floatRunes 120s linear infinite;
-}
-@keyframes floatRunes{from{transform:translate(0)}to{transform:translate(-20%,-20%)}}
-
 .title{
   margin:0 0 24px;font:3rem 'Cinzel Decorative',serif;letter-spacing:4px;
   color:#d4af37;text-shadow:1px 1px 2px #000,0 0 8px rgba(212,175,55,.6);
 }
 
-/* ——— Form & buttons ——— */
+/* ===== form + buttons ============================================ */
 textarea{
-  width:380px;height:80px;margin:0 auto 16px;resize:none;
+  width:380px;height:80px;margin:0 auto 16px;
   background:rgba(30,20,10,.9);color:#efe7d6;border:2px solid #6b4f2f;
   border-radius:6px;padding:12px;font:14px 'Cinzel Decorative',cursive;
-  box-shadow:inset 0 0 10px rgba(0,0,0,.7);
+  box-shadow:inset 0 0 10px rgba(0,0,0,.7);resize:none;
 }
 #go,#continue{
   display:block;margin:1.5rem auto 16px;padding:12px 32px;
   font:14px 'Cinzel Decorative',serif;color:#f4ecd8;cursor:pointer;
   background:linear-gradient(145deg,#7a5a2b,#50381c);border:2px solid #8c6b3c;
-  border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.8);
-  transition:.2s;
+  border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.8);transition:.2s;
 }
 #go:hover,#continue:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,.9)}
 #continue:disabled{background:#3d2f1c;cursor:not-allowed}
 
-.hidden{display:none}
-.blink{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
-
-/* ——— Picker ——— */
+/* ===== picker ===================================================== */
 #picker{margin-top:24px;text-align:center}
 #picker label{font:15px 'Uncial Antiqua',cursive;margin-right:8px}
 #heroSel{
-  min-width:240px;padding:8px;margin:0 auto;border:2px solid #6b4f2f;
-  background:rgba(30,20,10,.9);color:#e8dfc7;border-radius:6px;cursor:pointer;
+  min-width:240px;padding:8px;background:rgba(30,20,10,.9);color:#e8dfc7;
+  border:2px solid #6b4f2f;border-radius:6px;cursor:pointer;
   font:14px 'Uncial Antiqua',cursive;
 }
 #heroSel option{background:rgba(30,20,10,.9);color:#e8dfc7}
 
-/* ——— Scrollbar ——— */
+/* scrollbar */
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:rgba(60,40,20,.7);border-radius:5px}
 ::-webkit-scrollbar-thumb{background:rgba(90,70,40,.9);border-radius:5px}
 
-/* ------------------------------------------------------------
-   Hero grid & cards
-   ------------------------------------------------------------ */
+/* ===== hero grid ================================================== */
 .hero-grid{
   display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:2rem;
 }
 
-/* Card shell */
+/* ===== card ======================================================= */
 .hero-card{
-  display:flex;flex-direction:column;height:auto;background:#fff;
-  border:2px solid #8c6b42;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.15);
-  font-family:'Merriweather',serif;color:#1a1a1a;overflow:visible;
+  position:relative;display:block;background:#fff;border:2px solid #8c6b42;
+  border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.15);color:#1a1a1a;
+  font-family:'Merriweather',serif;
 }
+/* white floor */
+.hero-card::before{
+  content:"";position:absolute;inset:0;background:#fff;z-index:0;pointer-events:none;
+}
+.hero-card *{position:relative;z-index:1;background:#fff}
 
-/* — portrait (top half) — */
-.portrait-wrap{position:relative;flex:1;overflow:hidden}
-.portrait{width:100%;height:100%;object-fit:contain;background:#fff}
-.hero-name-banner{
-  position:absolute;bottom:0;left:0;right:0;padding:.25rem;
-  background:linear-gradient(135deg,#ddb86c,#b78b3e);text-align:center;
-}
+/* portrait */
+.portrait{width:100%;height:auto;object-fit:contain;background:#fff}
+.hero-name-banner{margin:.25rem 0 0;text-align:center}
 .hero-name-banner span{
-  font:clamp(.85rem,1.8vw,1.15rem)/1 'Cormorant Garamond',serif;font-weight:600;
-  letter-spacing:.3px;color:#000;text-transform:capitalize;
+  display:inline-block;padding:2px 6px;
+  background:linear-gradient(135deg,#ddb86c,#b78b3e);
+  border-radius:4px;color:#000;
+  font:clamp(.9rem,2vw,1.1rem) 'Cormorant Garamond',serif;
 }
 
-/* — text half — */
-.card-body{
-  flex:1;display:flex;flex-direction:column;justify-content:space-between;
-  padding:.25rem;background:#fff;overflow-y:auto;
-}
-
-/* Stats grids */
+/* ===== stats ====================================================== */
 .stats{width:90%;margin:.25rem auto}
-.stats-primary{display:grid;grid-template-columns:repeat(3,1fr);gap:.125rem}
-.stats-secondary{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:.125rem;margin-top:.25rem
-}
+.stats-primary,
+.stats-secondary{display:grid;gap:.125rem}
+.stats-primary{grid-template-columns:repeat(3,1fr)}
+.stats-secondary{grid-template-columns:repeat(2,1fr);margin-top:.25rem}
 .stats-primary div,.stats-secondary div{
-  font-size:clamp(.65rem,1.5vw,.85rem);font-weight:500;text-align:center;
-  margin:0;padding:0;line-height:1.1
+  font:clamp(.65rem,1.5vw,.85rem)/1.1 'Merriweather',serif;font-weight:500;
+  text-align:center
 }
 .stats-secondary div:nth-child(n+3){visibility:hidden}
 
-/* Meta & ability */
-.meta,.ability-block{
-  text-align:left;margin:.25rem 0;padding:0;font-size:clamp(.6rem,1.2vw,.8rem);
-  background:#fff
-}
-.meta p,.ability-block p{margin:0;line-height:1.1}
-
+/* ===== meta & ability ============================================ */
+.meta,.ability-block{margin:.25rem 0;font:clamp(.6rem,1.2vw,.8rem)/1.1 'Merriweather',serif}
+.meta p{margin:0}
 .ability-container{display:inline-block;position:relative}
-.ability-name{font-size:clamp(.65rem,1.2vw,.85rem);font-weight:600;cursor:help}
+.ability-name{font-weight:600;cursor:help}
 .ability-effects{display:inline;margin-left:.25rem}
-.ability-effects p{display:inline;margin:0;font-style:normal}
-
+.ability-effects p{display:inline;margin:0}
 .tooltip-box{
-  display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
-  width:200px;padding:.5rem;border:1px solid #aaa;border-radius:6px;
-  background:#fff;color:#111;box-shadow:0 2px 8px rgba(0,0,0,.15);
-  font-size:.85rem;line-height:1.4;z-index:100
+  position:fixed;display:none;width:200px;padding:.5rem;
+  background:#fff;border:1px solid #aaa;border-radius:6px;
+  color:#111;box-shadow:0 2px 8px rgba(0,0,0,.15);
+  font: .85rem/1.4 'Merriweather',serif;pointer-events:none;z-index:1000
 }
 .ability-container:hover .tooltip-box{display:block}
 
-/* ─── Show the entire portrait (no cropping) ─── */
-.portrait-wrap{ overflow: visible !important; }
-
-/* ─── Remove 50 % split — let the portrait show full height ─── */
-.hero-card       { display: block !important; }     /* flow top‑to‑bottom      */
-.portrait-wrap   { overflow: visible !important; }  /* nothing is hidden       */
-.card-body       { padding-top: .4rem !important; } /* tiny gap after picture  */
-
-/* ensure image scales only by width, keeps full aspect */
-.portrait{
-  width: 100% !important;
-  height: auto !important;        /* auto height -> full image */
-  object-fit: contain !important; /* letterbox if needed       */
-}
-
-/* ─── Move hero name below the image (no overlay) ───────────── */
-
-.hero-name-banner{
-  position: static !important;       /* drop absolute overlay  */
-  background: transparent !important;/* keep image fully shown */
-  padding: 0 !important;             /* no extra height        */
-  margin: .25rem 0 0;                /* tiny gap under image   */
-  text-align: center;
-}
-
-.hero-name-banner span{
-  display: inline-block;
-  padding: 2px 6px;
-  background: linear-gradient(135deg,#ddb86c,#b78b3e); /* keep gold strip */
-  border-radius: 4px;
-  color: #000;
-  font: clamp(.9rem,2vw,1.1rem)/1 'Cormorant Garamond',serif;
-}
-
-/* ─── Solid‑white card floor (blocks ALL transparency) ───────── */
-
-.hero-card{
-  position: relative;          /* establish containing block         */
-}
-
-/* the white slab */
-.hero-card::before{
-  content: "";
-  position: absolute;
-  inset: 0;                    /* cover entire card */
-  background: #ffffff;         /* pure white, no alpha */
-  z-index: 0;                  /* sits behind real content */
-  pointer-events: none;        /* never blocks clicks */
-}
-
-/* lift all real content above the slab */
-.hero-card *{
-  position: relative;
-  z-index: 1;
-}
-
-/* ─── Remove rune backdrop ─── */
-#crt::before { content: none !important; }
+/* ===== utility ==================================================== */
+.hidden{display:none}
+.blink{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}

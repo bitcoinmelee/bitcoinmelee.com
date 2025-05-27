@@ -77,18 +77,38 @@ window.addEventListener('DOMContentLoaded', () => {
       description = description.replace(/\bDESCRIPTION\b\.?$/i, '');
 
       // build effectHtml for the 1/3 bottom
-      const effects = Object.entries(abilityObj)
-        .filter(([k,v]) => k !== 'Description' && v !== 0)
-        .map(([k,v]) => {
-          const [statRaw, targetRaw] = k.split('_');
-          const abbr   = STAT_ABBR[statRaw] || statRaw.toUpperCase();
-          const sign   = v > 0 ? `+${v}` : `${v}`;
-          const target = targetRaw ? ` to ${toTitleCase(targetRaw)}` : '';
-          return `<p>${sign} ${abbr}${target}</p>`;
-        });
-      const effectHtml = effects.length
-        ? effects.join('')
-        : `<p>No effect data.</p>`;
+      /* ---------- build condensed effect lines ---------- */
+const effectsByTarget = {};
+
+Object.entries(abilityObj)
+  .filter(([k, v]) => k !== 'Description' && v !== 0)
+  .forEach(([k, v]) => {
+    const [statRaw, targetRaw] = k.split('_');
+    const abbr = {
+      Strength:'STR', Dexterity:'DEX', Constitution:'CON',
+      Intelligence:'INT', Wisdom:'WIS', Charisma:'CHA',
+      Health:'HP', Mana:'Mana'
+    }[statRaw] || statRaw.toUpperCase();
+    const sign = v > 0 ? `+${v}` : `${v}`;
+    const target = targetRaw || 'Self';
+    (effectsByTarget[target] = effectsByTarget[target] || [])
+      .push(`${sign} ${abbr}`);
+  });
+
+/* floating‑tooltip cursor tracking */
+document.addEventListener('mousemove', e => {
+  document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+  document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
+});
+
+const effectHtml = Object.entries(effectsByTarget)
+  .map(([target, arr]) => {
+    const line = arr.length === 1
+      ? `${arr[0]} to ${target}`
+      : `${arr.slice(0,-1).join(' and ')} and ${arr.slice(-1)} to ${target}`;
+    return `<p>${line}</p>`;
+  })
+  .join('') || '<p>No effect data.</p>';
 
       const card = document.createElement('div');
       card.className = 'hero-card';
