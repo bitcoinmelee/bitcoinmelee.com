@@ -8,4 +8,4 @@ const SUPABASE_URL  = 'https://fvdfhlajlnpfrucvztth.supabase.co';
 const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2ZGZobGFqbG5wZnJ1Y3Z6dHRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMDgwMjAsImV4cCI6MjA2Mzg4NDAyMH0.NARqWbOhAAWxjresB2E1YM-L7wmFiJKChUrTRzDFK2M';
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-export const PORTRAIT_BUCKET = 'portraits';   // ← bucket that holds the .jpg files
+export const PORTRAIT_BUCKET = 'characters';   // ← bucket that holds the .jpg files
