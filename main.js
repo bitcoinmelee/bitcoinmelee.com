@@ -1,20 +1,22 @@
+// main.js – full flow: xpub → grid → store roster → draft.html
+// (renders a 4×3 gallery with portraits & stats pulled from Supabase)
 
-// main.js – full flow: xpub → grid → store roster → Continue to draft.html
-// (renders a 4 × 3 gallery with portraits and stats instead of a plain table)
+import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   const $ = sel => document.querySelector(sel);
+
   const ROSTER_SIZE = 12;
   let HEROES = [];
 
-  /* ───────────────────────── flash helper ───────────────────────── */
+  /* ───────────── flash helper ───────────── */
   function flash(text, isError = false) {
     const msg = $('#msg');
     msg.textContent = text;
     msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
 
-  /* ───────────────────────── load hero data ─────────────────────── */
+  /* ───────────── load hero data ─────────── */
   fetch('heroes.json')
     .then(r => r.json())
     .then(data => {
@@ -23,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => flash('Could not load heroes.json ➜ ' + err, true));
 
-  /* ─────────── deterministic roster picker (SHA‑256 hash) ───────── */
+  /* ───── deterministic roster picker (SHA‑256) ───── */
   async function pickRoster(xpub, count) {
     const enc = new TextEncoder();
     const roster = [];
@@ -37,7 +39,17 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* ───────────────────── render 4 × 3 portrait grid ─────────────── */
+  /* ─────── helper → Supabase public URL for a filename ─────── */
+  function portraitUrl(filename) {
+    // keep original filenames exactly as uploaded
+    const { data } = supabase
+      .storage
+      .from(PORTRAIT_BUCKET)
+      .getPublicUrl(filename);
+    return data.publicUrl;          // already URI‑encoded
+  }
+
+  /* ─────── render 4×3 portrait grid ─────── */
   function renderGrid(list) {
     const container = $('#roster');
     container.innerHTML = '';
@@ -46,11 +58,14 @@ window.addEventListener('DOMContentLoaded', () => {
     grid.className = 'hero-grid';
 
     list.forEach(h => {
+      const fileName = `${h.Name}.jpg`;          // ex: "aaliyah.jpg"
+      const imgSrc   = portraitUrl(fileName);
+
       const card = document.createElement('div');
       card.className = 'hero-card';
 
       card.innerHTML = `
-        <img src="images/portraits/${encodeURIComponent(h.Name)}.jpg" alt="${h.Name}" class="portrait">
+        <img src="${imgSrc}" alt="${h.Name}" class="portrait">
         <h3>${h.Name}</h3>
         <p class="stats">
           STR ${h.Strength} | DEX ${h.Dexterity} | CON ${h.Constitution}<br>
@@ -67,16 +82,16 @@ window.addEventListener('DOMContentLoaded', () => {
     container.classList.remove('hidden');
   }
 
-  /* ──────────────── "Discover Heroes" button handler ───────────── */
+  /* ───── “Discover Heroes” button ───── */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
-    if (!xpub) return flash('Please paste a public key first…', true);
+    if (!xpub)        return flash('Please paste a public key first…', true);
     if (!HEROES.length) return flash('Heroes not loaded yet…', true);
 
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderGrid(roster);
 
-    // keep roster for the draft page
+    // stash roster for draft page
     sessionStorage.setItem('roster', JSON.stringify(roster));
 
     flash('These are the heroes bound to your key:');
@@ -86,7 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
     btnContinue.classList.remove('hidden');
   });
 
-  /* ─────────────────── Continue → draft.html ────────────────────── */
+  /* ───── Continue → draft.html ───── */
   $('#continue').addEventListener('click', () => {
     window.location.href = 'draft.html';
   });
