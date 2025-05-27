@@ -268,22 +268,24 @@ textarea {
   z-index:0;                         /* sits under everything inside the card */
 }
 .hero-card *{position:relative; z-index:1;}   /* lift real content above “floor” */
+/* ─── Hero‑card typography (Cormorant Garamond + Merriweather) ─── */
 
 .hero-card h3{
   margin:.5rem 0 .25rem;
-  font-family:'Cinzel','Uncial Antiqua',serif; /* stylish but readable */
+  font-family:'Cormorant Garamond','Cinzel',serif; /* graceful, slightly mystical */
   font-weight:600;
   font-size:1.05rem;
-  letter-spacing:.3px;
-  color:#111;                                   /* darker for contrast */
-  text-transform:capitalize;                    /* JS fallback */
+  letter-spacing:.25px;
+  color:#111;
+  text-transform:capitalize;
 }
+
 .hero-card .stats{
   background:#ffffff;
-  font-family:'Lora',serif;                     /* clear, slightly classic */
+  font-family:'Merriweather',serif;              /* crisp, traditional serif */
   color:#222;
   font-size:.9rem;
-  line-height:1.35;
+  line-height:1.4;
   padding:.5rem;
   border-radius:6px;
 }
