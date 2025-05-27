@@ -238,3 +238,11 @@ textarea {
   font-size:.8rem;
   line-height:1.25;
 }
+
+/* ─── Bitcoin Melee: force‑opaque cards & stats ─── */
+.hero-card,
+.hero-card img.portrait,
+.hero-card .stats{
+  background-color:#ffffff !important;   /* solid white */
+  opacity:1 !important;                  /* make sure no parent opacity leaks */
+}
