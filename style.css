@@ -109,3 +109,10 @@ textarea{
 /* ===== utility ==================================================== */
 .hidden{display:none}
 .blink{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
+
+/* --- tooltip must float above EVERYTHING --- */
+.tooltip-box{
+  position:fixed !important;
+  z-index:99999 !important;          /* top of the stack */
+  pointer-events:none;
+}

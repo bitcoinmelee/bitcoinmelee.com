@@ -142,7 +142,6 @@ const effectHtml = Object.entries(effectsByTarget)
           </div>
 
           <div class="meta ability-block">
-            <p><strong>Ability:</strong></p>
             <div class="ability-container">
               <span class="ability-name">${h.Ability}</span>
               <span class="tooltip-box">${description}</span>
