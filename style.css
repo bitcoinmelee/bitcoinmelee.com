@@ -110,9 +110,9 @@ textarea{
 .hidden{display:none}
 .blink{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
 
-/* --- tooltip must float above EVERYTHING --- */
+/* ── Tooltip absolutely top‑most  ───────────────────────────── */
 .tooltip-box{
-  position:fixed !important;
-  z-index:99999 !important;          /* top of the stack */
-  pointer-events:none;
+  position: fixed !important;      /* detach from card            */
+  z-index: 2147483647 !important;  /* highest safe value in CSS   */
+  pointer-events: none;
 }
