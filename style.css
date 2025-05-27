@@ -271,14 +271,18 @@ textarea {
 
 .hero-card h3{
   margin:.5rem 0 .25rem;
+  font-family:'Cinzel','Uncial Antiqua',serif; /* stylish but readable */
   font-weight:600;
-  color:#000;
-  text-transform:capitalize;         /* fallback if JS missed something */
+  font-size:1.05rem;
+  letter-spacing:.3px;
+  color:#111;                                   /* darker for contrast */
+  text-transform:capitalize;                    /* JS fallback */
 }
 .hero-card .stats{
   background:#ffffff;
+  font-family:'Lora',serif;                     /* clear, slightly classic */
   color:#222;
-  font-size:.85rem;
+  font-size:.9rem;
   line-height:1.35;
   padding:.5rem;
   border-radius:6px;
