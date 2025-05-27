@@ -1,8 +1,7 @@
 /* ------------------------------------------------------------
    Ancient & Mystical Theme — Cinzel Decorative / Uncial Antiqua
    ------------------------------------------------------------ */
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Uncial+Antiqua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Uncial+Antiqua&family=Cormorant+Garamond:wght@500;600&family=Merriweather:wght@400;500&display=swap');
 
 body {
   margin: 0;
@@ -24,13 +23,13 @@ body {
   max-width: 90vw;
   max-height: 90vh;
   overflow: auto;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset,
-              0 0 20px rgba(200, 180, 150, 0.6);
+  box-shadow:
+    0 0 30px rgba(0, 0, 0, 0.8) inset,
+    0 0 20px rgba(200, 180, 150, 0.6);
   position: relative;
-  text-align: center; /* center contents within container */
+  text-align: center;
 }
 
-/* Scrolling faint rune animations */
 #crt::before {
   content: '';
   position: absolute;
@@ -41,7 +40,6 @@ body {
   pointer-events: none;
   animation: floatRunes 120s linear infinite;
 }
-
 @keyframes floatRunes {
   from { transform: translate(0, 0); }
   to   { transform: translate(-20%, -20%); }
@@ -51,7 +49,7 @@ body {
   font-family: 'Cinzel Decorative', serif;
   font-size: 3rem;
   letter-spacing: 4px;
-  margin: 0 0 24px;
+  margin-bottom: 24px;
   color: #d4af37;
   text-shadow:
     1px 1px 2px rgba(0, 0, 0, 0.9),
@@ -59,22 +57,11 @@ body {
 }
 
 /* ------------------------------------------------------------
-   Form Elements — Scroll & Quill
+   Form Elements & Buttons
    ------------------------------------------------------------ */
-
-.label {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #cbb988;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
-}
-
 textarea {
   width: 380px;
   height: 80px;
-  resize: none;
   background: rgba(30, 20, 10, 0.9);
   color: #efe7d6;
   border: 2px solid #6b4f2f;
@@ -84,12 +71,11 @@ textarea {
   border-radius: 6px;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
   display: block;
-  margin: 0 auto 16px auto; /* center textarea */
+  margin: 0 auto 16px;
+  resize: none;
 }
 
-/* Antique Buttons */
-#go,
-#continue {
+#go, #continue {
   padding: 12px 32px;
   background: linear-gradient(145deg, #7a5a2b, #50381c);
   border: 2px solid #8c6b3c;
@@ -98,16 +84,14 @@ textarea {
   font-size: 14px;
   font-family: 'Cinzel Decorative', serif;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.8);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  transition: transform 0.2s, box-shadow 0.2s;
   display: block;
-  margin: 0 auto 16px auto; /* center buttons */
-  margin-top: 1.5rem !important;
+  margin: 1.5rem auto 16px;
 }
-#go:hover,
-#continue:hover {
+#go:hover, #continue:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
 }
 #continue:disabled {
   background: #3d2f1c;
@@ -119,61 +103,17 @@ textarea {
 @keyframes blink { 50% { opacity: 0; } }
 
 /* ------------------------------------------------------------
-   Roster Table — Ornate & Engraved
+   Picker & Table
    ------------------------------------------------------------ */
-
-#roster {
-  margin-top: 24px;
-  overflow-x: auto;
-}
-.hero-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 13px;
-  color: #e8dfc7;
-  border: 2px solid #6b4f2f;
-  background: rgba(25, 15, 5, 0.85);
-  border-radius: 8px;
-  text-transform: capitalize;
-}
-.hero-table th,
-.hero-table td {
-  border: 1px solid #553f2a;
-  padding: 8px 12px;
-  text-align: center;
-  white-space: nowrap;
-  text-transform: capitalize;
-}
-.hero-table th {
-  background: rgba(60, 40, 20, 0.9);
-  color: #cbb988;
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: normal;
-  text-transform: capitalize;
-}
-.hero-table tr:nth-child(even) {
-  background: rgba(30, 20, 10, 0.8);
-  text-transform: capitalize;
-}
-.hero-table tr:hover {
-  background: rgba(50, 30, 15, 0.9);
-  text-transform: capitalize;
-}
-
-/* ------------------------------------------------------------
-   Picker — Arcane Selection
-   ------------------------------------------------------------ */
-
 #picker {
   margin-top: 24px;
   text-align: center;
 }
 #picker label {
-  font-size: 15px;
   font-family: 'Uncial Antiqua', cursive;
+  font-size: 15px;
   margin-right: 8px;
 }
-
 #heroSel {
   background: rgba(30, 20, 10, 0.9);
   color: #e8dfc7;
@@ -192,373 +132,170 @@ textarea {
   color: #e8dfc7;
 }
 
+#roster {
+  margin-top: 24px;
+  overflow-x: auto;
+}
+.hero-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  color: #e8dfc7;
+  border: 2px solid #6b4f2f;
+  background: rgba(25, 15, 5, 0.85);
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+.hero-table th, .hero-table td {
+  border: 1px solid #553f2a;
+  padding: 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+}
+.hero-table th {
+  background: rgba(60, 40, 20, 0.9);
+  color: #cbb988;
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: normal;
+}
+.hero-table tr:nth-child(even) {
+  background: rgba(30, 20, 10, 0.8);
+}
+.hero-table tr:hover {
+  background: rgba(50, 30, 15, 0.9);
+}
+
 /* Scrollbar — Leather & Iron */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: rgba(60, 40, 20, 0.7);
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(90, 70, 40, 0.9);
-  border-radius: 5px;
-}
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: rgba(60,40,20,0.7); border-radius:5px; }
+::-webkit-scrollbar-thumb { background: rgba(90,70,40,0.9); border-radius:5px; }
 
-/* ---- portrait grid ---- */
-.hero-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr); /* 4 columns */
-  gap:1rem;
-  margin-top:2rem;
+/* ------------------------------------------------------------
+   Portrait Grid & Cards
+   ------------------------------------------------------------ */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.hero-card{
-  background:var(--card,#fff8ef);
-  border:2px solid var(--border,#8c6b42);
-  border-radius:4px;
-  padding:0.5rem;
-  text-align:center;
-  box-shadow:0 2px 4px rgba(0,0,0,.2);
-}
-
-.hero-card h3{
-  margin:.5rem 0 .25rem;
-  font-family:'Uncial Antiqua',cursive;
-  font-size:1.1rem;
-}
-
-.portrait{
-  width:100%;
-  height:auto;
-  display:block;
-}
-
-.stats{
-  margin:.25rem 0 0;
-  font-size:.8rem;
-  line-height:1.25;
-}
-
-/* ─── Bitcoin Melee hero cards ─────────────────────────────── */
-/* 1. Force opaque backgrounds  */
-/* 2. Improve legibility        */
-.hero-card,
-.hero-card img.portrait,
-.hero-card .stats{
-  background:#ffffff !important;          /* solid white */
-  opacity:1 !important;                   /* stop transparency inheritance */
-}
-
-/* nicer type inside each card */
-.hero-card{
-  position:relative;                 /* lets us add a white “floor” */
-  background:#ffffff !important;
-  border-radius:8px;
-  box-shadow:0 1px 3px rgba(0,0,0,.15);
-  font-family:'Montserrat',sans-serif;
-  color:#1a1a1a;
-}
-.hero-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:#ffffff;
-  border-radius:inherit;
-  opacity:1;
-  z-index:0;                         /* sits under everything inside the card */
-}
-.hero-card *{position:relative; z-index:1;}   /* lift real content above “floor” */
-/* ─── Hero‑card typography (Cormorant Garamond + Merriweather) ─── */
-
-.hero-card h3{
-  margin:.5rem 0 .25rem;
-  font-family:'Cormorant Garamond','Cinzel',serif; /* graceful, slightly mystical */
-  font-weight:600;
-  font-size:1.05rem;
-  letter-spacing:.25px;
-  color:#111;
-  text-transform:capitalize;
-}
-
-.hero-card .stats{
-  background:#ffffff;
-  font-family:'Merriweather',serif;              /* crisp, traditional serif */
-  color:#222;
-  font-size:.9rem;
-  line-height:1.4;
-  padding:.5rem;
-  border-radius:6px;
-}
-
-
-/* ─── Hero card polish ─────────────────────────────────────────── */
-
-/* outer card */
-.hero-card{
-  position:relative;
-  background:#ffffff;
-  border-radius:8px;
-  box-shadow:0 1px 3px rgba(0,0,0,.15);
-  overflow:hidden;                           /* keeps banner flush */
-  font-family:'Merriweather',serif;
-  color:#222;
-}
-
-/* portrait + overlay banner */
-.portrait-wrap{position:relative;}
-.portrait     {display:block;width:100%;height:auto;background:#ffffff;}
-.hero-name-banner{
-  position:absolute;
-  inset:auto 0 0 0;                          /* stick to bottom */
-  background:linear-gradient(135deg,#ddb86c 0%,#b78b3e 100%);
-  padding:.35rem .25rem;
-  text-align:center;
-}
-.hero-name-banner span{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.15rem;
-  font-weight:600;
-  color:#000;
-  letter-spacing:.4px;
-  text-transform:capitalize;
-}
-
-/* stats block */
-.stats{
-  background:#f4f4f4;
-  font-family:'Merriweather',serif;
-  color:#111;
-  font-size:.9rem;
-  line-height:1.4;
-  padding:.5rem .6rem;
-  margin-top:.25rem;
-  border-radius:6px;
-}
-
-/* meta section below stats */
-.meta{
-  margin:.4rem .5rem .6rem;
-  font-family:'Merriweather',serif;
-  font-size:.85rem;
-  line-height:1.35;
-}
-.meta p{margin:.15rem 0;}
-.meta strong{color:#000;}
-
-/* ─── Hero card meta & ability layout overrides ───────────────── */
-
-/* ensure cards & sub-panels stay opaque */
-.hero-card,
-.hero-card img.portrait,
-.hero-card .stats,
-.hero-card .meta,
-.hero-card .ability-block {
-  background: #ffffff !important;
-  opacity: 1 !important;
-}
-
-/* left-align all meta & ability lines and add spacing */
-.hero-card .meta,
-.hero-card .ability-block {
-  text-align: left;
-  margin: 0.5rem 0 0;
-  padding: 0 0.5rem;
-}
-
-/* tighten up paragraph spacing */
-.hero-card .meta p,
-.hero-card .ability-block p {
-  margin: 0.2rem 0;
-}
-
-/* separate Ability block with a fine rule */
-.hero-card .ability-block {
-  border-top: 1px solid #ddd;
-  padding-top: 0.4rem;
-}
-
-/* style the effect text */
-.hero-card .ability-effect {
-  margin-top: 0.25rem;
-  font-style: italic;
-  color: #555;
-  font-size: 0.85rem;
-}
-
-/* ─── Tooltip fixes ─────────────────────────────────────────── */
-
-/* let tooltips overflow outside the card */
 .hero-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff8ef;
+  border: 2px solid #8c6b42;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   overflow: visible !important;
+  color: #1a1a1a;
+  font-family: 'Merriweather', serif;
 }
 
-/* wrap name + tooltip */
+/* Portrait half */
+.portrait-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #ffffff;
+}
+.hero-name-banner {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(135deg, #ddb86c 0%, #b78b3e 100%);
+  padding: .35rem .25rem;
+  text-align: center;
+}
+.hero-name-banner span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: .4px;
+  text-transform: capitalize;
+}
+
+/* Text half */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: .5rem;
+}
+
+/* ------------------------------------------------------------
+   Stats Grids
+   ------------------------------------------------------------ */
+.stats {
+  width: 90%;
+  margin: .5rem auto 0;
+}
+.stats-primary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .25rem;
+}
+.stats-secondary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .25rem;
+  margin-top: .25rem;
+}
+.stats-primary div, .stats-secondary div {
+  font-size: .85rem;
+  font-weight: 500;
+  text-align: center;
+}
+.stats-secondary div:nth-child(n+3) {
+  visibility: hidden;
+}
+
+/* ------------------------------------------------------------
+   Meta & Ability
+   ------------------------------------------------------------ */
+.meta, .ability-block {
+  text-align: left;
+  margin-top: .5rem;
+  padding: 0 .5rem;
+  font-size: .8rem;
+}
+.meta p { margin: .2rem 0; }
 .ability-container {
   display: inline-block;
   position: relative;
-  margin-top: 0.25rem;
 }
-
-/* hide tooltip by default */
+.ability-name {
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: help;
+}
 .tooltip-box {
   display: none;
   position: absolute;
-  bottom: 100%;          /* sit above the name */
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255,255,255,0.95);
   border: 1px solid #aaa;
   border-radius: 6px;
-  padding: 0.5rem;
+  padding: .5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   width: 200px;
   z-index: 100;
-  text-align: left;
-  color: #111;
-  font-family: 'Merriweather', serif;
-  font-size: 0.85rem;
+  font-size: .85rem;
   line-height: 1.4;
 }
-
-/* show tooltip when hovering the whole container */
 .ability-container:hover .tooltip-box {
   display: block;
 }
-
-/* ─── Hero stats grids ───────────────────────────────────────── */
-
-/* wrap both grids at 90% of card width */
-.hero-card .stats {
-  width: 90%;
-  margin: 0.5rem auto;
-}
-
-/* 3×2 grid for primary stats */
-.hero-card .stats-primary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, auto);
-  gap: 0.25rem;
-}
-
-/* 2×2 grid for HP & Mana */
-.hero-card .stats-secondary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, auto);
-  gap: 0.25rem;
-  margin-top: 0.5rem;
-}
-
-/* center those two empty cells invisibly */
-.hero-card .stats-secondary div:nth-child(n+3) {
-  visibility: hidden;
-}
-
-/* ─── Card sizing & layout ─────────────────────────────────── */
-
-/* enforce a consistent aspect ratio */
-.hero-card {
-  display: flex;
-  flex-direction: column;
-  aspect-ratio: 3 / 4;       /* tall cards */
-  height: auto;              /* let aspect-ratio control height */
-}
-
-/* top 2/3 → portrait + name */
-.hero-card .portrait-wrap {
-  flex: 2;                   /* two parts */
-}
-
-/* bottom 1/3 → everything else */
-.hero-card .card-body {
-  flex: 1;                   /* one part */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-}
-
-/* ─── Continue button spacing ─────────────────────────────── */
-
-#continue {
-  margin-top: 1.5rem !important;
-}
-
-/* ─── Hero stats grids ───────────────────────────────────── */
-
-/* stats container takes full width of card-body */
-.hero-card .stats {
-  width: 90%;
-  margin: 0.5rem auto;
-}
-
-/* 3×2 grid for primary stats */
-.hero-card .stats-primary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.25rem;
-}
-
-/* 2×2 grid for secondary stats, two empty cells */
-.hero-card .stats-secondary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.25rem;
-  margin-top: 0.5rem;
-}
-
-/* hide the empty placeholders */
-.hero-card .stats-secondary div:nth-child(n+3) {
-  visibility: hidden;
-}
-
-/* ─── Portrait 50% / Text 50% layout ───────────────────────── */
-.hero-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;             /* let parent grid size control overall */
-}
-
-.hero-card .portrait-wrap {
-  flex: 1;                  /* takes 50% of the card */
-  overflow: hidden;
-}
-
-.hero-card .card-body {
-  flex: 1;                  /* takes the other 50% */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.5rem;
-}
-
-/* ─── Stats fonts & spacing ─────────────────────────────────── */
-.stats-primary div,
-.stats-secondary div {
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-align: center;
-}
-
-/* tighten secondary row */
-.stats-secondary {
-  margin-top: 0.25rem;
-}
-
-/* ─── Meta & ability fonts ─────────────────────────────────── */
-.meta p {
-  font-size: 0.8rem;
-  margin: 0.2rem 0;
-}
-
-.ability-container .ability-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-/* ensure tooltips and effects still display correctly */
-.ability-container:hover .tooltip-box {
-  display: block;
+.ability-effects p {
+  margin: .25rem 0;
+  font-style: normal;
 }
