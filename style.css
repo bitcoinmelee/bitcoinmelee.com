@@ -126,3 +126,30 @@ textarea{
   font-size:.85rem;line-height:1.4;z-index:100
 }
 .ability-container:hover .tooltip-box{display:block}
+
+/* ─── Final “opaque & compact” overrides ────────────────────── */
+
+/* 1. 100 % solid‑white card — nothing shows through */
+.hero-card,
+.hero-card * {
+  background: #ffffff !important;   /* absolutely no transparency */
+}
+
+/* 2. Crush vertical gaps inside the card */
+.card-body           { padding: 0.15rem !important; }
+.stats               { margin: 0.15rem auto !important; }
+.stats-secondary     { margin-top: 0.15rem !important; }
+.meta, .ability-block{ margin: 0.15rem 0 !important; }
+
+/* tighter line spacing throughout */
+.meta p,
+.ability-block p,
+.ability-effects p,
+.stats-primary div,
+.stats-secondary div {
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+/* 3. Keep ability name and its effect on the same line */
+.ability-effects { display: inline; margin-left: 0.25rem; }
