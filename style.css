@@ -455,3 +455,61 @@ textarea {
 .hero-card .stats-secondary div:nth-child(n+3) {
   visibility: hidden;
 }
+
+/* ─── Card sizing & layout ─────────────────────────────────── */
+
+/* enforce a consistent aspect ratio */
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 3 / 4;       /* tall cards */
+  height: auto;              /* let aspect-ratio control height */
+}
+
+/* top 2/3 → portrait + name */
+.hero-card .portrait-wrap {
+  flex: 2;                   /* two parts */
+}
+
+/* bottom 1/3 → everything else */
+.hero-card .card-body {
+  flex: 1;                   /* one part */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* ─── Continue button spacing ─────────────────────────────── */
+
+#continue {
+  margin-top: 1.5rem !important;
+}
+
+/* ─── Hero stats grids ───────────────────────────────────── */
+
+/* stats container takes full width of card-body */
+.hero-card .stats {
+  width: 90%;
+  margin: 0.5rem auto;
+}
+
+/* 3×2 grid for primary stats */
+.hero-card .stats-primary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+}
+
+/* 2×2 grid for secondary stats, two empty cells */
+.hero-card .stats-secondary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+/* hide the empty placeholders */
+.hero-card .stats-secondary div:nth-child(n+3) {
+  visibility: hidden;
+}
