@@ -123,7 +123,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <strong>Ability:</strong>
             <span class="ability-name">
               ${h.Ability}
-              <div class="tooltip-box">${effectHtml}</div>
+              <span class="tooltip-box">${effectHtml}</span>
             </span>
           </p>
         </div>

@@ -385,20 +385,25 @@ textarea {
   font-size: 0.85rem;
 }
 
-/* ─── Ability tooltip styling ─────────────────────────────────── */
+/* ─── Tooltip fixes ─────────────────────────────────────────── */
 
-/* make the ability name host the tooltip */
+/* let tooltips overflow outside the card */
+.hero-card {
+  overflow: visible !important;
+}
+
+/* host for the tooltip */
 .ability-name {
   position: relative;
   cursor: help;
-  color: #0077cc;         /* highlight the name */
+  color: #0077cc;
 }
 
-/* hidden by default */
+/* hidden by default, now inline */
 .tooltip-box {
   display: none;
   position: absolute;
-  bottom: 100%;           /* sit just above the name */
+  bottom: 100%;       /* above the name */
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255,255,255,0.95);
@@ -407,9 +412,8 @@ textarea {
   padding: 0.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   width: 200px;
-  z-index: 10;
+  z-index: 100;
   text-align: left;
-  color: #111;
   font-family: 'Merriweather', serif;
   font-size: 0.85rem;
   line-height: 1.4;
