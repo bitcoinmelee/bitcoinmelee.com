@@ -384,3 +384,38 @@ textarea {
   color: #555;
   font-size: 0.85rem;
 }
+
+/* ─── Ability tooltip styling ─────────────────────────────────── */
+
+/* make the ability name host the tooltip */
+.ability-name {
+  position: relative;
+  cursor: help;
+  color: #0077cc;         /* highlight the name */
+}
+
+/* hidden by default */
+.tooltip-box {
+  display: none;
+  position: absolute;
+  bottom: 100%;           /* sit just above the name */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  width: 200px;
+  z-index: 10;
+  text-align: left;
+  color: #111;
+  font-family: 'Merriweather', serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* show on hover */
+.ability-name:hover .tooltip-box {
+  display: block;
+}

@@ -23,11 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
     fetch('abilities.json').then(r => r.json())
   ])
   .then(([heroesData, abilitiesData]) => {
-    HEROES = Array.isArray(heroesData)
-      ? heroesData
-      : Object.values(heroesData);
+    HEROES = Array.isArray(heroesData) ? heroesData : Object.values(heroesData);
 
-    // build ability → effect map
     if (Array.isArray(abilitiesData)) {
       abilitiesData.forEach(a => {
         ABILITIES[a.Ability] = a.Effect;
@@ -68,7 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return String(str).replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  /* ───── render 4×3 grid with formatted effects ───── */
+  /* ───── render 4×3 grid without inline effects ───── */
   function renderGrid(list) {
     const container = $('#roster');
     container.innerHTML = '';
@@ -76,38 +73,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const grid = document.createElement('div');
     grid.className = 'hero-grid';
 
-    // map full stat names to abbreviations
-    const STAT_ABBR = {
-      Strength:     'STR',
-      Dexterity:    'DEX',
-      Constitution: 'CON',
-      Intelligence: 'INT',
-      Wisdom:       'WIS',
-      Charisma:     'CHA',
-      HP:           'HP',
-      Mana:         'Mana'
-    };
-
     list.forEach(h => {
       const name      = toTitleCase(h.Name);
       const imgSrc    = portraitUrl(h.Name);
       const rawEffect = ABILITIES[h.Ability];
       let effectHtml  = '';
 
+      // build HTML for tooltip but do NOT show it inline
       if (rawEffect && typeof rawEffect === 'object') {
         effectHtml = Object.entries(rawEffect)
-          .filter(([key, val]) => val && val !== 0)
-          .map(([key, val]) => {
-            const parts = key.split('_');
-            const stat  = parts[0];
-            const targetRaw = parts[1] || '';
-            const abbr  = STAT_ABBR[stat] || stat.toUpperCase();
-            const sign  = val > 0 ? `+${val}` : `${val}`;
-            if (targetRaw) {
-              return `<p>${sign} ${abbr} to ${toTitleCase(targetRaw)}</p>`;
-            } else {
-              return `<p>${sign} ${abbr}</p>`;
-            }
+          .filter(([k, v]) => v && v !== 0)
+          .map(([k, v]) => {
+            const [stat, target] = k.split('_');
+            const abbr = { Strength:'STR', Dexterity:'DEX', Constitution:'CON',
+                           Intelligence:'INT', Wisdom:'WIS', Charisma:'CHA',
+                           HP:'HP', Mana:'Mana' }[stat] || stat.toUpperCase();
+            const sign = v > 0 ? `+${v}` : `${v}`;
+            return `<p>${sign} ${abbr}${ target ? ` to ${toTitleCase(target)}` : '' }</p>`;
           })
           .join('');
       } else if (rawEffect) {
@@ -137,10 +119,13 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="meta ability-block">
-          <p><strong>Ability:</strong> ${h.Ability}</p>
-          <div class="ability-effect">
-            ${effectHtml}
-          </div>
+          <p>
+            <strong>Ability:</strong>
+            <span class="ability-name">
+              ${h.Ability}
+              <div class="tooltip-box">${effectHtml}</div>
+            </span>
+          </p>
         </div>
       `;
       grid.appendChild(card);
@@ -161,9 +146,8 @@ window.addEventListener('DOMContentLoaded', () => {
     sessionStorage.setItem('roster', JSON.stringify(roster));
     flash('These are the heroes bound to your key:');
 
-    const btnContinue = $('#continue');
-    btnContinue.disabled = false;
-    btnContinue.classList.remove('hidden');
+    $('#continue').disabled = false;
+    $('#continue').classList.remove('hidden');
   });
 
   /* ───── Continue → draft.html ───── */
