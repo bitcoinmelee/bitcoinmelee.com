@@ -392,18 +392,18 @@ textarea {
   overflow: visible !important;
 }
 
-/* host for the tooltip */
-.ability-name {
+/* wrap name + tooltip */
+.ability-container {
+  display: inline-block;
   position: relative;
-  cursor: help;
-  color: #0077cc;
+  margin-top: 0.25rem;
 }
 
-/* hidden by default, now inline */
+/* hide tooltip by default */
 .tooltip-box {
   display: none;
   position: absolute;
-  bottom: 100%;       /* above the name */
+  bottom: 100%;          /* sit above the name */
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255,255,255,0.95);
@@ -414,6 +414,7 @@ textarea {
   width: 200px;
   z-index: 100;
   text-align: left;
+  color: #111;
   font-family: 'Merriweather', serif;
   font-size: 0.85rem;
   line-height: 1.4;

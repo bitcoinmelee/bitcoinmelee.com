@@ -10,34 +10,28 @@ window.addEventListener('DOMContentLoaded', () => {
   let HEROES    = [];
   let ABILITIES = {};
 
-  /* ───────── flash helper ───────── */
   function flash(text, isError = false) {
     const msg = $('#msg');
     msg.textContent = text;
     msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
 
-  /* ─── load heroes.json + abilities.json ─── */
+  // load heroes + abilities
   Promise.all([
     fetch('heroes.json').then(r => r.json()),
     fetch('abilities.json').then(r => r.json())
   ])
   .then(([heroesData, abilitiesData]) => {
     HEROES = Array.isArray(heroesData) ? heroesData : Object.values(heroesData);
-
     if (Array.isArray(abilitiesData)) {
-      abilitiesData.forEach(a => {
-        ABILITIES[a.Ability] = a.Effect;
-      });
+      abilitiesData.forEach(a => { ABILITIES[a.Ability] = a.Effect; });
     } else {
       Object.assign(ABILITIES, abilitiesData);
     }
-
     flash('Discover heroes bound to your public key!');
   })
   .catch(err => flash('Could not load data ➜ ' + err, true));
 
-  /* ───── deterministic roster picker ───── */
   async function pickRoster(xpub, count) {
     const enc = new TextEncoder();
     const roster = [];
@@ -50,7 +44,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* ───── Supabase public URL helper ───── */
   function portraitUrl(name) {
     const path = `characters/${encodeURIComponent(name)}.webp`;
     const { data } = supabase
@@ -60,12 +53,10 @@ window.addEventListener('DOMContentLoaded', () => {
     return data.publicUrl;
   }
 
-  /* ───── title-case helper ───── */
   function toTitleCase(str) {
     return String(str).replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  /* ───── render 4×3 grid without inline effects ───── */
   function renderGrid(list) {
     const container = $('#roster');
     container.innerHTML = '';
@@ -73,25 +64,29 @@ window.addEventListener('DOMContentLoaded', () => {
     const grid = document.createElement('div');
     grid.className = 'hero-grid';
 
+    // stat abbreviations
+    const STAT_ABBR = {
+      Strength: 'STR', Dexterity: 'DEX', Constitution: 'CON',
+      Intelligence: 'INT', Wisdom: 'WIS', Charisma: 'CHA',
+      HP: 'HP', Mana: 'Mana'
+    };
+
     list.forEach(h => {
       const name      = toTitleCase(h.Name);
       const imgSrc    = portraitUrl(h.Name);
       const rawEffect = ABILITIES[h.Ability];
-      let effectHtml  = '';
 
-      // build HTML for tooltip but do NOT show it inline
+      // build effectHtml but do not inject inline
+      let effectHtml = '';
       if (rawEffect && typeof rawEffect === 'object') {
         effectHtml = Object.entries(rawEffect)
-          .filter(([k, v]) => v && v !== 0)
-          .map(([k, v]) => {
+          .filter(([k,v]) => v && v !== 0)
+          .map(([k,v]) => {
             const [stat, target] = k.split('_');
-            const abbr = { Strength:'STR', Dexterity:'DEX', Constitution:'CON',
-                           Intelligence:'INT', Wisdom:'WIS', Charisma:'CHA',
-                           HP:'HP', Mana:'Mana' }[stat] || stat.toUpperCase();
+            const abbr = STAT_ABBR[stat] || stat.toUpperCase();
             const sign = v > 0 ? `+${v}` : `${v}`;
-            return `<p>${sign} ${abbr}${ target ? ` to ${toTitleCase(target)}` : '' }</p>`;
-          })
-          .join('');
+            return `<p>${sign} ${abbr}${target ? ` to ${toTitleCase(target)}` : ''}</p>`;
+          }).join('');
       } else if (rawEffect) {
         effectHtml = `<p>${rawEffect}</p>`;
       } else {
@@ -119,13 +114,11 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="meta ability-block">
-          <p>
-            <strong>Ability:</strong>
-            <span class="ability-name">
-              ${h.Ability}
-              <span class="tooltip-box">${effectHtml}</span>
-            </span>
-          </p>
+          <p><strong>Ability:</strong></p>
+          <div class="ability-container">
+            <span class="ability-name">${h.Ability}</span>
+            <div class="tooltip-box">${effectHtml}</div>
+          </div>
         </div>
       `;
       grid.appendChild(card);
@@ -135,7 +128,6 @@ window.addEventListener('DOMContentLoaded', () => {
     container.classList.remove('hidden');
   }
 
-  /* ───── “Discover Heroes” button ───── */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
     if (!xpub)          return flash('Please paste a public key first…', true);
@@ -145,12 +137,10 @@ window.addEventListener('DOMContentLoaded', () => {
     renderGrid(roster);
     sessionStorage.setItem('roster', JSON.stringify(roster));
     flash('These are the heroes bound to your key:');
-
     $('#continue').disabled = false;
     $('#continue').classList.remove('hidden');
   });
 
-  /* ───── Continue → draft.html ───── */
   $('#continue').addEventListener('click', () => {
     window.location.href = 'draft.html';
   });
