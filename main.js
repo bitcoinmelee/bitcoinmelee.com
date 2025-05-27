@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       card.innerHTML = `
         <img src="${imgSrc}" alt="${h.Name}" class="portrait" loading="lazy">
-        <h3>${h.Name}</h3>
+        <h3>${toTitleCase(h.Name)}</h3>
         <p class="stats">
           STR ${h.Strength} | DEX ${h.Dexterity} | CON ${h.Constitution}<br>
           INT ${h.Intelligence} | WIS ${h.Wisdom} | CHA ${h.Charisma}<br>
