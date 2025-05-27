@@ -1,357 +1,128 @@
 /* ------------------------------------------------------------
-   Ancient & Mystical Theme — Cinzel Decorative / Uncial Antiqua
+   Ancient‑&‑Mystical Theme (clean, non‑redundant)
    ------------------------------------------------------------ */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Uncial+Antiqua&family=Cormorant+Garamond:wght@500;600&family=Merriweather:wght@400;500&display=swap');
 
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: url("images/background.png") no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Cinzel Decorative', cursive;
-  color: #e8dfc7;
+/* ——— Global layout ——— */
+body{
+  margin:0;height:100vh;display:flex;align-items:center;justify-content:center;
+  background:url("images/background.png") center/cover fixed no-repeat;
+  font-family:'Cinzel Decorative',cursive;color:#e8dfc7;
+}
+#crt{
+  position:relative;max-width:90vw;max-height:90vh;overflow:auto;
+  padding:32px 48px;border:6px solid rgba(60,40,20,.85);
+  background:rgba(20,10,0,.75);backdrop-filter:blur(3px);
+  box-shadow:0 0 30px rgba(0,0,0,.8) inset,0 0 20px rgba(200,180,150,.6);
+  text-align:center;
+}
+#crt::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:url('images/runes-overlay.png') repeat;opacity:.1;pointer-events:none;
+  animation:floatRunes 120s linear infinite;
+}
+@keyframes floatRunes{from{transform:translate(0)}to{transform:translate(-20%,-20%)}}
+
+.title{
+  margin:0 0 24px;font:3rem 'Cinzel Decorative',serif;letter-spacing:4px;
+  color:#d4af37;text-shadow:1px 1px 2px #000,0 0 8px rgba(212,175,55,.6);
 }
 
-#crt {
-  border: 6px solid rgba(60, 40, 20, 0.85);
-  padding: 32px 48px;
-  background: rgba(20, 10, 0, 0.75);
-  backdrop-filter: blur(3px);
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow: auto;
-  box-shadow:
-    0 0 30px rgba(0, 0, 0, 0.8) inset,
-    0 0 20px rgba(200, 180, 150, 0.6);
-  position: relative;
-  text-align: center;
+/* ——— Form & buttons ——— */
+textarea{
+  width:380px;height:80px;margin:0 auto 16px;resize:none;
+  background:rgba(30,20,10,.9);color:#efe7d6;border:2px solid #6b4f2f;
+  border-radius:6px;padding:12px;font:14px 'Cinzel Decorative',cursive;
+  box-shadow:inset 0 0 10px rgba(0,0,0,.7);
 }
+#go,#continue{
+  display:block;margin:1.5rem auto 16px;padding:12px 32px;
+  font:14px 'Cinzel Decorative',serif;color:#f4ecd8;cursor:pointer;
+  background:linear-gradient(145deg,#7a5a2b,#50381c);border:2px solid #8c6b3c;
+  border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.8);
+  transition:.2s;
+}
+#go:hover,#continue:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,.9)}
+#continue:disabled{background:#3d2f1c;cursor:not-allowed}
 
-#crt::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: url('images/runes-overlay.png') repeat;
-  opacity: 0.1;
-  pointer-events: none;
-  animation: floatRunes 120s linear infinite;
-}
-@keyframes floatRunes {
-  from { transform: translate(0, 0); }
-  to   { transform: translate(-20%, -20%); }
-}
+.hidden{display:none}
+.blink{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
 
-.title {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 3rem;
-  letter-spacing: 4px;
-  margin-bottom: 24px;
-  color: #d4af37;
-  text-shadow:
-    1px 1px 2px rgba(0, 0, 0, 0.9),
-    0 0 8px rgba(212, 175, 55, 0.6);
+/* ——— Picker ——— */
+#picker{margin-top:24px;text-align:center}
+#picker label{font:15px 'Uncial Antiqua',cursive;margin-right:8px}
+#heroSel{
+  min-width:240px;padding:8px;margin:0 auto;border:2px solid #6b4f2f;
+  background:rgba(30,20,10,.9);color:#e8dfc7;border-radius:6px;cursor:pointer;
+  font:14px 'Uncial Antiqua',cursive;
 }
+#heroSel option{background:rgba(30,20,10,.9);color:#e8dfc7}
 
-/* ------------------------------------------------------------
-   Form Elements & Buttons
-   ------------------------------------------------------------ */
-textarea {
-  width: 380px;
-  height: 80px;
-  background: rgba(30, 20, 10, 0.9);
-  color: #efe7d6;
-  border: 2px solid #6b4f2f;
-  padding: 12px;
-  font-size: 14px;
-  font-family: 'Cinzel Decorative', cursive;
-  border-radius: 6px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
-  display: block;
-  margin: 0 auto 16px;
-  resize: none;
-}
-
-#go, #continue {
-  padding: 12px 32px;
-  background: linear-gradient(145deg, #7a5a2b, #50381c);
-  border: 2px solid #8c6b3c;
-  border-radius: 4px;
-  color: #f4ecd8;
-  font-size: 14px;
-  font-family: 'Cinzel Decorative', serif;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: block;
-  margin: 1.5rem auto 16px;
-}
-#go:hover, #continue:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
-}
-#continue:disabled {
-  background: #3d2f1c;
-  cursor: not-allowed;
-}
-
-.hidden { display: none; }
-.blink { animation: blink 1s steps(2) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
+/* ——— Scrollbar ——— */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:rgba(60,40,20,.7);border-radius:5px}
+::-webkit-scrollbar-thumb{background:rgba(90,70,40,.9);border-radius:5px}
 
 /* ------------------------------------------------------------
-   Picker & Table
+   Hero grid & cards
    ------------------------------------------------------------ */
-#picker {
-  margin-top: 24px;
-  text-align: center;
-}
-#picker label {
-  font-family: 'Uncial Antiqua', cursive;
-  font-size: 15px;
-  margin-right: 8px;
-}
-#heroSel {
-  background: rgba(30, 20, 10, 0.9);
-  color: #e8dfc7;
-  border: 2px solid #6b4f2f;
-  font-family: 'Uncial Antiqua', cursive;
-  font-size: 14px;
-  padding: 8px;
-  min-width: 240px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 auto;
-}
-#heroSel option {
-  background: rgba(30, 20, 10, 0.9);
-  color: #e8dfc7;
+.hero-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:2rem;
 }
 
-#roster {
-  margin-top: 24px;
-  overflow-x: auto;
-}
-.hero-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 13px;
-  color: #e8dfc7;
-  border: 2px solid #6b4f2f;
-  background: rgba(25, 15, 5, 0.85);
-  border-radius: 8px;
-  text-transform: capitalize;
-}
-.hero-table th, .hero-table td {
-  border: 1px solid #553f2a;
-  padding: 8px 12px;
-  text-align: center;
-  white-space: nowrap;
-}
-.hero-table th {
-  background: rgba(60, 40, 20, 0.9);
-  color: #cbb988;
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: normal;
-}
-.hero-table tr:nth-child(even) {
-  background: rgba(30, 20, 10, 0.8);
-}
-.hero-table tr:hover {
-  background: rgba(50, 30, 15, 0.9);
+/* Card shell */
+.hero-card{
+  display:flex;flex-direction:column;height:auto;background:#fff;
+  border:2px solid #8c6b42;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.15);
+  font-family:'Merriweather',serif;color:#1a1a1a;overflow:visible;
 }
 
-/* Scrollbar — Leather & Iron */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: rgba(60,40,20,0.7); border-radius:5px; }
-::-webkit-scrollbar-thumb { background: rgba(90,70,40,0.9); border-radius:5px; }
-
-/* ------------------------------------------------------------
-   Portrait Grid & Cards
-   ------------------------------------------------------------ */
-.hero-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
+/* — portrait (top half) — */
+.portrait-wrap{position:relative;flex:1;overflow:hidden}
+.portrait{width:100%;height:100%;object-fit:contain;background:#fff}
+.hero-name-banner{
+  position:absolute;bottom:0;left:0;right:0;padding:.25rem;
+  background:linear-gradient(135deg,#ddb86c,#b78b3e);text-align:center;
+}
+.hero-name-banner span{
+  font:clamp(.85rem,1.8vw,1.15rem)/1 'Cormorant Garamond',serif;font-weight:600;
+  letter-spacing:.3px;color:#000;text-transform:capitalize;
 }
 
-.hero-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: #fff8ef;
-  border: 2px solid #8c6b42;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  overflow: visible !important;
-  color: #1a1a1a;
-  font-family: 'Merriweather', serif;
+/* — text half — */
+.card-body{
+  flex:1;display:flex;flex-direction:column;justify-content:space-between;
+  padding:.25rem;background:#fff;overflow-y:auto;
 }
 
-/* Portrait half */
-.portrait-wrap {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
+/* Stats grids */
+.stats{width:90%;margin:.25rem auto}
+.stats-primary{display:grid;grid-template-columns:repeat(3,1fr);gap:.125rem}
+.stats-secondary{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:.125rem;margin-top:.25rem
 }
-.portrait {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #ffffff;
+.stats-primary div,.stats-secondary div{
+  font-size:clamp(.65rem,1.5vw,.85rem);font-weight:500;text-align:center;
+  margin:0;padding:0;line-height:1.1
 }
-.hero-name-banner {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(135deg, #ddb86c 0%, #b78b3e 100%);
-  padding: .35rem .25rem;
-  text-align: center;
-}
-.hero-name-banner span {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #000;
-  letter-spacing: .4px;
-  text-transform: capitalize;
-}
+.stats-secondary div:nth-child(n+3){visibility:hidden}
 
-/* Text half */
-.card-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: .5rem;
+/* Meta & ability */
+.meta,.ability-block{
+  text-align:left;margin:.25rem 0;padding:0;font-size:clamp(.6rem,1.2vw,.8rem);
+  background:#fff
 }
+.meta p,.ability-block p{margin:0;line-height:1.1}
 
-/* ------------------------------------------------------------
-   Stats Grids
-   ------------------------------------------------------------ */
-.stats {
-  width: 90%;
-  margin: .5rem auto 0;
-}
-.stats-primary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: .25rem;
-}
-.stats-secondary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: .25rem;
-  margin-top: .25rem;
-}
-.stats-primary div, .stats-secondary div {
-  font-size: .85rem;
-  font-weight: 500;
-  text-align: center;
-}
-.stats-secondary div:nth-child(n+3) {
-  visibility: hidden;
-}
+.ability-container{display:inline-block;position:relative}
+.ability-name{font-size:clamp(.65rem,1.2vw,.85rem);font-weight:600;cursor:help}
+.ability-effects{display:inline;margin-left:.25rem}
+.ability-effects p{display:inline;margin:0;font-style:normal}
 
-/* ------------------------------------------------------------
-   Meta & Ability
-   ------------------------------------------------------------ */
-.meta, .ability-block {
-  text-align: left;
-  margin-top: .5rem;
-  padding: 0 .5rem;
-  font-size: .8rem;
+.tooltip-box{
+  display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+  width:200px;padding:.5rem;border:1px solid #aaa;border-radius:6px;
+  background:#fff;color:#111;box-shadow:0 2px 8px rgba(0,0,0,.15);
+  font-size:.85rem;line-height:1.4;z-index:100
 }
-.meta p { margin: .2rem 0; }
-.ability-container {
-  display: inline-block;
-  position: relative;
-}
-.ability-name {
-  font-size: .85rem;
-  font-weight: 600;
-  cursor: help;
-}
-.tooltip-box {
-  display: none;
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.95);
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  padding: .5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  width: 200px;
-  z-index: 100;
-  font-size: .85rem;
-  line-height: 1.4;
-}
-.ability-container:hover .tooltip-box {
-  display: block;
-}
-.ability-effects p {
-  margin: .25rem 0;
-  font-style: normal;
-}
-/* ─── Tighten up all text spacing in hero cards ───────────────── */
-
-/* Remove padding inside the bottom half */
-.card-body {
-  padding: 0.25rem !important;
-  overflow-y: auto;
-}
-
-/* Shrink gaps between stats items */
-.stats {
-  width: 90%;
-  margin: 0.25rem auto !important;
-}
-.stats-primary {
-  gap: 0.125rem !important;
-}
-.stats-secondary {
-  gap: 0.125rem !important;
-  margin-top: 0.25rem !important;
-}
-
-/* Collapse margins & padding on each stat cell */
-.stats-primary div,
-.stats-secondary div {
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 1.1 !important;
-}
-
-/* Collapse margins & padding in meta & ability blocks */
-.meta,
-.ability-block {
-  margin: 0.25rem 0 !important;
-  padding: 0 !important;
-}
-.meta p,
-.ability-block p,
-.ability-effects p {
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 1.1 !important;
-}
-
-/* Tighten the hero name banner */
-.hero-name-banner {
-  padding: 0.25rem !important;
-}
-.hero-name-banner span {
-  font-size: clamp(0.85rem, 1.8vw, 1.15rem) !important;
-  line-height: 1 !important;
-}
-
-/* Reduce gap between cards slightly */
-.hero-grid {
-  gap: 0.5rem !important;
-}
+.ability-container:hover .tooltip-box{display:block}
