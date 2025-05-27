@@ -420,7 +420,7 @@ textarea {
   line-height: 1.4;
 }
 
-/* show on hover */
-.ability-name:hover .tooltip-box {
+/* show tooltip when hovering the whole container */
+.ability-container:hover .tooltip-box {
   display: block;
 }
