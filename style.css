@@ -183,20 +183,5 @@ textarea{
   z-index: 1;
 }
 
-/* ─── 1. Keep rune overlay INSIDE the CRT box ──────────────── */
-#crt{
-  overflow-y: auto;          /* still scrolls vertically if needed   */
-  overflow-x: hidden;        /* disable horizontal scroll entirely   */
-}
-#crt::before{
-  width: 100% !important;    /* exactly match #crt, not 200 %        */
-  height: 100% !important;
-  background-size: cover !important;
-  animation: floatRunesTight 120s linear infinite !important;
-}
-
-/* ─── 2. New “tight” keyframes that never leave the box ────── */
-@keyframes floatRunesTight{
-  from{ background-position: 0 0; }
-  to  { background-position: 100% 100%; }
-}
+/* ─── Remove rune backdrop ─── */
+#crt::before { content: none !important; }
