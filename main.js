@@ -55,38 +55,46 @@ function toTitleCase(str){
   return str.replace(/\b\w/g, c => c.toUpperCase());
 }
 
-  /* ───── render 4×3 grid ───── */
-  function renderGrid(list) {
-    const container = $('#roster');
-    container.innerHTML = '';
+/* ───── render 4×3 grid with fancy name banner & labeled fields ───── */
+function renderGrid(list) {
+  const container = $('#roster');
+  container.innerHTML = '';
 
-    const grid = document.createElement('div');
-    grid.className = 'hero-grid';
+  const grid = document.createElement('div');
+  grid.className = 'hero-grid';
 
-    list.forEach(h => {
-      const imgSrc = portraitUrl(h.Name);
+  list.forEach(h => {
+    const imgSrc = portraitUrl(h.Name);
+    const name   = toTitleCase(h.Name);          // helper you already added
 
-      const card = document.createElement('div');
-      card.className = 'hero-card';
+    const card = document.createElement('div');
+    card.className = 'hero-card';
 
-      card.innerHTML = `
-        <img src="${imgSrc}" alt="${h.Name}" class="portrait" loading="lazy">
-        <h3>${toTitleCase(h.Name)}</h3>
-        <p class="stats">
-          STR ${h.Strength} | DEX ${h.Dexterity} | CON ${h.Constitution}<br>
-          INT ${h.Intelligence} | WIS ${h.Wisdom} | CHA ${h.Charisma}<br>
-          HP ${h.Health} | Mana ${h.Mana}<br>
-          <em>${h.Ability}</em><br>
-          ${h.Class} – ${h.Faction}<br>
-          ${h.Kingdom}
-        </p>`;
-      grid.appendChild(card);
-    });
+    card.innerHTML = `
+      <div class="portrait-wrap">
+        <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
+        <div class="hero-name-banner"><span>${name}</span></div>
+      </div>
 
-    container.appendChild(grid);
-    container.classList.remove('hidden');
-  }
+      <div class="stats">
+        STR ${h.Strength}  DEX ${h.Dexterity}  CON ${h.Constitution}<br>
+        INT ${h.Intelligence}  WIS ${h.Wisdom}  CHA ${h.Charisma}<br>
+        HP ${h.Health}  Mana ${h.Mana}
+      </div>
 
+      <div class="meta">
+        <p><strong>Ability:</strong> ${h.Ability}</p>
+        <p><strong>Class:</strong> ${h.Class}</p>
+        <p><strong>Faction:</strong> ${h.Faction}</p>
+        <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  container.appendChild(grid);
+  container.classList.remove('hidden');
+}
   /* ─ “Discover Heroes” button ─ */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();

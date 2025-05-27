@@ -289,3 +289,58 @@ textarea {
   padding:.5rem;
   border-radius:6px;
 }
+
+
+/* ─── Hero card polish ─────────────────────────────────────────── */
+
+/* outer card */
+.hero-card{
+  position:relative;
+  background:#ffffff;
+  border-radius:8px;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  overflow:hidden;                           /* keeps banner flush */
+  font-family:'Merriweather',serif;
+  color:#222;
+}
+
+/* portrait + overlay banner */
+.portrait-wrap{position:relative;}
+.portrait     {display:block;width:100%;height:auto;background:#ffffff;}
+.hero-name-banner{
+  position:absolute;
+  inset:auto 0 0 0;                          /* stick to bottom */
+  background:linear-gradient(135deg,#ddb86c 0%,#b78b3e 100%);
+  padding:.35rem .25rem;
+  text-align:center;
+}
+.hero-name-banner span{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;
+  font-weight:600;
+  color:#000;
+  letter-spacing:.4px;
+  text-transform:capitalize;
+}
+
+/* stats block */
+.stats{
+  background:#f4f4f4;
+  font-family:'Merriweather',serif;
+  color:#111;
+  font-size:.9rem;
+  line-height:1.4;
+  padding:.5rem .6rem;
+  margin-top:.25rem;
+  border-radius:6px;
+}
+
+/* meta section below stats */
+.meta{
+  margin:.4rem .5rem .6rem;
+  font-family:'Merriweather',serif;
+  font-size:.85rem;
+  line-height:1.35;
+}
+.meta p{margin:.15rem 0;}
+.meta strong{color:#000;}
