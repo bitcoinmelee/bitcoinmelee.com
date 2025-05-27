@@ -141,3 +141,22 @@ textarea{
   height: auto !important;        /* auto height -> full image */
   object-fit: contain !important; /* letterbox if needed       */
 }
+
+/* ─── Move hero name below the image (no overlay) ───────────── */
+
+.hero-name-banner{
+  position: static !important;       /* drop absolute overlay  */
+  background: transparent !important;/* keep image fully shown */
+  padding: 0 !important;             /* no extra height        */
+  margin: .25rem 0 0;                /* tiny gap under image   */
+  text-align: center;
+}
+
+.hero-name-banner span{
+  display: inline-block;
+  padding: 2px 6px;
+  background: linear-gradient(135deg,#ddb86c,#b78b3e); /* keep gold strip */
+  border-radius: 4px;
+  color: #000;
+  font: clamp(.9rem,2vw,1.1rem)/1 'Cormorant Garamond',serif;
+}
