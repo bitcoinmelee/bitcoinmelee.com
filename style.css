@@ -246,3 +246,32 @@ textarea {
   background-color:#ffffff !important;   /* solid white */
   opacity:1 !important;                  /* make sure no parent opacity leaks */
 }
+
+/* ─── Bitcoin Melee hero cards ─────────────────────────────── */
+/* 1. Force opaque backgrounds  */
+/* 2. Improve legibility        */
+.hero-card,
+.hero-card img.portrait,
+.hero-card .stats{
+  background:#ffffff !important;          /* solid white */
+  opacity:1 !important;                   /* stop transparency inheritance */
+}
+
+/* nicer type inside each card */
+.hero-card{
+  font-family:'Montserrat', sans-serif;   /* clean, highly readable */
+  color:#1a1a1a;                          /* darker text for contrast */
+}
+.hero-card h3{
+  font-family:'Montserrat', sans-serif;
+  font-weight:600;
+  margin:.5rem 0 .25rem;
+  color:#000000;                          /* heading even darker */
+}
+.hero-card .stats{
+  color:#222222;                          /* stats text slightly lighter than h3 */
+  font-size:.85rem;
+  line-height:1.35;
+  padding:.5rem;
+  border-radius:6px;
+}
