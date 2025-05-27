@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
 
-  /* ─── load heroes.json + abilities.json ─── */
+  /* ─── load heroes.json + abilities.json in parallel ─── */
   Promise.all([
     fetch('heroes.json').then(r => r.json()),
     fetch('abilities.json').then(r => r.json())
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
       ? heroesData
       : Object.values(heroesData);
 
-    // build ability → effect map
+    // build map: Ability name → effect object (or string)
     if (Array.isArray(abilitiesData)) {
       abilitiesData.forEach(a => {
         ABILITIES[a.Ability] = a.Effect;
@@ -40,11 +40,10 @@ window.addEventListener('DOMContentLoaded', () => {
   })
   .catch(err => flash('Could not load data ➜ ' + err, true));
 
-  /* ─ deterministic roster picker (SHA-256) ─ */
+  /* ───────── deterministic roster picker ───────── */
   async function pickRoster(xpub, count) {
     const enc = new TextEncoder();
     const roster = [];
-
     for (let i = 0; roster.length < count; i++) {
       const hash = await crypto.subtle.digest('SHA-256', enc.encode(xpub + i));
       const num  = new DataView(hash).getUint32(0, false);
@@ -54,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* ─ helper → Supabase public URL ─ */
+  /* ───────── Supabase public URL helper ───────── */
   function portraitUrl(name) {
     const path = `characters/${encodeURIComponent(name)}.webp`;
     const { data } = supabase
@@ -64,12 +63,12 @@ window.addEventListener('DOMContentLoaded', () => {
     return data.publicUrl;
   }
 
-  /* ─ title-case helper ─ */
+  /* ───────── title-case helper ───────── */
   function toTitleCase(str) {
     return str.replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  /* ───── render 4×3 grid ───── */
+  /* ───────── render 4×3 grid with labeled effects ───────── */
   function renderGrid(list) {
     const container = $('#roster');
     container.innerHTML = '';
@@ -78,9 +77,22 @@ window.addEventListener('DOMContentLoaded', () => {
     grid.className = 'hero-grid';
 
     list.forEach(h => {
-      const name   = toTitleCase(h.Name);
-      const imgSrc = portraitUrl(h.Name);
-      const effect = ABILITIES[h.Ability] || 'No effect data.';
+      const name      = toTitleCase(h.Name);
+      const imgSrc    = portraitUrl(h.Name);
+      const rawEffect = ABILITIES[h.Ability];
+      let effectHtml  = '';
+
+      // if effect is an object, list non-zero entries; else show as text
+      if (rawEffect && typeof rawEffect === 'object') {
+        effectHtml = Object.entries(rawEffect)
+          .filter(([key, val]) => val !== 0 && val !== null && val !== false && val !== '')
+          .map(([key, val]) => `<p><strong>${key}:</strong> ${val}</p>`)
+          .join('');
+      } else if (rawEffect) {
+        effectHtml = `<p>${rawEffect}</p>`;
+      } else {
+        effectHtml = `<p>No effect data.</p>`;
+      }
 
       const card = document.createElement('div');
       card.className = 'hero-card';
@@ -104,9 +116,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <div class="meta ability-block">
           <p><strong>Ability:</strong> ${h.Ability}</p>
-          <p class="ability-effect">${effect}</p>
+          <div class="ability-effect">
+            ${effectHtml}
+          </div>
         </div>
       `;
+
       grid.appendChild(card);
     });
 
@@ -114,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
     container.classList.remove('hidden');
   }
 
-  /* ─ “Discover Heroes” button ─ */
+  /* ───── “Discover Heroes” button ───── */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
     if (!xpub)          return flash('Please paste a public key first…', true);
@@ -122,7 +137,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderGrid(roster);
-
     sessionStorage.setItem('roster', JSON.stringify(roster));
     flash('These are the heroes bound to your key:');
 
@@ -131,7 +145,7 @@ window.addEventListener('DOMContentLoaded', () => {
     btnContinue.classList.remove('hidden');
   });
 
-  /* ─ Continue → draft.html ─ */
+  /* ─── Continue → draft.html ─── */
   $('#continue').addEventListener('click', () => {
     window.location.href = 'draft.html';
   });
