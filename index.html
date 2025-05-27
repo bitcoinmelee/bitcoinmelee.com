@@ -4,29 +4,30 @@
   <meta charset="UTF-8" />
   <title>Bitcoin Melee</title>
 
+  <!-- fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="crt">
-
     <h1 class="title">BITCOIN MELEE</h1>
 
     <p id="msg" class="blink"></p>
-    <textarea id="xpub" placeholder="Paste a public key here: 1A1zP1e..."></textarea>
+    <textarea id="xpub" placeholder="Paste a public key here: 1A1zP1e…"></textarea>
 
     <button id="go">Discover Heroes</button>
-    
 
-    <!-- roster table injected here -->
+    <!-- roster grid injected here -->
     <section id="roster" class="hidden"></section>
 
-    <!-- continue to battle -->
+    <!-- continue to draft -->
     <button id="continue" class="hidden" disabled>Continue to Draft</button>
-
   </div>
 
-  <script src="main.js"></script>
+  <!-- Supabase + app scripts (ES‑modules) -->
+  <script type="module" src="supabaseClient.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>
