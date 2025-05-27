@@ -299,3 +299,59 @@ textarea {
   margin: .25rem 0;
   font-style: normal;
 }
+/* ─── Tighten up all text spacing in hero cards ───────────────── */
+
+/* Remove padding inside the bottom half */
+.card-body {
+  padding: 0.25rem !important;
+  overflow-y: auto;
+}
+
+/* Shrink gaps between stats items */
+.stats {
+  width: 90%;
+  margin: 0.25rem auto !important;
+}
+.stats-primary {
+  gap: 0.125rem !important;
+}
+.stats-secondary {
+  gap: 0.125rem !important;
+  margin-top: 0.25rem !important;
+}
+
+/* Collapse margins & padding on each stat cell */
+.stats-primary div,
+.stats-secondary div {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.1 !important;
+}
+
+/* Collapse margins & padding in meta & ability blocks */
+.meta,
+.ability-block {
+  margin: 0.25rem 0 !important;
+  padding: 0 !important;
+}
+.meta p,
+.ability-block p,
+.ability-effects p {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.1 !important;
+}
+
+/* Tighten the hero name banner */
+.hero-name-banner {
+  padding: 0.25rem !important;
+}
+.hero-name-banner span {
+  font-size: clamp(0.85rem, 1.8vw, 1.15rem) !important;
+  line-height: 1 !important;
+}
+
+/* Reduce gap between cards slightly */
+.hero-grid {
+  gap: 0.5rem !important;
+}
