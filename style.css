@@ -116,3 +116,19 @@ textarea{
   z-index: 2147483647 !important;  /* highest safe value in CSS   */
   pointer-events: none;
 }
+
+/* remove optional “Ability:” label spacing */
+.ability-block{margin:.15rem 0 !important;padding:0 !important}
+.ability-name{margin-right:.15rem}
+
+/* tooltip: absolute top layer */
+.tooltip-box{
+  position:fixed !important;
+  z-index:2147483647 !important;  /* highest */
+  pointer-events:none;
+}
+
+/* no extra gap between stats / meta / ability sections */
+.stats,
+.meta,
+.ability-block{margin:.15rem auto !important}
