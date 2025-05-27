@@ -160,3 +160,25 @@ textarea{
   color: #000;
   font: clamp(.9rem,2vw,1.1rem)/1 'Cormorant Garamond',serif;
 }
+
+/* ─── Solid‑white card floor (blocks ALL transparency) ───────── */
+
+.hero-card{
+  position: relative;          /* establish containing block         */
+}
+
+/* the white slab */
+.hero-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;                    /* cover entire card */
+  background: #ffffff;         /* pure white, no alpha */
+  z-index: 0;                  /* sits behind real content */
+  pointer-events: none;        /* never blocks clicks */
+}
+
+/* lift all real content above the slab */
+.hero-card *{
+  position: relative;
+  z-index: 1;
+}
