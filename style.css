@@ -129,3 +129,15 @@ textarea{
 
 /* ─── Show the entire portrait (no cropping) ─── */
 .portrait-wrap{ overflow: visible !important; }
+
+/* ─── Remove 50 % split — let the portrait show full height ─── */
+.hero-card       { display: block !important; }     /* flow top‑to‑bottom      */
+.portrait-wrap   { overflow: visible !important; }  /* nothing is hidden       */
+.card-body       { padding-top: .4rem !important; } /* tiny gap after picture  */
+
+/* ensure image scales only by width, keeps full aspect */
+.portrait{
+  width: 100% !important;
+  height: auto !important;        /* auto height -> full image */
+  object-fit: contain !important; /* letterbox if needed       */
+}
