@@ -251,17 +251,33 @@ textarea {
 
 /* nicer type inside each card */
 .hero-card{
-  font-family:'Montserrat', sans-serif;   /* clean, highly readable */
-  color:#1a1a1a;                          /* darker text for contrast */
+  position:relative;                 /* lets us add a white “floor” */
+  background:#ffffff !important;
+  border-radius:8px;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  font-family:'Montserrat',sans-serif;
+  color:#1a1a1a;
 }
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#ffffff;
+  border-radius:inherit;
+  opacity:1;
+  z-index:0;                         /* sits under everything inside the card */
+}
+.hero-card *{position:relative; z-index:1;}   /* lift real content above “floor” */
+
 .hero-card h3{
-  font-family:'Montserrat', sans-serif;
-  font-weight:600;
   margin:.5rem 0 .25rem;
-  color:#000000;                          /* heading even darker */
+  font-weight:600;
+  color:#000;
+  text-transform:capitalize;         /* fallback if JS missed something */
 }
 .hero-card .stats{
-  color:#222222;                          /* stats text slightly lighter than h3 */
+  background:#ffffff;
+  color:#222;
   font-size:.85rem;
   line-height:1.35;
   padding:.5rem;
