@@ -5,9 +5,10 @@ import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   const $ = sel => document.querySelector(sel);
-
   const ROSTER_SIZE = 12;
-  let HEROES = [];
+
+  let HEROES    = [];
+  let ABILITIES = {};
 
   /* ───────── flash helper ───────── */
   function flash(text, isError = false) {
@@ -16,18 +17,32 @@ window.addEventListener('DOMContentLoaded', () => {
     msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
 
-  /* ───────── load hero data ─────── */
-  fetch('heroes.json')
-    .then(r => r.json())
-    .then(data => {
-      HEROES = Array.isArray(data) ? data : Object.values(data);
-      flash('Discover heroes bound to your public key!');
-    })
-    .catch(err => flash('Could not load heroes.json ➜ ' + err, true));
+  /* ─── load heroes.json + abilities.json ─── */
+  Promise.all([
+    fetch('heroes.json').then(r => r.json()),
+    fetch('abilities.json').then(r => r.json())
+  ])
+  .then(([heroesData, abilitiesData]) => {
+    HEROES = Array.isArray(heroesData)
+      ? heroesData
+      : Object.values(heroesData);
 
-  /* ─ deterministic roster picker ─ */
+    // build ability → effect map
+    if (Array.isArray(abilitiesData)) {
+      abilitiesData.forEach(a => {
+        ABILITIES[a.Ability] = a.Effect;
+      });
+    } else {
+      Object.assign(ABILITIES, abilitiesData);
+    }
+
+    flash('Discover heroes bound to your public key!');
+  })
+  .catch(err => flash('Could not load data ➜ ' + err, true));
+
+  /* ─ deterministic roster picker (SHA-256) ─ */
   async function pickRoster(xpub, count) {
-    const enc   = new TextEncoder();
+    const enc = new TextEncoder();
     const roster = [];
 
     for (let i = 0; roster.length < count; i++) {
@@ -39,9 +54,8 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* ─── helper → Supabase public URL ─── */
+  /* ─ helper → Supabase public URL ─ */
   function portraitUrl(name) {
-    // stored at  characters/characters/<Name>.webp
     const path = `characters/${encodeURIComponent(name)}.webp`;
     const { data } = supabase
       .storage
@@ -50,56 +64,61 @@ window.addEventListener('DOMContentLoaded', () => {
     return data.publicUrl;
   }
 
-/* turn “aaron” → “Aaron”, “mary ann” → “Mary Ann” */
-function toTitleCase(str){
-  return str.replace(/\b\w/g, c => c.toUpperCase());
-}
+  /* ─ title-case helper ─ */
+  function toTitleCase(str) {
+    return str.replace(/\b\w/g, c => c.toUpperCase());
+  }
 
-/* ───── render 4×3 grid with fancy name banner & labeled fields ───── */
-function renderGrid(list) {
-  const container = $('#roster');
-  container.innerHTML = '';
+  /* ───── render 4×3 grid ───── */
+  function renderGrid(list) {
+    const container = $('#roster');
+    container.innerHTML = '';
 
-  const grid = document.createElement('div');
-  grid.className = 'hero-grid';
+    const grid = document.createElement('div');
+    grid.className = 'hero-grid';
 
-  list.forEach(h => {
-    const imgSrc = portraitUrl(h.Name);
-    const name   = toTitleCase(h.Name);          // helper you already added
+    list.forEach(h => {
+      const name   = toTitleCase(h.Name);
+      const imgSrc = portraitUrl(h.Name);
+      const effect = ABILITIES[h.Ability] || 'No effect data.';
 
-    const card = document.createElement('div');
-    card.className = 'hero-card';
+      const card = document.createElement('div');
+      card.className = 'hero-card';
+      card.innerHTML = `
+        <div class="portrait-wrap">
+          <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
+          <div class="hero-name-banner"><span>${name}</span></div>
+        </div>
 
-    card.innerHTML = `
-      <div class="portrait-wrap">
-        <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
-        <div class="hero-name-banner"><span>${name}</span></div>
-      </div>
+        <div class="stats">
+          STR ${h.Strength}  DEX ${h.Dexterity}  CON ${h.Constitution}<br>
+          INT ${h.Intelligence}  WIS ${h.Wisdom}  CHA ${h.Charisma}<br>
+          HP ${h.Health}  Mana ${h.Mana}
+        </div>
 
-      <div class="stats">
-        STR ${h.Strength}  DEX ${h.Dexterity}  CON ${h.Constitution}<br>
-        INT ${h.Intelligence}  WIS ${h.Wisdom}  CHA ${h.Charisma}<br>
-        HP ${h.Health}  Mana ${h.Mana}
-      </div>
+        <div class="meta">
+          <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
+          <p><strong>Faction:</strong> ${h.Faction}</p>
+          <p><strong>Class:</strong> ${h.Class}</p>
+        </div>
 
-      <div class="meta">
-        <p><strong>Ability:</strong> ${h.Ability}</p>
-        <p><strong>Class:</strong> ${h.Class}</p>
-        <p><strong>Faction:</strong> ${h.Faction}</p>
-        <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
+        <div class="meta ability-block">
+          <p><strong>Ability:</strong> ${h.Ability}</p>
+          <p class="ability-effect">${effect}</p>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
 
-  container.appendChild(grid);
-  container.classList.remove('hidden');
-}
+    container.appendChild(grid);
+    container.classList.remove('hidden');
+  }
+
   /* ─ “Discover Heroes” button ─ */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
     if (!xpub)          return flash('Please paste a public key first…', true);
-    if (!HEROES.length) return flash('Heroes not loaded yet…', true);
+    if (!HEROES.length) return flash('Data still loading…', true);
 
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderGrid(roster);

@@ -344,3 +344,43 @@ textarea {
 }
 .meta p{margin:.15rem 0;}
 .meta strong{color:#000;}
+
+/* ─── Hero card meta & ability layout overrides ───────────────── */
+
+/* ensure cards & sub-panels stay opaque */
+.hero-card,
+.hero-card img.portrait,
+.hero-card .stats,
+.hero-card .meta,
+.hero-card .ability-block {
+  background: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* left-align all meta & ability lines and add spacing */
+.hero-card .meta,
+.hero-card .ability-block {
+  text-align: left;
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem;
+}
+
+/* tighten up paragraph spacing */
+.hero-card .meta p,
+.hero-card .ability-block p {
+  margin: 0.2rem 0;
+}
+
+/* separate Ability block with a fine rule */
+.hero-card .ability-block {
+  border-top: 1px solid #ddd;
+  padding-top: 0.4rem;
+}
+
+/* style the effect text */
+.hero-card .ability-effect {
+  margin-top: 0.25rem;
+  font-style: italic;
+  color: #555;
+  font-size: 0.85rem;
+}
