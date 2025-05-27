@@ -50,6 +50,11 @@ window.addEventListener('DOMContentLoaded', () => {
     return data.publicUrl;
   }
 
+/* turn “aaron” → “Aaron”, “mary ann” → “Mary Ann” */
+function toTitleCase(str){
+  return str.replace(/\b\w/g, c => c.toUpperCase());
+}
+
   /* ───── render 4×3 grid ───── */
   function renderGrid(list) {
     const container = $('#roster');
