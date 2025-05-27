@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
 
-  /* ─── load heroes.json + abilities.json in parallel ─── */
+  /* ─── load heroes.json + abilities.json ─── */
   Promise.all([
     fetch('heroes.json').then(r => r.json()),
     fetch('abilities.json').then(r => r.json())
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
       ? heroesData
       : Object.values(heroesData);
 
-    // build map: Ability name → effect object (or string)
+    // build ability → effect map
     if (Array.isArray(abilitiesData)) {
       abilitiesData.forEach(a => {
         ABILITIES[a.Ability] = a.Effect;
@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
   .catch(err => flash('Could not load data ➜ ' + err, true));
 
-  /* ───────── deterministic roster picker ───────── */
+  /* ───── deterministic roster picker ───── */
   async function pickRoster(xpub, count) {
     const enc = new TextEncoder();
     const roster = [];
@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* ───────── Supabase public URL helper ───────── */
+  /* ───── Supabase public URL helper ───── */
   function portraitUrl(name) {
     const path = `characters/${encodeURIComponent(name)}.webp`;
     const { data } = supabase
@@ -63,12 +63,12 @@ window.addEventListener('DOMContentLoaded', () => {
     return data.publicUrl;
   }
 
-  /* ───────── title-case helper ───────── */
+  /* ───── title-case helper ───── */
   function toTitleCase(str) {
-    return str.replace(/\b\w/g, c => c.toUpperCase());
+    return String(str).replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  /* ───────── render 4×3 grid with labeled effects ───────── */
+  /* ───── render 4×3 grid with formatted effects ───── */
   function renderGrid(list) {
     const container = $('#roster');
     container.innerHTML = '';
@@ -76,17 +76,39 @@ window.addEventListener('DOMContentLoaded', () => {
     const grid = document.createElement('div');
     grid.className = 'hero-grid';
 
+    // map full stat names to abbreviations
+    const STAT_ABBR = {
+      Strength:     'STR',
+      Dexterity:    'DEX',
+      Constitution: 'CON',
+      Intelligence: 'INT',
+      Wisdom:       'WIS',
+      Charisma:     'CHA',
+      HP:           'HP',
+      Mana:         'Mana'
+    };
+
     list.forEach(h => {
       const name      = toTitleCase(h.Name);
       const imgSrc    = portraitUrl(h.Name);
       const rawEffect = ABILITIES[h.Ability];
       let effectHtml  = '';
 
-      // if effect is an object, list non-zero entries; else show as text
       if (rawEffect && typeof rawEffect === 'object') {
         effectHtml = Object.entries(rawEffect)
-          .filter(([key, val]) => val !== 0 && val !== null && val !== false && val !== '')
-          .map(([key, val]) => `<p><strong>${key}:</strong> ${val}</p>`)
+          .filter(([key, val]) => val && val !== 0)
+          .map(([key, val]) => {
+            const parts = key.split('_');
+            const stat  = parts[0];
+            const targetRaw = parts[1] || '';
+            const abbr  = STAT_ABBR[stat] || stat.toUpperCase();
+            const sign  = val > 0 ? `+${val}` : `${val}`;
+            if (targetRaw) {
+              return `<p>${sign} ${abbr} to ${toTitleCase(targetRaw)}</p>`;
+            } else {
+              return `<p>${sign} ${abbr}</p>`;
+            }
+          })
           .join('');
       } else if (rawEffect) {
         effectHtml = `<p>${rawEffect}</p>`;
@@ -121,7 +143,6 @@ window.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
       `;
-
       grid.appendChild(card);
     });
 
@@ -145,7 +166,7 @@ window.addEventListener('DOMContentLoaded', () => {
     btnContinue.classList.remove('hidden');
   });
 
-  /* ─── Continue → draft.html ─── */
+  /* ───── Continue → draft.html ───── */
   $('#continue').addEventListener('click', () => {
     window.location.href = 'draft.html';
   });
