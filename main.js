@@ -121,10 +121,23 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="stats">
-          STR ${h.Strength}  DEX ${h.Dexterity}  CON ${h.Constitution}<br>
-          INT ${h.Intelligence}  WIS ${h.Wisdom}  CHA ${h.Charisma}<br>
-          HP ${h.Health}  Mana ${h.Mana}
-        </div>
+    <!-- primary: STR, DEX, CON / INT, WIS, CHA -->
+    <div class="stats-primary">
+      <div>STR ${h.Strength}</div>
+      <div>DEX ${h.Dexterity}</div>
+      <div>CON ${h.Constitution}</div>
+      <div>INT ${h.Intelligence}</div>
+      <div>WIS ${h.Wisdom}</div>
+      <div>CHA ${h.Charisma}</div>
+    </div>
+    <!-- secondary: HP, Mana in a 2×2 grid (two empty cells) -->
+    <div class="stats-secondary">
+      <div>HP ${h.Health}</div>
+      <div>Mana ${h.Mana}</div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 
         <div class="meta">
           <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
