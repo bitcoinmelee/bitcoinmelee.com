@@ -1,5 +1,5 @@
 // main.js – xpub → hero grid → store roster → draft.html
-// Looks in bucket “characters” *folder* “characters/” for <Name>.jpg.
+// Uses “characters/characters/<Name>.webp” inside the Supabase bucket.
 
 import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
 
@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     msg.style.color = isError ? '#ff7272' : '#5ef35e';
   }
 
-  /* ─────── load hero data ─────── */
+  /* ───────── load hero data ─────── */
   fetch('heroes.json')
     .then(r => r.json())
     .then(data => {
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* ─ deterministic roster picker ─ */
   async function pickRoster(xpub, count) {
-    const enc = new TextEncoder();
+    const enc   = new TextEncoder();
     const roster = [];
 
     for (let i = 0; roster.length < count; i++) {
@@ -41,8 +41,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* ─── helper → Supabase public URL ─── */
   function portraitUrl(name) {
-    // stored at  characters/characters/<Name>.jpg
-    const path = `characters/${encodeURIComponent(name)}.jpg`;
+    // stored at  characters/characters/<Name>.webp
+    const path = `characters/${encodeURIComponent(name)}.webp`;
     const { data } = supabase
       .storage
       .from(PORTRAIT_BUCKET)
@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
       card.className = 'hero-card';
 
       card.innerHTML = `
-        <img src="${imgSrc}" alt="${h.Name}" class="portrait">
+        <img src="${imgSrc}" alt="${h.Name}" class="portrait" loading="lazy">
         <h3>${h.Name}</h3>
         <p class="stats">
           STR ${h.Strength} | DEX ${h.Dexterity} | CON ${h.Constitution}<br>
