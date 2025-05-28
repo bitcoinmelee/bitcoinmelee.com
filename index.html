@@ -10,42 +10,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Merriweather:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 
-  <!-- card grid & readable‑over‑image styles -->
+  <!-- card grid & backdrop overlay styles -->
   <style>
-    .hero-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-      gap:1rem;
-      margin-top:1rem;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
     }
-    .hero-card{
-      position:relative;
-      border-radius:8px;
-      padding:.5rem;
-      text-align:center;
-      background-size:cover;
-      background-position:center;
-      box-shadow:0 1px 3px rgba(0,0,0,.15);
-      color:#2b2a29;
+    .hero-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      color: #2b2a29;
     }
-    /* translucent white veil for legibility */
-    .hero-card::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:rgba(255,255,255,.9);
-      border-radius:8px;
+    /* light veil over backdrop for legibility */
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.8);
     }
-    /* lift content above veil */
-    .hero-card > *{position:relative;z-index:1;}
-
-    .hero-card img.portrait{
-      width:100%;height:auto;border-radius:6px;
-      background:#ffffff;
+    /* lift text & images above the veil */
+    .hero-card > * {
+      position: relative;
+      z-index: 1;
     }
-    .hero-card .stats{
-      background:#ffffff;padding:.5rem;border-radius:6px;
-      font-size:.85rem;line-height:1.3;
+    .hero-card img.portrait {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .hero-card .stats {
+      background: rgba(255,255,255,0.9);
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: .85rem;
+      line-height: 1.3;
     }
   </style>
 </head>
