@@ -1,5 +1,6 @@
-// main.js — xpub → hero grid → store roster → draft.html
-// Uses “characters/characters/<Name>.webp” inside the Supabase bucket.
+// main.js — adds Archetype background images to hero cards
+// Uses “characters/characters/<Name>.webp” for portraits
+// and “images/card_backgrounds/<Archetype>.webp” for card backdrops.
 
 import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
 
@@ -9,6 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let HEROES = [];
   let ABILITIES = {};
+  let ARCHETYPES = [];
 
   /* -------------------------------------------------- helpers */
   const STAT_ABBR = {
@@ -17,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
     Health:'HP', Mana:'Mana'
   };
 
-  const toTitleCase = str => String(str).replace(/\b\w/g, c => c.toUpperCase());
+  const toTitleCase = str => String(str).replace(/\b\w/g,c=>c.toUpperCase());
 
   const flash = (txt, err=false) => {
     const box = $('#msg');
@@ -32,6 +34,18 @@ window.addEventListener('DOMContentLoaded', () => {
       .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`);
     return data.publicUrl;
   };
+
+  /* -------- find Archetype for a hero (Kingdom + Faction) */
+  function heroArchetype(hero){
+    for(const a of ARCHETYPES){
+      const cell = a[hero.Kingdom];          // property names match Kingdom column headers
+      if(!cell || cell === '—') continue;
+      if(Array.isArray(cell) ? cell.includes(hero.Faction) : cell === hero.Faction){
+        return a.Archetype;
+      }
+    }
+    return null;
+  }
 
   /* ----------------------------------------- deterministic picker */
   async function pickRoster(xpub,count){
@@ -57,6 +71,8 @@ window.addEventListener('DOMContentLoaded', () => {
       const name   = toTitleCase(h.Name);
       const imgSrc = portraitUrl(h.Name);
       const aObj   = ABILITIES[h.Ability] || {};
+      const arche  = heroArchetype(h);
+      const bgImg  = arche ? `images/card_backgrounds/${encodeURIComponent(arche)}.webp` : '';
 
       /* ----- condensed effect lines */
       const effectsByTarget = {};
@@ -73,10 +89,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
       const effectHtml = Object.entries(effectsByTarget).length
         ? Object.entries(effectsByTarget)
-            .map(([target,arr])=>{
+            .map(([t,arr])=>{
               const line = arr.length===1
-                ? `${arr[0]} to ${target}`
-                : `${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${target}`;
+                ? `${arr[0]} to ${t}`
+                : `${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${t}`;
               return `<p>${line}</p>`;
             }).join('')
         : '<p>No effect data.</p>';
@@ -85,7 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       /* ----- build card */
       grid.insertAdjacentHTML('beforeend',`
-        <div class="hero-card">
+        <div class="hero-card" style="background-image:url('${bgImg}')">
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
           <div class="hero-name-banner"><span>${name}</span></div>
 
@@ -120,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     wrap.appendChild(grid);
     wrap.classList.remove('hidden');
-    activateFloatingTooltips();      // make tooltips hover properly
+    activateFloatingTooltips();
   }
 
   /* ---------------------------------- floating tooltip behaviour */
@@ -128,12 +144,10 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ability-container').forEach(container=>{
       const tip = container.querySelector('.tooltip-box');
       if(!tip) return;
-
       const moveTip = e=>{
         tip.style.top  = `${e.clientY - 12}px`;
         tip.style.left = `${e.clientX + 14}px`;
       };
-
       container.addEventListener('mouseenter',e=>{
         document.body.appendChild(tip);
         tip.style.display='block';
@@ -144,7 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
       container.addEventListener('mousemove',moveTip);
       container.addEventListener('mouseleave',()=>{
         tip.style.display='none';
-        container.appendChild(tip);           // return to DOM for next hover
+        container.appendChild(tip);
       });
     });
   }
@@ -152,12 +166,14 @@ window.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------ data loading */
   Promise.all([
     fetch('heroes.json').then(r=>r.json()),
-    fetch('abilities.json').then(r=>r.json())
-  ]).then(([heroesData,abilitiesData])=>{
-      HEROES = Array.isArray(heroesData)?heroesData:Object.values(heroesData);
-      ABILITIES = Array.isArray(abilitiesData)
+    fetch('abilities.json').then(r=>r.json()),
+    fetch('archetypes.json').then(r=>r.json())
+  ]).then(([heroesData,abilitiesData,archetypeData])=>{
+      HEROES      = Array.isArray(heroesData)     ? heroesData : Object.values(heroesData);
+      ABILITIES   = Array.isArray(abilitiesData)
         ? Object.fromEntries(abilitiesData.map(a=>[a.Ability,a]))
         : abilitiesData;
+      ARCHETYPES  = archetypeData;
       flash('Discover heroes bound to your public key!');
   }).catch(err=>flash('Could not load data ➜ '+err,true));
 
