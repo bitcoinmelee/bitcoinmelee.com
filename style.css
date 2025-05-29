@@ -21,10 +21,15 @@ body {
   max-height: 90vh;
   overflow: auto;
   padding: 32px 48px;
-  border: 6px solid rgba(60,40,20,.85);
-  background: rgba(173, 172, 170, 0.75);
+
+  /* ✂️ removed border and background */
+  border: none;
+  background: transparent;
+
+  /* keep any other effects you like */
   backdrop-filter: blur(3px);
   box-shadow: 0 0 30px rgba(0,0,0,.8) inset, 0 0 20px rgba(200,180,150,.6);
+
   text-align: center;
 }
 .title {
