@@ -207,3 +207,41 @@ textarea {
 .hidden { display: none; }
 .blink { animation: blink 1s steps(2) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
+
+
+/* ──────────────────────────────────────────────────────
+   Unified bottom panel (name + stats + meta + ability)
+   ────────────────────────────────────────────────────── */
+
+/* 1) Remove the old translucent stats panel */
+.hero-card .stats {
+  background: transparent;
+  padding: 0;          /* we’ll handle padding on the wrapper */
+}
+
+/* 2) Give the same bg to the name‐banner and entire card‐body */
+.hero-card .hero-name-banner,
+.hero-card .hero-card .card-body {
+  background: rgba(255,255,255,0.8);
+  padding: .5rem;
+}
+
+/* 3) Round the top of that panel at the banner, bottom on the body */
+.hero-card .hero-name-banner {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.hero-card .card-body {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  
+  /* collapse the banner/body seam */
+  margin-top: -.5rem;
+}
+
+/* 4) Clear any other inner backgrounds so the unified panel is clean */
+.hero-card .meta,
+.hero-card .ability-block {
+  background: transparent;
+  padding: 0;
+}
