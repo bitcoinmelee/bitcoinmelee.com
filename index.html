@@ -1,62 +1,26 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Bitcoin Melee</title>
+  <title>Bitcoin Melee</title>
 
   <!-- fantasy & body fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Merriweather:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- unified stylesheet -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- card grid & readable‑over‑image styles -->
-  <style>
-    .hero-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-      gap:1rem;
-      margin-top:1rem;
-    }
-    .hero-card{
-      position:relative;
-      border-radius:8px;
-      padding:.5rem;
-      text-align:center;
-      background-size:cover;
-      background-position:center;
-      box-shadow:0 1px 3px rgba(0,0,0,.15);
-      color:#2b2a29;
-    }
-    /* translucent white veil for legibility */
-    .hero-card::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:rgba(255,255,255,.9);
-      border-radius:8px;
-    }
-    /* lift content above veil */
-    .hero-card > *{position:relative;z-index:1;}
-
-    .hero-card img.portrait{
-      width:100%;height:auto;border-radius:6px;
-      background:#ffffff;
-    }
-    .hero-card .stats{
-      background:#ffffff;padding:.5rem;border-radius:6px;
-      font-size:.85rem;line-height:1.3;
-    }
-  </style>
 </head>
 <body>
   <div id="crt">
-    <h1 class="title">BITCOIN MELEE</h1>
+    <h1 class="title">BITCOIN MELEE</h1>
 
     <p id="msg" class="blink"></p>
     <textarea id="xpub" placeholder="Paste a public key here: 1A1zP1e…"></textarea>
 
-    <button id="go">Discover Heroes</button>
+    <button id="go">Discover Heroes</button>
 
     <!-- roster grid injected here -->
     <section id="roster" class="hidden"></section>
