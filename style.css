@@ -108,7 +108,7 @@ textarea {
 /* ===== hero grid & card styling ================================== */
     .hero-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(220px,1fr)) !important;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr)) !important;
       grid-template-rows: auto !important;
       gap: 1rem;
       margin-top: 1rem;
