@@ -109,9 +109,9 @@ textarea {
     .hero-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-     grid-template-rows: repeat(3, auto);
-     gap: 1rem;
-     margin-top: 1rem;
+      grid-template-rows: repeat(3, auto);
+      gap: 1rem;
+      margin-top: 1rem;
     }
 
     .hero-card {
