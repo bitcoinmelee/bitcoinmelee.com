@@ -153,16 +153,7 @@ textarea {
       background: transparent;
     }
 
-    /* stats panel lightly translucent */
-    .hero-card .stats {
-      background: rgba(255,255,255,0.2);
-      padding: .5rem;
-      border: 1px solid #000;
-      border-radius: 6px;
-      font-size: .85rem;
-      line-height: 1.3;
-      color:#000
-    }
+
 
 /* ===== stats layout ============================================== */
 .stats-primary,
@@ -247,4 +238,15 @@ textarea {
   border: 1px solid #000;
   border-radius: 6px;                 /* rounded corners */
   color: #000;                        /* dark text */
+}
+
+/* stats panel lightly translucent */
+.hero-card .stats {
+  display: inline-block;                     /* force new line each */
+  margin: 0.25rem 0;
+  background: rgba(255,255,255,0.2);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #000;
+  border-radius: 6px;
+  color:#000
 }
