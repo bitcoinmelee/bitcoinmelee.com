@@ -36,19 +36,38 @@ window.addEventListener('DOMContentLoaded', () => {
     return data.publicUrl;
   };
 
-  /* -------- find Archetype for a hero (Kingdom + Faction) */
-  function heroArchetype(hero){
-    for(const a of ARCHETYPES){
-      const cell = a[hero.Kingdom];          
-      if(!cell || cell === '—') continue;
-      if(Array.isArray(cell)
-         ? cell.includes(hero.Faction)
-         : cell === hero.Faction){
-        return a.Archetype;
-      }
+ /* -------- find Archetype for a hero (Kingdom + Faction) */
+function heroArchetype(hero){
+  // 1) trim off any stray whitespace
+  const rawKey = hero.Kingdom.trim();
+  // 2) if it starts with "The ", try a second lookup without it
+  const altKey = rawKey.startsWith('The ')
+    ? rawKey.slice(4)
+    : rawKey;
+
+  for (const a of ARCHETYPES){
+    // try the raw kingdom name first…
+    let cell = a[rawKey];
+    // …and if that was undefined, try dropping "The "
+    if (cell === undefined) {
+      cell = a[altKey];
     }
-    return null;
+
+    // skip missing (undefined) or explicit “—” entries
+    if (!cell || cell === '—') continue;
+
+    // match array or single value
+    const matches = Array.isArray(cell)
+      ? cell.includes(hero.Faction)
+      : cell === hero.Faction;
+
+    if (matches) {
+      return a.Archetype;
+    }
   }
+
+  return null;
+}
 
   /* ----------------------------------------- deterministic picker */
   async function pickRoster(xpub, count){
