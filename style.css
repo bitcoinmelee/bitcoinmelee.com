@@ -193,10 +193,10 @@ textarea {
   display: none;
   width: 200px;
   padding: .5rem;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.35);
   border: 1px solid #aaa;
   border-radius: 6px;
-  color: #ffffff;
+  color: #000000;
   box-shadow: 0 2px 8px rgba(0,0,0,.15);
   font: .85rem/1.4 'Merriweather', serif;
   pointer-events: none;
