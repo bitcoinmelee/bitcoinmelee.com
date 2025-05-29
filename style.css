@@ -128,7 +128,7 @@ textarea {
   background-color: transparent;
 
   box-shadow: 0 1px 3px rgba(0,0,0,.15);
-  color: #2b2a29;
+  color: #ffffff;
 }
 
 /* disable the pseudo‐element completely */
@@ -152,7 +152,7 @@ textarea {
 
 /* light translucent stats panel */
 .hero-card .stats {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.0);
   padding: .5rem;
   border-radius: 6px;
   font-size: .85rem;
