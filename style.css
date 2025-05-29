@@ -240,7 +240,7 @@ textarea {
 
 /* Meta lines (Kingdom/Faction/Class) */
 .hero-card .meta p {
-  display: block;                     /* force new line each */
+  display: inline-block;                     /* force new line each */
   margin: 0.25rem 0;                  /* vertical spacing */
   padding: 0.25rem 0.5rem;            /* badge padding */
   background: rgba(255,255,255,0.2);  /* translucent white */
