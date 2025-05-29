@@ -106,16 +106,16 @@ textarea {
 ::-webkit-scrollbar-thumb { background: rgba(90,70,40,.9); border-radius: 5px; }
 
 /* ===== hero grid & card styling ================================== */
-.hero-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, auto);
-  gap: 1rem;
-  margin-top: 1rem;
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+     grid-template-rows: repeat(3, auto);
+     gap: 1rem;
+     margin-top: 1rem;
+    }
 
     .hero-card {
-      border: 5px solid #000;
+      border: 3px solid #000;
       border-radius: 8px;
       position: relative;
       padding: .5rem;
