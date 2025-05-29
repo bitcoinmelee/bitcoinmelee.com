@@ -106,58 +106,57 @@ textarea {
 ::-webkit-scrollbar-thumb { background: rgba(90,70,40,.9); border-radius: 5px; }
 
 /* ===== hero grid & card styling ================================== */
-.hero-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.hero-card {
-  position: relative;
-  border-radius: 8px;
-  padding: .5rem;
-  text-align: center;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
 
-  /* ← HERE: your dynamic image goes here */
-  background-image: none; /* inline style will override this */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+    .hero-card {
+      position: relative;
+      border-radius: 8px;
+      padding: .5rem;
+      text-align: center;
 
-  /* remove any solid/grey fallback */
-  background-color: transparent;
+      /* ← ensure your dynamic inline bg is used: */
+      background-image: none;  /* inline style will override this */
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: transparent; /* no grey fallback */
 
-  box-shadow: 0 1px 3px rgba(0,0,0,.15);
-  color: #ffffff;
-}
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+      color: #ffffff;
+    }
 
-/* disable the pseudo‐element completely */
-.hero-card::before {
-  display: none;
-}
+    /* disable the white veil entirely */
+    .hero-card::before {
+      display: none;
+    }
 
-/* ensure all children sit above the background */
-.hero-card > * {
-  position: relative;
-  z-index: 1;
-}
+    /* lift content above the bg layer */
+    .hero-card > * {
+      position: relative;
+      z-index: 1;
+    }
 
-/* portrait transparent so you can see behind it */
-.hero-card img.portrait {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  background: transparent;
-}
+    /* make portrait transparent so bg peeks through */
+    .hero-card img.portrait {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      background: transparent;
+    }
 
-/* light translucent stats panel */
-.hero-card .stats {
-  background: rgba(255, 255, 255, 0.0);
-  padding: .5rem;
-  border-radius: 6px;
-  font-size: .85rem;
-  line-height: 1.3;
-}
+    /* stats panel lightly translucent */
+    .hero-card .stats {
+      background: rgba(255,255,255,0.2);
+      padding: .5rem;
+      border-radius: 6px;
+      font-size: .85rem;
+      line-height: 1.3;
+    }
 
 /* ===== stats layout ============================================== */
 .stats-primary,
