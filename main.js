@@ -80,7 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const aObj   = ABILITIES[h.Ability] || {};
       const arche  = heroArchetype(h);
       const bgImg  = arche
-        ? `images/card_backgrounds/${encodeURIComponent(arche)}.webp`
+        ? `images/card_backgrounds/${arche}.webp`
         : '';
 
       /* build condensed effects… (unchanged) */
