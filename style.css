@@ -221,6 +221,7 @@ textarea {
   margin: 0.15rem 0.25rem;               /* small spacing between badges */
   padding: 0.25rem 0.5rem;               /* inner space like stats */
   background: rgba(255,255,255,0.2);     /* same translucency as .stats */
+  border: 1px solid #000;
   border-radius: 6px;                    /* match your stats rounding */
   color: #000;                           /* ensure text stays dark */
 }
@@ -231,6 +232,7 @@ textarea {
   margin: 0.25rem 0;                     /* vertical spacing */
   padding: 0.25rem 0.5rem;               /* same as meta badges */
   background: rgba(255,255,255,0.2);
+  border: 1px solid #000;
   border-radius: 6px;
   color: #000;
 }
