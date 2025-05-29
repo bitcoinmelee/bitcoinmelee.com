@@ -112,33 +112,45 @@ textarea{
   border-radius:8px;
   padding:.5rem;
   text-align:center;
+
+  /* your archetype backdrop: */
   background-size:cover;
   background-position:center;
+
+  /* optional dark overlay to boost contrast without hiding the image */
   background-color: rgba(0, 0, 0, 0.2);
   background-blend-mode: multiply;
+
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  color:#2b2a29;
 }
-/* translucent white veil for readability over the backdrop */
-.hero-card::before {
+
+/* — remove or disable the heavy white veil */
+/* .hero-card::before {
   content:'';
   position:absolute;
   inset:0;
   background:rgba(255,255,255,.9);
   border-radius:8px;
-}
-/* lift all inner content above the veil */
+} */
+
+/* lift all inner content above the backdrop */
 .hero-card > * {
   position:relative;
   z-index:1;
 }
-/* portrait and stats panels stay on solid white */
+
+/* make the portrait itself transparent so you can see the card behind it */
 .hero-card img.portrait {
   width:100%;
   height:auto;
   border-radius:6px;
-  background:#ffffff;
+  background:transparent;
 }
+
+/* switch stats panel to a light translucent white */
 .hero-card .stats {
-  background:#ffffff;
+  background:rgba(255,255,255,0.6);
   padding:.5rem;
   border-radius:6px;
   font-size:.85rem;
