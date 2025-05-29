@@ -181,6 +181,7 @@ textarea {
 .ability-block {
   margin: .25rem 0;
   font: clamp(.6rem,1.2vw,.8rem)/1.1 'Merriweather', serif;
+  background: rgba(255,255,255,0.2);
 }
 .meta p { margin: 0; }
 .ability-container {
