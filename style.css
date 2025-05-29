@@ -114,15 +114,15 @@ textarea{
   text-align:center;
   background-size:cover;
   background-position:center;
-  box-shadow:0 1px 3px rgba(0,0,0,.15);
-  color:#2b2a29;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: multiply;
 }
 /* translucent white veil for readability over the backdrop */
 .hero-card::before {
   content:'';
   position:absolute;
   inset:0;
-  background:rgba(255,255,255,.0);
+  background:rgba(255,255,255,.9);
   border-radius:8px;
 }
 /* lift all inner content above the veil */
@@ -138,6 +138,7 @@ textarea{
   background:#ffffff;
 }
 .hero-card .stats {
+  background:#ffffff;
   padding:.5rem;
   border-radius:6px;
   font-size:.85rem;
