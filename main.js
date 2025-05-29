@@ -134,9 +134,9 @@ window.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
             <div class="meta">
-              <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
-              <p><strong>Faction:</strong> ${h.Faction}</p>
-              <p><strong>Class:</strong> ${h.Class}</p>
+              <div><strong>Kingdom:</strong> ${h.Kingdom}</div>
+              <div><strong>Faction:</strong> ${h.Faction}</div>
+              <div><strong>Class:</strong> ${h.Class}</div>
             </div>
             <div class="ability-block">
               <span class="ability-container">
