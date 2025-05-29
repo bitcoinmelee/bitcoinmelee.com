@@ -122,7 +122,7 @@ textarea{
   content:'';
   position:absolute;
   inset:0;
-  background:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.0);
   border-radius:8px;
 }
 /* lift all inner content above the veil */
