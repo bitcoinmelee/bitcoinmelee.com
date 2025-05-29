@@ -145,9 +145,10 @@ textarea {
 
     /* make portrait transparent so bg peeks through */
     .hero-card img.portrait {
+      border: 1px solid #000;
+      border-radius: 8px;
       width: 100%;
       height: auto;
-      border-radius: 6px;
       background: transparent;
     }
 
