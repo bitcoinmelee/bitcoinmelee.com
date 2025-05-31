@@ -108,7 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
           <!-- 3) NEW subheading -->
           <div class="hero-subheading">
-            ${article} ${h.Faction} ${h.Class} from the ${h.Kingdom}
+            ${article} ${h.Faction} ${h.Class} from ${h.Kingdom}
           </div>
 
           <!-- 4) Stats block (moved up) -->
