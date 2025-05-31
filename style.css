@@ -250,3 +250,17 @@ textarea {
   border-radius: 6px;
   color:#000
 }
+
+/* Make the hero name bigger */
+.hero-card .hero-name-banner span {
+  font-size: 1.25rem;       /* bump up from default; adjust as desired */
+  font-weight: 700;
+}
+
+/* New subheading style */
+.hero-card .hero-subheading {
+  font-style: italic;
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #333;              /* adjust to contrast against background */
+}

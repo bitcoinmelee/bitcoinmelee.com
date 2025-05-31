@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* --------------------------------------------------- render grid */
+    /* --------------------------------------------------- render grid */
   function renderGrid(list){
     const wrap = $('#roster');
     wrap.innerHTML = '';
@@ -83,68 +83,67 @@ window.addEventListener('DOMContentLoaded', () => {
         ? `images/card_backgrounds/${arche}.webp`
         : '';
 
-      /* build condensed effects… (unchanged) */
-      const effectsByTarget = {};
-      Object.entries(aObj)
-        .filter(([k,v])=>k!=='Description'&&v!==0)
-        .forEach(([k,v])=>{
-          const [stat,targetRaw] = k.split('_');
-          const abbr = STAT_ABBR[stat]||stat.toUpperCase();
-          const sign = v>0?`+${v}`:`${v}`;
-          const target = targetRaw||'Self';
-          (effectsByTarget[target]=effectsByTarget[target]||[])
-            .push(`${sign} ${abbr}`);
-        });
-      const effectHtml = Object.entries(effectsByTarget).length
-        ? Object.entries(effectsByTarget)
-            .map(([t,arr])=>{
-              const line = arr.length===1
-                ? `${arr[0]} to ${t}`
-                : `${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${t}`;
-              return `<p>${line}</p>`;
-            }).join('')
-        : '<p>No effect data.</p>';
-      const desc = (aObj.Description||'')
-        .replace(/\bDESCRIPTION\b\.?$/i,'');
+      /* ——— compute article “A” vs “An” for the subheading ——— */
+      const firstLetter = h.Faction.trim().charAt(0).toLowerCase();
+      const useAn = ['a','e','i','o','u'].includes(firstLetter);
+      const article = useAn ? 'An' : 'A';
 
-      /* insert each card with background-image inline */
+      /* ——— condensed ability effects (unchanged except we'll only use Description) ——— */
+      const desc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
+
+      /* ——— build HTML for each card ——— */
       grid.insertAdjacentHTML('beforeend', `
         <div class="hero-card"
              style="background-image:url('${bgImg}')">
+          <!-- 1) Portrait -->
           <img src="${imgSrc}"
                alt="${name}"
                class="portrait"
                loading="lazy">
+
+          <!-- 2) Name Banner -->
           <div class="hero-name-banner">
             <span>${name}</span>
           </div>
-          <div class="card-body">
-            <div class="stats">
-              <div class="stats-primary">
-                <div>STR ${h.Strength}</div>
-                <div>DEX ${h.Dexterity}</div>
-                <div>CON ${h.Constitution}</div>
-                <div>INT ${h.Intelligence}</div>
-                <div>WIS ${h.Wisdom}</div>
-                <div>CHA ${h.Charisma}</div>
-              </div>
-              <div class="stats-secondary">
-                <div>HP ${h.Health}</div>
-                <div>Mana ${h.Mana}</div>
-              </div>
+
+          <!-- 3) NEW subheading -->
+          <div class="hero-subheading">
+            ${article} ${h.Faction} ${h.Class} from the ${h.Kingdom}
+          </div>
+
+          <!-- 4) Stats block (moved up) -->
+          <div class="stats">
+            <div class="stats-primary">
+              <div>STR ${h.Strength}</div>
+              <div>DEX ${h.Dexterity}</div>
+              <div>CON ${h.Constitution}</div>
+              <div>INT ${h.Intelligence}</div>
+              <div>WIS ${h.Wisdom}</div>
+              <div>CHA ${h.Charisma}</div>
             </div>
-            <div class="meta">
-              <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
-              <p><strong>Faction:</strong> ${h.Faction}</p>
-              <p><strong>Class:</strong> ${h.Class}</p>
+            <div class="stats-secondary">
+              <div>HP ${h.Health}</div>
+              <div>Mana ${h.Mana}</div>
             </div>
-            <div class="ability-block">
-              <span class="ability-container">
-                <span class="ability-name">${h.Ability}</span>
-                <span class="ability-effects">${effectHtml}</span>
-                <span class="tooltip-box">${desc}</span>
+          </div>
+
+          <!-- 5) Meta lines (Kingdom/Faction/Class), if you still want these badges -->
+          <div class="meta">
+            <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
+            <p><strong>Faction:</strong> ${h.Faction}</p>
+            <p><strong>Class:</strong> ${h.Class}</p>
+          </div>
+
+          <!-- 6) Ability on one line “[ABILITY]: [DESCRIPTION]” -->
+          <div class="ability-block">
+            <span class="ability-container">
+              <span class="ability-name">
+                ${h.Ability}:
               </span>
-            </div>
+              <span class="ability-effects">
+                ${desc || 'No description available.'}
+              </span>
+            </span>
           </div>
         </div>
       `);
