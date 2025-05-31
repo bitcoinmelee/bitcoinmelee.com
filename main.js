@@ -69,90 +69,119 @@ window.addEventListener('DOMContentLoaded', () => {
 
     /* --------------------------------------------------- render grid */
   function renderGrid(list){
-    const wrap = $('#roster');
-    wrap.innerHTML = '';
-    const grid = document.createElement('div');
-    grid.className = 'hero-grid';
+  const wrap = $('#roster');
+  wrap.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'hero-grid';
 
-    list.forEach(h => {
-      const name   = toTitleCase(h.Name);
-      const imgSrc = portraitUrl(h.Name);
-      const aObj   = ABILITIES[h.Ability] || {};
-      const arche  = heroArchetype(h);
-      const bgImg  = arche
-        ? `images/card_backgrounds/${arche}.webp`
-        : '';
+  list.forEach(h => {
+    const name   = toTitleCase(h.Name);
+    const imgSrc = portraitUrl(h.Name);
+    const aObj   = ABILITIES[h.Ability] || {};
+    const arche  = heroArchetype(h);
+    const bgImg  = arche
+      ? `images/card_backgrounds/${arche}.webp`
+      : '';
 
-      /* ——— compute article “A” vs “An” for the subheading ——— */
-      const firstLetter = h.Faction.trim().charAt(0).toLowerCase();
-      const useAn = ['a','e','i','o','u'].includes(firstLetter);
-      const article = useAn ? 'An' : 'A';
+    /* ——— compute article “A” vs “An” ——— */
+    const firstLetter = h.Faction.trim().charAt(0).toLowerCase();
+    const useAn = ['a','e','i','o','u'].includes(firstLetter);
+    const article = useAn ? 'An' : 'A';
 
-      /* ——— condensed ability effects (unchanged except we'll only use Description) ——— */
-      const desc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
+    /* ——— build flattened effects string ——— */
+    const effectsByTarget = {};
+    Object.entries(aObj)
+      .filter(([k,v]) => k !== 'Description' && v !== 0)
+      .forEach(([k,v]) => {
+        const [stat, targetRaw] = k.split('_');
+        const abbr = STAT_ABBR[stat] || stat.toUpperCase();
+        const sign = v > 0 ? `+${v}` : `${v}`;
+        const target = targetRaw || 'Self';
+        (effectsByTarget[target] = effectsByTarget[target] || [])
+          .push(`${sign} ${abbr}`);
+      });
 
-      /* ——— build HTML for each card ——— */
-      grid.insertAdjacentHTML('beforeend', `
-        <div class="hero-card"
-             style="background-image:url('${bgImg}')">
-          <!-- 1) Portrait -->
-          <img src="${imgSrc}"
-               alt="${name}"
-               class="portrait"
-               loading="lazy">
-
-          <!-- 2) Name Banner -->
-          <div class="hero-name-banner">
-            <span>${name}</span>
-          </div>
-
-          <!-- 3) NEW subheading -->
-          <div class="hero-subheading">
-            ${article} ${h.Faction} ${h.Class} from ${h.Kingdom}
-          </div>
-
-          <!-- 4) Stats block (moved up) -->
-          <div class="stats">
-            <div class="stats-primary">
-              <div>STR ${h.Strength}</div>
-              <div>DEX ${h.Dexterity}</div>
-              <div>CON ${h.Constitution}</div>
-              <div>INT ${h.Intelligence}</div>
-              <div>WIS ${h.Wisdom}</div>
-              <div>CHA ${h.Charisma}</div>
-            </div>
-            <div class="stats-secondary">
-              <div>HP ${h.Health}</div>
-              <div>Mana ${h.Mana}</div>
-            </div>
-          </div>
-
-          <!-- 5) Meta lines (Kingdom/Faction/Class), if you still want these badges -->
-          <div class="meta">
-            <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
-            <p><strong>Faction:</strong> ${h.Faction}</p>
-            <p><strong>Class:</strong> ${h.Class}</p>
-          </div>
-
-          <!-- 6) Ability on one line “[ABILITY]: [DESCRIPTION]” -->
-          <div class="ability-block">
-            <span class="ability-container">
-              <span class="ability-name">
-                ${h.Ability}:
-              </span>
-              <span class="ability-effects">
-                ${desc || 'No description available.'}
-              </span>
-            </span>
-          </div>
-        </div>
-      `);
+    const effectLines = Object.entries(effectsByTarget).map(([t, arr]) => {
+      if (arr.length === 1) {
+        return `${arr[0]} to ${t}`;
+      } else {
+        return `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`;
+      }
     });
 
-    wrap.appendChild(grid);
-    wrap.classList.remove('hidden');
-    activateFloatingTooltips();
-  }
+    const effectText = effectLines.length
+      ? effectLines.join('; ')
+      : 'No effect data.';
+
+    /* ——— pull description for the tooltip ——— */
+    const desc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
+    
+    /* ——— insert each card ——— */
+    grid.insertAdjacentHTML('beforeend', `
+      <div class="hero-card"
+           style="background-image:url('${bgImg}')">
+        <!-- 1) Portrait -->
+        <img src="${imgSrc}"
+             alt="${name}"
+             class="portrait"
+             loading="lazy">
+
+        <!-- 2) Name Banner -->
+        <div class="hero-name-banner">
+          <span>${name}</span>
+        </div>
+
+        <!-- 3) Subheading: “A/An [Faction] [Class] [Kingdom]” -->
+        <div class="hero-subheading">
+          ${article} ${h.Faction} ${h.Class} ${h.Kingdom}
+        </div>
+
+        <!-- 4) Stats block -->
+        <div class="stats">
+          <div class="stats-primary">
+            <div>STR ${h.Strength}</div>
+            <div>DEX ${h.Dexterity}</div>
+            <div>CON ${h.Constitution}</div>
+            <div>INT ${h.Intelligence}</div>
+            <div>WIS ${h.Wisdom}</div>
+            <div>CHA ${h.Charisma}</div>
+          </div>
+          <div class="stats-secondary">
+            <div>HP ${h.Health}</div>
+            <div>Mana ${h.Mana}</div>
+          </div>
+        </div>
+
+        <!-- 5) Meta badges (Kingdom / Faction / Class) -->
+        <div class="meta">
+          <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
+          <p><strong>Faction:</strong> ${h.Faction}</p>
+          <p><strong>Class:</strong> ${h.Class}</p>
+        </div>
+
+        <!-- 6) Ability “button”: [ABILITY]: [EFFECT TEXT], with hover tooltip = description -->
+        <div class="ability-block">
+          <span class="ability-container">
+            <span class="ability-name">
+              ${h.Ability}:
+            </span>
+            <span class="ability-effects">
+              ${effectText}
+            </span>
+            <span class="tooltip-box">
+              ${desc || 'No description available.'}
+            </span>
+          </span>
+        </div>
+      </div>
+    `);
+  });
+
+  wrap.appendChild(grid);
+  wrap.classList.remove('hidden');
+  activateFloatingTooltips();
+}
+
 
   /* ---------------------------------- floating tooltip behaviour */
   function activateFloatingTooltips(){
