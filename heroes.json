@@ -12,7 +12,7 @@
     "Faction":"Umbral",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"fernando",
@@ -27,7 +27,7 @@
     "Faction":"Runic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"curtis",
@@ -42,7 +42,7 @@
     "Faction":"Umbral",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"roldan",
@@ -57,7 +57,7 @@
     "Faction":"Runic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"emir",
@@ -72,7 +72,7 @@
     "Faction":"Umbral",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"meghan",
@@ -87,7 +87,7 @@
     "Faction":"Umbral",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"justin",
@@ -102,7 +102,7 @@
     "Faction":"Seraphic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"gioffre",
@@ -117,7 +117,7 @@
     "Faction":"Runic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"slawomir",
@@ -132,7 +132,7 @@
     "Faction":"Seraphic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"bonnie",
@@ -147,7 +147,7 @@
     "Faction":"Runic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ulises",
@@ -162,7 +162,7 @@
     "Faction":"Umbral",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"grace",
@@ -177,7 +177,7 @@
     "Faction":"Runic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"neil",
@@ -192,7 +192,7 @@
     "Faction":"Umbral",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"edward",
@@ -207,7 +207,7 @@
     "Faction":"Umbral",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"elfriede",
@@ -222,7 +222,7 @@
     "Faction":"Seraphic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jacob",
@@ -237,7 +237,7 @@
     "Faction":"Runic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"annkathrin",
@@ -252,7 +252,7 @@
     "Faction":"Seraphic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"maya",
@@ -267,7 +267,7 @@
     "Faction":"Runic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ogus",
@@ -282,7 +282,7 @@
     "Faction":"Seraphic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jiri",
@@ -297,7 +297,7 @@
     "Faction":"Runic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"leni",
@@ -312,7 +312,7 @@
     "Faction":"Runic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"bayram",
@@ -327,7 +327,7 @@
     "Faction":"Seraphic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"olga",
@@ -342,7 +342,7 @@
     "Faction":"Umbral",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hedy",
@@ -357,7 +357,7 @@
     "Faction":"Seraphic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"zlatko",
@@ -372,7 +372,7 @@
     "Faction":"Seraphic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"anke",
@@ -387,7 +387,7 @@
     "Faction":"Seraphic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"vernon",
@@ -402,7 +402,7 @@
     "Faction":"Umbral",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ozkutlu",
@@ -417,7 +417,7 @@
     "Faction":"Umbral",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"gerrit",
@@ -432,7 +432,7 @@
     "Faction":"Runic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jelte",
@@ -447,7 +447,7 @@
     "Faction":"Umbral",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kreszentia",
@@ -462,7 +462,7 @@
     "Faction":"Umbral",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"verim",
@@ -477,7 +477,7 @@
     "Faction":"Umbral",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"loni",
@@ -492,7 +492,7 @@
     "Faction":"Umbral",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ermanno",
@@ -507,7 +507,7 @@
     "Faction":"Runic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kilian",
@@ -522,7 +522,7 @@
     "Faction":"Runic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"morgan",
@@ -537,7 +537,7 @@
     "Faction":"Umbral",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"epifanio",
@@ -552,7 +552,7 @@
     "Faction":"Runic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"polina",
@@ -567,7 +567,7 @@
     "Faction":"Umbral",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"john",
@@ -582,7 +582,7 @@
     "Faction":"Runic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"berit",
@@ -597,7 +597,7 @@
     "Faction":"Runic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kyle",
@@ -612,7 +612,7 @@
     "Faction":"Runic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"carsten",
@@ -627,7 +627,7 @@
     "Faction":"Runic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ewald",
@@ -642,7 +642,7 @@
     "Faction":"Runic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jobst",
@@ -657,7 +657,7 @@
     "Faction":"Umbral",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tillmann",
@@ -672,7 +672,7 @@
     "Faction":"Seraphic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"wiktor",
@@ -687,7 +687,7 @@
     "Faction":"Runic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"pepe",
@@ -702,7 +702,7 @@
     "Faction":"Runic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"megan",
@@ -717,7 +717,7 @@
     "Faction":"Seraphic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ernstdieter",
@@ -732,7 +732,7 @@
     "Faction":"Runic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"rachel",
@@ -747,7 +747,7 @@
     "Faction":"Runic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jasmine",
@@ -762,7 +762,7 @@
     "Faction":"Umbral",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"maxim",
@@ -777,7 +777,7 @@
     "Faction":"Runic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"nino",
@@ -792,7 +792,7 @@
     "Faction":"Umbral",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"inna",
@@ -807,7 +807,7 @@
     "Faction":"Umbral",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"eileen",
@@ -822,7 +822,7 @@
     "Faction":"Runic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"abdul",
@@ -837,7 +837,7 @@
     "Faction":"Umbral",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ricardo",
@@ -852,7 +852,7 @@
     "Faction":"Seraphic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"anouk",
@@ -867,7 +867,7 @@
     "Faction":"Umbral",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"keith",
@@ -882,7 +882,7 @@
     "Faction":"Runic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ekaterina",
@@ -897,7 +897,7 @@
     "Faction":"Runic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hajo",
@@ -912,7 +912,7 @@
     "Faction":"Runic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"darko",
@@ -927,7 +927,7 @@
     "Faction":"Umbral",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"annette",
@@ -942,7 +942,7 @@
     "Faction":"Runic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"norma",
@@ -957,7 +957,7 @@
     "Faction":"Runic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"horstdieter",
@@ -972,7 +972,7 @@
     "Faction":"Seraphic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jennifer",
@@ -987,7 +987,7 @@
     "Faction":"Runic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"bastian",
@@ -1002,7 +1002,7 @@
     "Faction":"Umbral",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"gero",
@@ -1017,7 +1017,7 @@
     "Faction":"Umbral",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"igor",
@@ -1032,7 +1032,7 @@
     "Faction":"Seraphic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"leanne",
@@ -1047,7 +1047,7 @@
     "Faction":"Runic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"altagracia",
@@ -1062,7 +1062,7 @@
     "Faction":"Runic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ties",
@@ -1077,7 +1077,7 @@
     "Faction":"Seraphic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"mathew",
@@ -1092,7 +1092,7 @@
     "Faction":"Runic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"magrit",
@@ -1107,7 +1107,7 @@
     "Faction":"Seraphic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"durante",
@@ -1122,7 +1122,7 @@
     "Faction":"Umbral",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"janpeter",
@@ -1137,7 +1137,7 @@
     "Faction":"Seraphic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kick",
@@ -1152,7 +1152,7 @@
     "Faction":"Runic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"segismundo",
@@ -1167,7 +1167,7 @@
     "Faction":"Seraphic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"gervasio",
@@ -1182,7 +1182,7 @@
     "Faction":"Seraphic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jacinto",
@@ -1197,7 +1197,7 @@
     "Faction":"Runic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"joshua",
@@ -1212,7 +1212,7 @@
     "Faction":"Seraphic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"joey",
@@ -1227,7 +1227,7 @@
     "Faction":"Runic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"vilma",
@@ -1242,7 +1242,7 @@
     "Faction":"Runic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"dolores",
@@ -1257,7 +1257,7 @@
     "Faction":"Seraphic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hortense",
@@ -1272,7 +1272,7 @@
     "Faction":"Seraphic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"mohamed",
@@ -1287,7 +1287,7 @@
     "Faction":"Seraphic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"mona",
@@ -1302,7 +1302,7 @@
     "Faction":"Seraphic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"romy",
@@ -1317,7 +1317,7 @@
     "Faction":"Runic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"nanni",
@@ -1332,7 +1332,7 @@
     "Faction":"Umbral",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"cemal",
@@ -1347,7 +1347,7 @@
     "Faction":"Seraphic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"petar",
@@ -1362,7 +1362,7 @@
     "Faction":"Seraphic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"capucine",
@@ -1377,7 +1377,7 @@
     "Faction":"Runic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kyano",
@@ -1392,7 +1392,7 @@
     "Faction":"Seraphic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"adam",
@@ -1407,7 +1407,7 @@
     "Faction":"Runic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ezequiel",
@@ -1422,7 +1422,7 @@
     "Faction":"Seraphic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"eleanor",
@@ -1437,7 +1437,7 @@
     "Faction":"Seraphic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"irmengard",
@@ -1452,7 +1452,7 @@
     "Faction":"Umbral",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"zeki",
@@ -1467,7 +1467,7 @@
     "Faction":"Seraphic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"damaris",
@@ -1482,7 +1482,7 @@
     "Faction":"Umbral",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"sebastien",
@@ -1497,7 +1497,7 @@
     "Faction":"Runic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"wieland",
@@ -1512,7 +1512,7 @@
     "Faction":"Umbral",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"inken",
@@ -1527,7 +1527,7 @@
     "Faction":"Umbral",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"diamond",
@@ -1542,7 +1542,7 @@
     "Faction":"Runic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"casey",
@@ -1557,7 +1557,7 @@
     "Faction":"Runic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"humberto",
@@ -1572,7 +1572,7 @@
     "Faction":"Seraphic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"romuald",
@@ -1587,7 +1587,7 @@
     "Faction":"Seraphic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"clayton",
@@ -1602,7 +1602,7 @@
     "Faction":"Seraphic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"alfons",
@@ -1617,7 +1617,7 @@
     "Faction":"Umbral",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tara",
@@ -1632,7 +1632,7 @@
     "Faction":"Seraphic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"piedad",
@@ -1647,7 +1647,7 @@
     "Faction":"Seraphic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kyara",
@@ -1662,7 +1662,7 @@
     "Faction":"Umbral",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"wenke",
@@ -1677,7 +1677,7 @@
     "Faction":"Seraphic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"dorthe",
@@ -1692,7 +1692,7 @@
     "Faction":"Seraphic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"anna",
@@ -1707,7 +1707,7 @@
     "Faction":"Umbral",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"gesche",
@@ -1722,7 +1722,7 @@
     "Faction":"Umbral",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"graham",
@@ -1737,7 +1737,7 @@
     "Faction":"Seraphic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"vassilios",
@@ -1752,7 +1752,7 @@
     "Faction":"Seraphic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"renato",
@@ -1767,7 +1767,7 @@
     "Faction":"Umbral",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"angela",
@@ -1782,7 +1782,7 @@
     "Faction":"Umbral",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"waldtraut",
@@ -1797,7 +1797,7 @@
     "Faction":"Seraphic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"dustin",
@@ -1812,7 +1812,7 @@
     "Faction":"Runic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tino",
@@ -1827,7 +1827,7 @@
     "Faction":"Seraphic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"lene",
@@ -1842,7 +1842,7 @@
     "Faction":"Seraphic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"loretta",
@@ -1857,7 +1857,7 @@
     "Faction":"Seraphic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"aitor",
@@ -1872,7 +1872,7 @@
     "Faction":"Seraphic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"doreen",
@@ -1887,7 +1887,7 @@
     "Faction":"Umbral",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"yessica",
@@ -1902,7 +1902,7 @@
     "Faction":"Runic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"aitana",
@@ -1917,7 +1917,7 @@
     "Faction":"Seraphic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"agnieszka",
@@ -1932,7 +1932,7 @@
     "Faction":"Seraphic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"nigel",
@@ -1947,7 +1947,7 @@
     "Faction":"Seraphic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ninetta",
@@ -1962,7 +1962,7 @@
     "Faction":"Umbral",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"mirta",
@@ -1977,7 +1977,7 @@
     "Faction":"Seraphic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"aiden",
@@ -1992,7 +1992,7 @@
     "Faction":"Runic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tiziana",
@@ -2007,7 +2007,7 @@
     "Faction":"Seraphic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ramiro",
@@ -2022,7 +2022,7 @@
     "Faction":"Runic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"arnfried",
@@ -2037,7 +2037,7 @@
     "Faction":"Seraphic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"holly",
@@ -2052,7 +2052,7 @@
     "Faction":"Seraphic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"zeljko",
@@ -2067,7 +2067,7 @@
     "Faction":"Seraphic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"julia",
@@ -2082,7 +2082,7 @@
     "Faction":"Seraphic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"mirco",
@@ -2097,7 +2097,7 @@
     "Faction":"Seraphic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"rhonda",
@@ -2112,7 +2112,7 @@
     "Faction":"Runic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"bozena",
@@ -2127,7 +2127,7 @@
     "Faction":"Seraphic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"lothar",
@@ -2142,7 +2142,7 @@
     "Faction":"Umbral",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"pamela",
@@ -2157,7 +2157,7 @@
     "Faction":"Runic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"borja",
@@ -2172,7 +2172,7 @@
     "Faction":"Seraphic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"dalila",
@@ -2187,7 +2187,7 @@
     "Faction":"Umbral",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"orlando",
@@ -2202,7 +2202,7 @@
     "Faction":"Umbral",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"cora",
@@ -2217,7 +2217,7 @@
     "Faction":"Seraphic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"fiona",
@@ -2232,7 +2232,7 @@
     "Faction":"Runic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"vidal",
@@ -2247,7 +2247,7 @@
     "Faction":"Runic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hayden",
@@ -2262,7 +2262,7 @@
     "Faction":"Umbral",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"luis",
@@ -2277,7 +2277,7 @@
     "Faction":"Runic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"evita",
@@ -2292,7 +2292,7 @@
     "Faction":"Umbral",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"adele",
@@ -2307,7 +2307,7 @@
     "Faction":"Runic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jules",
@@ -2322,7 +2322,7 @@
     "Faction":"Seraphic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"maik",
@@ -2337,7 +2337,7 @@
     "Faction":"Seraphic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"perry",
@@ -2352,7 +2352,7 @@
     "Faction":"Seraphic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tilman",
@@ -2367,7 +2367,7 @@
     "Faction":"Seraphic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"itzel",
@@ -2382,7 +2382,7 @@
     "Faction":"Umbral",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hedwig",
@@ -2397,7 +2397,7 @@
     "Faction":"Runic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tomasz",
@@ -2412,7 +2412,7 @@
     "Faction":"Umbral",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"arkadiusz",
@@ -2427,7 +2427,7 @@
     "Faction":"Runic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"yuri",
@@ -2442,7 +2442,7 @@
     "Faction":"Seraphic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"panfilo",
@@ -2457,7 +2457,7 @@
     "Faction":"Runic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"dennis",
@@ -2472,7 +2472,7 @@
     "Faction":"Umbral",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"lope",
@@ -2487,7 +2487,7 @@
     "Faction":"Runic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hugues",
@@ -2502,7 +2502,7 @@
     "Faction":"Seraphic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"arnim",
@@ -2517,7 +2517,7 @@
     "Faction":"Runic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"edith",
@@ -2532,7 +2532,7 @@
     "Faction":"Runic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"celso",
@@ -2547,7 +2547,7 @@
     "Faction":"Runic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"finn",
@@ -2562,7 +2562,7 @@
     "Faction":"Seraphic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"melvin",
@@ -2577,7 +2577,7 @@
     "Faction":"Seraphic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"elliott",
@@ -2592,7 +2592,7 @@
     "Faction":"Seraphic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"svetlana",
@@ -2607,7 +2607,7 @@
     "Faction":"Runic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"beau",
@@ -2622,7 +2622,7 @@
     "Faction":"Umbral",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"itziar",
@@ -2637,7 +2637,7 @@
     "Faction":"Umbral",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"evie",
@@ -2652,7 +2652,7 @@
     "Faction":"Seraphic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"simon",
@@ -2667,7 +2667,7 @@
     "Faction":"Runic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tommy",
@@ -2682,7 +2682,7 @@
     "Faction":"Seraphic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"szymon",
@@ -2697,7 +2697,7 @@
     "Faction":"Seraphic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"aenne",
@@ -2712,7 +2712,7 @@
     "Faction":"Seraphic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"warren",
@@ -2727,7 +2727,7 @@
     "Faction":"Umbral",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"karla",
@@ -2742,7 +2742,7 @@
     "Faction":"Umbral",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"oliwier",
@@ -2757,7 +2757,7 @@
     "Faction":"Seraphic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"eloisa",
@@ -2772,7 +2772,7 @@
     "Faction":"Seraphic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"reza",
@@ -2787,7 +2787,7 @@
     "Faction":"Seraphic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"zacarias",
@@ -2802,7 +2802,7 @@
     "Faction":"Seraphic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"yesenia",
@@ -2817,7 +2817,7 @@
     "Faction":"Runic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"yago",
@@ -2832,7 +2832,7 @@
     "Faction":"Umbral",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"pawel",
@@ -2847,7 +2847,7 @@
     "Faction":"Seraphic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"isaura",
@@ -2862,7 +2862,7 @@
     "Faction":"Seraphic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"debbie",
@@ -2877,7 +2877,7 @@
     "Faction":"Seraphic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"gerta",
@@ -2892,7 +2892,7 @@
     "Faction":"Runic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"climaco",
@@ -2907,7 +2907,7 @@
     "Faction":"Seraphic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tanya",
@@ -2922,7 +2922,7 @@
     "Faction":"Runic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"laetitia",
@@ -2937,7 +2937,7 @@
     "Faction":"Umbral",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jorge",
@@ -2952,7 +2952,7 @@
     "Faction":"Seraphic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"elly",
@@ -2967,7 +2967,7 @@
     "Faction":"Seraphic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"caua",
@@ -2982,7 +2982,7 @@
     "Faction":"Umbral",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tabea",
@@ -2997,7 +2997,7 @@
     "Faction":"Umbral",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"noortje",
@@ -3012,7 +3012,7 @@
     "Faction":"Runic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"rfkye",
@@ -3027,7 +3027,7 @@
     "Faction":"Umbral",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"maggie",
@@ -3042,7 +3042,7 @@
     "Faction":"Runic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"sjoerd",
@@ -3057,7 +3057,7 @@
     "Faction":"Seraphic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"bautista",
@@ -3072,7 +3072,7 @@
     "Faction":"Runic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"eulalia",
@@ -3087,7 +3087,7 @@
     "Faction":"Umbral",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"denise",
@@ -3102,7 +3102,7 @@
     "Faction":"Umbral",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"melody",
@@ -3117,7 +3117,7 @@
     "Faction":"Runic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"xaver",
@@ -3132,7 +3132,7 @@
     "Faction":"Runic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"amedeo",
@@ -3147,7 +3147,7 @@
     "Faction":"Runic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hatice",
@@ -3162,7 +3162,7 @@
     "Faction":"Seraphic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ricky",
@@ -3177,7 +3177,7 @@
     "Faction":"Umbral",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"raphaela",
@@ -3192,7 +3192,7 @@
     "Faction":"Runic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"tulay",
@@ -3207,7 +3207,7 @@
     "Faction":"Umbral",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"devin",
@@ -3222,7 +3222,7 @@
     "Faction":"Runic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"albert",
@@ -3237,7 +3237,7 @@
     "Faction":"Seraphic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"selim",
@@ -3252,7 +3252,7 @@
     "Faction":"Umbral",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"clinton",
@@ -3267,7 +3267,7 @@
     "Faction":"Seraphic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"cole",
@@ -3282,7 +3282,7 @@
     "Faction":"Seraphic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"juan",
@@ -3297,7 +3297,7 @@
     "Faction":"Runic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"elizabeth",
@@ -3312,7 +3312,7 @@
     "Faction":"Runic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ottmar",
@@ -3327,7 +3327,7 @@
     "Faction":"Runic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"conrad",
@@ -3342,7 +3342,7 @@
     "Faction":"Umbral",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"sharon",
@@ -3357,7 +3357,7 @@
     "Faction":"Runic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"suse",
@@ -3372,7 +3372,7 @@
     "Faction":"Runic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"niccolo",
@@ -3387,7 +3387,7 @@
     "Faction":"Umbral",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hanspeter",
@@ -3402,7 +3402,7 @@
     "Faction":"Runic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ortwin",
@@ -3417,7 +3417,7 @@
     "Faction":"Runic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"swen",
@@ -3432,7 +3432,7 @@
     "Faction":"Runic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"sean",
@@ -3447,7 +3447,7 @@
     "Faction":"Umbral",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"colton",
@@ -3462,7 +3462,7 @@
     "Faction":"Seraphic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"catrin",
@@ -3477,7 +3477,7 @@
     "Faction":"Seraphic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"amilcar",
@@ -3492,7 +3492,7 @@
     "Faction":"Runic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ibrahim",
@@ -3507,7 +3507,7 @@
     "Faction":"Umbral",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"imre",
@@ -3522,7 +3522,7 @@
     "Faction":"Umbral",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"pastora",
@@ -3537,7 +3537,7 @@
     "Faction":"Seraphic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"jayda",
@@ -3552,7 +3552,7 @@
     "Faction":"Seraphic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"urszula",
@@ -3567,7 +3567,7 @@
     "Faction":"Umbral",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"grazyna",
@@ -3582,7 +3582,7 @@
     "Faction":"Seraphic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"necati",
@@ -3597,7 +3597,7 @@
     "Faction":"Umbral",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"sedat",
@@ -3612,7 +3612,7 @@
     "Faction":"Runic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"baudelio",
@@ -3627,7 +3627,7 @@
     "Faction":"Runic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"miroslav",
@@ -3642,7 +3642,7 @@
     "Faction":"Seraphic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"ugolino",
@@ -3657,7 +3657,7 @@
     "Faction":"Umbral",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"lonnie",
@@ -3672,7 +3672,7 @@
     "Faction":"Runic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"kyra",
@@ -3687,7 +3687,7 @@
     "Faction":"Seraphic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"hardy",
@@ -3702,7 +3702,7 @@
     "Faction":"Runic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"zdravko",
@@ -3717,7 +3717,7 @@
     "Faction":"Runic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"morris",
@@ -3732,7 +3732,7 @@
     "Faction":"Seraphic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ghostly Isles"
+    "Kingdom":"The Ghostly Isles"
   },
   {
     "Name":"nout",
@@ -3747,7 +3747,7 @@
     "Faction":"Nebular",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"pelayo",
@@ -3762,7 +3762,7 @@
     "Faction":"Titanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"zakaria",
@@ -3777,7 +3777,7 @@
     "Faction":"Titanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"zeferino",
@@ -3792,7 +3792,7 @@
     "Faction":"Nebular",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"raymond",
@@ -3807,7 +3807,7 @@
     "Faction":"Titanic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"owen",
@@ -3822,7 +3822,7 @@
     "Faction":"Nebular",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"nydia",
@@ -3837,7 +3837,7 @@
     "Faction":"Titanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"bogdan",
@@ -3852,7 +3852,7 @@
     "Faction":"Titanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"nurettin",
@@ -3867,7 +3867,7 @@
     "Faction":"Nebular",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jovan",
@@ -3882,7 +3882,7 @@
     "Faction":"Titanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"folker",
@@ -3897,7 +3897,7 @@
     "Faction":"Nebular",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"erik",
@@ -3912,7 +3912,7 @@
     "Faction":"Titanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"hernando",
@@ -3927,7 +3927,7 @@
     "Faction":"Nebular",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"anastasie",
@@ -3942,7 +3942,7 @@
     "Faction":"Nebular",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"artemio",
@@ -3957,7 +3957,7 @@
     "Faction":"Nebular",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"leslie",
@@ -3972,7 +3972,7 @@
     "Faction":"Nebular",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"athanasios",
@@ -3987,7 +3987,7 @@
     "Faction":"Nebular",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"steven",
@@ -4002,7 +4002,7 @@
     "Faction":"Nebular",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"enrico",
@@ -4017,7 +4017,7 @@
     "Faction":"Nebular",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"vitali",
@@ -4032,7 +4032,7 @@
     "Faction":"Titanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"clotilde",
@@ -4047,7 +4047,7 @@
     "Faction":"Titanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"theda",
@@ -4062,7 +4062,7 @@
     "Faction":"Nebular",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ascension",
@@ -4077,7 +4077,7 @@
     "Faction":"Titanic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"etelvina",
@@ -4092,7 +4092,7 @@
     "Faction":"Nebular",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"reimer",
@@ -4107,7 +4107,7 @@
     "Faction":"Nebular",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"elwira",
@@ -4122,7 +4122,7 @@
     "Faction":"Titanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"gebhard",
@@ -4137,7 +4137,7 @@
     "Faction":"Nebular",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"aziz",
@@ -4152,7 +4152,7 @@
     "Faction":"Nebular",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"quinten",
@@ -4167,7 +4167,7 @@
     "Faction":"Nebular",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ayden",
@@ -4182,7 +4182,7 @@
     "Faction":"Nebular",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"soren",
@@ -4197,7 +4197,7 @@
     "Faction":"Nebular",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"virginia",
@@ -4212,7 +4212,7 @@
     "Faction":"Nebular",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"hugh",
@@ -4227,7 +4227,7 @@
     "Faction":"Titanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"lidija",
@@ -4242,7 +4242,7 @@
     "Faction":"Nebular",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"chus",
@@ -4257,7 +4257,7 @@
     "Faction":"Nebular",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"kevin",
@@ -4272,7 +4272,7 @@
     "Faction":"Titanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"hunter",
@@ -4287,7 +4287,7 @@
     "Faction":"Titanic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"mandy",
@@ -4302,7 +4302,7 @@
     "Faction":"Nebular",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"timothy",
@@ -4317,7 +4317,7 @@
     "Faction":"Titanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jadwiga",
@@ -4332,7 +4332,7 @@
     "Faction":"Nebular",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"dorle",
@@ -4347,7 +4347,7 @@
     "Faction":"Titanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ralf",
@@ -4362,7 +4362,7 @@
     "Faction":"Titanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"gerwin",
@@ -4377,7 +4377,7 @@
     "Faction":"Nebular",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"korbinian",
@@ -4392,7 +4392,7 @@
     "Faction":"Titanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"esparta",
@@ -4407,7 +4407,7 @@
     "Faction":"Titanic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"coluccio",
@@ -4422,7 +4422,7 @@
     "Faction":"Titanic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"eligia",
@@ -4437,7 +4437,7 @@
     "Faction":"Titanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"eberhardt",
@@ -4452,7 +4452,7 @@
     "Faction":"Titanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"hulda",
@@ -4467,7 +4467,7 @@
     "Faction":"Titanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"tirza",
@@ -4482,7 +4482,7 @@
     "Faction":"Titanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jann",
@@ -4497,7 +4497,7 @@
     "Faction":"Titanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"kacper",
@@ -4512,7 +4512,7 @@
     "Faction":"Nebular",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"james",
@@ -4527,7 +4527,7 @@
     "Faction":"Titanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"fulgencio",
@@ -4542,7 +4542,7 @@
     "Faction":"Nebular",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"odette",
@@ -4557,7 +4557,7 @@
     "Faction":"Titanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"judy",
@@ -4572,7 +4572,7 @@
     "Faction":"Nebular",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"remedios",
@@ -4587,7 +4587,7 @@
     "Faction":"Titanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"kaja",
@@ -4602,7 +4602,7 @@
     "Faction":"Titanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"alcides",
@@ -4617,7 +4617,7 @@
     "Faction":"Nebular",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"klara",
@@ -4632,7 +4632,7 @@
     "Faction":"Titanic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jerzy",
@@ -4647,7 +4647,7 @@
     "Faction":"Titanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"moises",
@@ -4662,7 +4662,7 @@
     "Faction":"Titanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"mark",
@@ -4677,7 +4677,7 @@
     "Faction":"Nebular",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"wencke",
@@ -4692,7 +4692,7 @@
     "Faction":"Titanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"elsa",
@@ -4707,7 +4707,7 @@
     "Faction":"Nebular",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"dillon",
@@ -4722,7 +4722,7 @@
     "Faction":"Nebular",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"diego",
@@ -4737,7 +4737,7 @@
     "Faction":"Nebular",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"olimpia",
@@ -4752,7 +4752,7 @@
     "Faction":"Titanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"frauke",
@@ -4767,7 +4767,7 @@
     "Faction":"Titanic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ella",
@@ -4782,7 +4782,7 @@
     "Faction":"Nebular",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"magarete",
@@ -4797,7 +4797,7 @@
     "Faction":"Titanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"arthur",
@@ -4812,7 +4812,7 @@
     "Faction":"Nebular",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"venancio",
@@ -4827,7 +4827,7 @@
     "Faction":"Nebular",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"andrew",
@@ -4842,7 +4842,7 @@
     "Faction":"Titanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"anabelen",
@@ -4857,7 +4857,7 @@
     "Faction":"Titanic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ayvas",
@@ -4872,7 +4872,7 @@
     "Faction":"Nebular",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"eckart",
@@ -4887,7 +4887,7 @@
     "Faction":"Titanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ximena",
@@ -4902,7 +4902,7 @@
     "Faction":"Nebular",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"edouard",
@@ -4917,7 +4917,7 @@
     "Faction":"Nebular",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"dittmar",
@@ -4932,7 +4932,7 @@
     "Faction":"Titanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"lori",
@@ -4947,7 +4947,7 @@
     "Faction":"Nebular",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"perlita",
@@ -4962,7 +4962,7 @@
     "Faction":"Nebular",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jayson",
@@ -4977,7 +4977,7 @@
     "Faction":"Nebular",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"koen",
@@ -4992,7 +4992,7 @@
     "Faction":"Nebular",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"liselotte",
@@ -5007,7 +5007,7 @@
     "Faction":"Nebular",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"kayla",
@@ -5022,7 +5022,7 @@
     "Faction":"Nebular",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"samantha",
@@ -5037,7 +5037,7 @@
     "Faction":"Nebular",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"guido",
@@ -5052,7 +5052,7 @@
     "Faction":"Nebular",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jerome",
@@ -5067,7 +5067,7 @@
     "Faction":"Titanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"bazej",
@@ -5082,7 +5082,7 @@
     "Faction":"Nebular",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"drew",
@@ -5097,7 +5097,7 @@
     "Faction":"Nebular",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"leroy",
@@ -5112,7 +5112,7 @@
     "Faction":"Nebular",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"azra",
@@ -5127,7 +5127,7 @@
     "Faction":"Titanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"genaro",
@@ -5142,7 +5142,7 @@
     "Faction":"Titanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"otavio",
@@ -5157,7 +5157,7 @@
     "Faction":"Titanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"bruno",
@@ -5172,7 +5172,7 @@
     "Faction":"Nebular",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"oswald",
@@ -5187,7 +5187,7 @@
     "Faction":"Titanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"vinko",
@@ -5202,7 +5202,7 @@
     "Faction":"Nebular",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jasper",
@@ -5217,7 +5217,7 @@
     "Faction":"Titanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"levi",
@@ -5232,7 +5232,7 @@
     "Faction":"Titanic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"pietro",
@@ -5247,7 +5247,7 @@
     "Faction":"Nebular",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"liza",
@@ -5262,7 +5262,7 @@
     "Faction":"Nebular",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"saban",
@@ -5277,7 +5277,7 @@
     "Faction":"Nebular",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"tobias",
@@ -5292,7 +5292,7 @@
     "Faction":"Titanic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"agustina",
@@ -5307,7 +5307,7 @@
     "Faction":"Titanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"gunhild",
@@ -5322,7 +5322,7 @@
     "Faction":"Nebular",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ismet",
@@ -5337,7 +5337,7 @@
     "Faction":"Nebular",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"werner",
@@ -5352,7 +5352,7 @@
     "Faction":"Nebular",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"zoltan",
@@ -5367,7 +5367,7 @@
     "Faction":"Nebular",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"witold",
@@ -5382,7 +5382,7 @@
     "Faction":"Titanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"jake",
@@ -5397,7 +5397,7 @@
     "Faction":"Nebular",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ambar",
@@ -5412,7 +5412,7 @@
     "Faction":"Titanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"monica",
@@ -5427,7 +5427,7 @@
     "Faction":"Titanic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"dina",
@@ -5442,7 +5442,7 @@
     "Faction":"Titanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ruby",
@@ -5457,7 +5457,7 @@
     "Faction":"Nebular",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"sekim",
@@ -5472,7 +5472,7 @@
     "Faction":"Nebular",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"delfina",
@@ -5487,7 +5487,7 @@
     "Faction":"Nebular",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"piotr",
@@ -5502,7 +5502,7 @@
     "Faction":"Titanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"alejandra",
@@ -5517,7 +5517,7 @@
     "Faction":"Titanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"sami",
@@ -5532,7 +5532,7 @@
     "Faction":"Titanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"aloisia",
@@ -5547,7 +5547,7 @@
     "Faction":"Nebular",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"lindsey",
@@ -5562,7 +5562,7 @@
     "Faction":"Nebular",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"gotz",
@@ -5577,7 +5577,7 @@
     "Faction":"Titanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"silke",
@@ -5592,7 +5592,7 @@
     "Faction":"Titanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"rosie",
@@ -5607,7 +5607,7 @@
     "Faction":"Nebular",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"calcedonio",
@@ -5622,7 +5622,7 @@
     "Faction":"Nebular",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ross",
@@ -5637,7 +5637,7 @@
     "Faction":"Titanic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"nilda",
@@ -5652,7 +5652,7 @@
     "Faction":"Nebular",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"florian",
@@ -5667,7 +5667,7 @@
     "Faction":"Nebular",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"salma",
@@ -5682,7 +5682,7 @@
     "Faction":"Nebular",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"gemma",
@@ -5697,7 +5697,7 @@
     "Faction":"Nebular",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"abbas",
@@ -5712,7 +5712,7 @@
     "Faction":"Nebular",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"galo",
@@ -5727,7 +5727,7 @@
     "Faction":"Nebular",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"mitzy",
@@ -5742,7 +5742,7 @@
     "Faction":"Titanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"wiltrud",
@@ -5757,7 +5757,7 @@
     "Faction":"Titanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"colin",
@@ -5772,7 +5772,7 @@
     "Faction":"Titanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"volker",
@@ -5787,7 +5787,7 @@
     "Faction":"Titanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"mikoaj",
@@ -5802,7 +5802,7 @@
     "Faction":"Nebular",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"ainara",
@@ -5817,7 +5817,7 @@
     "Faction":"Nebular",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"oncel",
@@ -5832,7 +5832,7 @@
     "Faction":"Nebular",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"etta",
@@ -5847,7 +5847,7 @@
     "Faction":"Titanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"lize",
@@ -5862,7 +5862,7 @@
     "Faction":"Titanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"rose",
@@ -5877,7 +5877,7 @@
     "Faction":"Nebular",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"joao",
@@ -5892,7 +5892,7 @@
     "Faction":"Nebular",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Ixquiot Dunes"
+    "Kingdom":"The Ixquiot Dunes"
   },
   {
     "Name":"teobaldo",
@@ -5907,7 +5907,7 @@
     "Faction":"Arcadian",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"duane",
@@ -5922,7 +5922,7 @@
     "Faction":"Verdant",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"artur",
@@ -5937,7 +5937,7 @@
     "Faction":"Glacial",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"fortunato",
@@ -5952,7 +5952,7 @@
     "Faction":"Glacial",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"citlali",
@@ -5967,7 +5967,7 @@
     "Faction":"Arcadian",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"nestor",
@@ -5982,7 +5982,7 @@
     "Faction":"Verdant",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dylan",
@@ -5997,7 +5997,7 @@
     "Faction":"Arcadian",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"annita",
@@ -6012,7 +6012,7 @@
     "Faction":"Glacial",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"agathe",
@@ -6027,7 +6027,7 @@
     "Faction":"Glacial",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lolita",
@@ -6042,7 +6042,7 @@
     "Faction":"Verdant",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"alan",
@@ -6057,7 +6057,7 @@
     "Faction":"Echoing",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gernot",
@@ -6072,7 +6072,7 @@
     "Faction":"Verdant",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"espiridion",
@@ -6087,7 +6087,7 @@
     "Faction":"Echoing",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sian",
@@ -6102,7 +6102,7 @@
     "Faction":"Echoing",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"bianca",
@@ -6117,7 +6117,7 @@
     "Faction":"Echoing",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"matilde",
@@ -6132,7 +6132,7 @@
     "Faction":"Echoing",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"elmar",
@@ -6147,7 +6147,7 @@
     "Faction":"Verdant",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gregory",
@@ -6162,7 +6162,7 @@
     "Faction":"Verdant",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"minerva",
@@ -6177,7 +6177,7 @@
     "Faction":"Arcadian",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jeff",
@@ -6192,7 +6192,7 @@
     "Faction":"Glacial",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"selena",
@@ -6207,7 +6207,7 @@
     "Faction":"Verdant",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"birgid",
@@ -6222,7 +6222,7 @@
     "Faction":"Glacial",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"istvan",
@@ -6237,7 +6237,7 @@
     "Faction":"Arcadian",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"todd",
@@ -6252,7 +6252,7 @@
     "Faction":"Echoing",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"william",
@@ -6267,7 +6267,7 @@
     "Faction":"Arcadian",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rosmarie",
@@ -6282,7 +6282,7 @@
     "Faction":"Glacial",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lieve",
@@ -6297,7 +6297,7 @@
     "Faction":"Glacial",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sibel",
@@ -6312,7 +6312,7 @@
     "Faction":"Echoing",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"klemens",
@@ -6327,7 +6327,7 @@
     "Faction":"Echoing",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"claire",
@@ -6342,7 +6342,7 @@
     "Faction":"Verdant",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"beth",
@@ -6357,7 +6357,7 @@
     "Faction":"Arcadian",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"luzia",
@@ -6372,7 +6372,7 @@
     "Faction":"Arcadian",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sibilla",
@@ -6387,7 +6387,7 @@
     "Faction":"Arcadian",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"wolfhard",
@@ -6402,7 +6402,7 @@
     "Faction":"Glacial",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gerald",
@@ -6417,7 +6417,7 @@
     "Faction":"Echoing",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tycho",
@@ -6432,7 +6432,7 @@
     "Faction":"Glacial",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"yara",
@@ -6447,7 +6447,7 @@
     "Faction":"Glacial",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ekkehard",
@@ -6462,7 +6462,7 @@
     "Faction":"Echoing",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"genoveva",
@@ -6477,7 +6477,7 @@
     "Faction":"Echoing",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"morena",
@@ -6492,7 +6492,7 @@
     "Faction":"Echoing",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"iban",
@@ -6507,7 +6507,7 @@
     "Faction":"Echoing",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"amina",
@@ -6522,7 +6522,7 @@
     "Faction":"Glacial",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dusan",
@@ -6537,7 +6537,7 @@
     "Faction":"Verdant",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"romolo",
@@ -6552,7 +6552,7 @@
     "Faction":"Echoing",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"heliodoro",
@@ -6567,7 +6567,7 @@
     "Faction":"Arcadian",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"caio",
@@ -6582,7 +6582,7 @@
     "Faction":"Verdant",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gene",
@@ -6597,7 +6597,7 @@
     "Faction":"Echoing",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"azucena",
@@ -6612,7 +6612,7 @@
     "Faction":"Echoing",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gareth",
@@ -6627,7 +6627,7 @@
     "Faction":"Verdant",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ruggiero",
@@ -6642,7 +6642,7 @@
     "Faction":"Glacial",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"miodrag",
@@ -6657,7 +6657,7 @@
     "Faction":"Verdant",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"busranur",
@@ -6672,7 +6672,7 @@
     "Faction":"Glacial",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"wesley",
@@ -6687,7 +6687,7 @@
     "Faction":"Verdant",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"paola",
@@ -6702,7 +6702,7 @@
     "Faction":"Echoing",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lissy",
@@ -6717,7 +6717,7 @@
     "Faction":"Arcadian",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"abigail",
@@ -6732,7 +6732,7 @@
     "Faction":"Glacial",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"deanna",
@@ -6747,7 +6747,7 @@
     "Faction":"Glacial",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dursun",
@@ -6762,7 +6762,7 @@
     "Faction":"Verdant",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dante",
@@ -6777,7 +6777,7 @@
     "Faction":"Verdant",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"raquel",
@@ -6792,7 +6792,7 @@
     "Faction":"Glacial",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"leyre",
@@ -6807,7 +6807,7 @@
     "Faction":"Verdant",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ortrun",
@@ -6822,7 +6822,7 @@
     "Faction":"Verdant",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rodney",
@@ -6837,7 +6837,7 @@
     "Faction":"Glacial",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"chema",
@@ -6852,7 +6852,7 @@
     "Faction":"Glacial",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"grant",
@@ -6867,7 +6867,7 @@
     "Faction":"Glacial",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"cordula",
@@ -6882,7 +6882,7 @@
     "Faction":"Glacial",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ernest",
@@ -6897,7 +6897,7 @@
     "Faction":"Verdant",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gislinde",
@@ -6912,7 +6912,7 @@
     "Faction":"Echoing",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"mato",
@@ -6927,7 +6927,7 @@
     "Faction":"Arcadian",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"akar",
@@ -6942,7 +6942,7 @@
     "Faction":"Verdant",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sancho",
@@ -6957,7 +6957,7 @@
     "Faction":"Echoing",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"adem",
@@ -6972,7 +6972,7 @@
     "Faction":"Echoing",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"vasco",
@@ -6987,7 +6987,7 @@
     "Faction":"Glacial",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gionata",
@@ -7002,7 +7002,7 @@
     "Faction":"Arcadian",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"iain",
@@ -7017,7 +7017,7 @@
     "Faction":"Echoing",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"frank",
@@ -7032,7 +7032,7 @@
     "Faction":"Glacial",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gunda",
@@ -7047,7 +7047,7 @@
     "Faction":"Verdant",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"holger",
@@ -7062,7 +7062,7 @@
     "Faction":"Echoing",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ethan",
@@ -7077,7 +7077,7 @@
     "Faction":"Verdant",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"borys",
@@ -7092,7 +7092,7 @@
     "Faction":"Glacial",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"hilda",
@@ -7107,7 +7107,7 @@
     "Faction":"Verdant",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jordan",
@@ -7122,7 +7122,7 @@
     "Faction":"Echoing",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"youssef",
@@ -7137,7 +7137,7 @@
     "Faction":"Echoing",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"zaida",
@@ -7152,7 +7152,7 @@
     "Faction":"Verdant",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lilian",
@@ -7167,7 +7167,7 @@
     "Faction":"Glacial",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"amico",
@@ -7182,7 +7182,7 @@
     "Faction":"Verdant",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"recep",
@@ -7197,7 +7197,7 @@
     "Faction":"Echoing",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"mareen",
@@ -7212,7 +7212,7 @@
     "Faction":"Glacial",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"susi",
@@ -7227,7 +7227,7 @@
     "Faction":"Echoing",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jochen",
@@ -7242,7 +7242,7 @@
     "Faction":"Glacial",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"egbert",
@@ -7257,7 +7257,7 @@
     "Faction":"Verdant",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ornella",
@@ -7272,7 +7272,7 @@
     "Faction":"Verdant",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dionisia",
@@ -7287,7 +7287,7 @@
     "Faction":"Verdant",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sienna",
@@ -7302,7 +7302,7 @@
     "Faction":"Glacial",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"heidi",
@@ -7317,7 +7317,7 @@
     "Faction":"Verdant",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"freia",
@@ -7332,7 +7332,7 @@
     "Faction":"Verdant",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"arzu",
@@ -7347,7 +7347,7 @@
     "Faction":"Glacial",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kerstin",
@@ -7362,7 +7362,7 @@
     "Faction":"Arcadian",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"teofilo",
@@ -7377,7 +7377,7 @@
     "Faction":"Glacial",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"linn",
@@ -7392,7 +7392,7 @@
     "Faction":"Verdant",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"thorsten",
@@ -7407,7 +7407,7 @@
     "Faction":"Verdant",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"napoleone",
@@ -7422,7 +7422,7 @@
     "Faction":"Glacial",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"otmar",
@@ -7437,7 +7437,7 @@
     "Faction":"Glacial",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"onofre",
@@ -7452,7 +7452,7 @@
     "Faction":"Verdant",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lodovico",
@@ -7467,7 +7467,7 @@
     "Faction":"Echoing",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"klausd",
@@ -7482,7 +7482,7 @@
     "Faction":"Arcadian",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"salome",
@@ -7497,7 +7497,7 @@
     "Faction":"Arcadian",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"knut",
@@ -7512,7 +7512,7 @@
     "Faction":"Arcadian",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"estrella",
@@ -7527,7 +7527,7 @@
     "Faction":"Arcadian",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"yeni",
@@ -7542,7 +7542,7 @@
     "Faction":"Echoing",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"adalbert",
@@ -7557,7 +7557,7 @@
     "Faction":"Echoing",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"nina",
@@ -7572,7 +7572,7 @@
     "Faction":"Arcadian",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"demi",
@@ -7587,7 +7587,7 @@
     "Faction":"Arcadian",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ewelina",
@@ -7602,7 +7602,7 @@
     "Faction":"Glacial",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"guarino",
@@ -7617,7 +7617,7 @@
     "Faction":"Arcadian",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"giosue",
@@ -7632,7 +7632,7 @@
     "Faction":"Arcadian",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gaetano",
@@ -7647,7 +7647,7 @@
     "Faction":"Glacial",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"socorro",
@@ -7662,7 +7662,7 @@
     "Faction":"Verdant",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gala",
@@ -7677,7 +7677,7 @@
     "Faction":"Arcadian",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"pacifica",
@@ -7692,7 +7692,7 @@
     "Faction":"Verdant",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"bram",
@@ -7707,7 +7707,7 @@
     "Faction":"Verdant",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rebecca",
@@ -7722,7 +7722,7 @@
     "Faction":"Arcadian",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lily",
@@ -7737,7 +7737,7 @@
     "Faction":"Arcadian",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"anacleto",
@@ -7752,7 +7752,7 @@
     "Faction":"Arcadian",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"detlef",
@@ -7767,7 +7767,7 @@
     "Faction":"Glacial",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"irene",
@@ -7782,7 +7782,7 @@
     "Faction":"Verdant",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"asta",
@@ -7797,7 +7797,7 @@
     "Faction":"Verdant",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"anibal",
@@ -7812,7 +7812,7 @@
     "Faction":"Arcadian",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"telse",
@@ -7827,7 +7827,7 @@
     "Faction":"Arcadian",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"marissa",
@@ -7842,7 +7842,7 @@
     "Faction":"Verdant",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"damon",
@@ -7857,7 +7857,7 @@
     "Faction":"Verdant",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ciro",
@@ -7872,7 +7872,7 @@
     "Faction":"Verdant",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"elba",
@@ -7887,7 +7887,7 @@
     "Faction":"Echoing",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"miranda",
@@ -7902,7 +7902,7 @@
     "Faction":"Echoing",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"amir",
@@ -7917,7 +7917,7 @@
     "Faction":"Arcadian",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sonja",
@@ -7932,7 +7932,7 @@
     "Faction":"Arcadian",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"beppe",
@@ -7947,7 +7947,7 @@
     "Faction":"Echoing",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tunguc",
@@ -7962,7 +7962,7 @@
     "Faction":"Glacial",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"cynthia",
@@ -7977,7 +7977,7 @@
     "Faction":"Glacial",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lutz",
@@ -7992,7 +7992,7 @@
     "Faction":"Echoing",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"luitgard",
@@ -8007,7 +8007,7 @@
     "Faction":"Arcadian",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tasha",
@@ -8022,7 +8022,7 @@
     "Faction":"Verdant",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"erna",
@@ -8037,7 +8037,7 @@
     "Faction":"Arcadian",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rhys",
@@ -8052,7 +8052,7 @@
     "Faction":"Glacial",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"eleuterio",
@@ -8067,7 +8067,7 @@
     "Faction":"Glacial",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lauren",
@@ -8082,7 +8082,7 @@
     "Faction":"Glacial",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"erica",
@@ -8097,7 +8097,7 @@
     "Faction":"Arcadian",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"nelida",
@@ -8112,7 +8112,7 @@
     "Faction":"Verdant",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"hendrik",
@@ -8127,7 +8127,7 @@
     "Faction":"Glacial",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ambrosio",
@@ -8142,7 +8142,7 @@
     "Faction":"Arcadian",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"raul",
@@ -8157,7 +8157,7 @@
     "Faction":"Arcadian",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"eloah",
@@ -8172,7 +8172,7 @@
     "Faction":"Echoing",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ludovica",
@@ -8187,7 +8187,7 @@
     "Faction":"Echoing",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"severin",
@@ -8202,7 +8202,7 @@
     "Faction":"Echoing",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"helmar",
@@ -8217,7 +8217,7 @@
     "Faction":"Arcadian",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"caren",
@@ -8232,7 +8232,7 @@
     "Faction":"Echoing",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ryszard",
@@ -8247,7 +8247,7 @@
     "Faction":"Arcadian",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"javier",
@@ -8262,7 +8262,7 @@
     "Faction":"Verdant",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"wendy",
@@ -8277,7 +8277,7 @@
     "Faction":"Verdant",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"nieves",
@@ -8292,7 +8292,7 @@
     "Faction":"Glacial",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"beatrice",
@@ -8307,7 +8307,7 @@
     "Faction":"Verdant",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"isaiah",
@@ -8322,7 +8322,7 @@
     "Faction":"Glacial",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"glen",
@@ -8337,7 +8337,7 @@
     "Faction":"Glacial",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"verena",
@@ -8352,7 +8352,7 @@
     "Faction":"Arcadian",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"nynke",
@@ -8367,7 +8367,7 @@
     "Faction":"Echoing",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"felicia",
@@ -8382,7 +8382,7 @@
     "Faction":"Glacial",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"maxwell",
@@ -8397,7 +8397,7 @@
     "Faction":"Echoing",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"yvette",
@@ -8412,7 +8412,7 @@
     "Faction":"Glacial",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lena",
@@ -8427,7 +8427,7 @@
     "Faction":"Echoing",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"arne",
@@ -8442,7 +8442,7 @@
     "Faction":"Echoing",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kiara",
@@ -8457,7 +8457,7 @@
     "Faction":"Arcadian",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"anatoli",
@@ -8472,7 +8472,7 @@
     "Faction":"Verdant",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"aylin",
@@ -8487,7 +8487,7 @@
     "Faction":"Verdant",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"bibiana",
@@ -8502,7 +8502,7 @@
     "Faction":"Echoing",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"hinrich",
@@ -8517,7 +8517,7 @@
     "Faction":"Verdant",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"chase",
@@ -8532,7 +8532,7 @@
     "Faction":"Arcadian",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"stella",
@@ -8547,7 +8547,7 @@
     "Faction":"Glacial",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"haley",
@@ -8562,7 +8562,7 @@
     "Faction":"Arcadian",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"suus",
@@ -8577,7 +8577,7 @@
     "Faction":"Arcadian",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"peter",
@@ -8592,7 +8592,7 @@
     "Faction":"Verdant",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tess",
@@ -8607,7 +8607,7 @@
     "Faction":"Glacial",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"natividad",
@@ -8622,7 +8622,7 @@
     "Faction":"Glacial",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jemma",
@@ -8637,7 +8637,7 @@
     "Faction":"Verdant",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"noemi",
@@ -8652,7 +8652,7 @@
     "Faction":"Glacial",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jocelyn",
@@ -8667,7 +8667,7 @@
     "Faction":"Arcadian",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"pablo",
@@ -8682,7 +8682,7 @@
     "Faction":"Arcadian",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"menfeat",
@@ -8697,7 +8697,7 @@
     "Faction":"Verdant",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"swantje",
@@ -8712,7 +8712,7 @@
     "Faction":"Echoing",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"concetta",
@@ -8727,7 +8727,7 @@
     "Faction":"Verdant",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"filomena",
@@ -8742,7 +8742,7 @@
     "Faction":"Echoing",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lizz",
@@ -8757,7 +8757,7 @@
     "Faction":"Echoing",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ilja",
@@ -8772,7 +8772,7 @@
     "Faction":"Echoing",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lina",
@@ -8787,7 +8787,7 @@
     "Faction":"Verdant",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"june",
@@ -8802,7 +8802,7 @@
     "Faction":"Verdant",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"baldur",
@@ -8817,7 +8817,7 @@
     "Faction":"Echoing",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"abilio",
@@ -8832,7 +8832,7 @@
     "Faction":"Verdant",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jolanthe",
@@ -8847,7 +8847,7 @@
     "Faction":"Echoing",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"lorraine",
@@ -8862,7 +8862,7 @@
     "Faction":"Verdant",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jacek",
@@ -8877,7 +8877,7 @@
     "Faction":"Glacial",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"conor",
@@ -8892,7 +8892,7 @@
     "Faction":"Echoing",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"yaiza",
@@ -8907,7 +8907,7 @@
     "Faction":"Arcadian",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kimberly",
@@ -8922,7 +8922,7 @@
     "Faction":"Glacial",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"eustaquio",
@@ -8937,7 +8937,7 @@
     "Faction":"Arcadian",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ullrich",
@@ -8952,7 +8952,7 @@
     "Faction":"Verdant",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ramazan",
@@ -8967,7 +8967,7 @@
     "Faction":"Arcadian",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jurij",
@@ -8982,7 +8982,7 @@
     "Faction":"Echoing",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gino",
@@ -8997,7 +8997,7 @@
     "Faction":"Echoing",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"cosme",
@@ -9012,7 +9012,7 @@
     "Faction":"Echoing",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gisela",
@@ -9027,7 +9027,7 @@
     "Faction":"Echoing",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jill",
@@ -9042,7 +9042,7 @@
     "Faction":"Glacial",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jeanette",
@@ -9057,7 +9057,7 @@
     "Faction":"Verdant",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"paca",
@@ -9072,7 +9072,7 @@
     "Faction":"Glacial",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"bernard",
@@ -9087,7 +9087,7 @@
     "Faction":"Arcadian",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"cemil",
@@ -9102,7 +9102,7 @@
     "Faction":"Verdant",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"america",
@@ -9117,7 +9117,7 @@
     "Faction":"Arcadian",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"osman",
@@ -9132,7 +9132,7 @@
     "Faction":"Arcadian",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"stephanie",
@@ -9147,7 +9147,7 @@
     "Faction":"Verdant",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kylie",
@@ -9162,7 +9162,7 @@
     "Faction":"Glacial",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"slavica",
@@ -9177,7 +9177,7 @@
     "Faction":"Glacial",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sabine",
@@ -9192,7 +9192,7 @@
     "Faction":"Verdant",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"auguste",
@@ -9207,7 +9207,7 @@
     "Faction":"Glacial",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"zeynep",
@@ -9222,7 +9222,7 @@
     "Faction":"Echoing",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"iker",
@@ -9237,7 +9237,7 @@
     "Faction":"Glacial",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"elias",
@@ -9252,7 +9252,7 @@
     "Faction":"Verdant",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"aurelie",
@@ -9267,7 +9267,7 @@
     "Faction":"Glacial",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"peer",
@@ -9282,7 +9282,7 @@
     "Faction":"Verdant",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"anais",
@@ -9297,7 +9297,7 @@
     "Faction":"Echoing",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"indira",
@@ -9312,7 +9312,7 @@
     "Faction":"Glacial",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"saar",
@@ -9327,7 +9327,7 @@
     "Faction":"Verdant",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"olivia",
@@ -9342,7 +9342,7 @@
     "Faction":"Verdant",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ehrhard",
@@ -9357,7 +9357,7 @@
     "Faction":"Echoing",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gesa",
@@ -9372,7 +9372,7 @@
     "Faction":"Verdant",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"maaike",
@@ -9387,7 +9387,7 @@
     "Faction":"Glacial",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rotraut",
@@ -9402,7 +9402,7 @@
     "Faction":"Verdant",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dino",
@@ -9417,7 +9417,7 @@
     "Faction":"Echoing",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jenaro",
@@ -9432,7 +9432,7 @@
     "Faction":"Verdant",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"wigbert",
@@ -9447,7 +9447,7 @@
     "Faction":"Verdant",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"paula",
@@ -9462,7 +9462,7 @@
     "Faction":"Glacial",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jost",
@@ -9477,7 +9477,7 @@
     "Faction":"Verdant",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"mette",
@@ -9492,7 +9492,7 @@
     "Faction":"Arcadian",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"carina",
@@ -9507,7 +9507,7 @@
     "Faction":"Arcadian",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"edda",
@@ -9522,7 +9522,7 @@
     "Faction":"Glacial",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"axel",
@@ -9537,7 +9537,7 @@
     "Faction":"Verdant",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jodi",
@@ -9552,7 +9552,7 @@
     "Faction":"Verdant",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"autumn",
@@ -9567,7 +9567,7 @@
     "Faction":"Arcadian",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"azahar",
@@ -9582,7 +9582,7 @@
     "Faction":"Arcadian",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dafne",
@@ -9597,7 +9597,7 @@
     "Faction":"Glacial",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"hilma",
@@ -9612,7 +9612,7 @@
     "Faction":"Arcadian",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"shaun",
@@ -9627,7 +9627,7 @@
     "Faction":"Arcadian",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"abel",
@@ -9642,7 +9642,7 @@
     "Faction":"Arcadian",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tola",
@@ -9657,7 +9657,7 @@
     "Faction":"Echoing",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"erol",
@@ -9672,7 +9672,7 @@
     "Faction":"Glacial",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kristin",
@@ -9687,7 +9687,7 @@
     "Faction":"Arcadian",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"adrian",
@@ -9702,7 +9702,7 @@
     "Faction":"Echoing",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"claudia",
@@ -9717,7 +9717,7 @@
     "Faction":"Echoing",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"michael",
@@ -9732,7 +9732,7 @@
     "Faction":"Glacial",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"erkan",
@@ -9747,7 +9747,7 @@
     "Faction":"Arcadian",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"muharrem",
@@ -9762,7 +9762,7 @@
     "Faction":"Glacial",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"malik",
@@ -9777,7 +9777,7 @@
     "Faction":"Arcadian",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ranieri",
@@ -9792,7 +9792,7 @@
     "Faction":"Verdant",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"luuk",
@@ -9807,7 +9807,7 @@
     "Faction":"Echoing",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tracy",
@@ -9822,7 +9822,7 @@
     "Faction":"Echoing",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"myrthe",
@@ -9837,7 +9837,7 @@
     "Faction":"Echoing",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"galina",
@@ -9852,7 +9852,7 @@
     "Faction":"Verdant",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gitta",
@@ -9867,7 +9867,7 @@
     "Faction":"Arcadian",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"hakan",
@@ -9882,7 +9882,7 @@
     "Faction":"Echoing",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"zenon",
@@ -9897,7 +9897,7 @@
     "Faction":"Verdant",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"yasar",
@@ -9912,7 +9912,7 @@
     "Faction":"Verdant",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dorothy",
@@ -9927,7 +9927,7 @@
     "Faction":"Verdant",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"maja",
@@ -9942,7 +9942,7 @@
     "Faction":"Verdant",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"oceane",
@@ -9957,7 +9957,7 @@
     "Faction":"Verdant",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"oreste",
@@ -9972,7 +9972,7 @@
     "Faction":"Glacial",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"janet",
@@ -9987,7 +9987,7 @@
     "Faction":"Verdant",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"leyla",
@@ -10002,7 +10002,7 @@
     "Faction":"Verdant",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"insa",
@@ -10017,7 +10017,7 @@
     "Faction":"Verdant",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"phillip",
@@ -10032,7 +10032,7 @@
     "Faction":"Echoing",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"basilio",
@@ -10047,7 +10047,7 @@
     "Faction":"Verdant",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"scott",
@@ -10062,7 +10062,7 @@
     "Faction":"Verdant",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"santos",
@@ -10077,7 +10077,7 @@
     "Faction":"Echoing",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"esperanza",
@@ -10092,7 +10092,7 @@
     "Faction":"Arcadian",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"geert",
@@ -10107,7 +10107,7 @@
     "Faction":"Arcadian",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"wieslaw",
@@ -10122,7 +10122,7 @@
     "Faction":"Verdant",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"victor",
@@ -10137,7 +10137,7 @@
     "Faction":"Glacial",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"paloma",
@@ -10152,7 +10152,7 @@
     "Faction":"Echoing",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kike",
@@ -10167,7 +10167,7 @@
     "Faction":"Arcadian",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jeremy",
@@ -10182,7 +10182,7 @@
     "Faction":"Arcadian",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"leticia",
@@ -10197,7 +10197,7 @@
     "Faction":"Glacial",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rengul",
@@ -10212,7 +10212,7 @@
     "Faction":"Arcadian",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"chantal",
@@ -10227,7 +10227,7 @@
     "Faction":"Arcadian",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"raisa",
@@ -10242,7 +10242,7 @@
     "Faction":"Arcadian",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"casandra",
@@ -10257,7 +10257,7 @@
     "Faction":"Echoing",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"erwin",
@@ -10272,7 +10272,7 @@
     "Faction":"Arcadian",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"toni",
@@ -10287,7 +10287,7 @@
     "Faction":"Glacial",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"luka",
@@ -10302,7 +10302,7 @@
     "Faction":"Arcadian",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rosl",
@@ -10317,7 +10317,7 @@
     "Faction":"Glacial",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"babette",
@@ -10332,7 +10332,7 @@
     "Faction":"Echoing",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ljiljana",
@@ -10347,7 +10347,7 @@
     "Faction":"Echoing",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"thilo",
@@ -10362,7 +10362,7 @@
     "Faction":"Arcadian",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"dulce",
@@ -10377,7 +10377,7 @@
     "Faction":"Glacial",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"regulo",
@@ -10392,7 +10392,7 @@
     "Faction":"Arcadian",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"vitus",
@@ -10407,7 +10407,7 @@
     "Faction":"Verdant",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"connor",
@@ -10422,7 +10422,7 @@
     "Faction":"Echoing",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"rouven",
@@ -10437,7 +10437,7 @@
     "Faction":"Verdant",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"harald",
@@ -10452,7 +10452,7 @@
     "Faction":"Echoing",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"amaya",
@@ -10467,7 +10467,7 @@
     "Faction":"Arcadian",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"arcelia",
@@ -10482,7 +10482,7 @@
     "Faction":"Glacial",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"huseyin",
@@ -10497,7 +10497,7 @@
     "Faction":"Verdant",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jort",
@@ -10512,7 +10512,7 @@
     "Faction":"Glacial",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gabrielle",
@@ -10527,7 +10527,7 @@
     "Faction":"Glacial",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"mindy",
@@ -10542,7 +10542,7 @@
     "Faction":"Verdant",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"thijmen",
@@ -10557,7 +10557,7 @@
     "Faction":"Verdant",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kira",
@@ -10572,7 +10572,7 @@
     "Faction":"Arcadian",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"agostino",
@@ -10587,7 +10587,7 @@
     "Faction":"Verdant",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"bican",
@@ -10602,7 +10602,7 @@
     "Faction":"Arcadian",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"leszek",
@@ -10617,7 +10617,7 @@
     "Faction":"Glacial",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ingbert",
@@ -10632,7 +10632,7 @@
     "Faction":"Glacial",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"chiara",
@@ -10647,7 +10647,7 @@
     "Faction":"Glacial",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"efrain",
@@ -10662,7 +10662,7 @@
     "Faction":"Glacial",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"whitney",
@@ -10677,7 +10677,7 @@
     "Faction":"Glacial",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"anamaria",
@@ -10692,7 +10692,7 @@
     "Faction":"Arcadian",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"urban",
@@ -10707,7 +10707,7 @@
     "Faction":"Verdant",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"edwin",
@@ -10722,7 +10722,7 @@
     "Faction":"Arcadian",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"ashley",
@@ -10737,7 +10737,7 @@
     "Faction":"Verdant",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"montserrat",
@@ -10752,7 +10752,7 @@
     "Faction":"Echoing",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"randy",
@@ -10767,7 +10767,7 @@
     "Faction":"Arcadian",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"freya",
@@ -10782,7 +10782,7 @@
     "Faction":"Verdant",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"jamie",
@@ -10797,7 +10797,7 @@
     "Faction":"Echoing",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"toby",
@@ -10812,7 +10812,7 @@
     "Faction":"Verdant",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"monja",
@@ -10827,7 +10827,7 @@
     "Faction":"Verdant",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"tiburcio",
@@ -10842,7 +10842,7 @@
     "Faction":"Echoing",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"kiki",
@@ -10857,7 +10857,7 @@
     "Faction":"Verdant",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"gulten",
@@ -10872,7 +10872,7 @@
     "Faction":"Glacial",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"miguel",
@@ -10887,7 +10887,7 @@
     "Faction":"Glacial",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"yfke",
@@ -10902,7 +10902,7 @@
     "Faction":"Echoing",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"heraclio",
@@ -10917,7 +10917,7 @@
     "Faction":"Glacial",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"joerg",
@@ -10932,7 +10932,7 @@
     "Faction":"Echoing",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"vito",
@@ -10947,7 +10947,7 @@
     "Faction":"Echoing",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"meta",
@@ -10962,7 +10962,7 @@
     "Faction":"Arcadian",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"samuel",
@@ -10977,7 +10977,7 @@
     "Faction":"Echoing",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"reinhold",
@@ -10992,7 +10992,7 @@
     "Faction":"Verdant",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"konrad",
@@ -11007,7 +11007,7 @@
     "Faction":"Verdant",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"pasquale",
@@ -11022,7 +11022,7 @@
     "Faction":"Echoing",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"mahmut",
@@ -11037,7 +11037,7 @@
     "Faction":"Glacial",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"bridget",
@@ -11052,7 +11052,7 @@
     "Faction":"Arcadian",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"sheena",
@@ -11067,7 +11067,7 @@
     "Faction":"Arcadian",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"russell",
@@ -11082,7 +11082,7 @@
     "Faction":"Glacial",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Pastoral Rim"
+    "Kingdom":"The Pastoral Rim"
   },
   {
     "Name":"giesela",
@@ -11097,7 +11097,7 @@
     "Faction":"Galvanic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"dagmar",
@@ -11112,7 +11112,7 @@
     "Faction":"Chromatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"urte",
@@ -11127,7 +11127,7 @@
     "Faction":"Prismatic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"maud",
@@ -11142,7 +11142,7 @@
     "Faction":"Galvanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ralph",
@@ -11157,7 +11157,7 @@
     "Faction":"Chromatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"olalla",
@@ -11172,7 +11172,7 @@
     "Faction":"Chromatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mirella",
@@ -11187,7 +11187,7 @@
     "Faction":"Galvanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ehrentraud",
@@ -11202,7 +11202,7 @@
     "Faction":"Galvanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sonke",
@@ -11217,7 +11217,7 @@
     "Faction":"Prismatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lino",
@@ -11232,7 +11232,7 @@
     "Faction":"Galvanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"madison",
@@ -11247,7 +11247,7 @@
     "Faction":"Chromatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"terri",
@@ -11262,7 +11262,7 @@
     "Faction":"Prismatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"radmila",
@@ -11277,7 +11277,7 @@
     "Faction":"Galvanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"andy",
@@ -11292,7 +11292,7 @@
     "Faction":"Prismatic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"eugene",
@@ -11307,7 +11307,7 @@
     "Faction":"Chromatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kazim",
@@ -11322,7 +11322,7 @@
     "Faction":"Prismatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"curro",
@@ -11337,7 +11337,7 @@
     "Faction":"Prismatic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"catalina",
@@ -11352,7 +11352,7 @@
     "Faction":"Galvanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nando",
@@ -11367,7 +11367,7 @@
     "Faction":"Prismatic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"reece",
@@ -11382,7 +11382,7 @@
     "Faction":"Chromatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"anajulia",
@@ -11397,7 +11397,7 @@
     "Faction":"Chromatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"duncan",
@@ -11412,7 +11412,7 @@
     "Faction":"Prismatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"giacinto",
@@ -11427,7 +11427,7 @@
     "Faction":"Galvanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"dragica",
@@ -11442,7 +11442,7 @@
     "Faction":"Galvanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"guglielmo",
@@ -11457,7 +11457,7 @@
     "Faction":"Chromatic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"thales",
@@ -11472,7 +11472,7 @@
     "Faction":"Prismatic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"adan",
@@ -11487,7 +11487,7 @@
     "Faction":"Galvanic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"herlinde",
@@ -11502,7 +11502,7 @@
     "Faction":"Prismatic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"heloisa",
@@ -11517,7 +11517,7 @@
     "Faction":"Prismatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"klothilde",
@@ -11532,7 +11532,7 @@
     "Faction":"Chromatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"martha",
@@ -11547,7 +11547,7 @@
     "Faction":"Prismatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"pilar",
@@ -11562,7 +11562,7 @@
     "Faction":"Chromatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"yassin",
@@ -11577,7 +11577,7 @@
     "Faction":"Galvanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ines",
@@ -11592,7 +11592,7 @@
     "Faction":"Chromatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"henry",
@@ -11607,7 +11607,7 @@
     "Faction":"Prismatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kornelius",
@@ -11622,7 +11622,7 @@
     "Faction":"Chromatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"quirino",
@@ -11637,7 +11637,7 @@
     "Faction":"Prismatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"bryce",
@@ -11652,7 +11652,7 @@
     "Faction":"Chromatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"gelsomina",
@@ -11667,7 +11667,7 @@
     "Faction":"Chromatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ezio",
@@ -11682,7 +11682,7 @@
     "Faction":"Chromatic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"bilal",
@@ -11697,7 +11697,7 @@
     "Faction":"Prismatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"fedde",
@@ -11712,7 +11712,7 @@
     "Faction":"Galvanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"senna",
@@ -11727,7 +11727,7 @@
     "Faction":"Galvanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"boaz",
@@ -11742,7 +11742,7 @@
     "Faction":"Chromatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"anette",
@@ -11757,7 +11757,7 @@
     "Faction":"Chromatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"linus",
@@ -11772,7 +11772,7 @@
     "Faction":"Chromatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"faye",
@@ -11787,7 +11787,7 @@
     "Faction":"Chromatic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"prudencia",
@@ -11802,7 +11802,7 @@
     "Faction":"Chromatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"robby",
@@ -11817,7 +11817,7 @@
     "Faction":"Prismatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"craig",
@@ -11832,7 +11832,7 @@
     "Faction":"Chromatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"alvaro",
@@ -11847,7 +11847,7 @@
     "Faction":"Galvanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"pancho",
@@ -11862,7 +11862,7 @@
     "Faction":"Galvanic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"erdal",
@@ -11877,7 +11877,7 @@
     "Faction":"Chromatic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"elsbeth",
@@ -11892,7 +11892,7 @@
     "Faction":"Chromatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"robyn",
@@ -11907,7 +11907,7 @@
     "Faction":"Chromatic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"joep",
@@ -11922,7 +11922,7 @@
     "Faction":"Galvanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"janus",
@@ -11937,7 +11937,7 @@
     "Faction":"Galvanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"encarnacion",
@@ -11952,7 +11952,7 @@
     "Faction":"Chromatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sabrina",
@@ -11967,7 +11967,7 @@
     "Faction":"Galvanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"spencer",
@@ -11982,7 +11982,7 @@
     "Faction":"Chromatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"manja",
@@ -11997,7 +11997,7 @@
     "Faction":"Chromatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jessica",
@@ -12012,7 +12012,7 @@
     "Faction":"Galvanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"amado",
@@ -12027,7 +12027,7 @@
     "Faction":"Chromatic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"darlene",
@@ -12042,7 +12042,7 @@
     "Faction":"Prismatic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sydney",
@@ -12057,7 +12057,7 @@
     "Faction":"Galvanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"tomislav",
@@ -12072,7 +12072,7 @@
     "Faction":"Galvanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ricciotti",
@@ -12087,7 +12087,7 @@
     "Faction":"Chromatic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nisa",
@@ -12102,7 +12102,7 @@
     "Faction":"Galvanic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"czeslaw",
@@ -12117,7 +12117,7 @@
     "Faction":"Chromatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"brigitte",
@@ -12132,7 +12132,7 @@
     "Faction":"Prismatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"cassidy",
@@ -12147,7 +12147,7 @@
     "Faction":"Chromatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mehdi",
@@ -12162,7 +12162,7 @@
     "Faction":"Chromatic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"tabitha",
@@ -12177,7 +12177,7 @@
     "Faction":"Chromatic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"adoracion",
@@ -12192,7 +12192,7 @@
     "Faction":"Galvanic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"dierk",
@@ -12207,7 +12207,7 @@
     "Faction":"Galvanic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"aynur",
@@ -12222,7 +12222,7 @@
     "Faction":"Chromatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lucas",
@@ -12237,7 +12237,7 @@
     "Faction":"Galvanic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"giuseppina",
@@ -12252,7 +12252,7 @@
     "Faction":"Prismatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"antonio",
@@ -12267,7 +12267,7 @@
     "Faction":"Prismatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"eraldo",
@@ -12282,7 +12282,7 @@
     "Faction":"Galvanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ilper",
@@ -12297,7 +12297,7 @@
     "Faction":"Chromatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kordula",
@@ -12312,7 +12312,7 @@
     "Faction":"Prismatic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"serena",
@@ -12327,7 +12327,7 @@
     "Faction":"Galvanic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"merle",
@@ -12342,7 +12342,7 @@
     "Faction":"Prismatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"enzio",
@@ -12357,7 +12357,7 @@
     "Faction":"Prismatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nicholas",
@@ -12372,7 +12372,7 @@
     "Faction":"Prismatic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ivonne",
@@ -12387,7 +12387,7 @@
     "Faction":"Galvanic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"holm",
@@ -12402,7 +12402,7 @@
     "Faction":"Galvanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"gudrun",
@@ -12417,7 +12417,7 @@
     "Faction":"Prismatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"walentina",
@@ -12432,7 +12432,7 @@
     "Faction":"Galvanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lando",
@@ -12447,7 +12447,7 @@
     "Faction":"Prismatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"allan",
@@ -12462,7 +12462,7 @@
     "Faction":"Chromatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mike",
@@ -12477,7 +12477,7 @@
     "Faction":"Prismatic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"yesica",
@@ -12492,7 +12492,7 @@
     "Faction":"Galvanic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lucho",
@@ -12507,7 +12507,7 @@
     "Faction":"Galvanic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"harry",
@@ -12522,7 +12522,7 @@
     "Faction":"Galvanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"rahel",
@@ -12537,7 +12537,7 @@
     "Faction":"Chromatic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"svea",
@@ -12552,7 +12552,7 @@
     "Faction":"Galvanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"erin",
@@ -12567,7 +12567,7 @@
     "Faction":"Chromatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"siegmar",
@@ -12582,7 +12582,7 @@
     "Faction":"Prismatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mallory",
@@ -12597,7 +12597,7 @@
     "Faction":"Prismatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"tutkun",
@@ -12612,7 +12612,7 @@
     "Faction":"Chromatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"inocencio",
@@ -12627,7 +12627,7 @@
     "Faction":"Prismatic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"bekir",
@@ -12642,7 +12642,7 @@
     "Faction":"Galvanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"hayley",
@@ -12657,7 +12657,7 @@
     "Faction":"Chromatic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"isolde",
@@ -12672,7 +12672,7 @@
     "Faction":"Prismatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"omar",
@@ -12687,7 +12687,7 @@
     "Faction":"Galvanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"eitel",
@@ -12702,7 +12702,7 @@
     "Faction":"Galvanic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nova",
@@ -12717,7 +12717,7 @@
     "Faction":"Galvanic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kendra",
@@ -12732,7 +12732,7 @@
     "Faction":"Chromatic",
     "Ability":"Conflux",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"imran",
@@ -12747,7 +12747,7 @@
     "Faction":"Prismatic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"caroline",
@@ -12762,7 +12762,7 @@
     "Faction":"Galvanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"immo",
@@ -12777,7 +12777,7 @@
     "Faction":"Prismatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"luigi",
@@ -12792,7 +12792,7 @@
     "Faction":"Prismatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"apollonia",
@@ -12807,7 +12807,7 @@
     "Faction":"Chromatic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"senta",
@@ -12822,7 +12822,7 @@
     "Faction":"Galvanic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ulla",
@@ -12837,7 +12837,7 @@
     "Faction":"Prismatic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kelly",
@@ -12852,7 +12852,7 @@
     "Faction":"Galvanic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"eckhart",
@@ -12867,7 +12867,7 @@
     "Faction":"Galvanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"wojciech",
@@ -12882,7 +12882,7 @@
     "Faction":"Galvanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ljudmila",
@@ -12897,7 +12897,7 @@
     "Faction":"Prismatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"bailey",
@@ -12912,7 +12912,7 @@
     "Faction":"Prismatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nancy",
@@ -12927,7 +12927,7 @@
     "Faction":"Prismatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"hanife",
@@ -12942,7 +12942,7 @@
     "Faction":"Galvanic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"berend",
@@ -12957,7 +12957,7 @@
     "Faction":"Prismatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lourdes",
@@ -12972,7 +12972,7 @@
     "Faction":"Galvanic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"caue",
@@ -12987,7 +12987,7 @@
     "Faction":"Chromatic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"aynilhayat",
@@ -13002,7 +13002,7 @@
     "Faction":"Galvanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"joost",
@@ -13017,7 +13017,7 @@
     "Faction":"Galvanic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jimena",
@@ -13032,7 +13032,7 @@
     "Faction":"Galvanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"guiomar",
@@ -13047,7 +13047,7 @@
     "Faction":"Chromatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jurgen",
@@ -13062,7 +13062,7 @@
     "Faction":"Galvanic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"crystal",
@@ -13077,7 +13077,7 @@
     "Faction":"Prismatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jaqueline",
@@ -13092,7 +13092,7 @@
     "Faction":"Chromatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"belen",
@@ -13107,7 +13107,7 @@
     "Faction":"Galvanic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"domenico",
@@ -13122,7 +13122,7 @@
     "Faction":"Galvanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"olaf",
@@ -13137,7 +13137,7 @@
     "Faction":"Galvanic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"soraya",
@@ -13152,7 +13152,7 @@
     "Faction":"Chromatic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"christopher",
@@ -13167,7 +13167,7 @@
     "Faction":"Prismatic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"tygo",
@@ -13182,7 +13182,7 @@
     "Faction":"Chromatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"azeglio",
@@ -13197,7 +13197,7 @@
     "Faction":"Chromatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"constance",
@@ -13212,7 +13212,7 @@
     "Faction":"Galvanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"moritz",
@@ -13227,7 +13227,7 @@
     "Faction":"Galvanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"calista",
@@ -13242,7 +13242,7 @@
     "Faction":"Prismatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"gioele",
@@ -13257,7 +13257,7 @@
     "Faction":"Prismatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nela",
@@ -13272,7 +13272,7 @@
     "Faction":"Prismatic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"yolanda",
@@ -13287,7 +13287,7 @@
     "Faction":"Galvanic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jayne",
@@ -13302,7 +13302,7 @@
     "Faction":"Galvanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"johann",
@@ -13317,7 +13317,7 @@
     "Faction":"Galvanic",
     "Ability":"Nova",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ottavio",
@@ -13332,7 +13332,7 @@
     "Faction":"Galvanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"teodora",
@@ -13347,7 +13347,7 @@
     "Faction":"Prismatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"elmo",
@@ -13362,7 +13362,7 @@
     "Faction":"Galvanic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ceylin",
@@ -13377,7 +13377,7 @@
     "Faction":"Prismatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sanne",
@@ -13392,7 +13392,7 @@
     "Faction":"Prismatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"irmgard",
@@ -13407,7 +13407,7 @@
     "Faction":"Prismatic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kaique",
@@ -13422,7 +13422,7 @@
     "Faction":"Chromatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"stijn",
@@ -13437,7 +13437,7 @@
     "Faction":"Prismatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lacey",
@@ -13452,7 +13452,7 @@
     "Faction":"Chromatic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"zoran",
@@ -13467,7 +13467,7 @@
     "Faction":"Chromatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ester",
@@ -13482,7 +13482,7 @@
     "Faction":"Chromatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"derrick",
@@ -13497,7 +13497,7 @@
     "Faction":"Galvanic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"achim",
@@ -13512,7 +13512,7 @@
     "Faction":"Galvanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"april",
@@ -13527,7 +13527,7 @@
     "Faction":"Galvanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"laszlo",
@@ -13542,7 +13542,7 @@
     "Faction":"Galvanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nilo",
@@ -13557,7 +13557,7 @@
     "Faction":"Prismatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"fatima",
@@ -13572,7 +13572,7 @@
     "Faction":"Prismatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"garrett",
@@ -13587,7 +13587,7 @@
     "Faction":"Galvanic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"goran",
@@ -13602,7 +13602,7 @@
     "Faction":"Chromatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sigrid",
@@ -13617,7 +13617,7 @@
     "Faction":"Chromatic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mieszko",
@@ -13632,7 +13632,7 @@
     "Faction":"Prismatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ettore",
@@ -13647,7 +13647,7 @@
     "Faction":"Prismatic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"helen",
@@ -13662,7 +13662,7 @@
     "Faction":"Prismatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"petros",
@@ -13677,7 +13677,7 @@
     "Faction":"Galvanic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"tecla",
@@ -13692,7 +13692,7 @@
     "Faction":"Prismatic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"livio",
@@ -13707,7 +13707,7 @@
     "Faction":"Chromatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"george",
@@ -13722,7 +13722,7 @@
     "Faction":"Prismatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"vesna",
@@ -13737,7 +13737,7 @@
     "Faction":"Galvanic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"palmira",
@@ -13752,7 +13752,7 @@
     "Faction":"Galvanic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"wladimir",
@@ -13767,7 +13767,7 @@
     "Faction":"Prismatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"eckehard",
@@ -13782,7 +13782,7 @@
     "Faction":"Prismatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"rochus",
@@ -13797,7 +13797,7 @@
     "Faction":"Galvanic",
     "Ability":"Rift",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"pascale",
@@ -13812,7 +13812,7 @@
     "Faction":"Galvanic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mamen",
@@ -13827,7 +13827,7 @@
     "Faction":"Chromatic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"cheyenne",
@@ -13842,7 +13842,7 @@
     "Faction":"Prismatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"vinzenz",
@@ -13857,7 +13857,7 @@
     "Faction":"Galvanic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"zenta",
@@ -13872,7 +13872,7 @@
     "Faction":"Galvanic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"salud",
@@ -13887,7 +13887,7 @@
     "Faction":"Chromatic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"othmar",
@@ -13902,7 +13902,7 @@
     "Faction":"Galvanic",
     "Ability":"Maelstrom",
     "Class":"High Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"annunziata",
@@ -13917,7 +13917,7 @@
     "Faction":"Chromatic",
     "Ability":"Pulse",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"natasha",
@@ -13932,7 +13932,7 @@
     "Faction":"Chromatic",
     "Ability":"Mantle",
     "Class":"Rogue",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"micaela",
@@ -13947,7 +13947,7 @@
     "Faction":"Prismatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"aloys",
@@ -13962,7 +13962,7 @@
     "Faction":"Prismatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"ignatz",
@@ -13977,7 +13977,7 @@
     "Faction":"Galvanic",
     "Ability":"Barrier",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"gunter",
@@ -13992,7 +13992,7 @@
     "Faction":"Prismatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"amber",
@@ -14007,7 +14007,7 @@
     "Faction":"Chromatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"wibke",
@@ -14022,7 +14022,7 @@
     "Faction":"Prismatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"larry",
@@ -14037,7 +14037,7 @@
     "Faction":"Chromatic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"walfried",
@@ -14052,7 +14052,7 @@
     "Faction":"Chromatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"clelia",
@@ -14067,7 +14067,7 @@
     "Faction":"Galvanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"otfried",
@@ -14082,7 +14082,7 @@
     "Faction":"Prismatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mayte",
@@ -14097,7 +14097,7 @@
     "Faction":"Chromatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"damien",
@@ -14112,7 +14112,7 @@
     "Faction":"Prismatic",
     "Ability":"Hex",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jesper",
@@ -14127,7 +14127,7 @@
     "Faction":"Prismatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"delia",
@@ -14142,7 +14142,7 @@
     "Faction":"Prismatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"trevor",
@@ -14157,7 +14157,7 @@
     "Faction":"Chromatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"nada",
@@ -14172,7 +14172,7 @@
     "Faction":"Chromatic",
     "Ability":"Sigil",
     "Class":"Wizard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"eddie",
@@ -14187,7 +14187,7 @@
     "Faction":"Galvanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"benita",
@@ -14202,7 +14202,7 @@
     "Faction":"Galvanic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"inge",
@@ -14217,7 +14217,7 @@
     "Faction":"Chromatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"alain",
@@ -14232,7 +14232,7 @@
     "Faction":"Galvanic",
     "Ability":"Cascade",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"naud",
@@ -14247,7 +14247,7 @@
     "Faction":"Chromatic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jafet",
@@ -14262,7 +14262,7 @@
     "Faction":"Galvanic",
     "Ability":"Vortex",
     "Class":"Druid",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"trudi",
@@ -14277,7 +14277,7 @@
     "Faction":"Prismatic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"gary",
@@ -14292,7 +14292,7 @@
     "Faction":"Chromatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"jelena",
@@ -14307,7 +14307,7 @@
     "Faction":"Prismatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"orhan",
@@ -14322,7 +14322,7 @@
     "Faction":"Prismatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sadman",
@@ -14337,7 +14337,7 @@
     "Faction":"Chromatic",
     "Ability":"Warden",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"shannon",
@@ -14352,7 +14352,7 @@
     "Faction":"Prismatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"dominique",
@@ -14367,7 +14367,7 @@
     "Faction":"Chromatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"giampiero",
@@ -14382,7 +14382,7 @@
     "Faction":"Galvanic",
     "Ability":"Quake",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"lynda",
@@ -14397,7 +14397,7 @@
     "Faction":"Prismatic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"harold",
@@ -14412,7 +14412,7 @@
     "Faction":"Chromatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"wera",
@@ -14427,7 +14427,7 @@
     "Faction":"Galvanic",
     "Ability":"Surge",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"elaine",
@@ -14442,7 +14442,7 @@
     "Faction":"Galvanic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"remigio",
@@ -14457,7 +14457,7 @@
     "Faction":"Prismatic",
     "Ability":"Torrent",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"wouter",
@@ -14472,7 +14472,7 @@
     "Faction":"Galvanic",
     "Ability":"Shard",
     "Class":"Wood Elf",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"chelsea",
@@ -14487,7 +14487,7 @@
     "Faction":"Prismatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"remy",
@@ -14502,7 +14502,7 @@
     "Faction":"Chromatic",
     "Ability":"Beacon",
     "Class":"Bard",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"mckenzie",
@@ -14517,7 +14517,7 @@
     "Faction":"Galvanic",
     "Ability":"Sphere",
     "Class":"Knight",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"alderano",
@@ -14532,7 +14532,7 @@
     "Faction":"Chromatic",
     "Ability":"Catalyst",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"troy",
@@ -14547,7 +14547,7 @@
     "Faction":"Prismatic",
     "Ability":"Frenzy",
     "Class":"Outlander",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kian",
@@ -14562,7 +14562,7 @@
     "Faction":"Chromatic",
     "Ability":"Flare",
     "Class":"Paladin",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"tiffany",
@@ -14577,7 +14577,7 @@
     "Faction":"Galvanic",
     "Ability":"Harmony",
     "Class":"Priestest",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"sybille",
@@ -14592,7 +14592,7 @@
     "Faction":"Chromatic",
     "Ability":"Spiral",
     "Class":"Warlock",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"kathy",
@@ -14607,7 +14607,7 @@
     "Faction":"Chromatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"venceslas",
@@ -14622,7 +14622,7 @@
     "Faction":"Prismatic",
     "Ability":"Pact",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"bruce",
@@ -14637,7 +14637,7 @@
     "Faction":"Chromatic",
     "Ability":"Core",
     "Class":"Warrior",
-    "Kingdom":"Shimmering Alpines"
+    "Kingdom":"The Shimmering Alpines"
   },
   {
     "Name":"evaristo",
