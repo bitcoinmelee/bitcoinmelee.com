@@ -133,7 +133,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <!-- 3) Subheading: “A/An [Faction] [Class] [Kingdom]” -->
         <div class="hero-subheading">
-          ${article} ${h.Faction} ${h.Class} ${h.Kingdom}
+          ${article} ${h.Faction} ${h.Class} from ${h.Kingdom}
         </div>
 
         <!-- 4) Stats block -->
