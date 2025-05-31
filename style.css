@@ -251,16 +251,21 @@ textarea {
   color:#000
 }
 
-/* Make the hero name bigger */
+/* ↑ increase from 1.25rem to 1.75rem (adjust as needed) */
 .hero-card .hero-name-banner span {
-  font-size: 1.25rem;       /* bump up from default; adjust as desired */
+  font-size: 1.75rem;
   font-weight: 700;
 }
 
 /* New subheading style */
 .hero-card .hero-subheading {
   font-style: italic;
-  margin: 0.25rem 0;
-  font-size: 0.85rem;
-  color: #333;              /* adjust to contrast against background */
+  font-size: 0.9rem;
+  color: #000;                         /* dark text on translucent white */
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;               /* shrink-wrap around text */
+  margin: 0.25rem 0;                    /* vertical spacing */
 }

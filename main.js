@@ -108,14 +108,13 @@ window.addEventListener('DOMContentLoaded', () => {
         return `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`;
       }
     });
-
     const effectText = effectLines.length
       ? effectLines.join('; ')
       : 'No effect data.';
 
     /* ——— pull description for the tooltip ——— */
     const desc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
-    
+
     /* ——— insert each card ——— */
     grid.insertAdjacentHTML('beforeend', `
       <div class="hero-card"
@@ -131,9 +130,9 @@ window.addEventListener('DOMContentLoaded', () => {
           <span>${name}</span>
         </div>
 
-        <!-- 3) Subheading: “A/An [Faction] [Class] [Kingdom]” -->
+        <!-- 3) Subheading with badge-style background -->
         <div class="hero-subheading">
-          ${article} ${h.Faction} ${h.Class} from ${h.Kingdom}
+          ${article} ${h.Faction} ${h.Class} ${h.Kingdom}
         </div>
 
         <!-- 4) Stats block -->
@@ -152,14 +151,9 @@ window.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
 
-        <!-- 5) Meta badges (Kingdom / Faction / Class) -->
-        <div class="meta">
-          <p><strong>Kingdom:</strong> ${h.Kingdom}</p>
-          <p><strong>Faction:</strong> ${h.Faction}</p>
-          <p><strong>Class:</strong> ${h.Class}</p>
-        </div>
+        <!-- 5) (META BLOCK REMOVED on purpose) -->
 
-        <!-- 6) Ability “button”: [ABILITY]: [EFFECT TEXT], with hover tooltip = description -->
+        <!-- 6) Ability “button”: [ABILITY]: [EFFECT TEXT], with hover tooltip -->
         <div class="ability-block">
           <span class="ability-container">
             <span class="ability-name">
