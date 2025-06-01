@@ -132,7 +132,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         <!-- 3) Subheading with badge-style background -->
         <div class="hero-subheading">
-          ${article} ${h.Faction} ${h.Class} from ${h.Kingdom}
+          ${article} ${h.Faction} ${h.Class} from 
+          ${h.Kingdom}
         </div>
 
         <!-- 4) Stats block -->
