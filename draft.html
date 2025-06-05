@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Bitcoin Melee — Draft</title>
 
-  <!-- fonts & shared roster styles -->
+  <!-- fonts + roster‑page styles (card frames, tool‑tips, etc.) -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -14,55 +14,52 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:'Lora',serif;background:#f9f4e8;color:var(--ink);padding:1rem;}
 
-    h2{font-family:'Cinzel',serif;margin:0 0 0.4rem;font-size:1.1rem}
+    h2{font-family:'Cinzel',serif;margin:0;text-align:center;font-size:1.1rem}
 
-    /* every hero row (picks & options) */
-    .row{
-      display:flex;flex-wrap:wrap;gap:0.4rem;align-items:flex-start;
+    /* top draft columns */
+    #boards{display:flex;gap:1rem;flex-wrap:wrap}
+    .panel{flex:1 1 330px;border:3px double var(--border);background:var(--card);
+           padding:0.6rem;border-radius:8px;min-height:310px}
+    .draft-column{
+      display:flex;flex-direction:column;gap:0.4rem;align-items:flex-start;
     }
-    .row .hero-card{width:322px;flex:0 0 322px}
+    .draft-column .hero-card{width:322px;flex:0 0 322px}
 
-    /* picked heroes in option bar dim */
+    /* activity log */
+    #log{
+      margin-top:0.9rem;height:160px;overflow:auto;
+      border:2px solid var(--border);padding:0.5rem;
+      background:#fffefa;font-size:0.9rem
+    }
+
+    /* option bar (bottom) */
+    #optionBar{
+      margin-top:0.6rem;display:flex;flex-wrap:wrap;gap:0.4rem;align-items:flex-start;
+    }
+    #optionBar .hero-card{width:322px;flex:0 0 322px}
     #optionBar .picked{opacity:0.35;cursor:default}
 
-    /* log row */
-    #log{
-      height:160px;overflow:auto;margin:0.6rem 0;
-      border:2px solid var(--border);padding:0.5rem;background:#fffefa;font-size:0.9rem
-    }
-
-    /* Ready button */
+    /* READY button */
     #ready{
       display:block;margin:1rem auto 0;padding:0.6rem 1.5rem;
       font-family:'Cinzel',serif;font-size:1.05rem;
-      background:var(--accent);border:2px solid var(--border);border-radius:7px;cursor:pointer
+      background:var(--accent);border:2px solid var(--border);
+      border-radius:7px;cursor:pointer
     }
     #ready.hidden{display:none}
-
-    .tooltip-box-stats,
-.tooltip-box-ability{
-  display:inline-block;                 /* let width grow with content   */
-  background:var(--card);
-  border:2px solid var(--border);
-  padding:0.45rem 0.55rem;
-  border-radius:6px;
-  white-space:pre;                      /* keep grid layout intact       */
-}
-
   </style>
 </head>
 <body>
 
-  <h2>Your Draft</h2>
-  <div id="yourDraft"  class="row"></div>
+  <!-- draft columns -->
+  <div id="boards">
+    <div class="panel"><h2>Your Draft</h2><div id="yourDraft"  class="draft-column"></div></div>
+    <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="draft-column"></div></div>
+  </div>
 
-  <h2>Enemy Draft</h2>
-  <div id="enemyDraft" class="row"></div>
-
+  <!-- log immediately above option bar -->
   <div id="log"></div>
-
-  <h2>Your Remaining Heroes</h2>
-  <div id="optionBar" class="row"></div>
+  <div id="optionBar"></div>
 
   <button id="ready" class="hidden">Ready for melee!</button>
 
@@ -70,7 +67,7 @@
 <script type="module">
 import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
 
-/* ——— constants & helpers ——— */
+/* ---------- constants & helpers ---------- */
 const ROUNDS=5;
 const STAT_ABBR={Strength:'STR',Dexterity:'DEX',Constitution:'CON',
                  Intelligence:'INT',Wisdom:'WIS',Charisma:'CHA'};
@@ -79,37 +76,35 @@ const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'';
 const log=t=>{$('#log').append(t,document.createElement('br'));$('#log').scrollTop=$('#log').scrollHeight;};
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 
-/* ——— data ——— */
+/* ---------- data ---------- */
 let abilities={}, ARCHETYPES=[];
-let roster=[], picked=new Set();
+let roster=[], picked=new Set();           // roster = 12 heroes, picked = names chosen
 let draftedPlayer=[], draftedEnemy=[], enemyPool=[];
 let turn='', picks=0;
 
-/* ——— JSON loader ——— */
-async function loadData(){
-  const [abil,arch,heroes]=await Promise.all([
-    fetch('abilities.json').then(r=>r.json()),
-    fetch('archetypes.json').then(r=>r.json()),
-    fetch('heroes.json').then(r=>r.json())
-  ]);
+/* ---------- JSON loaders ---------- */
+async function fetchJSON(files){
+  const [abil,arch,heroes]=await Promise.all(files.map(f=>fetch(f).then(r=>r.json())));
   abilities=Array.isArray(abil)?Object.fromEntries(abil.map(x=>[x.Ability,x])):abil;
   ARCHETYPES=arch;
   return Array.isArray(heroes)?heroes:Object.values(heroes);
 }
 
-/* ——— helpers for portrait & background ——— */
+/* ---------- portrait & background helpers ---------- */
 const portrait=n=>supabase.storage.from(PORTRAIT_BUCKET)
   .getPublicUrl(`characters/${encodeURIComponent(n)}.webp`).data.publicUrl;
-function arche(h){
-  for(const r of ARCHETYPES){
-    const c=r[h.Kingdom];if(!c||c==='—')continue;
-    const ok=Array.isArray(c)?c.includes(h.Faction):c===h.Faction;
-    if(ok)return r.Archetype;
+
+function archetype(h){
+  for(const row of ARCHETYPES){
+    const cell=row[h.Kingdom];
+    if(!cell||cell==='—')continue;
+    const ok=Array.isArray(cell)?cell.includes(h.Faction):cell===h.Faction;
+    if(ok)return row.Archetype;
   }return null;
 }
 
-/* ——— build hero card (same markup as roster) ——— */
-function card(h,inOptionBar=false){
+/* ---------- build hero card (identical markup) ---------- */
+function makeCard(h,forOptionBar){
   const a=abilities[h.Ability]||{};
   const fx=Object.entries(a).filter(([k,v])=>k!=='Description'&&v!==0)
       .map(([k,v])=>`${v>0?`+${v}`:v}\u00A0${STAT_ABBR[k.split('_')[0]]||''}`).join(', ')||'—';
@@ -120,7 +115,7 @@ function card(h,inOptionBar=false){
     <div>INT</div><div>${h.Intelligence}</div>
     <div>WIS</div><div>${h.Wisdom}</div>
     <div>CHA</div><div>${h.Charisma}</div></div>`;
-  const bg=arche(h)?`images/card_backgrounds/${arche(h)}.webp`:'';const art=/^[aeiou]/i.test(h.Faction)?'An':'A';
+  const bg=archetype(h)?`images/card_backgrounds/${archetype(h)}.webp`:'';const art=/^[aeiou]/i.test(h.Faction)?'An':'A';
   const d=document.createElement('div');
   d.innerHTML=`<div class="hero-card" style="background-image:url('${bg}');position:relative;">
     <div style="position:relative;display:inline-block;overflow:hidden;">
@@ -129,7 +124,6 @@ function card(h,inOptionBar=false){
         HP: ${h.Health}<br>Mana: ${h.Mana}
       </div>
     </div>
-
     <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
       <div style="grid-area:title;text-align:center;display:flex;flex-direction:column;align-items:center;">
         <div class="hero-name-banner">
@@ -146,15 +140,15 @@ function card(h,inOptionBar=false){
       </div>
     </div></div>`;
   const el=d.firstElementChild;
-  if(inOptionBar){
-    if(picked.has(h.Name)){el.classList.add('picked');}
-    else el.onclick=()=>pick(h);
+  if(forOptionBar){
+    if(picked.has(h.Name)){ el.classList.add('picked'); }
+    else el.onclick=()=>pickHero(h);
   }
   return el;
 }
 
-/* ——— tooltip activation for any new scope ——— */
-function tips(scope){
+/* ---------- tool‑tips ---------- */
+function activateTips(scope){
   scope.querySelectorAll('.ability-container').forEach(c=>{
     const t=c.querySelector('.tooltip-box-ability');if(!t)return;
     const mv=e=>{t.style.top=`${e.clientY-12}px`;t.style.left=`${e.clientX+14}px`;};
@@ -169,36 +163,38 @@ function tips(scope){
   });
 }
 
-/* ——— render functions ——— */
-function refreshOptions(){
+/* ---------- render option bar & columns ---------- */
+function drawOptionBar(){
   const bar=$('#optionBar');bar.innerHTML='';
-  roster.forEach(h=>bar.append(card(h,true)));
-  tips(bar);
+  roster.forEach(h=>bar.append(makeCard(h,true)));
+  activateTips(bar);
 }
-function addDraft(side,h){
-  const box=side==='player'?$('#yourDraft'):$('#enemyDraft');
-  box.append(card(h,false)); tips(box.lastChild);
+function addToDraft(side,h){
+  const column=side==='player'?$('#yourDraft'):$('#enemyDraft');
+  const card=makeCard(h,false);
+  column.append(card);
+  activateTips(card);
 }
 
-/* ——— pick flow ——— */
-function pick(h){
+/* ---------- pick logic ---------- */
+function pickHero(h){
   if(turn!=='player'||picked.has(h.Name))return;
   picked.add(h.Name); draftedPlayer.push(h);
-  addDraft('player',h); log(`You picked ${cap(h.Name)}.`); turnNext();
-  refreshOptions();
+  addToDraft('player',h); log(`You picked ${cap(h.Name)}.`); nextTurn();
+  drawOptionBar();
 }
 function aiPick(){
   const h=enemyPool[Math.floor(Math.random()*enemyPool.length)];
   draftedEnemy.push(h); enemyPool=enemyPool.filter(x=>x!==h);
-  addDraft('enemy',h); log(`Enemy picked ${cap(h.Name)}.`); turnNext();
+  addToDraft('enemy',h); log(`Enemy picked ${cap(h.Name)}.`); nextTurn();
 }
-function turnNext(){
+function nextTurn(){
   picks++; if(picks>=ROUNDS*2){ $('#ready').classList.remove('hidden'); return; }
   turn=turn==='player'?'enemy':'player';
   if(turn==='enemy') setTimeout(aiPick,700);
 }
 
-/* ——— READY → battle ——— */
+/* ---------- READY → battle ---------- */
 $('#ready').onclick=()=>{
   sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
   sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
@@ -207,16 +203,18 @@ $('#ready').onclick=()=>{
   window.location.href='battle.html';
 };
 
-/* ——— INIT ——— */
+/* ---------- INIT ---------- */
 (async()=>{
+  /* roster from previous page */
   const rosterJSON=sessionStorage.getItem('roster');
   if(!rosterJSON){alert('Pick heroes first.');return;}
   roster=JSON.parse(rosterJSON);
 
-  const ALL=await loadData();
+  /* fetch JSON assets */
+  const ALL=await fetchJSON(['abilities.json','archetypes.json','heroes.json']);
   enemyPool=shuffle(ALL.filter(h=>!roster.some(r=>r.Name===h.Name))).slice(0,roster.length);
 
-  refreshOptions();
+  drawOptionBar();                       // show options immediately
   turn=Math.random()<0.5?'player':'enemy';
   log(`${turn==='player'?'You':'Enemy'} pick first.`);
   if(turn==='enemy') setTimeout(aiPick,700);
