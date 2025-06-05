@@ -27,10 +27,9 @@ window.addEventListener('DOMContentLoaded', () => {
     box.style.color = err ? '#ff7272' : '#5ef35e';
   };
 
-  const portraitUrl = name => supabase
-      .storage
-      .from(PORTRAIT_BUCKET)
-      .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`).data.publicUrl;
+  const portraitUrl = name => supabase.storage
+    .from(PORTRAIT_BUCKET)
+    .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`).data.publicUrl;
 
   /* -------- find Archetype for a hero (Kingdom + Faction) */
   function heroArchetype(hero) {
@@ -71,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       const article = ['a','e','i','o','u'].includes(h.Faction.trim()[0]?.toLowerCase()) ? 'An' : 'A';
 
-      /* build ability effect summary */
+      /* ability effect summary */
       const effectsByTarget = {};
       Object.entries(aObj).filter(([k,v])=>k!=='Description'&&v!==0).forEach(([k,v])=>{
         const [stat,targetRaw] = k.split('_');
@@ -81,44 +80,43 @@ window.addEventListener('DOMContentLoaded', () => {
         (effectsByTarget[target]=effectsByTarget[target]||[]).push(`${sign} ${abbr}`);
       });
       const effectText = Object.entries(effectsByTarget).map(([t,arr])=>arr.length===1?`${arr[0]} to ${t}`:`${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${t}`).join('; ') || 'No effect data.';
-      const desc = (aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
+      const abilityDesc = (aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
+
+      /* stats tooltip html */
+      const statsHtml = `<div style=\"display:grid;grid-template-columns:auto auto;gap:2px 6px;\">
+        <div>STR</div><div>${h.Strength}</div>
+        <div>DEX</div><div>${h.Dexterity}</div>
+        <div>CON</div><div>${h.Constitution}</div>
+        <div>INT</div><div>${h.Intelligence}</div>
+        <div>WIS</div><div>${h.Wisdom}</div>
+        <div>CHA</div><div>${h.Charisma}</div>
+        <div>HP</div><div>${h.Health}</div>
+        <div>Mana</div><div>${h.Mana}</div>
+      </div>`;
 
       grid.insertAdjacentHTML('beforeend',`
         <div class="hero-card" style="background-image:url('${bgImg}');">
-          <!-- Portrait (kept same size) -->
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
 
-          <!-- Bottom grid layout -->
-          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:
-                'title  title'
-                'ability stats';
-              grid-template-columns:1fr auto;gap:6px 8px;margin-top:4px;align-items:start;">
-
-            <!-- Centered Name + Subheading -->
+          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:6px;margin-top:4px;">
+            <!-- Centered Name + Subheading (with stats tooltip) -->
             <div style="grid-area:title;text-align:center;">
-              <div class="hero-name-banner"><span>${name}</span></div>
+              <div class="hero-name-banner">
+                <span class="name-container">
+                  <span>${name}</span>
+                  <span class="tooltip-box">${statsHtml}</span>
+                </span>
+              </div>
               <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
             </div>
 
-            <!-- Ability (bottom-left) -->
-            <div class="ability-block" style="grid-area:ability;max-width:65%;">
+            <!-- Ability block -->
+            <div class="ability-block" style="grid-area:ability;max-width:85%;margin:0 auto;">
               <span class="ability-container">
                 <span class="ability-name">${h.Ability}:</span>
                 <span class="ability-effects">${effectText}</span>
-                <span class="tooltip-box">${desc || 'No description available.'}</span>
+                <span class="tooltip-box">${abilityDesc || 'No description available.'}</span>
               </span>
-            </div>
-
-            <!-- Stats (bottom-right) -->
-            <div class="info-right hero-subheading" style="grid-area:stats;padding:4px 6px;border-radius:4px;display:grid;grid-template-columns:auto auto;gap:2px 4px;min-width:88px;text-align:left;justify-items:start;">
-              <div>STR</div><div>${h.Strength}</div>
-              <div>DEX</div><div>${h.Dexterity}</div>
-              <div>CON</div><div>${h.Constitution}</div>
-              <div>INT</div><div>${h.Intelligence}</div>
-              <div>WIS</div><div>${h.Wisdom}</div>
-              <div>CHA</div><div>${h.Charisma}</div>
-              <div>HP</div><div>${h.Health}</div>
-              <div>Mana</div><div>${h.Mana}</div>
             </div>
           </div>
         </div>`);
@@ -131,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------------------------- floating tooltip behaviour */
   function activateFloatingTooltips(){
-    document.querySelectorAll('.ability-container').forEach(container=>{
+    document.querySelectorAll('.ability-container, .name-container').forEach(container=>{
       const tip = container.querySelector('.tooltip-box');
       if(!tip) return;
       const moveTip = e=>{ tip.style.top=`${e.clientY-12}px`; tip.style.left=`${e.clientX+14}px`; };
