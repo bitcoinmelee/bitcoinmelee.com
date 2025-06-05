@@ -28,10 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const portraitUrl = name => {
-    const { data } = supabase
-      .storage
-      .from(PORTRAIT_BUCKET)
-      .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`);
+    const { data } = supabase.storage.from(PORTRAIT_BUCKET).getPublicUrl(`characters/${encodeURIComponent(name)}.webp`);
     return data.publicUrl;
   };
 
@@ -40,9 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
     for (const a of ARCHETYPES) {
       const cell = a[hero.Kingdom];
       if (!cell || cell === '—') continue;
-      if (Array.isArray(cell) ? cell.includes(hero.Faction) : cell === hero.Faction) {
-        return a.Archetype;
-      }
+      if (Array.isArray(cell) ? cell.includes(hero.Faction) : cell === hero.Faction) return a.Archetype;
     }
     return null;
   }
@@ -76,8 +71,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       /* ——— compute article “A” vs “An” ——— */
       const firstLetter = h.Faction.trim().charAt(0).toLowerCase();
-      const useAn = ['a', 'e', 'i', 'o', 'u'].includes(firstLetter);
-      const article = useAn ? 'An' : 'A';
+      const article = ['a', 'e', 'i', 'o', 'u'].includes(firstLetter) ? 'An' : 'A';
 
       /* ——— build flattened effects string ——— */
       const effectsByTarget = {};
@@ -90,26 +84,17 @@ window.addEventListener('DOMContentLoaded', () => {
           const target = targetRaw || 'Self';
           (effectsByTarget[target] = effectsByTarget[target] || []).push(`${sign} ${abbr}`);
         });
-
       const effectLines = Object.entries(effectsByTarget).map(([t, arr]) =>
         arr.length === 1 ? `${arr[0]} to ${t}` : `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`
       );
       const effectText = effectLines.length ? effectLines.join('; ') : 'No effect data.';
 
-      /* ——— pull description for the tooltip ——— */
       const desc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
 
-      /* ——— insert each card ——— */
-      grid.insertAdjacentHTML(
-        'beforeend',
-        `
+      grid.insertAdjacentHTML('beforeend', `
         <div class="hero-card" style="background-image:url('${bgImg}');">
-          <!-- 1) Portrait -->
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
-
-          <!-- 2) BOTTOM INFO ROW -->
           <div class="bottom-info" style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-top:4px;">
-            <!-- LEFT: name, subheading, ability -->
             <div class="info-left" style="flex:1;min-width:0;">
               <div class="hero-name-banner"><span>${name}</span></div>
               <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class} from ${h.Kingdom}</div>
@@ -121,9 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 </span>
               </div>
             </div>
-
-            <!-- RIGHT: stats -->
-            <div class="info-right hero-subheading" style="padding:4px 6px;border-radius:4px;display:grid;grid-template-columns:1fr auto;gap:2px 6px;min-width:110px;align-self:flex-start;">
+            <div class="info-right hero-subheading" style="padding:4px;border-radius:4px;display:grid;grid-template-columns:auto auto;gap:2px 4px;min-width:90px;text-align:left;justify-items:start;align-self:flex-start;">
               <div>STR</div><div>${h.Strength}</div>
               <div>DEX</div><div>${h.Dexterity}</div>
               <div>CON</div><div>${h.Constitution}</div>
@@ -134,8 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <div>Mana</div><div>${h.Mana}</div>
             </div>
           </div>
-        </div>`
-      );
+        </div>`);
     });
 
     wrap.appendChild(grid);
@@ -183,13 +165,10 @@ window.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => flash('Could not load data ➜ ' + err, true));
 
-  /*/* ------------------------------------------------ UI actions */
+  /* ------------------------------------------------ UI actions */
   $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
-    if (!xpub) {
-      flash('Enter a public key first!', true);
-      return;
-    }
+    if (!xpub) return flash('Enter a public key first!', true);
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderGrid(roster);
   });
