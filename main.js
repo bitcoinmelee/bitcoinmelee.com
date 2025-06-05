@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abilityDesc=(aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
 
       /* stats tooltip (no HP/Mana) */
-      const statsHtml=`<div style=\"display:grid;grid-template-columns:auto auto;gap:1px 4px;\">
+      const statsHtml=`<div style=\"display:grid;grid-template-columns:auto auto;gap:1px 2px;justify-items:start;\">
         <div>STR</div><div>${h.Strength}</div>
         <div>DEX</div><div>${h.Dexterity}</div>
         <div>CON</div><div>${h.Constitution}</div>
@@ -91,7 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
       grid.insertAdjacentHTML('beforeend',`
         <div class="hero-card" style="background-image:url('${bgImg}');position:relative;">
           <!-- HP/Mana badge -->
-          <div class="hero-subheading" style="position:absolute;top:4px;left:4px;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
+          <div class="hero-subheading" style="position:absolute;top:0;left:0;z-index:2;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
             HP: ${h.Health}<br>Mana: ${h.Mana}
           </div>
 
