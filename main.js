@@ -27,7 +27,9 @@ window.addEventListener('DOMContentLoaded', () => {
     box.style.color = err ? '#ff7272' : '#5ef35e';
   };
 
-  const portraitUrl = name => supabase.storage.from(PORTRAIT_BUCKET)
+  const portraitUrl = name => supabase
+      .storage
+      .from(PORTRAIT_BUCKET)
       .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`).data.publicUrl;
 
   /* -------- find Archetype for a hero (Kingdom + Faction) */
@@ -83,39 +85,40 @@ window.addEventListener('DOMContentLoaded', () => {
 
       grid.insertAdjacentHTML('beforeend',`
         <div class="hero-card" style="background-image:url('${bgImg}');">
-          <!-- Portrait -->
+          <!-- Portrait (kept same size) -->
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
 
-          <!-- Bottom segment -->
-          <div class="bottom-info" style="display:flex;flex-direction:column;align-items:center;margin-top:4px;gap:6px;">
-            <!-- Centered Name & Subheading -->
-            <div style="text-align:center;max-width:100%;">
+          <!-- Bottom grid layout -->
+          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:
+                'title  title'
+                'ability stats';
+              grid-template-columns:1fr auto;gap:6px 8px;margin-top:4px;align-items:start;">
+
+            <!-- Centered Name + Subheading -->
+            <div style="grid-area:title;text-align:center;">
               <div class="hero-name-banner"><span>${name}</span></div>
               <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
             </div>
 
-            <!-- Bottom row: ability left, stats right -->
-            <div style="display:flex;width:100%;justify-content:space-between;align-items:flex-start;">
-              <!-- Ability -->
-              <div class="ability-block" style="max-width:60%;">
-                <span class="ability-container">
-                  <span class="ability-name">${h.Ability}:</span>
-                  <span class="ability-effects">${effectText}</span>
-                  <span class="tooltip-box">${desc || 'No description available.'}</span>
-                </span>
-              </div>
+            <!-- Ability (bottom-left) -->
+            <div class="ability-block" style="grid-area:ability;max-width:65%;">
+              <span class="ability-container">
+                <span class="ability-name">${h.Ability}:</span>
+                <span class="ability-effects">${effectText}</span>
+                <span class="tooltip-box">${desc || 'No description available.'}</span>
+              </span>
+            </div>
 
-              <!-- Stats -->
-              <div class="info-right hero-subheading" style="padding:4px;border-radius:4px;display:grid;grid-template-columns:auto auto;gap:2px 4px;min-width:90px;text-align:left;justify-items:start;">
-                <div>STR</div><div>${h.Strength}</div>
-                <div>DEX</div><div>${h.Dexterity}</div>
-                <div>CON</div><div>${h.Constitution}</div>
-                <div>INT</div><div>${h.Intelligence}</div>
-                <div>WIS</div><div>${h.Wisdom}</div>
-                <div>CHA</div><div>${h.Charisma}</div>
-                <div>HP</div><div>${h.Health}</div>
-                <div>Mana</div><div>${h.Mana}</div>
-              </div>
+            <!-- Stats (bottom-right) -->
+            <div class="info-right hero-subheading" style="grid-area:stats;padding:4px 6px;border-radius:4px;display:grid;grid-template-columns:auto auto;gap:2px 4px;min-width:88px;text-align:left;justify-items:start;">
+              <div>STR</div><div>${h.Strength}</div>
+              <div>DEX</div><div>${h.Dexterity}</div>
+              <div>CON</div><div>${h.Constitution}</div>
+              <div>INT</div><div>${h.Intelligence}</div>
+              <div>WIS</div><div>${h.Wisdom}</div>
+              <div>CHA</div><div>${h.Charisma}</div>
+              <div>HP</div><div>${h.Health}</div>
+              <div>Mana</div><div>${h.Mana}</div>
             </div>
           </div>
         </div>`);
@@ -144,8 +147,8 @@ window.addEventListener('DOMContentLoaded', () => {
     fetch('abilities.json').then(r=>r.json()),
     fetch('archetypes.json').then(r=>r.json())
   ]).then(([heroesData,abilitiesData,archetypeData])=>{
-    HEROES = Array.isArray(heroesData)?heroesData:Object.values(heroesData);
-    ABILITIES = Array.isArray(abilitiesData)?Object.fromEntries(abilitiesData.map(a=>[a.Ability,a])):abilitiesData;
+    HEROES     = Array.isArray(heroesData)?heroesData:Object.values(heroesData);
+    ABILITIES  = Array.isArray(abilitiesData)?Object.fromEntries(abilitiesData.map(a=>[a.Ability,a])):abilitiesData;
     ARCHETYPES = archetypeData;
     flash('Discover heroes bound to your public key!');
   }).catch(err=>flash('Could not load data ➜ '+err,true));
