@@ -177,7 +177,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     /* hand off roster to draft.html */
     sessionStorage.setItem('roster', JSON.stringify(roster));
-
+    sessionStorage.setItem('abilities', JSON.stringify(ABILITIES));
+    
     /* reveal & wire the Continue button only once */
     const btn = $('#continue');
     btn.disabled=false;
