@@ -185,10 +185,25 @@ textarea {
 }
 .ability-name { font-weight: 600; cursor: help; }
 .ability-effects { display: inline; margin-left: .25rem; }
-.tooltip-box {
+.tooltip-box-ability {
   position: fixed;
   display: none;
   width: 200px;
+  padding: .5rem;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  color: #000000;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  font: .85rem/1.4 'Merriweather', serif;
+  pointer-events: none;
+  z-index: 2147483647;
+}
+
+.tooltip-box-stats {
+  position: fixed;
+  display: none;
+  width: 70px;
   padding: .5rem;
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid #aaa;

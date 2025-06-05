@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       /* stats tooltip HTML: two 60px columns, narrow width just over 120px */
       const statsHtml = 
-        `<div style="display:grid;grid-template-columns:30px 30px;gap:1px 1px;justify-items:start;width:60px;">` +
+        `<div style="display:grid;grid-template-columns:45px 45px;gap:1px 1px;justify-items:start;width:90px;">` +
         `<div>STR</div><div>${h.Strength}</div>` +
         `<div>DEX</div><div>${h.Dexterity}</div>` +
         `<div>CON</div><div>${h.Constitution}</div>` +
@@ -106,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <div class="hero-name-banner">
                 <span class="name-container">
                   <span>${name}</span>
-                  <span class="tooltip-box">${statsHtml}</span>
+                  <span class="tooltip-box-stats">${statsHtml}</span>
                 </span>
               </div>
               <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
@@ -115,7 +115,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <span class="ability-container">
                 <span class="ability-name">${h.Ability}:</span>
                 <span class="ability-effects">${effectText}</span>
-                <span class="tooltip-box">${abilityDesc || 'No description available.'}</span>
+                <span class="tooltip-box-ability">${abilityDesc || 'No description available.'}</span>
               </span>
             </div>
           </div>
