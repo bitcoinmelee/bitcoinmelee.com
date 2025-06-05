@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <title>Bitcoin Melee — Draft</title>
 
-  <!-- fonts & shared roster‑page styles -->
+  <!-- fantasy & body fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- hero‑card + tooltip styles reused from roster page -->
   <link rel="stylesheet" href="style.css">
 
   <style>
@@ -14,29 +16,28 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:'Lora',serif;background:#f9f4e8;color:var(--ink);padding:1rem;}
 
-    h2{font-family:'Cinzel',serif;margin:0;text-align:center;font-size:1.1rem}
+    h2{font-family:'Cinzel',serif;margin:0;text-align:center;font-size:1.15rem}
 
     #boards{display:flex;gap:1rem;flex-wrap:wrap}
     .panel{flex:1 1 330px;border:3px double var(--border);background:var(--card);
            padding:0.6rem;border-radius:8px;min-height:310px}
-    .list-column{
-      display:flex;flex-direction:column;gap:0.4rem;min-height:250px;align-items:flex-start;
-    }
 
-    /* bottom options row */
-    #optionBar{
-      display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.6rem;align-items:flex-start;
+    .list{
+      display:flex;flex-direction:column;gap:0.4rem;
+      min-height:250px;align-items:flex-start;          /* left‑align cards */
     }
-    #optionBar .hero-card{
-      width:322px;flex:0 0 322px;
-    }
-    #optionBar .picked{opacity:0.35;cursor:default}
 
     /* drafted cards keep full colour */
-    .picked-draft{cursor:default}
+    .picked{cursor:default}                /* no opacity change */
+
+    /* ensure grid‑sized cards & left alignment */
+    .list .hero-card{
+      width:322px;flex:0 0 322px;margin:0;              /* exact roster size */
+    }
 
     #log{
-      margin-top:0.9rem;height:160px;overflow:auto;border:2px solid var(--border);
+      margin-top:0.9rem;height:160px;                   /* taller log */
+      overflow:auto;border:2px solid var(--border);
       padding:0.5rem;background:#fffefa;font-size:0.9rem
     }
 
@@ -52,123 +53,162 @@
 <body>
 
   <div id="boards">
-    <div class="panel"><h2>Your Draft</h2><div id="yourDraft"  class="list-column"></div></div>
-    <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list-column"></div></div>
+    <div class="panel"><h2>Your Draft</h2><div id="yourDraft"  class="list"></div></div>
+    <div class="panel"><h2>Enemy Draft</h2><div id="enemyDraft" class="list"></div></div>
   </div>
 
-  <div id="log"></div>
-  <div id="optionBar"></div>
-
   <button id="ready" class="hidden">Ready for melee!</button>
+  <div id="log"></div>
+
+  <h2 style="margin:0.6rem 0 0.4rem">Your Remaining Heroes</h2>
+  <div id="yourPool" class="list"></div>
 
 <!-- ────────────────────────────────────────────────────────────── -->
 <script type="module">
 import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
 
-/* constants & helpers */
-const ROUNDS=5;
-const STAT_ABBR={Strength:'STR',Dexterity:'DEX',Constitution:'CON',
-                 Intelligence:'INT',Wisdom:'WIS',Charisma:'CHA'};
-const $=q=>document.querySelector(q);
-const log=t=>{$('#log').append(t,document.createElement('br'));$('#log').scrollTop=$('#log').scrollHeight;};
-const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
-const cap=s=>s? s[0].toUpperCase()+s.slice(1).toLowerCase():'' ;
+/* ─── constants & helpers ─────────────────────────────────────── */
+const ROUNDS = 5;
+const STAT_ABBR = {Strength:'STR',Dexterity:'DEX',Constitution:'CON',
+                   Intelligence:'INT',Wisdom:'WIS',Charisma:'CHA'};
+const $   = s => document.querySelector(s);
+const cap = s => s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : '';
+const log = t => { $('#log').append(t, document.createElement('br')); $('#log').scrollTop = $('#log').scrollHeight; };
+const shuffle = a => { for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
 
-/* data */
-let ALL=null, abilities={}, ARCHETYPES=[];
-let roster=[], draftedPlayer=[], draftedEnemy=[], enemyPool=[];
-let turn='';let picks=0;
-const pickedSet=new Set();          // names you already chose
+/* ─── data holders ────────────────────────────────────────────── */
+let abilities = {};
+let ARCHETYPES = [];
+let playerPool=[], enemyPool=[], draftedPlayer=[], draftedEnemy=[];
+let turnSide, picksMade = 0;
 
-/* helpers for archetype background + portraits */
-const portrait=n=>supabase.storage.from(PORTRAIT_BUCKET)
-  .getPublicUrl(`characters/${encodeURIComponent(n)}.webp`).data.publicUrl;
-
-function arche(h){
-  for(const r of ARCHETYPES){
-    const c=r[h.Kingdom];if(!c||c==='—')continue;
-    const ok=Array.isArray(c)?c.includes(h.Faction):c===h.Faction;
-    if(ok)return r.Archetype;
-  }return null;
+/* ─── JSON loading ───────────────────────────────────────────── */
+async function loadGameData(){
+  const [abil, arch, heroes] = await Promise.all([
+    fetch('abilities.json').then(r=>r.json()),
+    fetch('archetypes.json').then(r=>r.json()),
+    fetch('heroes.json').then(r=>r.json())
+  ]);
+  abilities   = Array.isArray(abil)?Object.fromEntries(abil.map(x=>[x.Ability,x])):abil;
+  ARCHETYPES  = arch;
+  return Array.isArray(heroes)?heroes:Object.values(heroes);
 }
 
-/* build hero‑card identical to roster grid */
-function card(h,optBar=false){
-  const a=abilities[h.Ability]||{};
-  const fx=Object.entries(a).filter(([k,v])=>k!=='Description'&&v!==0)
-    .map(([k,v])=>`${v>0?`+${v}`:v}\u00A0${STAT_ABBR[k.split('_')[0]]||''}`).join(', ')||'—';
-  const stats=`<div style="display:grid;grid-template-columns:45px 45px;gap:1px;">
-    <div>STR</div><div>${h.Strength}</div>
-    <div>DEX</div><div>${h.Dexterity}</div>
-    <div>CON</div><div>${h.Constitution}</div>
-    <div>INT</div><div>${h.Intelligence}</div>
-    <div>WIS</div><div>${h.Wisdom}</div>
-    <div>CHA</div><div>${h.Charisma}</div></div>`;
-  const bg=arche(h)?`images/card_backgrounds/${arche(h)}.webp`:'';const art=/^[aeiou]/i.test(h.Faction)?'An':'A';
-  const d=document.createElement('div');
-  d.innerHTML=`<div class="hero-card" style="background-image:url('${bg}');position:relative;">
-    <div style="position:relative;display:inline-block;overflow:hidden;">
-      <img src="${portrait(h.Name)}" alt="${cap(h.Name)}" class="portrait" loading="lazy">
-      <div class="hero-subheading" style="position:absolute;bottom:2px;left:2px;z-index:2;padding:2px;border-radius:4px;line-height:1;text-align:left;">
-        HP: ${h.Health}<br>Mana: ${h.Mana}
-      </div>
-    </div>
-    <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
-      <div style="grid-area:title;text-align:center;display:flex;flex-direction:column;align-items:center;">
-        <div class="hero-name-banner">
-          <span class="name-container"><span>${cap(h.Name)}</span><span class="tooltip-box-stats">${stats}</span></span>
+/* ─── portrait & background helpers ──────────────────────────── */
+const portraitUrl = n =>
+  supabase.storage.from(PORTRAIT_BUCKET)
+          .getPublicUrl(`characters/${encodeURIComponent(n)}.webp`).data.publicUrl;
+
+function heroArchetype(hero){
+  for(const row of ARCHETYPES){
+    const cell=row[hero.Kingdom];
+    if(!cell||cell==='—')continue;
+    const match=Array.isArray(cell)?cell.includes(hero.Faction):cell===hero.Faction;
+    if(match)return row.Archetype;
+  }
+  return null;
+}
+
+/* ─── makeCard — identical grid markup ───────────────────────── */
+function makeCard(h){
+  const name  = cap(h.Name);
+  const imgSrc= portraitUrl(h.Name);
+  const arche = heroArchetype(h);
+  const bgImg = arche ? `images/card_backgrounds/${arche}.webp` : '';
+
+  /* ability effects text */
+  const aObj = abilities[h.Ability] || {};
+  const effectText = Object.entries(aObj)
+      .filter(([k,v])=>k!=='Description'&&v!==0)
+      .map(([k,v])=>{
+        const [stat] = k.split('_');
+        const sign   = v>0?`+${v}`:v;
+        return `${sign}\u00A0${STAT_ABBR[stat]||stat}`;
+      }).join(', ') || '—';
+  const abilityDesc = aObj.Description || 'No description available.';
+
+  /* compact stats tooltip */
+  const statsHtml = `
+      <div style="display:grid;grid-template-columns:45px 45px;gap:1px;">
+        <div>STR</div><div>${h.Strength}</div>
+        <div>DEX</div><div>${h.Dexterity}</div>
+        <div>CON</div><div>${h.Constitution}</div>
+        <div>INT</div><div>${h.Intelligence}</div>
+        <div>WIS</div><div>${h.Wisdom}</div>
+        <div>CHA</div><div>${h.Charisma}</div>
+      </div>`;
+
+  const article=/^[aeiou]/i.test(h.Faction)?'An':'A';
+
+  const wrap=document.createElement('div');
+  wrap.innerHTML=`
+    <div class="hero-card" style="background-image:url('${bgImg}');position:relative;">
+      <div style="position:relative;display:inline-block;overflow:hidden;">
+        <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
+        <div class="hero-subheading" style="position:absolute;bottom:2px;left:2px;z-index:2;padding:2px;border-radius:4px;line-height:1;text-align:left;">
+          HP: ${h.Health}<br>Mana: ${h.Mana}
         </div>
-        <div class="hero-subheading" style="margin-top:2px;">${art} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
       </div>
-      <div class="ability-block" style="grid-area:ability;max-width:85%;margin:0 auto;">
-        <span class="ability-container">
-          <span class="ability-name">${h.Ability}:</span>
-          <span class="ability-effects">${fx}</span>
-          <span class="tooltip-box-ability">${a.Description||'No description available.'}</span>
-        </span>
+
+      <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
+        <div style="grid-area:title;text-align:center;display:flex;flex-direction:column;align-items:center;">
+          <div class="hero-name-banner">
+            <span class="name-container">
+              <span>${name}</span>
+              <span class="tooltip-box-stats">${statsHtml}</span>
+            </span>
+          </div>
+          <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
+        </div>
+
+        <div class="ability-block" style="grid-area:ability;max-width:85%;margin:0 auto;">
+          <span class="ability-container">
+            <span class="ability-name">${h.Ability}:</span>
+            <span class="ability-effects">${effectText}</span>
+            <span class="tooltip-box-ability">${abilityDesc}</span>
+          </span>
+        </div>
       </div>
-    </div></div>`;
-  const el=d.firstElementChild;
-  if(optBar){
-    if(pickedSet.has(h.Name)) el.classList.add('picked');
-    else el.onclick=()=>pickHero(h);
-  }else el.classList.add('picked-draft');
-  return el;
+    </div>`;
+  return wrap.firstElementChild;
 }
 
-/* render */
-function drawOptions(){
-  const bar=$('#optionBar');bar.innerHTML='';
-  roster.forEach(h=>bar.append(card(h,true)));
-  activateTips();
+/* ─── tooltip activation (same logic) ────────────────────────── */
+function activateFloatingTooltips(){
+  document.querySelectorAll('.ability-container').forEach(c=>{
+    const tip=c.querySelector('.tooltip-box-ability');if(!tip)return;
+    const mv=e=>{tip.style.top=`${e.clientY-12}px`;tip.style.left=`${e.clientX+14}px`;};
+    c.addEventListener('mouseenter',e=>{document.body.append(tip);tip.style.display='block';tip.style.position='fixed';mv(e);});
+    c.addEventListener('mousemove',mv);
+    c.addEventListener('mouseleave',()=>{tip.style.display='none';c.append(tip);});
+  });
+  document.querySelectorAll('.name-container').forEach(c=>{
+    const tip=c.querySelector('.tooltip-box-stats');if(!tip)return;
+    const mv=e=>{tip.style.top=`${e.clientY-12}px`;tip.style.left=`${e.clientX+14}px`;};
+    c.addEventListener('mouseenter',e=>{document.body.append(tip);tip.style.display='block';tip.style.position='fixed';mv(e);});
+    c.addEventListener('mousemove',mv);
+    c.addEventListener('mouseleave',()=>{tip.style.display='none';c.append(tip);});
+  });
+}
+
+/* ─── render helpers ─────────────────────────────────────────── */
+function renderPlayerPool(){
+  const box=$('#yourPool');box.innerHTML='';
+  playerPool.forEach(h=>{
+    const c=makeCard(h);c.onclick=()=>pickPlayer(h);box.append(c);
+  });
+  activateFloatingTooltips();
 }
 function addToDraft(side,h){
   const box=side==='player'?$('#yourDraft'):$('#enemyDraft');
-  box.append(card(h,false));
+  const c=makeCard(h);c.classList.add('picked');box.append(c);
 }
 
-/* tooltips identical to roster */
-function activateTips(){
-  document.querySelectorAll('.ability-container').forEach(c=>{
-    const t=c.querySelector('.tooltip-box-ability');if(!t)return;
-    const mv=e=>{t.style.top=`${e.clientY-12}px`;t.style.left=`${e.clientX+14}px`;}
-    c.onmouseenter=e=>{document.body.append(t);t.style.display='block';t.style.position='fixed';mv(e);}
-    c.onmousemove=mv;c.onmouseleave=()=>{t.style.display='none';c.append(t);}
-  });
-  document.querySelectorAll('.name-container').forEach(c=>{
-    const t=c.querySelector('.tooltip-box-stats');if(!t)return;
-    const mv=e=>{t.style.top=`${e.clientY-12}px`;t.style.left=`${e.clientX+14}px`;}
-    c.onmouseenter=e=>{document.body.append(t);t.style.display='block';t.style.position='fixed';mv(e);}
-    c.onmousemove=mv;c.onmouseleave=()=>{t.style.display='none';c.append(t);}
-  });
-}
-
-/* pick logic */
-function pickHero(h){
-  if(turn!=='player'||pickedSet.has(h.Name))return;
-  pickedSet.add(h.Name); draftedPlayer.push(h);
-  addToDraft('player',h); log(`You picked ${cap(h.Name)}.`); nextTurn();
-  drawOptions();
+/* ─── pick handlers & draft flow ─────────────────────────────── */
+function pickPlayer(h){
+  if(turnSide!=='player')return;
+  draftedPlayer.push(h);playerPool=playerPool.filter(x=>x!==h);
+  addToDraft('player',h);log(`You picked ${cap(h.Name)}.`);nextTurn();
 }
 function aiPick(){
   const h=enemyPool[Math.floor(Math.random()*enemyPool.length)];
@@ -176,36 +216,37 @@ function aiPick(){
   addToDraft('enemy',h);log(`Enemy picked ${cap(h.Name)}.`);nextTurn();
 }
 function nextTurn(){
-  picks++; if(picks>=ROUNDS*2){
-    $('#ready').classList.remove('hidden'); return;
+  picksMade++;
+  if(picksMade>=ROUNDS*2){
+    $('#yourPool').innerHTML='';$('#ready').classList.remove('hidden');return;
   }
-  turn=turn==='player'?'enemy':'player';
-  if(turn==='enemy') setTimeout(aiPick,700);
+  turnSide=turnSide==='player'?'enemy':'player';
+  if(turnSide==='enemy')setTimeout(aiPick,700);else renderPlayerPool();
 }
 
-/* ready → battle */
+/* ─── READY button → battle page ─────────────────────────────── */
 $('#ready').onclick=()=>{
   sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
   sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
   sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
-  sessionStorage.setItem('roster',JSON.stringify(draftedPlayer));
+  sessionStorage.setItem('roster',     JSON.stringify(draftedPlayer));
   window.location.href='battle.html';
 };
 
-/* initialise */
+/* ─── INITIALISE PAGE ───────────────────────────────────────── */
 (async()=>{
-  const rosterJSON=sessionStorage.getItem('roster');
-  if(!rosterJSON){alert('Go pick heroes first.');return;}
-  roster=JSON.parse(rosterJSON);
+  const roster=sessionStorage.getItem('roster');
+  if(!roster){alert('No roster found — pick heroes first.');return;}
+  playerPool=JSON.parse(roster);
 
-  /* load JSON assets + enemy pool */
-  [ALL]=await Promise.all([loadGameData()]);
-  enemyPool=shuffle(ALL.filter(h=>!roster.some(r=>r.Name===h.Name))).slice(0,roster.length);
+  const allHeroes=await loadGameData();
+  enemyPool=shuffle(allHeroes.filter(h=>!playerPool.some(p=>p.Name===h.Name)))
+             .slice(0,playerPool.length);
 
-  drawOptions();
-  turn=Math.random()<0.5?'player':'enemy';
-  log(`${turn==='player'?'You':'Enemy'} pick first.`);
-  if(turn==='enemy') setTimeout(aiPick,700);
+  turnSide=Math.random()<0.5?'player':'enemy';
+  log(`${turnSide==='player'?'You':'Enemy'} pick first.`);
+  if(turnSide==='enemy')setTimeout(aiPick,700);
+  renderPlayerPool();
 })();
 </script>
 </body>
