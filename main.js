@@ -10,6 +10,23 @@ window.addEventListener('DOMContentLoaded', () => {
   let ABILITIES = {};
   let ARCHETYPES = [];
 
+  /* ------------------------------------------------ inject tooltip styles */
+  const style = document.createElement('style');
+  style.textContent = `
+    /* base tooltip box handled elsewhere (opacity, bg, etc.) */
+    .tooltip-box.stats-tooltip {
+      display:grid;
+      grid-template-columns:auto auto;
+      gap:1px 2px;          /* tighter horizontal spacing */
+      justify-items:start;
+      white-space:nowrap;
+    }
+    .tooltip-box.ability-tooltip {
+      /* inherits default tooltip styles; override if needed later */
+    }
+  `;
+  document.head.appendChild(style);
+
   /* ------------------------------- helpers */
   const STAT_ABBR = {
     Strength:'STR', Dexterity:'DEX', Constitution:'CON',
@@ -28,7 +45,6 @@ window.addEventListener('DOMContentLoaded', () => {
     .from(PORTRAIT_BUCKET)
     .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`).data.publicUrl;
 
-  /* -------- find Archetype for a hero */
   function heroArchetype(hero){
     for(const a of ARCHETYPES){
       const cell = a[hero.Kingdom];
@@ -38,7 +54,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  /* -------- deterministic roster picker */
   async function pickRoster(xpub,count){
     const enc = new TextEncoder();
     const roster=[];
@@ -51,7 +66,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* --------------------------- render grid */
   function renderGrid(list){
     const wrap = $('#roster');
     wrap.innerHTML='';
@@ -79,7 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abilityDesc=(aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
 
       /* stats tooltip (no HP/Mana) */
-      const statsHtml=`<div style=\"display:grid;grid-template-columns:auto auto;gap:1px 2px;justify-items:start;\">
+      const statsHtml=`<div class="stats-tooltip tooltip-box stats-tooltip">
         <div>STR</div><div>${h.Strength}</div>
         <div>DEX</div><div>${h.Dexterity}</div>
         <div>CON</div><div>${h.Constitution}</div>
@@ -104,7 +118,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <div class="hero-name-banner">
                 <span class="name-container">
                   <span>${name}</span>
-                  <span class="tooltip-box">${statsHtml}</span>
+                  ${statsHtml}
                 </span>
               </div>
               <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
@@ -113,7 +127,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <span class="ability-container">
                 <span class="ability-name">${h.Ability}:</span>
                 <span class="ability-effects">${effectText}</span>
-                <span class="tooltip-box">${abilityDesc||'No description available.'}</span>
+                <span class="tooltip-box ability-tooltip">${abilityDesc||'No description available.'}</span>
               </span>
             </div>
           </div>
@@ -125,7 +139,6 @@ window.addEventListener('DOMContentLoaded', () => {
     activateFloatingTooltips();
   }
 
-  /* ---------------- floating tooltips */
   function activateFloatingTooltips(){
     document.querySelectorAll('.ability-container, .name-container').forEach(container=>{
       const tip=container.querySelector('.tooltip-box');
@@ -137,19 +150,17 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------------- data loading */
   Promise.all([
     fetch('heroes.json').then(r=>r.json()),
     fetch('abilities.json').then(r=>r.json()),
     fetch('archetypes.json').then(r=>r.json())
   ]).then(([heroesData,abilitiesData,archetypeData])=>{
-    HEROES=Array.isArray(heroesData)?heroesData:Object.values(heroesData);
-    ABILITIES=Array.isArray(abilitiesData)?Object.fromEntries(abilitiesData.map(a=>[a.Ability,a])):abilitiesData;
-    ARCHETYPES=archetypeData;
+    HEROES     = Array.isArray(heroesData)?heroesData:Object.values(heroesData);
+    ABILITIES  = Array.isArray(abilitiesData)?Object.fromEntries(abilitiesData.map(a=>[a.Ability,a])):abilitiesData;
+    ARCHETYPES = archetypeData;
     flash('Discover heroes bound to your public key!');
   }).catch(err=>flash('Could not load data ➜ '+err,true));
 
-  /* ---------------- UI actions */
   $('#go').addEventListener('click',async()=>{
     const xpub=$('#xpub').value.trim();
     if(!xpub) return flash('Enter a public key first!',true);
