@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', () => {
           <!-- Portrait with HP/Mana badge -->
           <div style="position:relative;display:inline-block;">
             <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
-            <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 2px;border-radius:2px;line-height:1;text-align:left;">
+            <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 2px;border-radius:2px;line-height:1;text-align:right;">
               HP: ${h.Health}<br>Mana: ${h.Mana}
             </div>
           </div>
