@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abilityDesc = (aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
 
       /* stats tooltip html */
-      const statsHtml = `<div style=\"display:grid;grid-template-columns:auto auto;gap:2px 4px;\">
+      const statsHtml = `<div style=\"display:grid;grid-template-columns:auto auto;gap:1px 1px;\">
         <div>STR</div><div>${h.Strength}</div>
         <div>DEX</div><div>${h.Dexterity}</div>
         <div>CON</div><div>${h.Constitution}</div>
