@@ -14,15 +14,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* -------------------------------------------------- helpers */
   const STAT_ABBR = {
-    Strength:'STR', Dexterity:'DEX', Constitution:'CON',
-    Intelligence:'INT', Wisdom:'WIS', Charisma:'CHA',
-    Health:'HP', Mana:'Mana'
+    Strength: 'STR', Dexterity: 'DEX', Constitution: 'CON',
+    Intelligence: 'INT', Wisdom: 'WIS', Charisma: 'CHA',
+    Health: 'HP', Mana: 'Mana'
   };
 
-  const toTitleCase = str =>
-    String(str).replace(/\b\w/g,c=>c.toUpperCase());
+  const toTitleCase = str => String(str).replace(/\b\w/g, c => c.toUpperCase());
 
-  const flash = (txt, err=false) => {
+  const flash = (txt, err = false) => {
     const box = $('#msg');
     box.textContent = txt;
     box.style.color = err ? '#ff7272' : '#5ef35e';
@@ -37,13 +36,11 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   /* -------- find Archetype for a hero (Kingdom + Faction) */
-  function heroArchetype(hero){
-    for(const a of ARCHETYPES){
-      const cell = a[hero.Kingdom];          
-      if(!cell || cell === '—') continue;
-      if(Array.isArray(cell)
-         ? cell.includes(hero.Faction)
-         : cell === hero.Faction){
+  function heroArchetype(hero) {
+    for (const a of ARCHETYPES) {
+      const cell = a[hero.Kingdom];
+      if (!cell || cell === '—') continue;
+      if (Array.isArray(cell) ? cell.includes(hero.Faction) : cell === hero.Faction) {
         return a.Archetype;
       }
     }
@@ -51,100 +48,94 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ----------------------------------------- deterministic picker */
-  async function pickRoster(xpub, count){
+  async function pickRoster(xpub, count) {
     const enc = new TextEncoder();
     const roster = [];
-    for(let i=0; roster.length<count; i++){
-      const hash = await crypto.subtle.digest(
-        'SHA-256',
-        enc.encode(xpub + i)
-      );
-      const num  = new DataView(hash).getUint32(0,false);
+    for (let i = 0; roster.length < count; i++) {
+      const hash = await crypto.subtle.digest('SHA-256', enc.encode(xpub + i));
+      const num = new DataView(hash).getUint32(0, false);
       const hero = HEROES[num % HEROES.length];
-      if(!roster.some(h=>h.Name===hero.Name))
-        roster.push(hero);
+      if (!roster.some(h => h.Name === hero.Name)) roster.push(hero);
     }
     return roster;
   }
 
   /* --------------------------------------------------- render grid */
-  function renderGrid(list){
+  function renderGrid(list) {
     const wrap = $('#roster');
     wrap.innerHTML = '';
     const grid = document.createElement('div');
     grid.className = 'hero-grid';
 
     list.forEach(h => {
-      const name   = toTitleCase(h.Name);
+      const name = toTitleCase(h.Name);
       const imgSrc = portraitUrl(h.Name);
-      const aObj   = ABILITIES[h.Ability] || {};
-      const arche  = heroArchetype(h);
-      const bgImg  = arche
-        ? `images/card_backgrounds/${arche}.webp`
-        : '';
+      const aObj = ABILITIES[h.Ability] || {};
+      const arche = heroArchetype(h);
+      const bgImg = arche ? `images/card_backgrounds/${arche}.webp` : '';
 
       /* ——— compute article “A” vs “An” ——— */
       const firstLetter = h.Faction.trim().charAt(0).toLowerCase();
-      const useAn = ['a','e','i','o','u'].includes(firstLetter);
+      const useAn = ['a', 'e', 'i', 'o', 'u'].includes(firstLetter);
       const article = useAn ? 'An' : 'A';
 
       /* ——— build flattened effects string ——— */
       const effectsByTarget = {};
       Object.entries(aObj)
-        .filter(([k,v]) => k !== 'Description' && v !== 0)
-        .forEach(([k,v]) => {
+        .filter(([k, v]) => k !== 'Description' && v !== 0)
+        .forEach(([k, v]) => {
           const [stat, targetRaw] = k.split('_');
           const abbr = STAT_ABBR[stat] || stat.toUpperCase();
           const sign = v > 0 ? `+${v}` : `${v}`;
           const target = targetRaw || 'Self';
-          (effectsByTarget[target] = effectsByTarget[target] || [])
-            .push(`${sign} ${abbr}`);
+          (effectsByTarget[target] = effectsByTarget[target] || []).push(`${sign} ${abbr}`);
         });
 
-      const effectLines = Object.entries(effectsByTarget).map(([t, arr]) => {
-        return arr.length === 1
-          ? `${arr[0]} to ${t}`
-          : `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`;
-      });
+      const effectLines = Object.entries(effectsByTarget).map(([t, arr]) =>
+        arr.length === 1 ? `${arr[0]} to ${t}` : `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`
+      );
       const effectText = effectLines.length ? effectLines.join('; ') : 'No effect data.';
 
       /* ——— pull description for the tooltip ——— */
       const desc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
 
       /* ——— insert each card ——— */
-      grid.insertAdjacentHTML('beforeend', `
-        <div class="hero-card" style="background-image:url('${bgImg}')">
+      grid.insertAdjacentHTML(
+        'beforeend',
+        `
+        <div class="hero-card" style="background-image:url('${bgImg}');">
           <!-- 1) Portrait -->
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
 
-          <!-- 2) Name Banner -->
-          <div class="hero-name-banner"><span>${name}</span></div>
+          <!-- 2) BOTTOM INFO ROW -->
+          <div class="bottom-info" style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-top:4px;">
+            <!-- LEFT: name, subheading, ability -->
+            <div class="info-left" style="flex:1;min-width:0;">
+              <div class="hero-name-banner"><span>${name}</span></div>
+              <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class} from ${h.Kingdom}</div>
+              <div class="ability-block" style="margin-top:4px;">
+                <span class="ability-container">
+                  <span class="ability-name">${h.Ability}:</span>
+                  <span class="ability-effects">${effectText}</span>
+                  <span class="tooltip-box">${desc || 'No description available.'}</span>
+                </span>
+              </div>
+            </div>
 
-          <!-- 3) Subheading with badge-style background -->
-          <div class="hero-subheading">${article} ${h.Faction} ${h.Class} from ${h.Kingdom}</div>
-
-          <!-- 4) Stats block (2‑column grid: stat | value) -->
-          <div class="stats-grid" style="display:grid;grid-template-columns:1fr auto;gap:2px 6px;max-width:120px;margin:0.25rem auto 0;">
-            <div>STR</div><div>${h.Strength}</div>
-            <div>DEX</div><div>${h.Dexterity}</div>
-            <div>CON</div><div>${h.Constitution}</div>
-            <div>INT</div><div>${h.Intelligence}</div>
-            <div>WIS</div><div>${h.Wisdom}</div>
-            <div>CHA</div><div>${h.Charisma}</div>
-            <div>HP</div><div>${h.Health}</div>
-            <div>Mana</div><div>${h.Mana}</div>
+            <!-- RIGHT: stats -->
+            <div class="info-right hero-subheading" style="padding:4px 6px;border-radius:4px;display:grid;grid-template-columns:1fr auto;gap:2px 6px;min-width:110px;align-self:flex-start;">
+              <div>STR</div><div>${h.Strength}</div>
+              <div>DEX</div><div>${h.Dexterity}</div>
+              <div>CON</div><div>${h.Constitution}</div>
+              <div>INT</div><div>${h.Intelligence}</div>
+              <div>WIS</div><div>${h.Wisdom}</div>
+              <div>CHA</div><div>${h.Charisma}</div>
+              <div>HP</div><div>${h.Health}</div>
+              <div>Mana</div><div>${h.Mana}</div>
+            </div>
           </div>
-
-          <!-- 5) Ability “button”: [ABILITY]: [EFFECT TEXT], with hover tooltip -->
-          <div class="ability-block">
-            <span class="ability-container">
-              <span class="ability-name">${h.Ability}:</span>
-              <span class="ability-effects">${effectText}</span>
-              <span class="tooltip-box">${desc || 'No description available.'}</span>
-            </span>
-          </div>
-        </div>
-      `);
+        </div>`
+      );
     });
 
     wrap.appendChild(grid);
@@ -153,24 +144,24 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------------------------------- floating tooltip behaviour */
-  function activateFloatingTooltips(){
-    document.querySelectorAll('.ability-container').forEach(container=>{
+  function activateFloatingTooltips() {
+    document.querySelectorAll('.ability-container').forEach(container => {
       const tip = container.querySelector('.tooltip-box');
-      if(!tip) return;
-      const moveTip = e=>{
-        tip.style.top  = `${e.clientY - 12}px`;
+      if (!tip) return;
+      const moveTip = e => {
+        tip.style.top = `${e.clientY - 12}px`;
         tip.style.left = `${e.clientX + 14}px`;
       };
-      container.addEventListener('mouseenter',e=>{
+      container.addEventListener('mouseenter', e => {
         document.body.appendChild(tip);
-        tip.style.display='block';
-        tip.style.position='fixed';
-        tip.style.zIndex='2147483647';
+        tip.style.display = 'block';
+        tip.style.position = 'fixed';
+        tip.style.zIndex = '2147483647';
         moveTip(e);
       });
-      container.addEventListener('mousemove',moveTip);
-      container.addEventListener('mouseleave',()=>{
-        tip.style.display='none';
+      container.addEventListener('mousemove', moveTip);
+      container.addEventListener('mouseleave', () => {
+        tip.style.display = 'none';
         container.appendChild(tip);
       });
     });
@@ -178,22 +169,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* ------------------------------------------------ data loading */
   Promise.all([
-    fetch('heroes.json').then(r=>r.json()),
-    fetch('abilities.json').then(r=>r.json()),
-    fetch('archetypes.json').then(r=>r.json())
-  ]).then(([heroesData, abilitiesData, archetypeData])=>{
-      HEROES     = Array.isArray(heroesData) ? heroesData : Object.values(heroesData);
-      ABILITIES  = Array.isArray(abilitiesData)
-                    ? Object.fromEntries(abilitiesData.map(a=>[a.Ability,a]))
-                    : abilitiesData;
+    fetch('heroes.json').then(r => r.json()),
+    fetch('abilities.json').then(r => r.json()),
+    fetch('archetypes.json').then(r => r.json())
+  ])
+    .then(([heroesData, abilitiesData, archetypeData]) => {
+      HEROES = Array.isArray(heroesData) ? heroesData : Object.values(heroesData);
+      ABILITIES = Array.isArray(abilitiesData)
+        ? Object.fromEntries(abilitiesData.map(a => [a.Ability, a]))
+        : abilitiesData;
       ARCHETYPES = archetypeData;
       flash('Discover heroes bound to your public key!');
-  }).catch(err=>flash('Could not load data ➜ '+err,true));
+    })
+    .catch(err => flash('Could not load data ➜ ' + err, true));
 
-  /* ------------------------------------------------ UI actions */
-  $('#go').addEventListener('click', async ()=>{
+  /*/* ------------------------------------------------ UI actions */
+  $('#go').addEventListener('click', async () => {
     const xpub = $('#xpub').value.trim();
-    if(!xpub) return flash('Enter a public key first!', true);
+    if (!xpub) {
+      flash('Enter a public key first!', true);
+      return;
+    }
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderGrid(roster);
   });
