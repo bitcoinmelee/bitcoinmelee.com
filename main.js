@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       /* stats tooltip HTML: two 60px columns, narrow width just over 120px */
       const statsHtml = 
-        `<div style="display:grid;grid-template-columns:60px 60px;gap:1px 1px;justify-items:start;width:122px;">` +
+        `<div style="display:grid;grid-template-columns:60px 60px;gap:1px 1px;justify-items:start;width:90px;">` +
         `<div>STR</div><div>${h.Strength}</div>` +
         `<div>DEX</div><div>${h.Dexterity}</div>` +
         `<div>CON</div><div>${h.Constitution}</div>` +
