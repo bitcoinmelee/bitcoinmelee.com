@@ -30,6 +30,7 @@
     /* tooltip */
     .tooltip{position:fixed;max-width:280px;z-index:999;background:var(--card);border:2px solid var(--border);padding:0.45rem 0.55rem;border-radius:6px;font-size:0.82rem;font-family:'Lora',serif;color:var(--ink);box-shadow:0 3px 6px rgba(0,0,0,0.25);pointer-events:none;white-space:pre-wrap;display:none}
   </style>
+  <link rel="stylesheet" href="style.css"><!-- reuse hero‑card styles -->
 </head>
 <body>
   <h1>Hero Draft</h1>
@@ -91,26 +92,51 @@ function abilityTooltip(name){
   return out.join('\n');
 }
 
-/***************** CARD BUILDER ************************/
+/***************** CARD BUILDER (hero style) *****************/
+import { supabase, PORTRAIT_BUCKET } from './supabaseClient.js';
+
+const STAT_ABBR = {Strength:'STR',Dexterity:'DEX',Constitution:'CON',
+                   Intelligence:'INT',Wisdom:'WIS',Charisma:'CHA'};
+
+const portraitUrl = n =>
+  supabase.storage.from(PORTRAIT_BUCKET)
+          .getPublicUrl(`characters/${encodeURIComponent(n)}.webp`).data.publicUrl;
+
 function makeCard(h){
-  const d=document.createElement('div');d.className='card';
-  const abil=h.Ability||h['Common Ability']||'';
-  d.innerHTML=`<div class="card-name">${cap(h.Name)}</div>
-    <div class="line">STR:${h.Strength} DEX:${h.Dexterity} CON:${h.Constitution}</div>
-    <div class="line">INT:${h.Intelligence} WIS:${h.Wisdom} CHA:${h.Charisma}</div>
-    <div class="line">HP:${h.Health} Mana:${h.Mana}</div>
-    <div class="line">Class: ${h.Class}  Faction: ${h.Faction}  Kingdom: ${h.Kingdom}</div>
-    <div class="line">Ability: <span class="ability-name">${abil}</span></div>`;
-  const aSpan=d.querySelector('.ability-name');
-  aSpan.addEventListener('mouseenter',e=>{
-    const txt=abilityTooltip(abil);
-    if(!txt)return;
-    tip.textContent=txt;tip.style.display='block';
-    positionTip(e);
-  });
-  aSpan.addEventListener('mouseleave',()=>tip.style.display='none');
-  return d;
+  const aObj = abilities[h.Ability] || {};
+  const effects = Object.entries(aObj)
+    .filter(([k,v])=>k!=='Description'&&v!==0)
+    .map(([k,v])=>{
+      const [stat] = k.split('_');
+      const sign   = v>0?`+${v}`:v;
+      return `${sign} ${STAT_ABBR[stat]||stat}`;
+    }).join(', ') || '—';
+  const abilityDesc = aObj.Description || 'No description available.';
+
+  const article = ['a','e','i','o','u'].includes(h.Faction[0].toLowerCase())?'An':'A';
+
+  const html = `
+    <div class="hero-card" style="cursor:pointer;">
+      <img src="${portraitUrl(h.Name)}" class="portrait" alt="${h.Name}" loading="lazy">
+      <div class="hero-subheading" style="position:absolute;bottom:2px;left:2px;">
+        HP: ${h.Health}<br>Mana: ${h.Mana}
+      </div>
+      <div class="bottom-info" style="margin-top:4px;">
+        <div class="hero-name-banner"><span>${h.Name}</span></div>
+        <div class="hero-subheading" style="margin-top:2px;">
+          ${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}
+        </div>
+        <div class="ability-block">
+          <span class="ability-name">${h.Ability}:</span>
+          <span class="ability-effects">${effects}</span>
+        </div>
+      </div>
+    </div>`;
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = html.trim();
+  return wrapper.firstElementChild;     // usable just like before
 }
+
 
 /***************** INITIAL LOAD ************************/
 (async ()=>{
