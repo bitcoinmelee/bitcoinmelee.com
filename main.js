@@ -91,7 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
       grid.insertAdjacentHTML('beforeend',`
         <div class="hero-card" style="background-image:url('${bgImg}');position:relative;">
           <!-- HP/Mana badge -->
-          <div class="hero-subheading" style="position:absolute;top:0;left:0;z-index:2;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
+          <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
             HP: ${h.Health}<br>Mana: ${h.Mana}
           </div>
 
