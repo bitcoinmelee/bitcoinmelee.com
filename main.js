@@ -65,38 +65,43 @@ window.addEventListener('DOMContentLoaded', () => {
 
       /* ability summary */
       const effectsByTarget = {};
-      Object.entries(aObj).filter(([k, v]) => k !== 'Description' && v !== 0).forEach(([k, v]) => {
-        const [stat, targetRaw] = k.split('_');
-        const abbr = STAT_ABBR[stat] || stat.toUpperCase();
-        const sign = v > 0 ? `+${v}` : `${v}`;
-        const target = targetRaw || 'Self';
-        (effectsByTarget[target] = effectsByTarget[target] || []).push(`${sign} ${abbr}`);
-      });
-      const effectText = Object.entries(effectsByTarget).map(([t, arr]) => arr.length === 1 ? `${arr[0]} to ${t}` : `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`).join('; ') || 'No effect data.';
+      Object.entries(aObj)
+        .filter(([k, v]) => k !== 'Description' && v !== 0)
+        .forEach(([k, v]) => {
+          const [stat, targetRaw] = k.split('_');
+          const abbr = STAT_ABBR[stat] || stat.toUpperCase();
+          const sign = v > 0 ? `+${v}` : `${v}`;
+          const target = targetRaw || 'Self';
+          (effectsByTarget[target] = effectsByTarget[target] || []).push(`${sign} ${abbr}`);
+        });
+      const effectText = Object.entries(effectsByTarget)
+        .map(([t, arr]) => arr.length === 1 ? `${arr[0]} to ${t}` : `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`)
+        .join('; ') || 'No effect data.';
       const abilityDesc = (aObj.Description || '').replace(/\bDESCRIPTION\b\.?$/i, '');
 
-      /* stats tooltip (no HP/Mana) */
-      const statsHtml = `<div style="display:grid;grid-template-columns:60px 60px;gap:1px 2px;justify-items:start;">
-        <div>STR</div><div>${h.Strength}</div>
-        <div>DEX</div><div>${h.Dexterity}</div>
-        <div>CON</div><div>${h.Constitution}</div>
-        <div>INT</div><div>${h.Intelligence}</div>
-        <div>WIS</div><div>${h.Wisdom}</div>
-        <div>CHA</div><div>${h.Charisma}</div>
-      </div>`;
+      /* stats tooltip HTML: two 60px columns, narrow width just over 120px */
+      const statsHtml = 
+        `<div style="display:grid;grid-template-columns:60px 60px;gap:1px 1px;justify-items:start;width:122px;">` +
+        `<div>STR</div><div>${h.Strength}</div>` +
+        `<div>DEX</div><div>${h.Dexterity}</div>` +
+        `<div>CON</div><div>${h.Constitution}</div>` +
+        `<div>INT</div><div>${h.Intelligence}</div>` +
+        `<div>WIS</div><div>${h.Wisdom}</div>` +
+        `<div>CHA</div><div>${h.Charisma}</div>` +
+        `</div>`;
 
       grid.insertAdjacentHTML('beforeend', `
         <div class="hero-card" style="background-image:url('${bgImg}');position:relative;">
           <!-- Portrait with HP/Mana badge -->
           <div style="position:relative;display:inline-block;overflow:hidden;">
             <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
-            <div class="hero-subheading" style="position:absolute;bottom:2px;left:2px;z-index:2;padding:2px 2px;border-radius:4px;line-height:1;text-align:left;">
+            <div class="hero-subheading" style="position:absolute;bottom:2px;left:2px;z-index:2;padding:2px;border-radius:4px;background:#fff;line-height:1;text-align:left;">
               HP: ${h.Health}<br>Mana: ${h.Mana}
             </div>
           </div>
 
           <!-- Bottom area -->
-          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:2px;margin-top:2px;">
+          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
             <div style="grid-area:title;text-align:center;display:flex;flex-direction:column;align-items:center;">
               <div class="hero-name-banner">
                 <span class="name-container">
@@ -125,7 +130,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- floating tooltips */
   function activateFloatingTooltips1() {
-    // Ability description tooltip logic (default width)
+    // Ability description tooltip (default width)
     document.querySelectorAll('.ability-container').forEach(container => {
       const tip = container.querySelector('.tooltip-box');
       if (!tip) return;
@@ -137,12 +142,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function activateFloatingTooltips2() {
-    // Stats tooltip logic (narrower width)
+    // Stats tooltip (narrow width just over two 60px columns)
     document.querySelectorAll('.name-container').forEach(container => {
       const tip = container.querySelector('.tooltip-box');
       if (!tip) return;
-      tip.style.padding = '2px';
       tip.style.whiteSpace = 'nowrap';
+      tip.style.width = '124px';
       const moveTip = e => { tip.style.top = `${e.clientY - 12}px`; tip.style.left = `${e.clientX + 14}px`; };
       container.addEventListener('mouseenter', e => { document.body.appendChild(tip); tip.style.display = 'block'; tip.style.position = 'fixed'; tip.style.zIndex = '2147483647'; moveTip(e); });
       container.addEventListener('mousemove', moveTip);
