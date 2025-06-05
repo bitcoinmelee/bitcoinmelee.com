@@ -10,23 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
   let ABILITIES = {};
   let ARCHETYPES = [];
 
-  /* ------------------------------------------------ inject tooltip styles */
-  const style = document.createElement('style');
-  style.textContent = `
-    /* base tooltip box handled elsewhere (opacity, bg, etc.) */
-    .tooltip-box.stats-tooltip {
-      display:grid;
-      grid-template-columns:auto auto;
-      gap:1px 2px;          /* tighter horizontal spacing */
-      justify-items:start;
-      white-space:nowrap;
-    }
-    .tooltip-box.ability-tooltip {
-      /* inherits default tooltip styles; override if needed later */
-    }
-  `;
-  document.head.appendChild(style);
-
   /* ------------------------------- helpers */
   const STAT_ABBR = {
     Strength:'STR', Dexterity:'DEX', Constitution:'CON',
@@ -93,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abilityDesc=(aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
 
       /* stats tooltip (no HP/Mana) */
-      const statsHtml=`<div class="stats-tooltip tooltip-box stats-tooltip">
+      const statsHtml=`<div class="tooltip-box" style=\"display:grid;grid-template-columns:auto auto;gap:1px 2px;justify-items:start;\">
         <div>STR</div><div>${h.Strength}</div>
         <div>DEX</div><div>${h.Dexterity}</div>
         <div>CON</div><div>${h.Constitution}</div>
@@ -127,7 +110,7 @@ window.addEventListener('DOMContentLoaded', () => {
               <span class="ability-container">
                 <span class="ability-name">${h.Ability}:</span>
                 <span class="ability-effects">${effectText}</span>
-                <span class="tooltip-box ability-tooltip">${abilityDesc||'No description available.'}</span>
+                <span class="tooltip-box">${abilityDesc||'No description available.'}</span>
               </span>
             </div>
           </div>
