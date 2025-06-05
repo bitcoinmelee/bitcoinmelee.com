@@ -105,26 +105,28 @@ function archetype(h){
 }
 
 /* ---------- build hero card (identical markup) ---------- */
-function makeCard(h,forOptionBar){
-  const a=abilities[h.Ability]||{};
-  /* --- full “+5 STR to Self / ally / foe” wording --- */
-const effectsByTarget = {};
-Object.entries(aObj)
-  .filter(([k,v])=>k!=='Description'&&v!==0)
-  .forEach(([k,v])=>{
-    const [stat,targetRaw] = k.split('_');
-    const abbr  = STAT_ABBR[stat] || stat.toUpperCase();
-    const sign  = v > 0 ? `+${v}` : `${v}`;
-    const tgt   = targetRaw || 'Self';
-    (effectsByTarget[tgt] = effectsByTarget[tgt] || []).push(`${sign} ${abbr}`);
-  });
+function makeCard(h, forOptionBar){
+  const aObj = abilities[h.Ability] || {};
 
-const effectText = Object.entries(effectsByTarget)
-  .map(([t,arr]) =>
-        arr.length === 1
-          ? `${arr[0]} to ${t}`
-          : `${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${t}`)
-  .join('; ') || 'No effect data.';
+  /* full “+5 STR to Self / ally / foe” wording */
+  const effectsByTarget = {};
+  Object.entries(aObj)
+    .filter(([k,v]) => k !== 'Description' && v !== 0)
+    .forEach(([k,v]) => {
+      const [stat,targetRaw] = k.split('_');
+      const abbr = STAT_ABBR[stat] || stat.toUpperCase();
+      const sign = v > 0 ? `+${v}` : `${v}`;
+      const tgt  = targetRaw || 'Self';
+      (effectsByTarget[tgt] = effectsByTarget[tgt] || []).push(`${sign} ${abbr}`);
+    });
+
+  const effectText = Object.entries(effectsByTarget)
+    .map(([t,arr]) =>
+         arr.length === 1
+           ? `${arr[0]} to ${t}`
+           : `${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${t}`)
+    .join('; ') || 'No effect data.';
+
   const stats=`<div style="display:grid;grid-template-columns:45px 45px;gap:1px;">
     <div>STR</div><div>${h.Strength}</div>
     <div>DEX</div><div>${h.Dexterity}</div>
@@ -151,8 +153,10 @@ const effectText = Object.entries(effectsByTarget)
       <div class="ability-block" style="grid-area:ability;max-width:85%;margin:0 auto;">
         <span class="ability-container">
           <span class="ability-name">${h.Ability}:</span>
-          <span class="ability-effects">${effectText}</span>
-          <span class="tooltip-box-ability">${a.Description||'No description available.'}</span>
+            <span class="ability-effects">${effectText}</span>
+  <span class="tooltip-box-ability">
+        ${aObj.Description || 'No description available.'}
+  </span>
         </span>
       </div>
     </div></div>`;
