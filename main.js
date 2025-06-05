@@ -79,9 +79,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const imgSrc = portraitUrl(h.Name);
       const aObj   = ABILITIES[h.Ability] || {};
       const arche  = heroArchetype(h);
-      const bgImg  = arche
-        ? `images/card_backgrounds/${arche}.webp`
-        : '';
+      const bgImg  = arche ? `images/card_backgrounds/${arche}.webp` : '';
 
       /* ——— compute article “A” vs “An” ——— */
       const firstLetter = h.Faction.trim().charAt(0).toLowerCase();
@@ -101,11 +99,9 @@ window.addEventListener('DOMContentLoaded', () => {
             .push(`${sign} ${abbr}`);
         });
 
-      const effectLines = Object.entries(effectsByTarget).map(([t, arr]) => {
-        return arr.length === 1
-          ? `${arr[0]} to ${t}`
-          : `${arr.slice(0, -1).join(' and ')} and ${arr.at(-1)} to ${t}`;
-      });
+      const effectLines = Object.entries(effectsByTarget).map(([t, arr]) =>
+        arr.length === 1 ? `${arr[0]} to ${t}` : `${arr.slice(0,-1).join(' and ')} and ${arr.at(-1)} to ${t}`
+      );
       const effectText = effectLines.length ? effectLines.join('; ') : 'No effect data.';
 
       /* ——— pull description for the tooltip ——— */
@@ -117,31 +113,32 @@ window.addEventListener('DOMContentLoaded', () => {
           <!-- 1) Portrait -->
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
 
-          <!-- 2) Name Banner -->
-          <div class="hero-name-banner"><span>${name}</span></div>
+          <!-- 2) BOTTOM INFO ROW -->
+          <div class="bottom-info" style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-top:4px;">
+            <!-- LEFT: name, subheading, ability -->
+            <div class="info-left" style="flex:1;min-width:0;">
+              <div class="hero-name-banner"><span>${name}</span></div>
+              <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class} from ${h.Kingdom}</div>
+              <div class="ability-block" style="margin-top:4px;">
+                <span class="ability-container">
+                  <span class="ability-name">${h.Ability}:</span>
+                  <span class="ability-effects">${effectText}</span>
+                  <span class="tooltip-box">${desc || 'No description available.'}</span>
+                </span>
+              </div>
+            </div>
 
-          <!-- 3) Subheading with badge-style background -->
-          <div class="hero-subheading">${article} ${h.Faction} ${h.Class} from ${h.Kingdom}</div>
-
-          <!-- 4) Stats block (2‑column grid: stat | value) -->
-          <div class="stats-grid" style="display:grid;grid-template-columns:1fr auto;gap:2px 6px;max-width:120px;margin:0.25rem auto 0;">
-            <div>STR</div><div>${h.Strength}</div>
-            <div>DEX</div><div>${h.Dexterity}</div>
-            <div>CON</div><div>${h.Constitution}</div>
-            <div>INT</div><div>${h.Intelligence}</div>
-            <div>WIS</div><div>${h.Wisdom}</div>
-            <div>CHA</div><div>${h.Charisma}</div>
-            <div>HP</div><div>${h.Health}</div>
-            <div>Mana</div><div>${h.Mana}</div>
-          </div>
-
-          <!-- 5) Ability “button”: [ABILITY]: [EFFECT TEXT], with hover tooltip -->
-          <div class="ability-block">
-            <span class="ability-container">
-              <span class="ability-name">${h.Ability}:</span>
-              <span class="ability-effects">${effectText}</span>
-              <span class="tooltip-box">${desc || 'No description available.'}</span>
-            </span>
+            <!-- RIGHT: stats -->
+            <div class="info-right hero-subheading" style="padding:4px 6px;border-radius:4px;display:grid;grid-template-columns:1fr auto;gap:2px 6px;min-width:110px;align-self:flex-start;">
+              <div>STR</div><div>${h.Strength}</div>
+              <div>DEX</div><div>${h.Dexterity}</div>
+              <div>CON</div><div>${h.Constitution}</div>
+              <div>INT</div><div>${h.Intelligence}</div>
+              <div>WIS</div><div>${h.Wisdom}</div>
+              <div>CHA</div><div>${h.Charisma}</div>
+              <div>HP</div><div>${h.Health}</div>
+              <div>Mana</div><div>${h.Mana}</div>
+            </div>
           </div>
         </div>
       `);
@@ -182,19 +179,4 @@ window.addEventListener('DOMContentLoaded', () => {
     fetch('abilities.json').then(r=>r.json()),
     fetch('archetypes.json').then(r=>r.json())
   ]).then(([heroesData, abilitiesData, archetypeData])=>{
-      HEROES     = Array.isArray(heroesData) ? heroesData : Object.values(heroesData);
-      ABILITIES  = Array.isArray(abilitiesData)
-                    ? Object.fromEntries(abilitiesData.map(a=>[a.Ability,a]))
-                    : abilitiesData;
-      ARCHETYPES = archetypeData;
-      flash('Discover heroes bound to your public key!');
-  }).catch(err=>flash('Could not load data ➜ '+err,true));
-
-  /* ------------------------------------------------ UI actions */
-  $('#go').addEventListener('click', async ()=>{
-    const xpub = $('#xpub').value.trim();
-    if(!xpub) return flash('Enter a public key first!', true);
-    const roster = await pickRoster(xpub, ROSTER_SIZE);
-    renderGrid(roster);
-  });
-});
+      HEROES     = Array.isArray(heroesData) ? heroesData : Object.values
