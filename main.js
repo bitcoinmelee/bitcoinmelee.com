@@ -167,26 +167,24 @@ window.addEventListener('DOMContentLoaded', () => {
     flash('Discover heroes bound to your public key!');
   }).catch(err => flash('Could not load data ➜ ' + err, true));
 
-  /* ---------------- UI actions */
+/* ---------------- UI actions -------------------- */
   $('#go').addEventListener('click', async () => {
-    const xpub = $('#xpub').value.trim();
-    if (!xpub) return flash('Enter a public key first!', true);
-    const roster = await pickRoster(xpub, ROSTER_SIZE);
+    const xpub=$('#xpub').value.trim();
+    if(!xpub)  return flash('Enter a public key first!',true);
+
+    const roster = await pickRoster(xpub,ROSTER_SIZE);
     renderGrid(roster);
 
+    /* hand off roster to draft.html */
+    sessionStorage.setItem('roster', JSON.stringify(roster));
 
-
-// ── remember roster & expose Continue button ──────────────────────
-sessionStorage.setItem('roster', JSON.stringify(roster));
-const btn = $('#continue');
-btn.disabled = false;
-btn.classList.remove('hidden');
-// only attach the handler once
-if (!btn._wired) {
-  btn.addEventListener('click', () => {
-    window.location.href = 'draft.html';
-  });
-  btn._wired = true;
-}
+    /* reveal & wire the Continue button only once */
+    const btn = $('#continue');
+    btn.disabled=false;
+    btn.classList.remove('hidden');
+    if(!btn._wired){
+      btn.addEventListener('click',()=>window.location.href='draft.html');
+      btn._wired=true;
+    }
   });
 });
