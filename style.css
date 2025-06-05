@@ -213,7 +213,7 @@ textarea {
   display: inline-block;                /* keep it tight around text */
   margin: 0.25rem 0;                     /* vertical spacing */
   padding: 0.25rem 0.5rem;               /* same as meta badges */
-  background: rgba(255,255,255,1);
+  background: rgb(209, 206, 206);
   border: 1px solid #000;
   border-radius: 6px;
   color: #000;
@@ -223,7 +223,7 @@ textarea {
   display: inline-block;                /* keep it tight around text */
   margin: 0.25rem 0;                     /* vertical spacing */
   padding: 0.25rem 0.5rem;               /* same as meta badges */
-  background: rgba(255,255,255,1);
+  background: rgba(209, 206, 206);
   border: 1px solid #000;
   border-radius: 6px;
   color: #000;
@@ -234,7 +234,7 @@ textarea {
   display: inline-block;                     /* force new line each */
   margin: 0.25rem 0;                  /* vertical spacing */
   padding: 0.25rem 0.5rem;            /* badge padding */
-  background: rgba(255,255,255,1);  /* translucent white */
+  background: rgba(209, 206, 206);  /* translucent white */
   border: 1px solid #000;
   border-radius: 6px;                 /* rounded corners */
   color: #000;                        /* dark text */
@@ -244,7 +244,7 @@ textarea {
 .hero-card .stats {
   display: inline-block;                     /* force new line each */
   margin: 0.25rem 0;
-  background: rgba(255,255,255,1);
+  background: rgba(209, 206, 206);
   padding: 0.25rem 0.5rem;
   border: 1px solid #000;
   border-radius: 6px;
@@ -262,7 +262,7 @@ textarea {
   font-style: italic;
   font-size: 0.9rem;
   color: #000;                         /* dark text on translucent white */
-  background: rgba(255, 255, 255, 1);
+  background: rgba(209, 206, 206);
   border: 1px solid #000;
   border-radius: 6px;
   padding: 0.25rem 0.5rem;
