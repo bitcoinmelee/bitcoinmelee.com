@@ -28,7 +28,6 @@ window.addEventListener('DOMContentLoaded', () => {
     .from(PORTRAIT_BUCKET)
     .getPublicUrl(`characters/${encodeURIComponent(name)}.webp`).data.publicUrl;
 
-  /* -------- find Archetype for a hero */
   function heroArchetype(hero){
     for(const a of ARCHETYPES){
       const cell = a[hero.Kingdom];
@@ -38,7 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  /* -------- deterministic roster picker */
   async function pickRoster(xpub,count){
     const enc = new TextEncoder();
     const roster=[];
@@ -51,7 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return roster;
   }
 
-  /* --------------------------- render grid */
   function renderGrid(list){
     const wrap = $('#roster');
     wrap.innerHTML='';
@@ -79,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abilityDesc=(aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
 
       /* stats tooltip (no HP/Mana) */
-      const statsHtml=`<div style=\"display:grid;grid-template-columns:auto auto;gap:1px 2px;justify-items:start;\">
+      const statsHtml=`<div style="display:grid;grid-template-columns:auto auto;gap:1px 2px;justify-items:start;">
         <div>STR</div><div>${h.Strength}</div>
         <div>DEX</div><div>${h.Dexterity}</div>
         <div>CON</div><div>${h.Constitution}</div>
@@ -90,13 +87,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
       grid.insertAdjacentHTML('beforeend',`
         <div class="hero-card" style="background-image:url('${bgImg}');position:relative;">
-          <!-- HP/Mana badge -->
-          <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
-            HP: ${h.Health}<br>Mana: ${h.Mana}
+          <!-- Portrait with HP/Mana badge -->
+          <div style="position:relative;display:inline-block;">
+            <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
+            <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
+              HP: ${h.Health}<br>Mana: ${h.Mana}
+            </div>
           </div>
-
-          <!-- Portrait -->
-          <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
 
           <!-- Bottom area -->
           <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
@@ -143,9 +140,9 @@ window.addEventListener('DOMContentLoaded', () => {
     fetch('abilities.json').then(r=>r.json()),
     fetch('archetypes.json').then(r=>r.json())
   ]).then(([heroesData,abilitiesData,archetypeData])=>{
-    HEROES=Array.isArray(heroesData)?heroesData:Object.values(heroesData);
-    ABILITIES=Array.isArray(abilitiesData)?Object.fromEntries(abilitiesData.map(a=>[a.Ability,a])):abilitiesData;
-    ARCHETYPES=archetypeData;
+    HEROES     = Array.isArray(heroesData)?heroesData:Object.values(heroesData);
+    ABILITIES  = Array.isArray(abilitiesData)?Object.fromEntries(abilitiesData.map(a=>[a.Ability,a])):abilitiesData;
+    ARCHETYPES = archetypeData;
     flash('Discover heroes bound to your public key!');
   }).catch(err=>flash('Could not load data ➜ '+err,true));
 
