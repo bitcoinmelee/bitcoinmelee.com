@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <div class="hero-card" style="background-image:url('${bgImg}');">
           <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
 
-          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:6px;margin-top:4px;">
+          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:1px;margin-top:1px;">
             <!-- Centered Name + Subheading (with stats tooltip) -->
             <div style="grid-area:title;text-align:center;">
               <div class="hero-name-banner">
@@ -107,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
                   <span class="tooltip-box">${statsHtml}</span>
                 </span>
               </div>
-              <div class="hero-subheading" style="margin-top:2px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
+              <div class="hero-subheading" style="margin-top:1px;">${article} ${h.Faction} ${h.Class}<br>from<br>${h.Kingdom}</div>
             </div>
 
             <!-- Ability block -->
