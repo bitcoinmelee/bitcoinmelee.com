@@ -173,7 +173,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!xpub) return flash('Enter a public key first!', true);
     const roster = await pickRoster(xpub, ROSTER_SIZE);
     renderGrid(roster);
-
+});
 
 
 // ── remember roster & expose Continue button ──────────────────────
@@ -189,4 +189,3 @@ if (!btn._wired) {
   btn._wired = true;
 }
   });
-});
