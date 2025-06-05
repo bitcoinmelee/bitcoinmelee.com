@@ -8,31 +8,49 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- local roster‑page styles (hero‑card, tool‑tips, etc.) -->
+  <!-- hero‑card + tooltip styles reused from roster page -->
   <link rel="stylesheet" href="style.css">
 
   <style>
     :root{--border:#8c6b42;--card:#fff8ef;--accent:#d1b280;--ink:#2b2a29}
     *{box-sizing:border-box}
     body{margin:0;font-family:'Lora',serif;background:#f9f4e8;color:var(--ink);padding:1rem;}
-    h1{font-family:'Cinzel',serif;margin:0 0 1rem;text-align:center;font-size:2rem;letter-spacing:0.5px;}
+
     h2{font-family:'Cinzel',serif;margin:0;text-align:center;font-size:1.15rem}
+
     #boards{display:flex;gap:1rem;flex-wrap:wrap}
-    .panel{flex:1 1 330px;border:3px double var(--border);background:var(--card);padding:0.6rem;border-radius:8px;min-height:310px}
-    .list{display:flex;flex-direction:column;gap:0.4rem;min-height:250px}
-    .picked{opacity:0.6;cursor:default}
-    #log{margin-top:0.9rem;height:95px;overflow:auto;border:2px solid var(--border);padding:0.5rem;background:#fffefa;font-size:0.9rem}
-    #ready{display:block;margin:1rem auto 0;padding:0.6rem 1.5rem;font-family:'Cinzel',serif;font-size:1.05rem;background:var(--accent);border:2px solid var(--border);border-radius:7px;cursor:pointer}
+    .panel{flex:1 1 330px;border:3px double var(--border);background:var(--card);
+           padding:0.6rem;border-radius:8px;min-height:310px}
+
+    .list{
+      display:flex;flex-direction:column;gap:0.4rem;
+      min-height:250px;align-items:flex-start;          /* left‑align cards */
+    }
+
+    /* drafted cards keep full colour */
+    .picked{cursor:default}                /* no opacity change */
+
+    /* ensure grid‑sized cards & left alignment */
+    .list .hero-card{
+      width:322px;flex:0 0 322px;margin:0;              /* exact roster size */
+    }
+
+    #log{
+      margin-top:0.9rem;height:160px;                   /* taller log */
+      overflow:auto;border:2px solid var(--border);
+      padding:0.5rem;background:#fffefa;font-size:0.9rem
+    }
+
+    #ready{
+      display:block;margin:1rem auto 0;padding:0.6rem 1.5rem;
+      font-family:'Cinzel',serif;font-size:1.05rem;
+      background:var(--accent);border:2px solid var(--border);
+      border-radius:7px;cursor:pointer
+    }
     #ready.hidden{display:none}
-    .list .hero-card {
-  width: 322px;          /* identical to roster grid cell */
-  flex: 0 0 322px;       /* prevent shrinking in narrow panels */
-  margin: 0 auto;        /* centre within the column */
-}
   </style>
 </head>
 <body>
-  <h1>Hero Draft</h1>
 
   <div id="boards">
     <div class="panel"><h2>Your Draft</h2><div id="yourDraft"  class="list"></div></div>
@@ -64,7 +82,7 @@ let ARCHETYPES = [];
 let playerPool=[], enemyPool=[], draftedPlayer=[], draftedEnemy=[];
 let turnSide, picksMade = 0;
 
-/* ─── JSON loading ────────────────────────────────────────────── */
+/* ─── JSON loading ───────────────────────────────────────────── */
 async function loadGameData(){
   const [abil, arch, heroes] = await Promise.all([
     fetch('abilities.json').then(r=>r.json()),
@@ -76,22 +94,22 @@ async function loadGameData(){
   return Array.isArray(heroes)?heroes:Object.values(heroes);
 }
 
-/* ─── portrait & background helpers ───────────────────────────── */
+/* ─── portrait & background helpers ──────────────────────────── */
 const portraitUrl = n =>
   supabase.storage.from(PORTRAIT_BUCKET)
           .getPublicUrl(`characters/${encodeURIComponent(n)}.webp`).data.publicUrl;
 
 function heroArchetype(hero){
   for(const row of ARCHETYPES){
-    const cell = row[hero.Kingdom];
-    if(!cell || cell==='—') continue;
-    const match = Array.isArray(cell) ? cell.includes(hero.Faction) : cell===hero.Faction;
-    if(match) return row.Archetype;
+    const cell=row[hero.Kingdom];
+    if(!cell||cell==='—')continue;
+    const match=Array.isArray(cell)?cell.includes(hero.Faction):cell===hero.Faction;
+    if(match)return row.Archetype;
   }
   return null;
 }
 
-/* ─── makeCard — identical to main.js ─────────────────────────── */
+/* ─── makeCard — identical grid markup ───────────────────────── */
 function makeCard(h){
   const name  = cap(h.Name);
   const imgSrc= portraitUrl(h.Name);
@@ -103,13 +121,13 @@ function makeCard(h){
   const effectText = Object.entries(aObj)
       .filter(([k,v])=>k!=='Description'&&v!==0)
       .map(([k,v])=>{
-         const [stat] = k.split('_');
-         const sign   = v>0?`+${v}`:v;
-         return `${sign}\u00A0${STAT_ABBR[stat]||stat}`;
-       }).join(', ') || '—';
+        const [stat] = k.split('_');
+        const sign   = v>0?`+${v}`:v;
+        return `${sign}\u00A0${STAT_ABBR[stat]||stat}`;
+      }).join(', ') || '—';
   const abilityDesc = aObj.Description || 'No description available.';
 
-  /* compact stats table tooltip */
+  /* compact stats tooltip */
   const statsHtml = `
       <div style="display:grid;grid-template-columns:45px 45px;gap:1px;">
         <div>STR</div><div>${h.Strength}</div>
@@ -120,13 +138,11 @@ function makeCard(h){
         <div>CHA</div><div>${h.Charisma}</div>
       </div>`;
 
-  const article = /^[aeiou]/i.test(h.Faction)?'An':'A';
+  const article=/^[aeiou]/i.test(h.Faction)?'An':'A';
 
-  /* full markup (copied from main.js) */
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
+  const wrap=document.createElement('div');
+  wrap.innerHTML=`
     <div class="hero-card" style="background-image:url('${bgImg}');position:relative;">
-      <!-- Portrait with HP/Mana badge -->
       <div style="position:relative;display:inline-block;overflow:hidden;">
         <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
         <div class="hero-subheading" style="position:absolute;bottom:2px;left:2px;z-index:2;padding:2px;border-radius:4px;line-height:1;text-align:left;">
@@ -134,7 +150,6 @@ function makeCard(h){
         </div>
       </div>
 
-      <!-- Bottom area -->
       <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
         <div style="grid-area:title;text-align:center;display:flex;flex-direction:column;align-items:center;">
           <div class="hero-name-banner">
@@ -155,69 +170,58 @@ function makeCard(h){
         </div>
       </div>
     </div>`;
-  return wrapper.firstElementChild;
+  return wrap.firstElementChild;
 }
 
-/* ─── tooltip activation (same routine) ───────────────────────── */
+/* ─── tooltip activation (same logic) ────────────────────────── */
 function activateFloatingTooltips(){
-  /* ability tool‑tips */
-  document.querySelectorAll('.ability-container').forEach(cont=>{
-    const tip = cont.querySelector('.tooltip-box-ability');
-    if(!tip) return;
-    const mv=e=>{ tip.style.top=`${e.clientY-12}px`; tip.style.left=`${e.clientX+14}px`; };
-    cont.addEventListener('mouseenter',e=>{document.body.append(tip);tip.style.display='block';tip.style.position='fixed';tip.style.zIndex='2147483647';mv(e);});
-    cont.addEventListener('mousemove',mv);
-    cont.addEventListener('mouseleave',()=>{tip.style.display='none';cont.append(tip);});
+  document.querySelectorAll('.ability-container').forEach(c=>{
+    const tip=c.querySelector('.tooltip-box-ability');if(!tip)return;
+    const mv=e=>{tip.style.top=`${e.clientY-12}px`;tip.style.left=`${e.clientX+14}px`;};
+    c.addEventListener('mouseenter',e=>{document.body.append(tip);tip.style.display='block';tip.style.position='fixed';mv(e);});
+    c.addEventListener('mousemove',mv);
+    c.addEventListener('mouseleave',()=>{tip.style.display='none';c.append(tip);});
   });
-
-  /* stats tool‑tips */
-  document.querySelectorAll('.name-container').forEach(cont=>{
-    const tip = cont.querySelector('.tooltip-box-stats');
-    if(!tip) return;
-    const mv=e=>{ tip.style.top=`${e.clientY-12}px`; tip.style.left=`${e.clientX+14}px`; };
-    cont.addEventListener('mouseenter',e=>{document.body.append(tip);tip.style.display='block';tip.style.position='fixed';tip.style.zIndex='2147483647';mv(e);});
-    cont.addEventListener('mousemove',mv);
-    cont.addEventListener('mouseleave',()=>{tip.style.display='none';cont.append(tip);});
+  document.querySelectorAll('.name-container').forEach(c=>{
+    const tip=c.querySelector('.tooltip-box-stats');if(!tip)return;
+    const mv=e=>{tip.style.top=`${e.clientY-12}px`;tip.style.left=`${e.clientX+14}px`;};
+    c.addEventListener('mouseenter',e=>{document.body.append(tip);tip.style.display='block';tip.style.position='fixed';mv(e);});
+    c.addEventListener('mousemove',mv);
+    c.addEventListener('mouseleave',()=>{tip.style.display='none';c.append(tip);});
   });
 }
 
-/* ─── render functions ───────────────────────────────────────── */
+/* ─── render helpers ─────────────────────────────────────────── */
 function renderPlayerPool(){
-  const box=$('#yourPool'); box.innerHTML='';
+  const box=$('#yourPool');box.innerHTML='';
   playerPool.forEach(h=>{
-    const c=makeCard(h);
-    c.onclick=()=>pickPlayer(h);
-    box.append(c);
+    const c=makeCard(h);c.onclick=()=>pickPlayer(h);box.append(c);
   });
   activateFloatingTooltips();
 }
 function addToDraft(side,h){
-  const box = side==='player'?$('#yourDraft'):$('#enemyDraft');
-  const c   = makeCard(h);
-  c.classList.add('picked');
-  box.append(c);
+  const box=side==='player'?$('#yourDraft'):$('#enemyDraft');
+  const c=makeCard(h);c.classList.add('picked');box.append(c);
 }
 
 /* ─── pick handlers & draft flow ─────────────────────────────── */
 function pickPlayer(h){
   if(turnSide!=='player')return;
-  draftedPlayer.push(h);
-  playerPool = playerPool.filter(x=>x!==h);
-  addToDraft('player',h); log(`You picked ${cap(h.Name)}.`); nextTurn();
+  draftedPlayer.push(h);playerPool=playerPool.filter(x=>x!==h);
+  addToDraft('player',h);log(`You picked ${cap(h.Name)}.`);nextTurn();
 }
 function aiPick(){
-  const h = enemyPool[Math.floor(Math.random()*enemyPool.length)];
-  draftedEnemy.push(h);
-  enemyPool = enemyPool.filter(x=>x!==h);
-  addToDraft('enemy',h); log(`Enemy picked ${cap(h.Name)}.`); nextTurn();
+  const h=enemyPool[Math.floor(Math.random()*enemyPool.length)];
+  draftedEnemy.push(h);enemyPool=enemyPool.filter(x=>x!==h);
+  addToDraft('enemy',h);log(`Enemy picked ${cap(h.Name)}.`);nextTurn();
 }
 function nextTurn(){
   picksMade++;
   if(picksMade>=ROUNDS*2){
-    $('#yourPool').innerHTML=''; $('#ready').classList.remove('hidden'); return;
+    $('#yourPool').innerHTML='';$('#ready').classList.remove('hidden');return;
   }
-  turnSide = turnSide==='player'?'enemy':'player';
-  if(turnSide==='enemy') setTimeout(aiPick,700); else renderPlayerPool();
+  turnSide=turnSide==='player'?'enemy':'player';
+  if(turnSide==='enemy')setTimeout(aiPick,700);else renderPlayerPool();
 }
 
 /* ─── READY button → battle page ─────────────────────────────── */
@@ -225,27 +229,24 @@ $('#ready').onclick=()=>{
   sessionStorage.setItem('draftPlayer',JSON.stringify(draftedPlayer));
   sessionStorage.setItem('draftEnemy', JSON.stringify(draftedEnemy));
   sessionStorage.setItem('enemy_roster',JSON.stringify(draftedEnemy));
-  sessionStorage.setItem('roster',     JSON.stringify(draftedPlayer)); // battle page re‑uses
+  sessionStorage.setItem('roster',     JSON.stringify(draftedPlayer));
   window.location.href='battle.html';
 };
 
-/* ─── INITIALISE PAGE ────────────────────────────────────────── */
-(async ()=>{
-  /* 1  grab roster from previous page */
-  const rosterJSON = sessionStorage.getItem('roster');
-  if(!rosterJSON){ alert('No roster found — go back and pick heroes first.'); return; }
-  playerPool = JSON.parse(rosterJSON);
+/* ─── INITIALISE PAGE ───────────────────────────────────────── */
+(async()=>{
+  const roster=sessionStorage.getItem('roster');
+  if(!roster){alert('No roster found — pick heroes first.');return;}
+  playerPool=JSON.parse(roster);
 
-  /* 2  load JSON assets & build enemy pool */
-  const allHeroes = await loadGameData();
-  enemyPool = shuffle(allHeroes.filter(h=>!playerPool.some(p=>p.Name===h.Name)))
-               .slice(0,playerPool.length);
+  const allHeroes=await loadGameData();
+  enemyPool=shuffle(allHeroes.filter(h=>!playerPool.some(p=>p.Name===h.Name)))
+             .slice(0,playerPool.length);
 
-  /* 3  kick off the draft */
-  turnSide = Math.random()<0.5 ? 'player' : 'enemy';
+  turnSide=Math.random()<0.5?'player':'enemy';
   log(`${turnSide==='player'?'You':'Enemy'} pick first.`);
-  if(turnSide==='enemy') setTimeout(aiPick,700);
-  renderPlayerPool();        // draws your cards immediately
+  if(turnSide==='enemy')setTimeout(aiPick,700);
+  renderPlayerPool();
 })();
 </script>
 </body>
