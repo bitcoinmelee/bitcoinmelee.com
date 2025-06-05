@@ -132,7 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function activateFloatingTooltips1() {
     // Ability description tooltip (default width)
     document.querySelectorAll('.ability-container').forEach(container => {
-      const tip = container.querySelector('.tooltip-box');
+      const tip = container.querySelector('.tooltip-box-ability');
       if (!tip) return;
       const moveTip = e => { tip.style.top = `${e.clientY - 12}px`; tip.style.left = `${e.clientX + 14}px`; };
       container.addEventListener('mouseenter', e => { document.body.appendChild(tip); tip.style.display = 'block'; tip.style.position = 'fixed'; tip.style.zIndex = '2147483647'; moveTip(e); });
@@ -144,7 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function activateFloatingTooltips2() {
     // Stats tooltip (narrow width just over two 60px columns)
     document.querySelectorAll('.name-container').forEach(container => {
-      const tip = container.querySelector('.tooltip-box');
+      const tip = container.querySelector('.tooltip-box-stats');
       if (!tip) return;
       tip.style.whiteSpace = 'nowrap';
       tip.style.width = '124px';
