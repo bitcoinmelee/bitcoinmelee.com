@@ -76,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abilityDesc=(aObj.Description||'').replace(/\bDESCRIPTION\b\.?$/i,'');
 
       /* stats tooltip (no HP/Mana) */
-      const statsHtml=`<div style="display:grid;grid-template-columns:auto auto;gap:1px 2px;justify-items:start;">
+      const statsHtml=`<div style="display:grid;grid-template-columns:auto auto;gap:1px 1px;justify-items:start;">
         <div>STR</div><div>${h.Strength}</div>
         <div>DEX</div><div>${h.Dexterity}</div>
         <div>CON</div><div>${h.Constitution}</div>
@@ -90,13 +90,13 @@ window.addEventListener('DOMContentLoaded', () => {
           <!-- Portrait with HP/Mana badge -->
           <div style="position:relative;display:inline-block;">
             <img src="${imgSrc}" alt="${name}" class="portrait" loading="lazy">
-            <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 4px;border-radius:4px;line-height:1;text-align:left;">
+            <div class="hero-subheading" style="position:absolute;top:0;right:0;z-index:2;padding:2px 2px;border-radius:2px;line-height:1;text-align:left;">
               HP: ${h.Health}<br>Mana: ${h.Mana}
             </div>
           </div>
 
           <!-- Bottom area -->
-          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:4px;margin-top:4px;">
+          <div class="bottom-info" style="display:grid;width:100%;grid-template-areas:'title' 'ability';gap:2px;margin-top:2px;">
             <div style="grid-area:title;text-align:center;display:flex;flex-direction:column;align-items:center;">
               <div class="hero-name-banner">
                 <span class="name-container">
